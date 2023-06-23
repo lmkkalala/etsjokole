@@ -1,0 +1,37 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 5 mars 2019, 19:26:59
+    Author     : pascal
+*/
+
+body#index {
+    background-image: url(../../media/pictures-system/Vague_Blanche.jpg);
+    background-size: cover;
+    margin: 0;
+    background-attachment: fixed;
+}
+
+.contenu {
+    background-color: #0069d9;
+    position: relative;
+    border-radius: 5px;
+    height: 60vh;
+}
+
+.spacetop{
+    height: 20vh;
+    position: relative;
+}
+
+.spacebottom{
+    height: 20vh;
+    position: relative;
+}
+
+#menu-div {
+    background-color: #0069d9;
+}
