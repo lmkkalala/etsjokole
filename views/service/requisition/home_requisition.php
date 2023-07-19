@@ -12,7 +12,6 @@ include './meta/menu_service.php';
     <div class="col-md-12" style="background-color: whitesmoke;border-radius: 5px; height: 90vh;">
         <div class="container-fluid">
             <div class="row">
-
                 <style>
                     #menu-gauche {
                         border-right-style: solid;
@@ -33,12 +32,12 @@ include './meta/menu_service.php';
                 </style>
                 <div class="col-lg-12" style="padding: 10px;height: 80vh;overflow: auto;">
                     <fieldset>
-                        <legend></legend>
+                        <legend class="text-primary fw-bolder">LES OPERATIONS</legend>
                         <table>
                             <tr>
-                                <td><a class="btn btn-info" style="font-size: 30px; padding: 60px; margin-right: 90px; margin-left: 30px;" href="/views/home.php?link_up=<?= sha1("home_service_demande") ?>"><span style="font-size: 70px; margin: 20px;" class="fa fa-list"></span>Réquisition</a></td>
-                                <td><a class="btn btn-warning" style="font-size: 30px; padding: 60px; margin-right: 90px;" href="/views/home.php?link_up=<?= sha1("home_service_preparation") ?>"><span style="font-size: 70px; margin: 20px;" class="fa fa-calculator"></span>Activité</a></td>
-                                <td><a class="btn btn-success" style="font-size: 30px; padding: 60px; margin-right: 90px;" href="/views/home.php?link_up=<?= sha1("home_service_reception") ?>"><span style="font-size: 70px; margin: 20px;" class="fa fa-download"></span>Entrée</a></td>
+                                <td><a class="btn btn-info text-white" style="font-size: 30px; padding: 60px; margin-right: 90px;" href="/views/home.php?link_up=<?= sha1("home_service_demande") ?>"><span style="font-size: 70px; margin: 20px;" class="fa fa-list"></span>Réquisition</a></td>
+                                <td><a class="btn btn-warning text-white" style="font-size: 30px; padding: 60px; margin-right: 90px;" href="/views/home.php?link_up=<?= sha1("home_service_preparation") ?>"><span style="font-size: 70px; margin: 20px;" class="fa fa-calculator"></span>Activité</a></td>
+                                <td><a class="btn btn-success text-white" style="font-size: 30px; padding: 60px; margin-right: 90px;" href="/views/home.php?link_up=<?= sha1("home_service_reception") ?>"><span style="font-size: 70px; margin: 20px;" class="fa fa-download"></span>Entrée</a></td>
                             </tr>
                         </table>
                     </fieldset>

@@ -11,7 +11,8 @@
 class BdDemande {
 
     public function __construct() {
-        
+        ini_set('memory_limit', '2056M');
+        set_time_limit(0);  
     }
 
     function addDemande($date, $quantite, $idbiens, $idaffectation,$qualiteDemandeur,$idpreparation) {

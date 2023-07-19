@@ -1,21 +1,36 @@
 <?php
 include './meta/menu_logistique.php';
+include '../models/crud/db.php';
+$db = new DB();
+$listDriver = $db->getWhere('agent','active','1','id');
 ?>
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-4 col-sm-12 mt-3 mb-3">
+    <div class="col-md-10 col-sm-12 mt-3 mb-3">
         <h3 class="text-primary">DEPENSES</h3>
     </div>
     
-    <div class="col-md-8 col-sm-12 mt-3 mb-3 text-end">
-        <button class="btn btn-primary text-white" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">AJOUTER DEPENSES</button>
+    <div class="col-md-2 col-sm-12 mt-3 mb-3 text-end">
+        <button class="btn btn-primary text-white w-100" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">AJOUTER DEPENSES</button>
     </div>
   </div>
   <div class="col-md-12 col-sm-12 mt-3">
-      <form action="" method="post" id="FilterDepenseForm">
+      <form action="" method="post" id="FilterForm">
         <div class="row">
-            <div class="col-3">
+            <div class="col-2">
+                <select class="form-control"  name="filterAgent" id="filterAgent">
+                  <option value="">Selection Agent</option>
+                  <?php 
+                    foreach ($listDriver as $key => $value) { 
+                      if ($listDriver[$key]['active'] == '1') {
+                        if ($listDriver[$key]['grade'] != 'Admin' and $listDriver[$key]['grade'] != 'admin') {
+                  ?>
+                    <option value="<?=$listDriver[$key]['id']?>"><?=$listDriver[$key]['nom'].' '.$listDriver[$key]['postnom'].' '.$listDriver[$key]['prenom']?></option>
+                  <?php } } } ?>
+                </select>
+            </div>
+            <div class="col-2">
                 <select class="form-control"  name="filterCategorie" id="filterCategorie">
                   <option value="">Rechercher Depense</option>
                   <option value="Boss">Boss</option>
@@ -26,18 +41,22 @@ include './meta/menu_logistique.php';
                   <option value="Ingeniere">Ingeniere</option>
                 </select>
             </div>
-            <div class="col-3">
+            <div class="col-2">
+              <!-- <input class="form-control" type="date" name="filterDate_start" id="filterDate_start"> -->
+            </div>
+            <div class="col-2">
               <input class="form-control" type="date" name="filterDate_start" id="filterDate_start">
             </div>
-            <div class="col-3">
+            <div class="col-2">
               <input class="form-control" type="date" name="filterDate_end" id="filterDate_end">
             </div>
-            <div class="col-3">
-              <button class="btn btn-primary text-white" type="submit"> <i class="fa fa-search"></i> Rechercher</button>
+            <div class="col-2">
+              <input type="hidden" name="FilterDepenseForm" id="FilterDepenseForm">
+              <button class="btn btn-primary w-100 text-white" type="submit"> <i class="fa fa-search"></i> Rechercher</button>
             </div>
         </div>
       </form>
-    </div>
+  </div>
   <div class="row">
     <div class="col-12">
         <table id="depense_list" class="display" style="width:100%">
@@ -80,7 +99,7 @@ include './meta/menu_logistique.php';
 </div>
 
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="staticBackdropLabel">DEPENSE</h1>
@@ -98,6 +117,22 @@ include './meta/menu_logistique.php';
             <div class="col-12">
               <label for="date">Montant</label>
               <input class="form-control" type="number" name="amount" id="amount" placeholder="" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <label for="date">Type Monnais</label>
+              <select class="form-control" name="currency" id="currency" required>
+                  <option value="">Selectionner Monnais</option>
+                  <option value="Dollars">$</option>
+                  <option value="FC" selected>FC</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <label for="date">Taux de Change</label>
+              <input class="form-control" type="number" name="taux" id="taux" value="2500" required>
             </div>
           </div>
           <div class="row">
@@ -130,7 +165,6 @@ include './meta/menu_logistique.php';
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">FERMER</button>
-        
       </div>
     </div>
   </div>

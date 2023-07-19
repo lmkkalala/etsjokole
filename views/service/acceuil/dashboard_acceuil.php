@@ -19,9 +19,11 @@ include '../models/biens/biens.php';
             <fieldset>
                 <legend>Commandez un bien/produit : </legend>
                 <form class="form-horizontal" method="POST" action="../contollers/acceuil-service/acceuilServiceController.php">
-                    <div class="form-group-lg">
-                        <div class="input-group-lg">
+                    <div class="row form-group-lg">
+                        <div class="col-10 mt-2 input-group-lg">
                             <input style="text-align: center;" class="form-control" type="text" name="tb_search">
+                        </div>
+                        <div class="col-2">
                             <button type="submit" class="btn btn-primary text-white center-block" name="bt_search" style="color: white;font-size: 20px;margin-top: 10px;"><span class="fa fa-search"></span> Rechercher</button>
                         </div>
                     </div>

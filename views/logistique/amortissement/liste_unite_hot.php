@@ -40,7 +40,8 @@
 
         $bdunite = new BdUnite();
         if (!isset($_GET['use_unite'])) {
-            $unites = $bdunite->getUniteAllLimit('1000');
+            // $unites = $bdunite->getUniteAllLimit('1000');
+            $unites = $bdunite->getUniteAll();
         }else{
             $unites = $bdunite->getUniteById($_GET['use_unite']);
         }

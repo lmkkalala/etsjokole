@@ -7,6 +7,8 @@
 include '../models/attribution-biens/attributionBiens.php';
 include '../models/biens/biens.php';
 include '../models/fournisseur/fournisseur.php';
+$dateStart = '';
+$dateEnd = '';
 ?>
 <div class="panel">
     <div class="panel panel-heading">
@@ -48,25 +50,52 @@ include '../models/fournisseur/fournisseur.php';
                     <?php
                 }
                 ?>
-                <table id="list_update_command_admin" class="table table-bordered table-responsive-lg table-condensed">
+                <?php
+                    $date = date('Y-m',time());
+                    $n = 0;
+                    $bdattributionbiens = new BdAttributionBiens();
+                    if (isset($_POST['dateStart']) and isset($_POST['dateEnd'])) {
+                        if(!empty($_POST['dateStart']) and !empty($_POST['dateEnd'])){
+                            $dateStart = htmlspecialchars($_POST['dateStart']);
+                            $dateEnd = htmlspecialchars($_POST['dateEnd']);
+                            $attributions = $bdattributionbiens->getAttributionBiensAllDesc($dateStart,$dateEnd);
+                        }else{
+                            $attributions = $bdattributionbiens->getAttributionBiensAllDesc($date);
+                        }
+                    }else{
+                        $attributions = $bdattributionbiens->getAttributionBiensAllDesc($date);
+                    }
+                ?>
+                <form action="../views/home.php?link=c70b0a92cc831c4da9cc276d3c52b00cc6c2eee1&link_up=1f920fef6c620c4660a748aae5dd44da9e74ba9b" method="post">
+                    <div class="row">
+                        <div class="col-4">
+                            <input class="form-control" type="date" name="dateStart" id="" value="<?=$dateStart?>">
+                        </div>
+                        <div class="col-4">
+                            <input class="form-control" type="date" name="dateEnd" id="" value="<?=$dateEnd?>">
+                        </div>
+                        <div class="col-4">
+                            <input class="btn btn-info" type="submit" name="rechercher" id="rechercher" value="Rechercher">
+                        </div>
+                    </div>
+                </form>
+                <table id="list_update_command_logistique" class="table table-bordered table-responsive-lg table-condensed">
                     <thead>
-                        <th>N°</th>
+                        <th style="width: 10px;">N°</th>
                         <th>Etat</th>
                         <th>Date</th>
                         <th>Biens/produits</th>
                         <th>Fournisseur</th>
-                        <th>Quantité</th>
+                        <th>Quantité / Prix</th>
+                        <!-- <th></th> -->
                         <th>Délai de livraison</th>
                         <th>Opération</th>
                     </thead>
                     <tbody>
                         <?php
-                        $n = 0;
-                        $bdattributionbiens = new BdAttributionBiens();
-                        $attributions = $bdattributionbiens->getAttributionBiensAllDesc();
                         foreach ($attributions as $attribution) {
                             $n++;
-                            ?>
+                        ?>
                         <form class="form-horizontal" method="POST" action="../contollers/attribution-biens/attributionBiensController.php">
                             <div class="form-group-lg">
                                 <tr>
@@ -82,7 +111,7 @@ include '../models/fournisseur/fournisseur.php';
                                             ?>
                                         </b>
                                     </td>
-                                    <td><input class="form-control" type="date" name="tb_date" value="<?= $attribution['date'] ?>"></td>
+                                    <td><input class="form-control" style="width: 100px;" type="date" name="tb_date" value="<?= $attribution['date'] ?>"></td>
                                     <td>
                                         <select class="form-control" name="cb_biens">
                                             <?php
@@ -121,9 +150,14 @@ include '../models/fournisseur/fournisseur.php';
                                             ?>
                                         </select>
                                     </td>
-                                    <td><input class="form-control" type="number" name="tb_quantite" value="<?= $attribution['quantite_minimale'] ?>"></td>
+                                    <td>
+                                        <input class="form-control" type="number" name="tb_quantite" value="<?= $attribution['quantite_minimale'] ?>">
+                                    <!-- </td>
+                                    <td> -->
+                                        <input class="form-control mt-1" type="text" name="tb_prix" value="<?= $attribution['prixunitaire'] ?>">
+                                    </td>
                                     <td><input class="form-control" type="number" name="tb_delai" value="<?= $attribution['delai_livraison'] ?>"></td>
-                                <input type = "hidden" name = "tb_idattribution" value ="<?= $attribution['aId'] ?>">
+                                    <input type = "hidden" name = "tb_idattribution" value ="<?= $attribution['aId'] ?>">
                                 <td><button type="submit" class="btn btn-primary" name="bt_modifier"><span class="glyphicon glyphicon-pencil" style="color: white; font-size: 20px;margin-right: 5px;"></span>Modifier</button></td>                                    
                                 </tr>
                             </div>

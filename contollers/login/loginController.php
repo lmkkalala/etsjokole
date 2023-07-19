@@ -50,6 +50,7 @@ if (isset($_POST['bt_connexion'])) {
                             $grade = $affectation['grade'];
                             $idaffectation = $affectation['Id'];
                             $idservice = $affectation['Sid'];
+                            $agentID = $affectation['Aid'];
                         }
                         $reponse = "succes";
                         $etat = 1;
@@ -75,6 +76,8 @@ if (isset($_POST['bt_connexion'])) {
             $_SESSION['idutilisateur'] = $idutilisateur;
             $_SESSION['idservice'] = $idservice;
             $_SESSION['type'] = $type;
+            $_SESSION['agentID'] = $agentID;
+            
             if ($type == "admin") {
                 header('Location:../../views/home.php?link_up=' . sha1("home_admin_acceuil") . '&reponse=' . sha1($reponse));
                 die;
@@ -109,6 +112,7 @@ if (isset($_POST['bt_connexion'])) {
 }
 
 if (!empty($_SESSION['type'])) {
+    $reponse = '';
      $type = $_SESSION['type'];
     if ($type == "admin") {
         header('Location:../../views/home.php?link_up=' . sha1("home_admin_acceuil") . '&reponse=' . sha1($reponse));

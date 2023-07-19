@@ -22,9 +22,14 @@ include '../models/affectation-service/affectationService.php';
             <fieldset>
                 <legend>Taper l'identité de l'agent :</legend>
                 <form class="form-inline" method="POST" action="../contollers/distribution/distributionController.php">
-                    <div class="form-group-lg">
-                        <button type="submit" class="btn btn-success" name="bt_search_for_agent"><span class="glyphicon glyphicon-search" style="color: white; font-size: 30px;margin-right: 5px;"></span></button>
-                        <input type="text" class="form-control" name="tb_search" placeholder="Mot-clé">                            
+                    <div class="row form-group-lg">
+                        <div class="col-6">
+                            <input type="text" class="form-control" name="tb_search" placeholder="Mot-clé">  
+                        </div>
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-success" name="bt_search_for_agent"><span class="glyphicon glyphicon-search" style="color: white; font-size: 15px;margin-right: 5px;"></span> Rechercher</button>                          
+                        </div>
+                        
                     </div>
                 </form>
             </fieldset>

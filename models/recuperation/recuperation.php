@@ -11,7 +11,8 @@
 class BdRecuperation {
 
     public function __construct() {
-        
+        ini_set('memory_limit', '2056M');
+        set_time_limit(0);  
     }
 
     function addRecuperation($date, $quantite, $iddistribution, $idaffectation) {
@@ -19,6 +20,18 @@ class BdRecuperation {
             $bd = Connexion::connecter();
             $query = $bd->prepare("INSERT INTO restitution(date,quantite,distribution_id,mutation_id) VALUES(?,?,?,?)");
             $query->execute([$date, $quantite, $iddistribution, $idaffectation]);
+            $query->closeCursor();
+            return TRUE;
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
+
+    function addRecuperationData($date, $quantite,$old_quantite, $iddistribution, $idagent,$bienid,$addbyid) {
+        try {
+            $bd = Connexion::connecter();
+            $query = $bd->prepare("INSERT INTO recuperation(date,quantite_recuperer,quantite_old,agent_id,bien_id,command_id,addedbyID) VALUES(?,?,?,?,?,?,?)");
+            $query->execute([$date, $quantite,$old_quantite, $idagent,$bienid,$iddistribution,$addbyid]);
             $query->closeCursor();
             return TRUE;
         } catch (Exception $ex) {
@@ -65,6 +78,22 @@ class BdRecuperation {
     function getRecuperationAll() {
         $bd = Connexion::connecter();
         $reponse = $bd->query('SELECT * FROM restitution');
+        return $reponse->fetchAll();
+        $reponse->closeCursor();
+    }
+
+    function getRecuperationAllData($date = '', $dateEnd = '') {
+        $bd = Connexion::connecter();
+        if($date != ''){
+            if ($dateEnd != '') {
+                $reponse = $bd->query('SELECT *, ag.nom AS snom, ag.postnom AS spostnom, ag.prenom AS sprenom, a.nom as pnom, a.postnom as ppostnom, a.prenom as pprenom FROM recuperation r INNER JOIN distrubution d ON (r.command_id = d.id) INNER JOIN agent a ON (r.addedbyID = a.id) INNER JOIN agent ag ON (r.agent_id = ag.id) INNER JOIN biens b ON (r.bien_id = b.id) WHERE r.date >= "'.$date.'" and r.date <= "'.$dateEnd.'"');
+            }else{
+                $reponse = $bd->query('SELECT *, ag.nom AS snom, ag.postnom AS spostnom, ag.prenom AS sprenom, a.nom as pnom, a.postnom as ppostnom, a.prenom as pprenom FROM recuperation r INNER JOIN distrubution d ON (r.command_id = d.id) INNER JOIN agent a ON (r.addedbyID = a.id) INNER JOIN agent ag ON (r.agent_id = ag.id) INNER JOIN biens b ON (r.bien_id = b.id) WHERE r.date LIKE "%'.$date.'%"');
+            }
+        }else{
+            $reponse = $bd->query('SELECT *, ag.nom AS snom, ag.postnom AS spostnom, ag.prenom AS sprenom, a.nom as pnom, a.postnom as ppostnom, a.prenom as pprenom FROM recuperation r INNER JOIN distrubution d ON (r.command_id = d.id) INNER JOIN agent a ON (r.addedbyID = a.id) INNER JOIN agent ag ON (r.agent_id = ag.id) INNER JOIN biens b ON (r.bien_id = b.id)');
+        }
+        
         return $reponse->fetchAll();
         $reponse->closeCursor();
     }

@@ -117,20 +117,20 @@ if (isset($_POST['bt_recuperer'])) {
                             foreach ($paniers as $pan) {
                                 if (($pan != "") && ($pan == $unite['id']) && (1)) {
                                     if ($bdunite->activeUnite($unite['id'])) {
-                                        $error = "succes";
+                                        $reponse = "succes";
                                     } else {
-                                        $error = "traitement_error";
+                                        $reponse = "traitement_error";
                                     }
                                     if ($bdunite->activeUniteDistribution($unite['id'])) {
-                                        $error = "succes";
+                                        $reponse = "succes";
                                     } else {
-                                        $error = "traitement_error";
+                                        $reponse = "traitement_error";
                                     }
                                 }
                             }
                         }
                         if ($bdlivraison->deleteLivraison($idlivraison)) {
-                            $error = "succes_deleted";
+                            $reponse = "succes_deleted";
                         }
                     } else {
                         $reponse = "traitement_error";
@@ -150,11 +150,17 @@ if (isset($_POST['bt_recuperer_low'])) {
     $idlivraison = securise($_POST['tb_idlivraison']);
     $quantite_recupere = securise($_POST['tb_quantite_recupere']);
     $quantite_actuelle = securise($_POST['tb_quantite_actuelle']);
+    $tb_idagent = securise($_POST['tb_idagent']);
+    $tb_idbien = securise($_POST['tb_idbien']);
+    $tb_quantite_actuelle = securise($_POST['tb_quantite_actuelle']);
+
+
     if ($idlivraison != "" && $quantite_recupere != "" && $quantite_recupere > 0) {
 
         $bdlivraison = new BdLivraison();
-
+        $bdrecuperation = new BdRecuperation();
         if ($quantite_recupere <= $quantite_actuelle) {
+            $bdrecuperation->addRecuperationData(date('Y-m-d',time()), $quantite_recupere,($quantite_recupere+$tb_quantite_actuelle), $idlivraison, $tb_idagent,$tb_idbien,$_SESSION['idutilisateur']);
             $bdbiens = new BdBiens();
             $livraisons = $bdlivraison->getLivraisonById($idlivraison);
             foreach ($livraisons as $livraison) {
@@ -162,7 +168,7 @@ if (isset($_POST['bt_recuperer_low'])) {
                 $biens = $bdbiens->getBiensById($livraison['bId']);
                 foreach ($biens as $bien) {
                     $quantite_biens = $bien['quantite'];
-//                    echo $bien['bId'];die;
+                    //echo $bien['bId'];die;
                     $quantite_biens = $quantite_biens + $quantite_recupere;
 
                     if ($bdbiens->augmenteQuantiteBiens($bien['bId'], $quantite_biens)) {
@@ -177,22 +183,25 @@ if (isset($_POST['bt_recuperer_low'])) {
                                     if (($pan != "") && ($pan == $unite['id']) && (1)) {
                                         $k++;
                                         if ($bdunite->activeUnite($unite['id'])) {
-                                            $error = "succes";
+                                            $reponse = "succes";
                                         } else {
-                                            $error = "traitement_error";
+                                            $reponse = "traitement_error";
                                         }
                                         if ($bdunite->activeUniteDistribution($unite['id'])) {
-                                            $error = "succes";
+                                            $reponse = "succes";
                                         } else {
-                                            $error = "traitement_error";
+                                            $reponse = "traitement_error";
                                         }
                                     }
                                 }
                             }
                         }
+
                         if ($bdlivraison->updateLivraisonQuantiteActuelle($idlivraison, ($quantite_actuelle - $quantite_recupere))) {
-                            $error = "succes";
+                            $reponse = "succes";
                         }
+
+
                     } else {
                         $reponse = "traitement_error";
                     }
@@ -211,8 +220,6 @@ if (isset($_POST['bt_recuperer_low'])) {
 
 if (isset($_POST['bt_select_preparation_for_add_recuperation'])) {
     $preparationId = securise($_POST['cb_preparation']);
-    
-    
     header('Location:../../views/home.php?link=' . sha1("logistique_recuperation_add") . '&reponse=' . sha1($reponse). '&use_preparation=' . ($preparationId) . '&link_up=' . sha1("home_logistique_recuperation"));
     die;
 }

@@ -12,7 +12,7 @@ include './meta/menu_service.php';
     <div class="col-md-12" style="background-color: whitesmoke;border-radius: 5px; height: 90vh;">
         <div class="container-fluid">
             <div class="row">
-                <div id="menu-gauche" class="col-lg-3">
+                <div id="menu-gauche" class="col-md-3 bg-white">
                     <ul class="list-menu list-unstyled" style="font-size: 20px;">
                         <li class="list-inline-item"><span style="color: red;font-size: 20px;" class="glyphicon glyphicon-asterisk"></span><a href="/views/home.php?link=<?= sha1("service_demande_add") ?>&link_up=<?= sha1("home_service_demande") ?>">Nouvelle demande</a></li>
                         <?php
@@ -49,7 +49,7 @@ include './meta/menu_service.php';
                         margin-right: 5px;
                     }
                 </style>
-                <div class="col-lg-9" style="padding: 10px;height: 80vh;overflow: auto;">
+                <div class="col-md-9" style="padding: 10px;height: 80vh;overflow: auto;">
                     <?php
                     if (isset($_GET['link'])) {
                         if ($_GET['link'] == sha1("service_demande_add")) {

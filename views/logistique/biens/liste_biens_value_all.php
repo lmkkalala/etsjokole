@@ -22,7 +22,8 @@ include '../models/unite/unite.php';
             <fieldset>
                 <legend>Rechercher :</legend>
                 <form class="form-inline" method="POST" action="../contollers/biens/biensController.php">
-                    <div class="form-group-lg">
+                    <div class="row form-group-lg">
+                        <div class="col-6">
                         <select class="form-control select2" name="cb_biens">
                             <option value="0">Choose item</option>
                             <?php
@@ -39,7 +40,10 @@ include '../models/unite/unite.php';
                             }
                             ?>
                         </select>
-                        <button type="submit" class="btn btn-success" name="bt_search_for_all_for_value"><span class="glyphicon glyphicon-search" style="color: white; font-size: 30px;margin-right: 5px;"></span></button>
+                        </div>
+                        <div class="col-6">
+                        <button type="submit" class="btn btn-success" name="bt_search_for_all_for_value"><span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
+                        </div>
                     </div>
                 </form>
             </fieldset>

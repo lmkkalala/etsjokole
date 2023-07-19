@@ -4,7 +4,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+if (isset($_POST['FilterVenteAgent'])) {
+ $date_start = htmlspecialchars($_POST['date_start']);
+ $date_end = htmlspecialchars($_POST['date_end']);
+}else{
+    $date_start = '';
+    $date_end = '';
+}
 ?>
+<form action="/views/home.php?link=31f029825f5c4ecdbe0ff06c6e40bf207c13fd2a&use=<?=$_GET['use']?>&link_up=b8fec8b66f449e4d9eeb889da36e634bacc76b62" method="post">
+    <div class="row">
+        <div class="col-md-5">
+            
+            <input class="form-control" type="date" name="date_start" value="<?=$date_start?>">
+        </div>
+        <div class="col-md-5">
+            <input class="form-control" type="date" name="date_end" value="<?=$date_end?>">
+        </div>
+        <div class="col-md-2">
+            <input type="hidden" name="FilterVenteAgent">
+            <button class="btn btn-primary" type="submit">Rechercher</button>
+        </div>
+    </div>
+</form>
+
 <table class="table table-bordered table-responsive-lg">
     <thead>
     <th>
@@ -36,7 +59,13 @@
     <?php
     $n = 0;
     $bddistribution = new BdDistribution();
-    $distributions = $bddistribution->getDistributionAllDesc();
+    if (isset($_POST['FilterVenteAgent'])) {
+        $distributions = $bddistribution->getDistributionBeetwen2Dates($date_start,$date_end);
+    }else{
+        // $distributions = $bddistribution->getDistributionAllDesc();
+        $distributions = $bddistribution->getDistributionAllDescCurrentMounth(date('Y-m',time()));
+    }
+    
     foreach ($distributions as $distribution) {
         $bdlivraison = new BdLivraison();
         $livraisons = $bdlivraison->getLivraisonById($distribution['distribution_id']);

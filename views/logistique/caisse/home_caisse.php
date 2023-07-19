@@ -1,5 +1,8 @@
 <?php
 include './meta/menu_logistique.php';
+include '../models/crud/db.php';
+$db = new DB();
+$listDriver = $db->getWhere('agent','active','1','id');
 ?>
 
 <div class="container-fluid">
@@ -9,6 +12,51 @@ include './meta/menu_logistique.php';
         </div>
         <div class="col-md-8 col-sm-12 mt-3 mb-3 text-end">
             <button class="btn btn-primary text-white" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa fa-book"></i> NOUVEL OPERATION</button>
+        </div>
+        <div class="col-md-12 col-sm-12 mt-3">
+          <form action="" method="post" id="FilterForm">
+            <div class="row">
+                <div class="col-2">
+                  <input class="form-control" type="text" name="filterNom" id="filterNom" placeholder="Effectuer Par">
+                </div>
+                <div class="col-2">
+                  <input class="form-control" type="text" name="filterNomApprover" id="filterNomApprover" placeholder="Approbateur">
+                </div>
+                <div class="col-2">
+                  <input class="form-control" type="text" name="filterNBordereau" id="filterNBordereau" placeholder="N° Bordereau">
+                </div>
+                <div class="col-2">
+                  <select class="form-control" name="FilterBanque" id="FilterBanque">
+                    <option value="">Selectionner Banque</option>
+                    <option name="cadeco" class="uppercase">cadeco</option>
+                  </select>
+                </div>
+                <div class="col-2">
+                  <input class="form-control" type="date" name="filterDate_start" id="filterDate_start">
+                </div>
+                <div class="col-2">
+                  <input class="form-control" type="date" name="filterDate_end" id="filterDate_end">
+                </div>
+                <div class="col-2 mt-1">
+                  <input type="hidden" name="FilterFormCaisse" id="FilterFormCaisse">
+                  <button class="btn btn-primary text-white w-100" type="submit"> <i class="fa fa-search"></i> Rechercher</button>
+                </div>
+            </div>
+          </form>
+        </div>
+        <div class="row">
+          <div class="col-12 bg-primary text-center">
+              <p class="text-white fw-bolder mt-1 fs-5">SOLDE CAISSE DEBITS MOIN CREDITS</p>
+          </div>
+          <div class="col-4 bg-primary text-center">
+            <h5 class="fw-bolder text-white mt-3"><span id="dollars">0</span></h5>
+          </div>
+          <div class="col-4 bg-primary text-center">
+              <h5 class="fw-bolder text-white mt-3"><span id="fc">0</span></h5>
+          </div>
+          <div class="col-4 bg-primary text-center">
+              <h5 class="fw-bolder text-white mt-3"><span id="frw">0</span></h5>
+          </div>
         </div>
         <h3>DEBIT CAISSE</h3>
         <div class="col-12">
@@ -28,7 +76,7 @@ include './meta/menu_logistique.php';
                     </tr>
                 </thead>
                 <tbody id="list_caisse_entre_page">
-                    <form action="" method="post" id="">
+                    <!-- <form action="" method="post" id="">
                       <tr>
                           <td><input class="form-control" type="date" name="" id="" placeholder="" value=""></td>
                           <td><input class="form-control" type="number" name="" id="" placeholder="" value=""></td>
@@ -44,11 +92,42 @@ include './meta/menu_logistique.php';
                             <button class="btn btn-danger mt-1 text-white w-100" type="submit">Supprimer</button>
                           </td>
                       </tr>
-                    </form>
+                    </form> -->
                 </tbody>
             </table>
         </div>
         <h3>CREDIT CAISSE</h3>
+        <div class="col-md-12 col-sm-12 mt-3">
+          <form action="" method="post" id="FilterFormOther">
+            <div class="row">
+                <div class="col-2">
+                  <input class="form-control" type="text" name="filterNomCredit" id="filterNomCredit" placeholder="Effectuer Par">
+                </div>
+                <div class="col-2">
+                  <input class="form-control" type="text" name="filterNomApproverCredit" id="filterNomApproverCredit" placeholder="Approbateur">
+                </div>
+                <div class="col-2">
+                  <input class="form-control" type="text" name="filterNBordereauCredit" id="filterNBordereauCredit" placeholder="N° Bordereau">
+                </div>
+                <div class="col-2">
+                  <select class="form-control" name="FilterBanqueCredit" id="FilterBanqueCredit">
+                    <option value="">Selectionner Banque</option>
+                    <option name="cadeco" class="uppercase">cadeco</option>
+                  </select>
+                </div>
+                <div class="col-2">
+                  <input class="form-control" type="date" name="filterDate_startCredit" id="filterDate_startCredit">
+                </div>
+                <div class="col-2">
+                  <input class="form-control" type="date" name="filterDate_endCredit" id="filterDate_endCredit">
+                </div>
+                <div class="col-2 mt-1">
+                  <input type="hidden" name="FilterFormCaisseCredit" id="FilterFormCaisseCredit">
+                  <button class="btn btn-primary text-white w-100" type="submit"> <i class="fa fa-search"></i> Rechercher</button>
+                </div>
+            </div>
+          </form>
+        </div>
         <div class="col-12">
             <table id="caisse_list_sortie" class="display" style="width:100%">
                 <thead>
@@ -66,7 +145,7 @@ include './meta/menu_logistique.php';
                     </tr>
                 </thead>
                 <tbody id="list_caisse_sortie_page">
-                    <form action="" method="post" id="">
+                    <!-- <form action="" method="post" id="">
                       <tr>
                           <td><input class="form-control" type="date" name="" id="" placeholder="" value=""></td>
                           <td><input class="form-control" type="number" name="" id="" placeholder="" value=""></td>
@@ -82,7 +161,7 @@ include './meta/menu_logistique.php';
                             <button class="btn btn-danger mt-1 text-white w-100" type="submit">Supprimer</button>
                           </td>
                       </tr>
-                    </form>
+                    </form> -->
                 </tbody>
             </table>
         </div>
@@ -90,7 +169,7 @@ include './meta/menu_logistique.php';
 </div>
 
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="staticBackdropLabel">CAISSE</h1>
@@ -103,7 +182,6 @@ include './meta/menu_logistique.php';
               <label for="date" class="small fw-bolder">Date</label>
               <input class="form-control" type="date" name="date" id="date" placeholder="" required>
             </div>
-          
             <div class="col-6">
               <label for="date" class="small fw-bolder">Banque</label>
               <select class="form-control" name="banque" id="banque" required>

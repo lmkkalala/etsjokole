@@ -33,27 +33,27 @@ include './meta/menu_logistique.php';
                 </style>
                 <div class="col-lg-12" style="padding: 10px;height: 80vh;overflow: auto;">
                     <fieldset>
-                        <legend></legend>
+                        <legend class="text-primary fw-bolder"> ENTREE</legend>
                         <table>
                             <tr>
                                 <td>
-                                    <a class="btn btn-warning" style="font-size: 30px; padding: 60px; margin-right: 1px;" href="/views/home.php?link_up=<?= sha1("home_logistique_fournisseur") ?>">
-                                        <span style="font-size: 70px; margin: 20px;" class="fa fa-user-circle-o"></span>Fournisseur
+                                    <a class="btn btn-warning text-white" style="font-size: 30px; padding: 40px; margin-right: 10px;" href="/views/home.php?link_up=<?= sha1("home_logistique_fournisseur") ?>">
+                                        <span style="font-size: 70px; margin: 20px;" class="fa fa-user-circle-o"></span> <p>Fournisseur</p>
                                     </a>
                                 </td>
                                 <td>
-                                    <a class="btn btn-success" style="font-size: 30px; padding: 60px; margin-right: 1px;" href="/views/home.php?link_up=<?= sha1("home_logistique_attribution_biens") ?>">
-                                        <span style="font-size: 70px; margin: 20px;" class="fa fa-list-alt"></span>Commande
+                                    <a class="btn btn-success" style="font-size: 30px; padding: 40px; margin-right: 10px;" href="/views/home.php?link_up=<?= sha1("home_logistique_attribution_biens") ?>">
+                                        <span style="font-size: 70px; margin: 20px;" class="fa fa-list-alt"></span> <p>Commande</p>
                                     </a>
                                 </td>
                                 <td>
-                                    <a class="btn btn-primary" style="font-size: 30px; padding: 60px;margin-right: 1px;" href="/views/home.php?link_up=<?= sha1("home_logistique_ravitaillement") ?>">
-                                        <span style="font-size: 70px; margin: 20px;" class="fa fa-download"></span>Réception
+                                    <a class="btn btn-primary" style="font-size: 30px; padding: 40px;margin-right: 10px;" href="/views/home.php?link_up=<?= sha1("home_logistique_ravitaillement") ?>">
+                                        <span style="font-size: 70px; margin: 20px;" class="fa fa-download"></span> <p>Réception</p>
                                     </a>
                                 </td>
                                 <td>
-                                    <a class="btn btn-danger" style="font-size: 30px; padding: 60px;margin-right: 0px;" href="/views/home.php?link_up=<?= sha1("home_logistique_addsin") ?>">
-                                        <span style="font-size: 70px; margin: 20px;" class="fa fa-list"></span>Coûts supp.
+                                    <a class="btn btn-danger" style="font-size: 30px; padding: 40px;margin-right: 10px;" href="/views/home.php?link_up=<?= sha1("home_logistique_addsin") ?>">
+                                        <span style="font-size: 70px; margin: 20px;" class="fa fa-list"></span> <p>Coûts supplementaires.</p>
                                     </a>
                                 </td>
                             </tr>

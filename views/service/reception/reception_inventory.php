@@ -22,11 +22,15 @@ include '../models/ravitaillement/ravitaillement.php';
         <div><fieldset>
                 <legend>Recherche par date :</legend>
                 <form class="form-inline" method="POST" action="../contollers/reception/receptionController.php">
-                    <div class="form-group-lg">
-                        <input type="date" class="form-control" name="tb_date">
-                        <button type="submit" class="btn btn-success mt-1" name="bt_search_by_dates_inventory">
-                            <span class="glyphicon glyphicon-search" style="color: white; font-size: 30px;margin-right: 5px;"></span> Rechercher
-                        </button>
+                    <div class="row form-group-lg">
+                        <div class="col-6">
+                            <input type="date" class="form-control" name="tb_date">
+                        </div>
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-success mt-1" name="bt_search_by_dates_inventory">
+                                <span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;"></span> Rechercher
+                            </button>
+                        </div>
 
                     </div>
                 </form>

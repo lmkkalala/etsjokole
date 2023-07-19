@@ -9,7 +9,6 @@ session_start();
 ?>
 
 <?php
-
 if (isset($_POST['bt_deconnexion'])) {
     $_SESSION=[];
     session_destroy();

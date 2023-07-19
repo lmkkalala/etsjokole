@@ -66,26 +66,27 @@ if (isset($_GET['reponse']) and !empty($_GET['reponse']) and $_GET['reponse'] ==
                     </thead>
                     <tbody>
                         <?php
-                        $n = 0;
-                        $bdCustomer = new BdCustomer();
-                        $customers = $bdCustomer->getCustomerAll();
-                        foreach ($customers as $customer) {
-                            // if (1) {
-                                ++$n; ?>
+                            $n = 0;
+                            $bdCustomer = new BdCustomer();
+                            $customers = $bdCustomer->getCustomerAll();
+                            foreach ($customers as $customer) {
+                                // if (1) {
+                                    ++$n; 
+                        ?>
                             <tr>
-                            <form method="post" action="../contollers/customer/customerController.php?id=<?= $customer['id']; ?>">
-                                <td><?= $customer['id']; ?></td>
-                                <td><input class="form-control" type="text" name="identite_<?= $customer['id']; ?>" id="" value="<?= $customer['identite']; ?>"></td>
-                                <td><input class="form-control" type="text" name="telephone_<?= $customer['id']; ?>" id="" value="<?= $customer['telephone']; ?>"></td>
-                                <td><input class="form-control" type="text" name="email_<?= $customer['id']; ?>" id="" value="<?= $customer['email']; ?>"></td>
-                                <td><input class="form-control" type="text" name="siteweb_<?= $customer['id']; ?>" id="" value="<?= $customer['siteweb']; ?>"></td>
-                                <td>
-                                    <!-- <input type="hidden" name="tb_customerId" value=""> -->
-                                    <button type="submit" name="bt_update" class="btn btn-info">
-                                        <span class="fa fa-pencil" style="color: white; font-size: 15px;margin-right: 5px;"></span>
-                                    </button>
-                                </td>
-                            </form>
+                                <form method="post" action="../contollers/customer/customerController.php?id=<?= $customer['id']; ?>">
+                                    <td><?= $customer['id']; ?></td>
+                                    <td><input class="form-control" type="text" name="identite_<?= $customer['id']; ?>" id="" value="<?= $customer['identite']; ?>"></td>
+                                    <td><input class="form-control" type="text" name="telephone_<?= $customer['id']; ?>" id="" value="<?= $customer['telephone']; ?>"></td>
+                                    <td><input class="form-control" type="text" name="email_<?= $customer['id']; ?>" id="" value="<?= $customer['email']; ?>"></td>
+                                    <td><input class="form-control" type="text" name="siteweb_<?= $customer['id']; ?>" id="" value="<?= $customer['siteweb']; ?>"></td>
+                                    <td>
+                                        <!-- <input type="hidden" name="tb_customerId" value=""> -->
+                                        <button type="submit" name="bt_update" class="btn btn-info">
+                                            <span class="fa fa-pencil" style="color: white; font-size: 15px;margin-right: 5px;"></span>
+                                        </button>
+                                    </td>
+                                </form>
                                 <td>
                                     <?php
                                     if ($customer['active'] == 1) {

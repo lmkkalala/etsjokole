@@ -8,7 +8,7 @@
 <?php
 include 'meta/menu_general.php';
 ?>
-<div class="row"  style="margin-top: 8%;">
+<div class="row"  style="margin-top: 12%;">
     <div id="menu2-a" class="col-lg-12">
         <ul class="nav nav-tabs nav-justified">
             <li role="presentation"><a class="btn btn shadow-none fw-bolder" href="/views/home.php?link_up=<?= sha1("home_admin_acceuil") ?>"><span class="glyphicon glyphicon-home" style="color: #0069d9; margin: 10px;"></span>Acceuil</a></li>

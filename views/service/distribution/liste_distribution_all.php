@@ -10,6 +10,7 @@ include '../models/livraison/livraison.php';
 include '../models/affectation-service/affectationService.php';
 include '../models/service/service.php';
 include '../models/unite/unite.php';
+include '../models/crud/db.php';
 ?>
 <div class="panel">
     <div class="panel panel-heading">
@@ -82,6 +83,9 @@ include '../models/unite/unite.php';
                             Prix (USD)
                         </th>
                         <th>
+                            PA (USD)
+                        </th>
+                        <th>
                             Valeur HT (USD)
                         </th>
                         <th>
@@ -142,7 +146,7 @@ include '../models/unite/unite.php';
                             if ((isset($_GET['use_typerepas'])) && (($_GET['use_typerepas'] != "0") || (($_GET['use_date1'] != "") && ($_GET['use_date2'] != "")))) {
                                 if ((isset($_GET['use_typerepas'])) && (($typerepas == $_GET['use_typerepas']) || (($_GET['use_date1'] != "") && ($_GET['use_date2'] != "")))) {
 
-                        ?>
+                                    ?>
                                     <tr style="background-color: dodgerblue; color: white; font-weight: bold;">
                                         <td>
                                             <?= $typerepas ?>
@@ -159,6 +163,8 @@ include '../models/unite/unite.php';
                                         <td></td>
                                     </tr>
                                     <?php
+                                    $pat = 0;
+                                    $pvt = 0;
                                     $cumul_value_typerepas = 0;
                                     $cumul_tva=0;
                                     $cumul_value_ttc=0;
@@ -188,9 +194,31 @@ include '../models/unite/unite.php';
                                                 $idaffectation_online = $livraison['dIdmutation'];
                                                 $infolivraison = $livraison['lDate'] . " " . $livraison['bDesignation'] . " : " . $livraison['marque'] . " / " . $livraison['gDesignation'] . " / quantité initiale : " . $livraison['lQuantite'] . " / quantité actuelle : " . $livraison['quantite_actuelle'];
                                             }
+                                            $db = new DB();
+                                            $distrubutionData = $db->getWhere('distrubution','id', $distribution['distribution_id']);
+                                            if(count($distrubutionData) > 0){
+                                                $demande_id = $distrubutionData[0]['demande_id'];
+                                                $demandeData = $db->getWhere('demande','id',$demande_id);
+                                                if(count($demandeData) > 0){
+                                                    $biens_id = $demandeData[0]['biens_id'];
+                                                    $biensData = $db->getWhere('biens','id',$biens_id);
+                                                    if(count($biensData)> 0){
+                                                        $pa = $biensData[0]['prixunitaire'];
+                                                    }else{
+                                                        $pa = '';
+                                                    }
+                                                }else{
+                                                    $pa = '';
+                                                }
+                                            }else{
+                                                $pa = '';
+                                            }
+
                                             if (isset($infolivraison) && ($affiche_bon) && ($distribution['nombre_restant'] > 0)) {
+                                                $pat = $pat + ($pa*$distribution['nombre_restant']);
+                                                $pvt = $pvt + ($distribution['price']*$distribution['nombre_restant']);
                                                 $n++;
-                                    ?>
+                                                    ?>
                                                 <tr>
                                                     <td><?= $distribution['venteposId'] ?></td>
                                                     <td><?= $distribution['id'] ?></td>
@@ -199,6 +227,7 @@ include '../models/unite/unite.php';
                                                     <td><?= $infolivraison ?></td>
                                                     <td><?= $distribution['nombre_restant'] ?></td>
                                                     <td><?= $distribution['price'] ?></td>
+                                                    <td><?= $pa ?></td>
                                                     <td style="color: dodgerblue;">
                                                         <?php
                                                         echo ($distribution['nombre_restant'] * $distribution['price']);
@@ -229,9 +258,10 @@ include '../models/unite/unite.php';
                                                         ?>
                                                     </td>
                                                 </tr>
-                                    <?php
+                                                <?php
                                             }
                                         }
+                                        $pa = '';
                                     }
                                     $cumul_value_total = $cumul_value_total + $cumul_value_typerepas;
                                     $cumul_tva_total = $cumul_tva_total + $cumul_tva;
@@ -255,8 +285,12 @@ include '../models/unite/unite.php';
                                         <td>
                                             <?= "Value TTC CREDIT : " . $cumul_value_ttc_credit . " USD" ?>
                                         </td>
+                                        <td><?=" PVT : ".$pvt. " USD"?></td>
+                                        <td>
+                                            <?=" Marge : ".($pvt-$pat). " USD"?>
+                                        </td>
                                     </tr>
-                        <?php
+                                    <?php
                                 }
                             }
                         }

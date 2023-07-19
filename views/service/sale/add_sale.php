@@ -64,10 +64,10 @@ include '../models/lineSale/LineSale.php';
             }
             ?>
 
-            <a class="btn btn-warning p-1 mt-1 text-white" style="font-size: 20px;" href="/views/home.php?link_up=<?= sha1('home_logistique_customer'); ?>"><span class="fa fa-user" style="color: #0069d9; font-size: 30px;margin: 10px;"></span>Clients</a>
+            <a class="btn btn-warning p-1 mt-1 text-white" style="font-size: 20px;" href="/views/home.php?link_up=<?= sha1('home_logistique_customer'); ?>"><span class="fa fa-user fs-5 text-white"></span> Clients</a>
             <form class="form-horizontal" method="POST" action="../contollers/sale/saleController.php">
-                <div class="form-group-lg">
-                    <div class="input-group-lg">
+                <div class="row form-group-lg">
+                    <div class="col-8 input-group-lg">
                         <label class="control-label">Client :</label>
                           <select class="form-control select2" name="cb_customer" >
                             <option value="0">Choisir un client</option>
@@ -82,12 +82,11 @@ include '../models/lineSale/LineSale.php';
                             ?>
                           </select>
                     </div> 
-                    <fieldset>
-                        <legend></legend>
+                    <div class="col-4 mt-3">
                         <div class="input-group-lg">
-                            <input class="btn btn-success" type="submit" name="bt_select_customer" value="Sélectionner">
+                            <input class="btn btn-success fs-6" type="submit" name="bt_select_customer" value="Sélectionner">
                         </div>
-                    </fieldset>
+                    </div>
                 </div>
             </form>
             <hr>

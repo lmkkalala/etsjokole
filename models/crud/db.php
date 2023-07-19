@@ -1,11 +1,10 @@
 <?php
 
 class DB{
-    public function __construct()
-    {
-        
+    public function __construct() {
+        ini_set('memory_limit', '2056M');
+        set_time_limit(0);  
     }
-    //private $db = connexion::connecter();
 
     public function insert(string $table, $field, $prepared, $value){
         $db = connexion::connecter();
@@ -31,25 +30,52 @@ class DB{
         $reponse->closeCursor();
     }
 
-    public function getWhere($table,$field,$value,$order = ''){
-
+    public function getWhere($table,$field,$value,$order = '', $limit = null){
         $db = connexion::connecter();
         if ($order != '') {
-            $reponse = $db->query('SELECT * FROM '.$table.' WHERE '.$field.' = "'.$value.'" ORDER BY '.$order.' DESC');
+            if ($limit != null) {
+                $reponse = $db->query('SELECT * FROM '.$table.' WHERE '.$field.' = "'.$value.'" ORDER BY '.$order.' DESC LIMIT '.$limit.'');
+            }else{
+                $reponse = $db->query('SELECT * FROM '.$table.' WHERE '.$field.' = "'.$value.'" ORDER BY '.$order.' DESC');
+            }
         }else{
             $reponse = $db->query('SELECT * FROM '.$table.' WHERE '.$field.' = "'.$value.'"');
         }
-        
         return $reponse->fetchAll();
         $reponse->closeCursor();
 
     }
 
-    public function update(){
+    public function getWhereMultiple($table, $MoreCondition = ''){
+
+        $db = connexion::connecter();
+        $reponse = $db->query('SELECT * FROM '.$table.' WHERE '.$MoreCondition.' ORDER BY date DESC');
+        return $reponse->fetchAll();
+        $reponse->closeCursor();
 
     }
 
-    public function delete(){
+    public function update($table,$field,$condition,$data){
+        try {
+            $bd = Connexion::connecter();
+            $query = $bd->prepare("UPDATE $table SET $field WHERE $condition");
+            $query->execute($data);
+            $query->closeCursor();
+            return true;
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
 
+    public function delete($table,$field,$value){
+        try {
+            $bd = Connexion::connecter();
+            $query = $bd->prepare("DELETE FROM $table WHERE $field =? ");
+            $query->execute([$value]);
+            $query->closeCursor();
+            return true;
+        } catch (Exception $ex) {
+            return false;
+        }
     }
 }

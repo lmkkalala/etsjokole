@@ -11,7 +11,8 @@
 class BdUnite {
 
     public function __construct() {
-        
+        ini_set('memory_limit', '2056M');
+        set_time_limit(0);  
     }
 
     function addUnite($code, $dateachat, $dateexpiration, $idbiens,$prix) {
@@ -114,6 +115,7 @@ class BdUnite {
     }
 
     function getUniteAll() {
+        
         $bd = Connexion::connecter();
         $reponse = $bd->query('SELECT * FROM unite');
         sleep(2);

@@ -26,11 +26,17 @@ class BdAttributionBiens {
         }
     }
 
-    function updateAttributionBiens($idattribution, $date, $quantite, $delai, $idbiens, $idfournisseur) {
+    function updateAttributionBiens($idattribution, $date, $quantite, $delai, $idbiens, $idfournisseur,$prix = '') {
         try {
             $bd = Connexion::connecter();
-            $query = $bd->prepare("UPDATE attribution SET date=?,quantite_minimale=?,delai_livraison=?,biens_id=?,fournisseur_id=? WHERE id=?");
-            $query->execute([$date, $quantite, $delai, $idbiens, $idfournisseur, $idattribution]);
+            if ($prix != '') {
+                $query = $bd->prepare("UPDATE attribution SET date=?,quantite_minimale=?,prixunitaire=?,delai_livraison=?,biens_id=?,fournisseur_id=? WHERE id=?");
+                $query->execute([$date, $quantite, $prix, $delai, $idbiens, $idfournisseur, $idattribution]);
+            }else{
+                $query = $bd->prepare("UPDATE attribution SET date=?,quantite_minimale=?,delai_livraison=?,biens_id=?,fournisseur_id=? WHERE id=?");
+                $query->execute([$date, $quantite, $delai, $idbiens, $idfournisseur, $idattribution]);
+            }
+            
             $query->closeCursor();
             return TRUE;
         } catch (Exception $ex) {
@@ -76,9 +82,18 @@ class BdAttributionBiens {
         $reponse->closeCursor();
     }
 
-    function getAttributionBiensAllDesc() {
+    function getAttributionBiensAllDesc($dateStart = '', $dateEnd = '') {
         $bd = Connexion::connecter();
-        $reponse = $bd->query('SELECT a.id AS aId,a.date,a.delai_livraison,a.quantite_minimale,a.etat,a.numeroOrder,b.designation AS bDesignation,b.technique_gestion,g.designation AS gDesignation,f.designation AS fDesignation,f.domaine,a.active,g.id AS gId,b.id AS bId,f.id AS fId FROM attribution a INNER JOIN (biens b INNER JOIN groupebiens g ON(b.groupeBiens_id=g.id)) ON(a.biens_id=b.id) INNER JOIN fournisseur f ON(a.fournisseur_id=f.id) ORDER BY a.id DESC');
+        if ($dateStart != '') {
+            if ($dateStart != '' and $dateEnd != '') {
+                $reponse = $bd->query('SELECT a.id AS aId,a.date,a.delai_livraison,a.quantite_minimale,a.prixunitaire,a.etat,a.numeroOrder,b.designation AS bDesignation,b.technique_gestion,g.designation AS gDesignation,f.designation AS fDesignation,f.domaine,a.active,g.id AS gId,b.id AS bId,f.id AS fId FROM attribution a INNER JOIN (biens b INNER JOIN groupebiens g ON(b.groupeBiens_id=g.id)) ON(a.biens_id=b.id) INNER JOIN fournisseur f ON(a.fournisseur_id=f.id) WHERE a.date >= "'.$dateStart.'" and a.date <= "'.$dateEnd.'"  ORDER BY a.id DESC');
+            }else{
+                $reponse = $bd->query('SELECT a.id AS aId,a.date,a.delai_livraison,a.quantite_minimale,a.prixunitaire,a.etat,a.numeroOrder,b.designation AS bDesignation,b.technique_gestion,g.designation AS gDesignation,f.designation AS fDesignation,f.domaine,a.active,g.id AS gId,b.id AS bId,f.id AS fId FROM attribution a INNER JOIN (biens b INNER JOIN groupebiens g ON(b.groupeBiens_id=g.id)) ON(a.biens_id=b.id) INNER JOIN fournisseur f ON(a.fournisseur_id=f.id) WHERE a.date Like "%'.$dateStart.'%" ORDER BY a.id DESC');
+            }
+        }else{
+            $reponse = $bd->query('SELECT a.id AS aId,a.date,a.delai_livraison,a.quantite_minimale,a.prixunitaire,a.etat,a.numeroOrder,b.designation AS bDesignation,b.technique_gestion,g.designation AS gDesignation,f.designation AS fDesignation,f.domaine,a.active,g.id AS gId,b.id AS bId,f.id AS fId FROM attribution a INNER JOIN (biens b INNER JOIN groupebiens g ON(b.groupeBiens_id=g.id)) ON(a.biens_id=b.id) INNER JOIN fournisseur f ON(a.fournisseur_id=f.id) ORDER BY a.id DESC');
+        }
+       
         return $reponse->fetchAll();
         $reponse->closeCursor();
     }
@@ -160,9 +175,18 @@ class BdAttributionBiens {
         $reponse->closeCursor();
     }
 
-    function getAttributionBiensAllDescEncours() {
+    function getAttributionBiensAllDescEncours($dateStart = '', $dateEnd = '') {
         $bd = Connexion::connecter();
-        $reponse = $bd->query("SELECT b.prixunitaire,a.id AS aId,a.date,a.delai_livraison,a.quantite_minimale,a.prixunitaire AS aPrixUnitaire,a.etat,a.numeroOrder,b.designation AS bDesignation,b.technique_gestion,g.designation AS gDesignation,f.designation AS fDesignation,f.domaine,a.active,g.id AS gId,b.id AS bId,f.id AS fId FROM attribution a INNER JOIN (biens b INNER JOIN groupebiens g ON(b.groupeBiens_id=g.id)) ON(a.biens_id=b.id) INNER JOIN fournisseur f ON(a.fournisseur_id=f.id) WHERE etat='0' ORDER BY a.id DESC");
+        if ($dateStart != '') {
+            if ($dateStart != '' and $dateEnd != '') {
+                $reponse = $bd->query('SELECT b.prixunitaire,a.id AS aId,a.date,a.delai_livraison,a.quantite_minimale,a.prixunitaire AS aPrixUnitaire,a.etat,a.numeroOrder,b.designation AS bDesignation,b.technique_gestion,g.designation AS gDesignation,f.designation AS fDesignation,f.domaine,a.active,g.id AS gId,b.id AS bId,f.id AS fId FROM attribution a INNER JOIN (biens b INNER JOIN groupebiens g ON(b.groupeBiens_id=g.id)) ON(a.biens_id=b.id) INNER JOIN fournisseur f ON(a.fournisseur_id=f.id) WHERE etat="0" and a.date >= "'.$dateStart.'" and a.date <= "'.$dateEnd.'"  ORDER BY a.id DESC');
+            }else{
+                $reponse = $bd->query('SELECT b.prixunitaire,a.id AS aId,a.date,a.delai_livraison,a.quantite_minimale,a.prixunitaire AS aPrixUnitaire,a.etat,a.numeroOrder,b.designation AS bDesignation,b.technique_gestion,g.designation AS gDesignation,f.designation AS fDesignation,f.domaine,a.active,g.id AS gId,b.id AS bId,f.id AS fId FROM attribution a INNER JOIN (biens b INNER JOIN groupebiens g ON(b.groupeBiens_id=g.id)) ON(a.biens_id=b.id) INNER JOIN fournisseur f ON(a.fournisseur_id=f.id) WHERE etat="0" and a.date Like "%'.$dateStart.'%" ORDER BY a.id DESC');
+            }
+        }else{
+            $reponse = $bd->query("SELECT b.prixunitaire,a.id AS aId,a.date,a.delai_livraison,a.quantite_minimale,a.prixunitaire AS aPrixUnitaire,a.etat,a.numeroOrder,b.designation AS bDesignation,b.technique_gestion,g.designation AS gDesignation,f.designation AS fDesignation,f.domaine,a.active,g.id AS gId,b.id AS bId,f.id AS fId FROM attribution a INNER JOIN (biens b INNER JOIN groupebiens g ON(b.groupeBiens_id=g.id)) ON(a.biens_id=b.id) INNER JOIN fournisseur f ON(a.fournisseur_id=f.id) WHERE etat='0' ORDER BY a.id DESC");
+        }
+        //$reponse = $bd->query("SELECT b.prixunitaire,a.id AS aId,a.date,a.delai_livraison,a.quantite_minimale,a.prixunitaire AS aPrixUnitaire,a.etat,a.numeroOrder,b.designation AS bDesignation,b.technique_gestion,g.designation AS gDesignation,f.designation AS fDesignation,f.domaine,a.active,g.id AS gId,b.id AS bId,f.id AS fId FROM attribution a INNER JOIN (biens b INNER JOIN groupebiens g ON(b.groupeBiens_id=g.id)) ON(a.biens_id=b.id) INNER JOIN fournisseur f ON(a.fournisseur_id=f.id) WHERE etat='0' ORDER BY a.id DESC");
         return $reponse->fetchAll();
         $reponse->closeCursor();
     }

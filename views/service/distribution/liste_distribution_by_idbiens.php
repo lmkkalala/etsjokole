@@ -143,12 +143,12 @@ if (isset($_GET['use_date1'])) {
         
         
         foreach($ravitaillements as $ravitaillement) {
-            $cmPrix=$cmPrix+$ravitaillement['prix'];
+            $cmPrix=($cmPrix+$ravitaillement['prix']);
             $nRav++;
         }
         
         $meanPrice=round(($cmPrix/$nRav),3);
-        $valeurEntree=$meanPrice*$cumulQty;
+        $valeurEntree=($meanPrice*$cumulQty);
 
     ?>
     <span>
@@ -159,7 +159,7 @@ if (isset($_GET['use_date1'])) {
 <td style="font-size: 20px; color: darkred; font-weight:bold;">
     
     <span>
-        <p><?= " Marge: ".$cumulValeur-$valeurEntree ?> USD</p>
+        <p><?= " Marge: ".($cumulValeur-$valeurEntree) ?> USD</p>
     </span>
 </td>
 </tfoot>

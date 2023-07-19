@@ -12,9 +12,9 @@ include './meta/menu_service.php';
     <div class="col-md-12" style="background-color: whitesmoke;border-radius: 5px; height: 90vh;">
         <div class="container-fluid">
             <div class="row">
-                <div id="menu-gauche" class="col-lg-3">
+                <div id="menu-gauche" class="col-md-2 bg-white">
                     <ul class="list-menu list-unstyled" style="font-size: 20px;">
-                        <li class="list-inline-item"><span style="color: red;font-size: 20px;" class="fa fa-asterisk"></span><a href="/views/home.php?link_up=<?= sha1('home_service_sale'); ?>">New</a></li>
+                        <li class="list-inline-item"><span style="color: red;font-size: 20px;" class="fa fa-asterisk"></span><a href="/views/home.php?link_up=<?= sha1('home_service_sale'); ?>">Nouvelle</a></li><br>
                         <li class="list-inline-item"><span style="color: dodgerblue;font-size: 20px;" class="glyphicon glyphicon-list"></span><a href="/views/home.php?link=<?= sha1('service_sale_liste_all'); ?>&link_up=<?= sha1('home_service_sale'); ?>">List</a></li>
                     </ul>
                 </div>

@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="/web/select2/dist/css/select2.min.css">
 <link rel="stylesheet" href="/web/datatable/jquery.dataTables.min.css">
 <link href="/web/bootstrap/css/bootstrap-glyphicons.css" rel="stylesheet">
+<link href="/media/pictures-system/Vague_Blanche.jpg" rel="icon">
 <style>
     .select2{
         font-size: 20px;
@@ -32,4 +33,5 @@
         color: darkslategray;
     }
 </style>
+
 

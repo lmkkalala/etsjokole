@@ -12,6 +12,32 @@ include './meta/menu_logistique.php';
                 <i class="fa fa-book"></i> NOUVEL OPERATION
             </button>
         </div>
+        <form action="" method="post" id="FilterForm">
+            <div class="row">
+                <div class="col-md-2">
+                <input class="form-control" type="text" name="mBordereau" id="mBordereau" placeholder="N° Bordereau">
+                </div>
+                <div class="col-md-2">
+                <input class="form-control" type="text" name="Expediteur" id="Expediteur" placeholder="Expediteur">
+                </div>
+                <div class="col-md-2">
+                <input class="form-control" type="text" name="Destinateur" id="Destinateur" placeholder="Destinateur">
+                </div>
+                <div class="col-md-2">
+                <input class="form-control" type="text" name="Conductuer" id="Conductuer" placeholder="Conductuer">
+                </div>
+                <div class="col-md-2">
+                <input class="form-control" type="date" name="filterDate_start" id="filterDate_start">
+                </div>
+                <div class="col-md-2">
+                <input class="form-control" type="date" name="filterDate_end" id="filterDate_end">
+                </div>
+                <div class="col-md-2">
+                <input type="hidden" name="FilterFormBordereau" id="FilterFormBordereau">
+                <button class="btn btn-primary w-100 mt-2 text-white" type="submit"> <i class="fa fa-search"></i> Rechercher</button>
+                </div>
+            </div>
+        </form>
         <div class="row" id="list_bordereau">
         <!-- <div class="col-4 p-4 rounded-start bg-primary">
             <table class="display" style="width:100%;color:white">
@@ -119,7 +145,7 @@ include './meta/menu_logistique.php';
   <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">BORDEREAU</h1>
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">BORDEREAU D'EXPEDITION</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">

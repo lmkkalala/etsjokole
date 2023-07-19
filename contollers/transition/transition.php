@@ -15,13 +15,14 @@ if (isset($_GET['mutationID'])) {
         $grade = $affectation['grade'];
         $idaffectation = $affectation['Id'];
         $idservice = $affectation['Sid'];
+        $AgentID = $affectation['Aid'];
     }
 
     $_SESSION['identite'] = $identite;
     $_SESSION['service'] = $service;
     $_SESSION['grade'] = $grade;
     $_SESSION['idaffectation'] = $idaffectation;
-    $_SESSION['idutilisateur'] = $_GET['mutationID'];
+    $_SESSION['idutilisateur'] = $AgentID;
     $_SESSION['idservice'] = $idservice;
     $_SESSION['type'] = 'other';
     
@@ -29,7 +30,7 @@ if (isset($_GET['mutationID'])) {
     header('Location: ../../views/home.php?link_up=' . sha1("home_service_acceuil") . '&reponse=' . sha1($reponse).'');
 }else{
     $bdaffectation = new BdAffectationService();
-    $affectations = $bdaffectation->getAffectationServiceByIdSecond($_SESSION['temp_admin_id']);
+    $affectations = $bdaffectation->getAffectationServiceByIdSecondUser($_SESSION['temp_admin_id']);
     foreach ($affectations as $affectation) {
         $identite = $affectation['nom'] . " " . $affectation['postnom'] . " " . $affectation['prenom'];
         $service = $affectation['designation'];

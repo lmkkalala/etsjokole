@@ -83,6 +83,13 @@ class BdDistribution {
         $reponse->closeCursor();
     }
 
+    function getDistributionAllDescCurrentMounth($mounth) {
+        $bd = Connexion::connecter();
+        $reponse = $bd->query('SELECT * FROM affectation WHERE date LIKE "%'.$mounth.'%" ORDER BY id DESC Limit 2000');
+        return $reponse->fetchAll();
+        $reponse->closeCursor();
+    }
+
     function getDistributionBeetwen2Dates($date1, $date2) {
         $bd = Connexion::connecter();
         $reponse = $bd->query("SELECT * FROM affectation WHERE date>='{$date1}' AND date<='{$date2}' ORDER BY id DESC");

@@ -57,8 +57,8 @@ include '../models/demande/demande.php';
             ?>
             <div style="background-color: whitesmoke; padding: 10px;">
                 <form class="form-horizontal" method="POST" action="../contollers/demande/demandeController.php">
-                    <div class="form-group-lg">
-                        <div class="input-group-lg">
+                    <div class="row form-group-lg">
+                        <div class="col-8 input-group-lg">
                             <label class="control-label">Activité :</label>
                             <select class="form-control select2" name="cb_preparation">
                                 <option value="0">Choisir activité</option>
@@ -82,12 +82,11 @@ include '../models/demande/demande.php';
                                 ?>
                             </select>
                         </div>                    
-                        <fieldset>
-                            <legend></legend>
+                        <div class="col-4 mt-3">
                             <div class="input-group-lg">
-                                <input class="btn btn-success" type="submit" name="bt_select_preparation_for_add_demande" value="Séléctionner">
+                                <input class="btn btn-success fs-6" type="submit" name="bt_select_preparation_for_add_demande" value="Séléctionner">
                             </div>
-                        </fieldset>
+                        </div>
                     </div>
                 </form>
             </div>

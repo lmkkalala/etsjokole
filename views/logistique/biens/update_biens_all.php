@@ -49,7 +49,8 @@ include '../models/categorie/categorie.php';
                 <fieldset>
                     <legend>Rechercher :</legend>
                     <form class="form-inline" method="POST" action="../contollers/biens/biensController.php">
-                        <div class="form-group-lg">
+                        <div class="row form-group-lg">
+                            <div class="col-6">
                             <select class="form-control select2" name="cb_biens">
                                 <option value="0">Choisir un produit</option>
                                 <?php
@@ -66,7 +67,11 @@ include '../models/categorie/categorie.php';
                                 }
                                 ?>
                             </select>
-                            <button type="submit" class="btn btn-success" name="bt_search_for_update"><span class="glyphicon glyphicon-search" style="color: white; font-size: 30px;margin-right: 5px;"></span></button>
+                            </div>
+                            <div class="col-6">
+                            <button type="submit" class="btn btn-success" name="bt_search_for_update"><span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
+                            </div>
+                           
                         </div>
                     </form>
                 </fieldset>
@@ -88,10 +93,7 @@ include '../models/categorie/categorie.php';
                         Gestion
                     </th>
                     <th>
-                        Quantité
-                    </th>
-                    <th>
-                        PU
+                        Quantité / PU
                     </th>
                     <th>
                         Stock max
@@ -169,8 +171,10 @@ include '../models/categorie/categorie.php';
                                                     >LIFO</option>
                                         </select>
                                     </td>
-                                    <td><input class="form-control" type="text" name="tb_quantite" value="<?= $bien['quantite'] ?>"></td>
-                                    <td><input class="form-control" type="text" name="tb_prixunitaire" value="<?= $bien['prixunitaire'] ?>"></td>
+                                    <td>
+                                        <input class="form-control" type="text" name="tb_quantite" value="<?= $bien['quantite'] ?>">
+                                        <input class="form-control mt-1" type="text" name="tb_prixunitaire" value="<?= $bien['prixunitaire'] ?>">
+                                    </td>
                                     <td><input class="form-control" type="text" name="tb_stockmax" value="<?= $bien['stock_max'] ?>"></td>
                                     <td><input class="form-control" type="text" name="tb_stockmin" value="<?= $bien['stock_min'] ?>"></td>
                                     <td><input class="form-control" type="text" name="tb_stockcritique" value="<?= $bien['stock_critique'] ?>"></td>

@@ -14,7 +14,7 @@ include '../models/fournisseur/fournisseur.php';
         <span class="h3">Order</span>
         <span class="glyphicon glyphicon-chevron-right" style="color: black; font-size: 30px;margin-right: 5px;"></span>
         <span class="fa fa-book" style="color: darkslategray; font-size: 30px;margin-right: 5px;"></span>
-        <span class="h4">Order per supplier</span>
+        <span class="h4">Commande par Fournisseur / order per supplier</span>
     </div>
     <div class="panel panel-body">
         <div>
@@ -46,23 +46,32 @@ include '../models/fournisseur/fournisseur.php';
             <fieldset>
                 <legend>Choose interval :</legend>
                 <form class="form-inline" method="POST" action="../contollers/attribution-biens/attributionBiensController.php">
-                    <div class="form-group-lg">
-                        <input type="date" class="form-control" name="tb_date1" placeholder="First date">
-                        <input type="date" class="form-control" name="tb_date2" placeholder="Second date">
-                        <select class="form-control select2" name="cb_numeroOrder">
-                            <option value="none">Choose order number</option>
-                            <?php
-                            $bdattributionbiens = new BdAttributionBiens();
-                            $attributions = $bdattributionbiens->getAttributionBiensByIdFournisseurDistinctNumeroOrder($_GET['use']);
-                            foreach ($attributions as $attribution) {
-                                ?>
-                                <option value="<?= $attribution['numero_order'] ?>"><?= $attribution['numero_order'] ?></option>
+                    <div class="row form-group-lg">
+                        <div class="col-6 mt-2">
+                            <input type="date" class="form-control" name="tb_date1" placeholder="First date">
+                        </div>
+                        <div class="col-6 mt-2">
+                            <input type="date" class="form-control" name="tb_date2" placeholder="Second date">
+                        </div>
+                        <div class="col-6 mt-2">
+                            <select class="form-control select2" name="cb_numeroOrder">
+                                <option value="none">Choose order number</option>
                                 <?php
-                            }
-                            ?>
-                        </select>
-                        <input type="hidden" name="tb_idfournisseur" value="<?= $_GET['use'] ?>">
-                        <button type="submit" class="btn btn-success" name="bt_search_attributionbiens_by_date"><span class="glyphicon glyphicon-search" style="color: white; font-size: 30px;margin-right: 5px;"></span></button>
+                                $bdattributionbiens = new BdAttributionBiens();
+                                $attributions = $bdattributionbiens->getAttributionBiensByIdFournisseurDistinctNumeroOrder($_GET['use']);
+                                foreach ($attributions as $attribution) {
+                                    ?>
+                                    <option value="<?= $attribution['numero_order'] ?>"><?= $attribution['numero_order'] ?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="col-6 mt-2">
+                            <input type="hidden" name="tb_idfournisseur" value="<?= $_GET['use'] ?>">
+                            <button type="submit" class="btn btn-success" name="bt_search_attributionbiens_by_date"><span class="glyphicon glyphicon-search" style="color: white; font-size: 15px;margin-right: 5px;"></span> Rechercher</button>
+                        </div>
+                        
                     </div>
                 </form>
             </fieldset>

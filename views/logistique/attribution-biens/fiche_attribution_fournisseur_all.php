@@ -13,16 +13,20 @@ include '../models/fournisseur/fournisseur.php';
         <span class="h3">Order</span>
         <span class="glyphicon glyphicon-chevron-right" style="color: black; font-size: 30px;margin-right: 5px;"></span>
         <span class="fa fa-file-text-o" style="color: darkslategray; font-size: 30px;margin-right: 5px;"></span>
-        <span class="h4">Order per supplier</span>
+        <span class="h4">Commande par Fournisseur / Order per supplier</span>
     </div>
     <div class="panel panel-body">
         <div>
             <fieldset>
                 <legend>Taper le mot-clé de la recherche :</legend>
                 <form class="form-inline" method="POST" action="../contollers/attribution-biens/attributionBiensController.php">
-                    <div class="form-group-lg">
-                        <button type="submit" class="btn btn-success" name="bt_search"><span class="glyphicon glyphicon-search" style="color: white; font-size: 30px;margin-right: 5px;"></span></button>
-                        <input type="text" class="form-control" name="tb_search" placeholder="Mot-clé">                            
+                    <div class="row">
+                        <div class="col-8 form-group-lg">
+                            <input type="text" class="form-control" name="tb_search" placeholder="Mot-clé">                            
+                        </div>
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-success" name="bt_search"><span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
+                        </div>
                     </div>
                 </form>
             </fieldset>

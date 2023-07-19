@@ -33,11 +33,11 @@ include './meta/menu_logistique.php';
                 </style>
                 <div class="col-lg-12" style="padding: 10px;height: 80vh;overflow: auto;">
                     <fieldset>
-                        <legend></legend>
+                        <legend class="text-primary fw-bolder"> SORTIE</legend>
                         <table>
                             <tr>
-                                <td><a class="btn btn-success" style="font-size: 30px; padding: 90px; margin-right: 90px; margin-left: 160px;" href="/views/home.php?link_up=<?= sha1("home_logistique_demande") ?>"><span style="font-size: 70px; margin: 20px;" class="fa fa-bell-o"></span>Requisition</a></td>
-                                <td><a class="btn btn-primary" style="font-size: 30px; padding: 90px;" href="/views/home.php?link_up=<?= sha1("home_logistique_livraison") ?>"><span style="font-size: 70px; margin: 20px;" class="fa fa-support"></span>Livraison</a></td>
+                                <td><a class="btn btn-success" style="font-size: 30px; padding: 40px; margin-right: 90px; margin-left: 160px;" href="/views/home.php?link_up=<?= sha1("home_logistique_demande") ?>"><span style="font-size: 70px; margin: 20px;" class="fa fa-bell-o"></span>Requisition</a></td>
+                                <td><a class="btn btn-primary" style="font-size: 30px; padding: 40px;" href="/views/home.php?link_up=<?= sha1("home_logistique_livraison") ?>"><span style="font-size: 70px; margin: 20px;" class="fa fa-support"></span>Livraison</a></td>
                             </tr>
                         </table>
                     </fieldset>

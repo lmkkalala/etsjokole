@@ -10,24 +10,25 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-4 text-start mt-3 mb-3">
+        <div class="col-10 text-start mt-3 mb-3">
             <h3 class="text-primary">DETTES</h3>
         </div>
         
-        <div class="col-md-8 col-sm-12 mt-3 mb-3 text-end">
-            <button class="btn btn-primary text-white" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">AJOUTER DETTE</button>
+        <div class="col-md-2 col-sm-12 mt-3 mb-3 text-end">
+            <button class="btn btn-primary w-100 text-white" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">AJOUTER DETTE</button>
         </div>
         <div class="col-12 mt-3">
-          <form action="" method="post" id="FilterDetteForm">
+          <form action="" method="post" id="FilterForm">
                 <div class="row">
-                    <div class="col-3">
-                        <select class="form-control" name="" id="">
+                    <div class="col-md-2">
+                        <select class="form-control" name="Agent" id="Agent">
+                        <option value="">Selectionner Agent</option>
                           <?php
                             foreach($allAgent as $key => $agent){
                               if ($allAgent[$key]['active'] == '1') {
                                 if ($allAgent[$key]['grade'] != 'Admin' and $allAgent[$key]['grade'] != 'admin') {
                           ?>
-                          <option value="<?=$allAgent[$key]['id']?>"><?=$allAgent[$key]['nom'].' '.$allAgent[$key]['postnom'].' '.$allAgent[$key]['prenom']?></option>
+                              <option value="<?=$allAgent[$key]['id']?>"><?=$allAgent[$key]['nom'].' '.$allAgent[$key]['postnom'].' '.$allAgent[$key]['prenom']?></option>
                           <?php 
                                 }
                               }
@@ -35,14 +36,34 @@
                           ?>
                       </select>
                     </div>
-                    <div class="col-3">
+                    <div class="col-md-2">
+                        <select class="form-control" name="Raison" id="Raison">
+                            <option value="">Selectionner Raison</option>
+                            <option value="Dette argent">Dette argent</option>
+                            <option value="Dette produit">Dette produit</option>
+                            <option value="Manquant">Manquant</option>
+                            <option value="Amande">Amande</option>
+                            <option value="Absence">Absence</option>
+                            <option value="Aucun">Aucun</option>
+                      </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control" name="Operation" id="Operation">
+                        <option value="">Selectionner Operation</option>
+                          <option value="Dette">Dette</option>
+                          <option value="Rembourser">Rembourser</option>
+                      </select>
+                    </div>
+                    
+                    <div class="col-md-2">
                       <input class="form-control" type="date" name="filterDate_start" id="filterDate_start">
                     </div>
-                    <div class="col-3">
+                    <div class="col-md-2">
                       <input class="form-control" type="date" name="filterDate_end" id="filterDate_end">
                     </div>
-                    <div class="col-3">
-                      <button class="btn btn-primary text-white" type="submit"><i class="fa fa-search"></i> Rechercher</button>
+                    <div class="col-md-2">
+                    <input type="hidden" name="FilterFormDette" id="FilterFormDette">
+                      <button class="btn btn-primary w-100 text-white" type="submit"><i class="fa fa-search"></i> Rechercher</button>
                     </div>
                 </div>
           </form>
@@ -153,6 +174,22 @@
                   <option value="Absence">Absence</option>
                   <option value="Aucun">Aucun</option>
                 </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <label for="date">Type Monnais</label>
+              <select class="form-control" name="currency" id="currency" required>
+                  <option value="">Selectionner Monnais</option>
+                  <option value="Dollars">$</option>
+                  <option value="FC" selected>FC</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <label for="date">Taux de Change</label>
+              <input class="form-control" type="number" name="taux" id="taux" value="2500" required>
             </div>
           </div>
           <div class="row">

@@ -5,6 +5,8 @@
  * and open the template in the editor.
  */
 include '../models/attribution-biens/attributionBiens.php';
+$dateStart = '';
+$dateEnd = '';
 ?>
 <div class="panel">
     <div class="panel panel-heading">
@@ -16,6 +18,36 @@ include '../models/attribution-biens/attributionBiens.php';
         <span class="glyphicon glyphicon-time" style="color: tomato; font-size: 30px;margin-right: 5px;"></span>
         <span class="h4">Waiting order</span>
     </div>
+    <?php
+                    $date = date('Y-m',time());
+                    $n = 0;
+                    $bdattributionbiens = new BdAttributionBiens();
+                    $attributions = $bdattributionbiens->getAttributionBiensAllDescEncours();
+                    if (isset($_POST['dateStart']) and isset($_POST['dateEnd'])) {
+                        if(!empty($_POST['dateStart']) and !empty($_POST['dateEnd'])){
+                            $dateStart = htmlspecialchars($_POST['dateStart']);
+                            $dateEnd = htmlspecialchars($_POST['dateEnd']);
+                            $attributions = $bdattributionbiens->getAttributionBiensAllDescEncours($dateStart,$dateEnd);
+                        }else{
+                            $attributions = $bdattributionbiens->getAttributionBiensAllDescEncours($date);
+                        }
+                    }else{
+                        $attributions = $bdattributionbiens->getAttributionBiensAllDescEncours();
+                    }
+                ?>
+    <form action="../views/home.php?link=bc6749372a792df7e3460135262bf41aad976c1f&link_up=1f920fef6c620c4660a748aae5dd44da9e74ba9b" method="post">
+                    <div class="row">
+                        <div class="col-4">
+                            <input class="form-control" type="date" name="dateStart" id="" value="<?=$dateStart?>">
+                        </div>
+                        <div class="col-4">
+                            <input class="form-control" type="date" name="dateEnd" id="" value="<?=$dateEnd?>">
+                        </div>
+                        <div class="col-4">
+                            <input class="btn btn-info" type="submit" name="rechercher" id="rechercher" value="Rechercher">
+                        </div>
+                    </div>
+                </form>
     <div class="panel panel-body">
         <div>
             <fieldset>
@@ -49,9 +81,7 @@ include '../models/attribution-biens/attributionBiens.php';
                     </thead>
                     <tbody>
                         <?php
-                        $n = 0;
-                        $bdattributionbiens = new BdAttributionBiens();
-                        $attributions = $bdattributionbiens->getAttributionBiensAllDescEncours();
+                        
                         foreach ($attributions as $attribution) {
                             $n++;
                             ?>

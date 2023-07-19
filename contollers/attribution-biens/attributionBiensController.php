@@ -69,9 +69,10 @@ if (isset($_POST['bt_modifier'])) {
     $date = securise($_POST['tb_date']);
     $delai = securise($_POST['tb_delai']);
     $quantite = securise($_POST['tb_quantite']);
+    $prix = securise($_POST['tb_prix']);
     if ($idattribution != "" && $idbiens != 0 && $idfournisseur != 0 && $date != "" && $delai > 0 && $quantite > 0) {
         $bdattributionbiens = new BdAttributionBiens();
-        if ($bdattributionbiens->updateAttributionBiens($idattribution, $date, $quantite, $delai, $idbiens, $idfournisseur)) {
+        if ($bdattributionbiens->updateAttributionBiens($idattribution, $date, $quantite, $delai, $idbiens, $idfournisseur, $prix)) {
             $reponse = "succes";
         } else {
             $reponse = "traitement_error";

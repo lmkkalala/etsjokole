@@ -51,11 +51,16 @@ include '../models/ravitaillement/ravitaillement.php';
             <fieldset>
                 <legend>Search by date : </legend>
                 <form class="form-inline" method="POST" action="../contollers/inventaire/inventaireController.php">
-                    <div class="form-group-lg">
+                    <div class="row form-group-lg">
+                        <div class="col-4">
                         <input type="date" class="form-control" name="tb_date1" placeholder="First date">
+                        </div>
+                        <div class="col-4">
                         <input type="date" class="form-control" name="tb_date2" placeholder="Second date">
-
-                        <button type="submit" class="btn btn-success" name="bt_search_by_date"><span class="glyphicon glyphicon-search" style="color: white; font-size: 30px;margin-right: 5px;"></span></button>
+                        </div>
+                        <div class="col-4">
+                        <button type="submit" class="btn btn-success" name="bt_search_by_date"><span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
+                        </div>
                     </div>
                 </form>
             </fieldset>

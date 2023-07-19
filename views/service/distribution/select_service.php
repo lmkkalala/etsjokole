@@ -5,10 +5,10 @@
  * and open the template in the editor.
  */
 ?>
-<div style="margin: 20px;">
-    <fieldset>
-        <form class="form-inline" method="post" action="../contollers/distribution/distributionController.php">
-            <div class="input-group-lg">
+<div class="row" style="margin: 20px;">
+    <form  method="post" action="../contollers/distribution/distributionController.php">
+        <div class="row">
+            <div class="col-md-6 input-group-lg">
                 <select class="form-control select2" name="cb_service">
                     <option value="0">Choisir un POS/Departement/Service</option>
                     <?php
@@ -29,6 +29,8 @@
                     }
                     ?>
                 </select>
+            </div>
+            <div class="col-md-6">
                 <select class="form-control select2" name="cb_identiteClient">
                     <option value="none">Choisir le client</option>
                     <?php
@@ -43,11 +45,16 @@
                     }
                     ?>
                 </select>
-                <hr>
+            </div>
+            <div class="col-md-6">
                 <label class="control-label">Starting date : </label>
                 <input type="date" class="form-control" name="tb_date1">
+            </div>
+            <div class="col-md-6">
                 <label class="control-label">Ending date :</label>
                 <input type="date" class="form-control" name="tb_date2">
+            </div>
+            <div class="col-md-6">
                 <label class="control-label">Type :</label>
                 <select class="form-control select2" name="cb_typerepas">
                     <option value="0">Choose a type</option>
@@ -64,6 +71,8 @@
                     <option value="Fonction">Fonction</option>
                 </select>
                 <input type="hidden" name="tb_link" value="<?= $link ?>">
+            </div>
+            <div class="col-md-6">
                 <?php
                 if (isset($_GET['use2'])) {
                 ?>
@@ -75,11 +84,11 @@
                 <?php
                 }
                 ?>
-                <input class="btn btn-primary" type="submit" name="bt_search_by_service" value="Choisir">
+                <input class="btn btn-primary mt-3" type="submit" name="bt_search_by_service" value="Choisir">
             </div>
-        </form>
-    </fieldset>
-    <fieldset style="margin: 20px;">
+        </div>
+    </form>
+    <div class="row" style="margin: 20px;">
         <legend>Service / Département / Site : </legend>
         <h3>
             <strong style="color: forestgreen;">

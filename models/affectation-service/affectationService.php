@@ -117,6 +117,13 @@ class BdAffectationService {
         return $reponse->fetchAll();
         $reponse->closeCursor();
     }
+
+    function getAffectationServiceByIdSecondUser($idaffectation) {
+        $bd = Connexion::connecter();
+        $reponse = $bd->query("SELECT a.nom,a.postnom,a.prenom,a.grade,s.designation,m.date,m.id Id,m.active,a.id Aid,s.id Sid FROM agent a INNER JOIN mutation m ON (a.id=m.agent_id) INNER JOIN service s ON (s.id=m.service_id) WHERE a.id='{$idaffectation}' ORDER BY m.id DESC");
+        return $reponse->fetchAll();
+        $reponse->closeCursor();
+    }
     
     function getRowCountEntreprise() {
         $bd = Connexion::connecter();

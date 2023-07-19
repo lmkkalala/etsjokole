@@ -24,37 +24,37 @@ include '../models/affectation-service/affectationService.php';
         <div>
             <?php
             if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("succes")))) {
-                ?>
+            ?>
                 <div class="alert alert-success">
                     <span class="glyphicon glyphicon-ok" style="font-size: 15px;margin-right: 5px;"></span><span>Enregistrement effectué avec succès</span>
                 </div>
-                <?php
+            <?php
             }
             ?>
             <?php
             if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("traitement_error")))) {
-                ?>
+            ?>
                 <div class="alert alert-danger">
                     <span class="glyphicon glyphicon-ban-circle" style="font-size: 15px;margin-right: 5px;"></span><span>Erreur d'enregistrement</span>
                 </div>
-                <?php
+            <?php
             }
             ?>
             <?php
             if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("remplissage_error")))) {
-                ?>
+            ?>
                 <div class="alert alert-warning">
                     <span class="glyphicon glyphicon-blackboard" style="font-size: 15px;margin-right: 5px;"></span><span>Erreur de remplissage, Recommencer SVP</span>
                 </div>
-                <?php
+            <?php
             }
             ?>
             <fieldset>
                 
                 <div style="background-color: whitesmoke; padding: 10px;">
                     <form class="form-horizontal" method="POST" action="../contollers/recuperation_logistique/recuperationController.php">
-                        <div class="form-group-lg">
-                            <div class="input-group-lg">
+                        <div class="row form-group-lg">
+                            <div class="col-8 input-group-lg">
                                 <label class="control-label">Chercher par réquisition :</label>
                                 <select class="form-control select2" name="cb_preparation">
                                     <option value="0">Choisir une activité</option>
@@ -82,12 +82,11 @@ include '../models/affectation-service/affectationService.php';
                                     ?>
                                 </select>
                             </div>                    
-                            <fieldset>
-                                <legend></legend>
+                            <div class="col-4">
                                 <div class="input-group-lg">
-                                    <input class="btn btn-success" type="submit" name="bt_select_preparation_for_add_recuperation" value="Select">
+                                    <input class="btn btn-success fs-6 mt-3" type="submit" name="bt_select_preparation_for_add_recuperation" value="Selectionner">
                                 </div>
-                            </fieldset>
+                            </div>
                         </div>
                     </form>
                     <fieldset>
@@ -142,6 +141,10 @@ include '../models/affectation-service/affectationService.php';
                     </thead>
                     <tbody>
                         <?php
+                        if (isset($_GET['response'])) {
+                            echo $_GET['response'];
+                        }
+                        
                         $n = 0;
                         $bdlivraison = new BdLivraison();
                         if (isset($_GET['use_preparation'])) {
@@ -166,6 +169,8 @@ include '../models/affectation-service/affectationService.php';
                                             <input type="text" name="tb_quantite_recupere" class="form-control" value="<?= $livraison['lQuantiteActuelle'] ?>">
                                             <input type="hidden" name="tb_quantite_actuelle" class="form-control" value="<?= $livraison['lQuantiteActuelle'] ?>">
                                             <input type="hidden" name="tb_idlivraison" value="<?= $livraison['lId'] ?>">
+                                            <input type="hidden" name="tb_idagent" value="<?= $livraison['agId'] ?>">
+                                            <input type="hidden" name="tb_idbien" value="<?= $livraison['bId'] ?>">
                                             <button type="submit" class="btn btn-primary" name="bt_recuperer_low"><span class="fa fa-recycle" style="font-size: 25px;margin-right: 5px;"></span></button>
                                         </form>
                                     </td>
