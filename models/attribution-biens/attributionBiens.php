@@ -163,7 +163,14 @@ class BdAttributionBiens {
     
     function getMaxDateAttributionBiensDistinctNumeroOrder() {
         $bd = Connexion::connecter();
-        $reponse = $bd->query("SELECT MAX(a.date) AS lastDate,a.numeroOrder as numero_orderFetchDate FROM attribution a INNER JOIN (biens b INNER JOIN groupebiens g ON(b.groupeBiens_id=g.id)) ON(a.biens_id=b.id) INNER JOIN fournisseur f ON(a.fournisseur_id=f.id) ORDER BY a.id ASC");
+        $reponse = $bd->query("SELECT MAX(a.date) AS lastDate, MAX(a.numeroOrder) as numero_orderFetchDate FROM attribution a INNER JOIN (biens b INNER JOIN groupebiens g ON(b.groupeBiens_id=g.id)) ON(a.biens_id=b.id) INNER JOIN fournisseur f ON(a.fournisseur_id=f.id) ORDER BY a.id DESC");
+        return $reponse->fetchAll();
+        $reponse->closeCursor();
+    }
+    
+    function lastRow() {
+        $bd = Connexion::connecter();
+        $reponse = $bd->query("SELECT * FROM attribution ORDER BY id DESC LIMIT 1");
         return $reponse->fetchAll();
         $reponse->closeCursor();
     }
