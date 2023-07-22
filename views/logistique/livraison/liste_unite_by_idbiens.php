@@ -35,7 +35,8 @@
     $bdunite = new BdUnite();
     $unites = $bdunite->getUniteByIdBiens($idbiens);
     foreach ($unites as $unite) {
-        if (($unite['active_principal']) && ($unite['active'])) {
+        if ($n <= 100) {
+            if (($unite['active_principal']) && ($unite['active'])) {
             $n++;
             $bdbiens = new BdBiens();
             $biens = $bdbiens->getBiensById($unite['biens_id']);
@@ -76,6 +77,7 @@
                 </td>
             </tr>
             <?php
+            }
         }
     }
     ?>
