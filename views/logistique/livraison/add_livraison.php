@@ -59,8 +59,8 @@ include '../models/affectation-service/affectationService.php';
             ?>
             <div style="background-color: whitesmoke; padding: 10px;">
                 <form class="form-horizontal" method="POST" action="../contollers/livraison/livraisonController.php">
-                    <div class="form-group-lg">
-                        <div class="input-group-lg">
+                    <div class="row form-group-lg">
+                        <div class="col-6 input-group-lg">
                             <label class="control-label">Activity :</label>
                             <select class="form-control select2" name="cb_preparation">
                                 <option value="0">Choisir une activité</option>
@@ -88,12 +88,12 @@ include '../models/affectation-service/affectationService.php';
                                 ?>
                             </select>
                         </div>                    
-                        <fieldset>
+                        <div class="col-6">
                             <legend></legend>
                             <div class="input-group-lg">
-                                <input class="btn btn-success" type="submit" name="bt_select_preparation_for_add_livraison" value="Select">
+                                <input class="btn btn-success" type="submit" name="bt_select_preparation_for_add_livraison" value="Selectionner">
                             </div>
-                        </fieldset>
+                            </div>
                     </div>
                 </form>
             </div>

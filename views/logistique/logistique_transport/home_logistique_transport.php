@@ -41,10 +41,16 @@
                 <?php
                     $conducteurFullName = '';
                     foreach ($listAgent as $key2 => $value) {
+                      $vehicule = $db->getWhere('vehicule','conducteurID',$listAgent[$key2]['id']);
+                      if (count($vehicule) > 0) {
+                        $plaque = $vehicule[0]['plaqueVehicule'];
+                      }else{
+                        $plaque = '';
+                      }
                         if ($listAgent[$key2]['active'] == '1' and $listAgent[$key2]['grade'] == 'driver') {
                         $conducteurFullName = $listAgent[$key2]['nom'].' '.$listAgent[$key2]['postnom'].' '.$listAgent[$key2]['prenom'];
                 ?>
-                    <option value="<?=$listAgent[$key2]['id']?>"><?=$conducteurFullName?></option>
+                    <option value="<?=$listAgent[$key2]['id']?>"><?=$conducteurFullName.' PLAQUE : '.$plaque?></option>
                 <?php
                       }
                     }
@@ -170,10 +176,16 @@
                 <?php
                     $conducteurFullName = '';
                     foreach ($listAgent as $key2 => $value) {
+                      $vehicule = $db->getWhere('vehicule','conducteurID',$listAgent[$key2]['id']);
+                      if (count($vehicule) > 0) {
+                        $plaque = $vehicule[0]['plaqueVehicule'];
+                      }else{
+                        $plaque = '';
+                      }
                         if ($listAgent[$key2]['active'] == '1' and $listAgent[$key2]['grade'] == 'driver') {
                         $conducteurFullName = $listAgent[$key2]['nom'].' '.$listAgent[$key2]['postnom'].' '.$listAgent[$key2]['prenom'];
                 ?>
-                    <option value="<?=$listAgent[$key2]['id']?>"><?=$conducteurFullName?></option>
+                    <option value="<?=$listAgent[$key2]['id']?>"><?=$conducteurFullName.' PLAQUE : '.$plaque?></option>
                 <?php
                       }
                     }

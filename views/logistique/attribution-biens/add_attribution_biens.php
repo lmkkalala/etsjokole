@@ -104,30 +104,37 @@ include '../models/attribution-biens/attributionBiens.php';
                         
                         $recentNumeroOrder="";
                         $bdattributionbiens = new BdAttributionBiens();
+                        $attributions = $bdattributionbiens->lastRow();
+                        if (count($attributions) > 0) {
+                            // var_dump($attributions);
+                            // return;
+                            $recentNumeroOrder=$attributions[0]['numeroOrder'];
+                        }
+
                         // $attributions = $bdattributionbiens->getMaxAttributionBiensDistinctNumeroOrder();
                         // foreach ($attributions as $attribution) {
                         //      $recentNumeroOrder = $attribution['numero_orderMax'];
                         // }
                         
-                        $attributions = $bdattributionbiens->getMaxDateAttributionBiensDistinctNumeroOrder();
+                        //$attributions = $bdattributionbiens->getMaxDateAttributionBiensDistinctNumeroOrder();
                         
-                        $maxIdOrder=0;
-                        foreach ($attributions as $attribution) {
+                        // $maxIdOrder=0;
+                        // foreach ($attributions as $attribution) {
                             
                             //echo $attribution['lastDate'];
                             
-                             $recentNumeroOrder=explode("/",$attribution['numero_orderFetchDate'])[0];
+                        //     $recentNumeroOrder=explode("/",$attribution['numero_orderFetchDate'])[0];
                              
                             //  echo $recentNumeroOrder;
                             //  echo "\n";
                              
-                             if ($recentNumeroOrder>=$maxIdOrder) {
-                                 $maxIdOrder=$recentNumeroOrder;
-                             }
+                        //      if ($recentNumeroOrder>=$maxIdOrder) {
+                        //          $maxIdOrder=$recentNumeroOrder;
+                        //      }
                              
-                        }
+                        // }
                         
-                        $maxRecentNumeroOrder=$maxIdOrder;
+                        //$maxRecentNumeroOrder=$maxIdOrder;
                         
                         // echo $maxRecentNumeroOrder;
                         
@@ -142,7 +149,7 @@ include '../models/attribution-biens/attributionBiens.php';
                         <?php
                             } else {
                         ?>
-                            <input type="text" name="tb_numero_order_up" class="form-control-sm" id="numero_order_up" placeholder="Muméro" value="<?=$maxRecentNumeroOrder?>">
+                            <input type="text" name="tb_numero_order_up" class="form-control-sm" id="numero_order_up" placeholder="Muméro" value="<?=$recentNumeroOrder+1?>">
                         <?php
                         }
                         ?>

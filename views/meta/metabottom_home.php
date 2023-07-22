@@ -192,8 +192,17 @@
 
     $(document).ready(function () {
         $('#champ_depot, #champ_retrait, #depotParDiv, #creditParDiv').hide();
-        $('#caisse_list_entre, #caisse_list_sortie, #driver_list, #transport_list').DataTable();
-        $('#depense_list, #dette_list, #list_update_command_admin,#vehicule_list,#spend_list_transport').DataTable();
+        $('#caisse_list_entre').DataTable();
+        $('#caisse_list_sortie').DataTable();
+        $('#driver_list').DataTable();
+        $('#transport_list').DataTable();
+        $('#depense_list').DataTable();
+        $('#dette_list').DataTable();
+        $('#list_update_command_admin').DataTable();
+        $('#vehicule_list').DataTable();
+        $('#spend_list_transport').DataTable();
+        //$('#depense_list, #dette_list, #list_update_command_admin,#vehicule_list,#spend_list_transport').DataTable();
+        
 
         $('#toggle_menu').on('click',function(){
             $('#menu2-a').toggle();

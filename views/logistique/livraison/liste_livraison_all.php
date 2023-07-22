@@ -53,9 +53,15 @@ include '../models/biens/biens.php';
             <fieldset>
                 <legend>Choose date :</legend>
                 <form class="form-inline" method="POST" action="../contollers/livraison/livraisonController.php">
-                    <div class="form-group-lg">
+                    <div class="row form-group-lg">
+                        
+                        <div class="col-4">
                         <input type="date" class="form-control" name="tb_date1" placeholder="First date">
+                        </div>
+                        <div class="col-4">
                         <input type="date" class="form-control" name="tb_date2" placeholder="Second date">
+                        </div>
+                        <div class="col-4">
                         <select class="form-control select2" name="cb_service">
                             <option value="0">Choisir un service</option>
                             <?php
@@ -72,6 +78,8 @@ include '../models/biens/biens.php';
                             }
                             ?>
                         </select>
+                        </div>
+                        <div class="col-4 mt-1">
                         <select class="form-control select2" name="cb_biens">
                             <option value="0">Chopse item</option>
                             <?php
@@ -88,6 +96,8 @@ include '../models/biens/biens.php';
                             }
                             ?>
                         </select>
+                        </div>
+                        <div class="col-4 mt-1">
                         <select class="form-control select2" name="cb_typerepas">
                             <option value="0">Choose activity</option>
                             <option value="Input">Input</option>
@@ -107,7 +117,10 @@ include '../models/biens/biens.php';
                             <option value="Fonction">Fonction</option>
                             <option value="PRO">PRO</option>
                         </select>
-                        <button type="submit" class="btn btn-success" name="bt_search_by_date_by_service"><span class="glyphicon glyphicon-search" style="color: white; font-size: 30px;margin-right: 5px;"></span></button>
+                        </div>
+                        <div class="col-4 mt-1">
+                            <button type="submit" class="btn btn-success w-100" name="bt_search_by_date_by_service"><span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
+                        </div>
                     </div>
                 </form>
             </fieldset>
@@ -337,6 +350,7 @@ include '../models/biens/biens.php';
                                             $s++;
                                             $somme_prix_biens = $somme_prix_biens + $ravitaillement['prix'];
                                         }
+                                        if ($s != 0) {
                                         $average_price = ($somme_prix_biens / $s);
 
                                         $value_sale = ($livraison['lQuantite'] * $average_price);
@@ -360,6 +374,7 @@ include '../models/biens/biens.php';
                                         </td>
                                     </tr>
                                     <?php
+                                        }
                                     $cumul_value_typerepas = $cumul_value_typerepas + $value_sale;
                                 }
                             }
