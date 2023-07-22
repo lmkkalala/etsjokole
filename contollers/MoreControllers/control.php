@@ -728,7 +728,7 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
     $conducteurID = '';
     $conducteurNames = '';
     $plaque = '';
-    $depenseTotalCourse = '';
+    $depenseTotalCourse = 0;
     $calcul = 0;
     $table = "String('coursetransport')";
 
@@ -773,7 +773,9 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
                     <input class="form-control" type="text" name="" id=""  value="'.$typeCourse[$key]['contenu'].'">
                     <input class="form-control mt-1" type="text" name="" id=""  value="'.$typeCourse[$key]['destination'].'">
                 </td>
-                <td><input class="form-control" type="text" name="" id=""  value="'.$typeCourse[$key]['description'].'"></td>
+                <td>
+                    <textarea class="form-control" name="" id=""  value="'.$typeCourse[$key]['description'].'">'.$typeCourse[$key]['description'].'</textarea>
+                </td>
                 <td>
                     <input class="form-control" type="text" name="" id=""  value="'.$typeCourse[$key]['tonne'].'">
                     <input class="form-control mt-1" type="text" name="" id=""  value="'.$typeCourse[$key]['prixCourse'].'">
@@ -1253,3 +1255,4 @@ $DB = new DB();
             echo json_encode(array('msg'=>'Echecs d\'opération ...','status'=>'fail','page'=>'operation_caisse_new'));
         }     
     }
+    
