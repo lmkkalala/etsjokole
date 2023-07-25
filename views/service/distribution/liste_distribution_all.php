@@ -205,13 +205,13 @@ include '../models/crud/db.php';
                                                     if(count($biensData)> 0){
                                                         $pa = $biensData[0]['prixunitaire'];
                                                     }else{
-                                                        $pa = '';
+                                                        $pa = 0;
                                                     }
                                                 }else{
-                                                    $pa = '';
+                                                    $pa = 0;
                                                 }
                                             }else{
-                                                $pa = '';
+                                                $pa = 0;
                                             }
 
                                             if (isset($infolivraison) && ($affiche_bon) && ($distribution['nombre_restant'] > 0)) {
@@ -254,7 +254,6 @@ include '../models/crud/db.php';
                                                         } else {
                                                             $cumul_value_ttc_credit=$cumul_value_ttc_credit+(($distribution['nombre_restant'] * $distribution['price'])*(1+($distribution['tva']/100)));
                                                         }
-                                                        
                                                         ?>
                                                     </td>
                                                 </tr>
@@ -285,7 +284,7 @@ include '../models/crud/db.php';
                                         <td>
                                             <?= "Value TTC CREDIT : " . $cumul_value_ttc_credit . " USD" ?>
                                         </td>
-                                        <td><?=" PVT : ".$pvt. " USD"?></td>
+                                        <td><?=" PAT : ".$pat. " USD"?></td>
                                         <td>
                                             <?=" Marge : ".($pvt-$pat). " USD"?>
                                         </td>
