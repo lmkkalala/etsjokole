@@ -9,7 +9,7 @@
 include 'meta/menu_general.php';
 
 ?>
-<div class="row" style="margin-top: 12%;">
+<div class="row">
 <?php
 if ($_SESSION['type'] == 'logistique') {
 ?>

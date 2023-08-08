@@ -36,8 +36,8 @@ include './meta/menu_service.php';
                         <legend></legend>
                         <table>
                             <tr>
-                                <td><a class="btn btn-warning" style="font-size: 30px; padding: 90px; margin-right: 90px; margin-left: 180px;" href="/views/home.php?link_up=<?= sha1('home_service_production'); ?>"><span style="font-size: 70px; margin: 20px;" class="fa fa-cube"></span>Production</a></td>
-                                <td><a class="btn btn-success" style="font-size: 30px; padding: 90px; margin-right: 90px;" href="/views/home.php?link_up=<?= sha1('home_service_nourriture'); ?>"><span style="font-size: 70px; margin: 20px;" class="fa fa-list-alt"></span>Produit</a></td>
+                                <td><a class="btn btn-warning text-white" style="font-size: 30px; padding: 50px; margin-right: 90px; margin-left: 180px;" href="/views/home.php?link_up=<?= sha1('home_service_production'); ?>"><span style="font-size: 70px; margin: 20px;" class="fa fa-cube"></span>Production</a></td>
+                                <td><a class="btn btn-success text-white" style="font-size: 30px; padding: 50px; margin-right: 90px;" href="/views/home.php?link_up=<?= sha1('home_service_nourriture'); ?>"><span style="font-size: 70px; margin: 20px;" class="fa fa-list-alt"></span>Produit</a></td>
                             </tr>
                         </table>
                     </fieldset>

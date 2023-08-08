@@ -201,17 +201,18 @@
         $('#list_update_command_admin').DataTable();
         $('#vehicule_list').DataTable();
         $('#spend_list_transport').DataTable();
-        //$('#depense_list, #dette_list, #list_update_command_admin,#vehicule_list,#spend_list_transport').DataTable();
-        
+
+        //$('#menu2-a').hide();
+        //$("#menu-gauche").hide();
 
         $('#toggle_menu').on('click',function(){
-            $('#menu2-a').toggle();
+            $('#menu2-a').slideToggle("slow");
+            $("#menu-gauche").slideToggle("slow");
         });
+
         $('#entete1-logo').on('click',function(){
-            $('#menu2-a').toggle();
-        });
-        $('#entete1-logo').on('click',function(){
-            $('#menu2-a').hide();
+            $('#menu2-a').slideToggle("slow");
+            $("#menu-gauche").slideToggle("slow");
         });
 
         $('#operation').on('change',function(){
@@ -233,8 +234,6 @@
                 $('#depotParDiv').hide();
             }
         });
-
-        $('#menu2-a').show();
 
         $('#FilterForm').on('submit',function(event){
             list('FilterForm');

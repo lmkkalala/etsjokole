@@ -20,9 +20,13 @@ include '../models/biens/biens.php';
             <fieldset>
                 <legend>Taper le code de la recherche :</legend>
                 <form class="form-inline" method="POST" action="../contollers/unite/uniteController.php">
-                    <div class="form-group-lg">
-                        <button type="submit" class="btn btn-success" name="bt_search_for_unite"><span class="glyphicon glyphicon-search" style="color: white; font-size: 30px;margin-right: 5px;"></span></button>
-                        <input type="text" class="form-control" name="tb_search" placeholder="Mot-clé">                            
+                    <div class="row form-group-lg">
+                        <div class="col-6">
+                            <input type="text" class="form-control" name="tb_search" placeholder="Mot-clé"> 
+                        </div>
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-success" name="bt_search_for_unite"><span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
+                        </div>                           
                     </div>
                 </form>
             </fieldset>
@@ -86,7 +90,8 @@ include '../models/biens/biens.php';
                         if (isset($_GET['use'])) {
                             $unites = $bdunite->getUniteByName($_GET['use']);
                         } else {
-                            $unites = $bdunite->getUniteAllDesc();
+                            $unites = $bdunite->getUniteAllLimit('1000');
+                            //$unites = $bdunite->getUniteAllDesc();
                         }
                         foreach ($unites as $unite) {
                             $n++;

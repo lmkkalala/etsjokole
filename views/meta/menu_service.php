@@ -8,7 +8,7 @@
 <?php
 include 'meta/menu_general.php';
 ?>
-<div class="row"  style="margin-top: 12%;">
+<div class="row">
     <div id="menu2-a" class="col-12">
         <ul class="nav nav-tabs nav-justified">
             <?php

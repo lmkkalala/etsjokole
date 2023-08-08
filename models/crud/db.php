@@ -46,10 +46,14 @@ class DB{
 
     }
 
-    public function getWhereMultiple($table, $MoreCondition = ''){
-
+    public function getWhereMultiple($table, $MoreCondition = '',$more = ''){
+        if ($more == '') {
+            $more == 'ORDER BY date DESC';
+        }else{
+            $more == $more;
+        }
         $db = connexion::connecter();
-        $reponse = $db->query('SELECT * FROM '.$table.' WHERE '.$MoreCondition.' ORDER BY date DESC');
+        $reponse = $db->query('SELECT * FROM '.$table.' WHERE '.$MoreCondition.''.$more.'');
         return $reponse->fetchAll();
         $reponse->closeCursor();
 

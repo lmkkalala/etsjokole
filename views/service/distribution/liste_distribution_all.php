@@ -201,7 +201,8 @@ include '../models/crud/db.php';
                                                 $demandeData = $db->getWhere('demande','id',$demande_id);
                                                 if(count($demandeData) > 0){
                                                     $biens_id = $demandeData[0]['biens_id'];
-                                                    $biensData = $db->getWhere('biens','id',$biens_id);
+                                                    //$biensData = $db->getWhere('biens','id',$biens_id);
+                                                    $biensData = $db->getWhereMultiple('attribution','biens_id = '.$biens_id.' ORDER BY date DESC Limit 1');
                                                     if(count($biensData)> 0){
                                                         $pa = $biensData[0]['prixunitaire'];
                                                     }else{
@@ -215,8 +216,9 @@ include '../models/crud/db.php';
                                             }
 
                                             if (isset($infolivraison) && ($affiche_bon) && ($distribution['nombre_restant'] > 0)) {
-                                                $pat = $pat + ($pa*$distribution['nombre_restant']);
-                                                $pvt = $pvt + ($distribution['price']*$distribution['nombre_restant']);
+                                                $totalPA = $pa * $distribution['nombre_restant'];
+                                                $pat = $pat + $totalPA;
+                                                $pvt = $pvt + ($distribution['price'] * $distribution['nombre_restant']);
                                                 $n++;
                                                     ?>
                                                 <tr>
@@ -227,7 +229,7 @@ include '../models/crud/db.php';
                                                     <td><?= $infolivraison ?></td>
                                                     <td><?= $distribution['nombre_restant'] ?></td>
                                                     <td><?= $distribution['price'] ?></td>
-                                                    <td><?= $pa ?></td>
+                                                    <td><?= $pa .' PAT '.$totalPA ?></td>
                                                     <td style="color: dodgerblue;">
                                                         <?php
                                                         echo ($distribution['nombre_restant'] * $distribution['price']);
@@ -260,7 +262,7 @@ include '../models/crud/db.php';
                                                 <?php
                                             }
                                         }
-                                        $pa = '';
+                                        $pa = 0;
                                     }
                                     $cumul_value_total = $cumul_value_total + $cumul_value_typerepas;
                                     $cumul_tva_total = $cumul_tva_total + $cumul_tva;

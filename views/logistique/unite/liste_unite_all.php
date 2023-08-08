@@ -44,7 +44,8 @@ include '../models/biens/biens.php';
                         <?php
                         $n = 0;
                         $bdunite = new BdUnite();
-                        $unites = $bdunite->getUniteAllDesc();
+                        //$unites = $bdunite->getUniteAllDesc();
+                        $unites = $bdunite->getUniteAllLimit('1000');
                         foreach ($unites as $unite) {
                             $n++;
                             $bdbiens = new BdBiens();

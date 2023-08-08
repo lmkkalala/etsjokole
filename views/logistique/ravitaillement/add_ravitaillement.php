@@ -51,40 +51,53 @@ include '../models/ravitaillement/ravitaillement.php';
 
             <div style="background-color: whitesmoke; padding: 10px;">
                 <form class="form-inline" method="POST" action="../contollers/ravitaillement/ravitaillementController.php">
-                    <label class="control-label">Fournisseur :</label>
-                    <select class="form-control select2" name="cb_fournisseur">
-                        <option value="0">Choisir le fournisseur</option>
-                        <?php
-                        $bdfournisseur = new BdFournisseur();
-                        $fournisseurs = $bdfournisseur->getFournisseurAllDesc();
-                        foreach ($fournisseurs as $fournisseur) {
-                            if ($fournisseur['active']) {
-                                if (1) {
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="control-label">Fournisseur :</label>
+                            <select class="form-control select2" name="cb_fournisseur">
+                                <option value="0">Choisir le fournisseur</option>
+                                <?php
+                                $bdfournisseur = new BdFournisseur();
+                                $fournisseurs = $bdfournisseur->getFournisseurAllDesc();
+                                foreach ($fournisseurs as $fournisseur) {
+                                    if ($fournisseur['active']) {
+                                        if (1) {
+                                            ?>
+                                            <option value="<?= $fournisseur['id'] ?>"><?= $fournisseur['designation'] ?></option>
+                                            <?php
+                                        }
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label for="">Commande: </label>
+                            <select class="form-control mt-2 select2" name="cb_numeroOrder">
+                                <option value="none">Choisir Num. Commande</option>
+                                <?php
+                                $bdattributionbiens = new BdAttributionBiens();
+                                $attributions = $bdattributionbiens->getAttributionBiensDistinctNumeroOrder();
+                                foreach ($attributions as $attribution) {
                                     ?>
-                                    <option value="<?= $fournisseur['id'] ?>"><?= $fournisseur['designation'] ?></option>
+                                    <option value="<?= $attribution['numero_order'] ?>"><?= $attribution['numero_order'] ?></option>
                                     <?php
                                 }
-                            }
-                        }
-                        ?>
-                    </select>
-                    <label class="control-label">Date début :</label>
-                    <input class="form-control mt-1" type="date" name="tb_date1">
-                    <label class="control-label">Date fin :</label>
-                    <input class="form-control mt-1" type="date" name="tb_date2">
-                    <select class="form-control mt-2 select2" name="cb_numeroOrder">
-                        <option value="none">Choisir Num. Commande</option>
-                        <?php
-                        $bdattributionbiens = new BdAttributionBiens();
-                        $attributions = $bdattributionbiens->getAttributionBiensDistinctNumeroOrder();
-                        foreach ($attributions as $attribution) {
-                            ?>
-                            <option value="<?= $attribution['numero_order'] ?>"><?= $attribution['numero_order'] ?></option>
-                            <?php
-                        }
-                        ?>
-                    </select>
-                    <input class="btn btn-success mt-2" type="submit" name="bt_select_fournisseur_for_add_ravitaillement" value="Select">
+                                ?>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label class="control-label">Date début :</label>
+                            <input class="form-control mt-1" type="date" name="tb_date1">
+                        </div>
+                        <div class="col-6">
+                            <label class="control-label">Date fin :</label>
+                            <input class="form-control mt-1" type="date" name="tb_date2">
+                        </div>
+                        <div class="col-6">
+                            <input class="btn btn-success mt-2" type="submit" name="bt_select_fournisseur_for_add_ravitaillement" value="Selectionner">
+                        </div>
+                    </div>
                 </form>
             </div>
 

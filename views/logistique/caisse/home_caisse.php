@@ -13,6 +13,21 @@ $listDriver = $db->getWhere('agent','active','1','id');
         <div class="col-md-8 col-sm-12 mt-3 mb-3 text-end">
             <button class="btn btn-primary text-white" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa fa-book"></i> NOUVEL OPERATION</button>
         </div>
+        <div class="row">
+          <div class="col-12 bg-primary text-center">
+              <p class="text-white fw-bolder mt-1 fs-5">SOLDE CAISSE DEBITS MOIN CREDITS</p>
+          </div>
+          <div class="col-4 bg-primary text-center">
+            <h5 class="fw-bolder text-white mt-3"><span id="dollars">0</span></h5>
+          </div>
+          <div class="col-4 bg-primary text-center">
+              <h5 class="fw-bolder text-white mt-3"><span id="fc">0</span></h5>
+          </div>
+          <div class="col-4 bg-primary text-center">
+              <h5 class="fw-bolder text-white mt-3"><span id="frw">0</span></h5>
+          </div>
+        </div>
+        <h3 class="mt-2">DEBIT CAISSE</h3>
         <div class="col-md-12 col-sm-12 mt-3">
           <form action="" method="post" id="FilterForm">
             <div class="row">
@@ -44,21 +59,6 @@ $listDriver = $db->getWhere('agent','active','1','id');
             </div>
           </form>
         </div>
-        <div class="row">
-          <div class="col-12 bg-primary text-center">
-              <p class="text-white fw-bolder mt-1 fs-5">SOLDE CAISSE DEBITS MOIN CREDITS</p>
-          </div>
-          <div class="col-4 bg-primary text-center">
-            <h5 class="fw-bolder text-white mt-3"><span id="dollars">0</span></h5>
-          </div>
-          <div class="col-4 bg-primary text-center">
-              <h5 class="fw-bolder text-white mt-3"><span id="fc">0</span></h5>
-          </div>
-          <div class="col-4 bg-primary text-center">
-              <h5 class="fw-bolder text-white mt-3"><span id="frw">0</span></h5>
-          </div>
-        </div>
-        <h3>DEBIT CAISSE</h3>
         <div class="col-12">
             <table id="caisse_list_entre" class="display" style="width:100%">
                 <thead>

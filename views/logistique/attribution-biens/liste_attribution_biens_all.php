@@ -74,6 +74,9 @@ $dateEnd = '';
                         Quantité
                     </th>
                     <th>
+                        PAU
+                    </th>
+                    <th>
                         Délai de livraison
                     </th>
                     </thead>
@@ -102,6 +105,7 @@ $dateEnd = '';
                                 <td><?= $attribution['technique_gestion'] ?></td>
                                 <td><?= $attribution['fDesignation']." : ".$attribution['domaine'] ?></td>
                                 <td><?= $attribution['quantite_minimale'] ?></td>
+                                <td><?=$attribution['prixunitaire']?></td>
                                 <td><?= $attribution['delai_livraison'] ?></td>
                             </tr>
                             <?php

@@ -14,4 +14,16 @@
 <script type="text/javascript" src="/web/jquery/jquery-3.5.1.js"></script>
 
 
+<script>
+    $(document).ready(function(){
+        $('#toggle_menu').on('click',function(){
+            $('#menu2-a').slideToggle("slow");
+            $("#menu-gauche").slideToggle("slow");
+        });
 
+        $('#entete1-logo').on('click',function(){
+            $('#menu2-a').slideToggle("slow");
+            $("#menu-gauche").slideToggle("slow");
+        });
+    });
+</script>

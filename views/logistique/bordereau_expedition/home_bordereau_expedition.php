@@ -149,7 +149,7 @@ include './meta/menu_logistique.php';
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form action="" method="post" id="bordereau_expedition_form">
+            <form action="" method="post" id="bordereau_expedition_form">
                     <tbody id="list_bordereau_page">
                         <tr>
                             <th class="small">DATE</th>

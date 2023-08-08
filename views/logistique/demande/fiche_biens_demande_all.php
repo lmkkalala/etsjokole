@@ -22,9 +22,13 @@ include '../models/preparation/preparation.php';
             <fieldset>
                 <legend>Taper le mot-clé de la recherche :</legend>
                 <form class="form-inline" method="POST" action="../contollers/demande/demandeController.php">
-                    <div class="form-group-lg">
+                    <div class="row form-group-lg">
+                        <div class="col">
+                        <input type="text" class="form-control" name="tb_search" placeholder="Mot-clé">  
+                        </div>
+                        <div class="col-6">
                         <button type="submit" class="btn btn-success" name="bt_search_for_biens_logistique"><span class="glyphicon glyphicon-search" style="color: white; font-size: 30px;margin-right: 5px;"></span></button>
-                        <input type="text" class="form-control" name="tb_search" placeholder="Mot-clé">                            
+                        </div>                          
                     </div>
                 </form>
             </fieldset>
