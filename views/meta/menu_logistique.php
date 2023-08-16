@@ -15,7 +15,7 @@ if ($_SESSION['type'] == 'logistique') {
 ?>
     <div id="menu2-a" class="col-lg-12 col-md-12 col-sm-12">
         <ul class="nav nav-tabs nav-justified">
-            <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 25px;" class="active" href="/views/home.php?link_up=<?= sha1('home_logistique_acceuil'); ?>"><span class="fa fa-home" style="color: #0069d9;margin: 10px;"></span>Accueil</a></li>
+            <li role="presentation"><a class="btn btn-primary text-white shadow-none text-uppercase fw-bolder" style="font-size: 15px;" class="active" href="/views/home.php?link_up=<?= sha1('home_logistique_acceuil'); ?>"><span class="fa fa-home" style="margin: 10px;"></span>Accueil</a></li>
             <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px;" href="/views/home.php?link_up=<?= sha1('home_logistique_purchase'); ?>"><span class="fa fa-download" style="color: #0069d9;margin: 10px;"></span>Entrée</a></li>
             <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px;" href="/views/home.php?link_up=<?= sha1('home_logistique_sales'); ?>"><span class="fa fa-share-square-o" style="color: #0069d9;margin: 10px;"></span>Sortie</a></li>
             <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px;" href="/views/home.php?link_up=<?= sha1('home_logistique_inventaire'); ?>"><span class="fa fa-archive" style="color: #0069d9;margin: 10px;"></span>Inventaire</a></li>

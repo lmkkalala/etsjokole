@@ -14,13 +14,13 @@ include 'meta/menu_general.php';
             <?php
             if (!empty($_SESSION['temp_admin_session'])) {
             ?>
-                <li role="presentation"> <a class="btn btn-primary text-white shadow-none text-uppercase fw-bolder" style="font-size: 15px;" class="active" href="/contollers/transition/transition.php"><span><i class="fa fa-backward"></i> GESTIONNAIRE</span></a></li>
+                <li role="presentation"> <a class="btn btn-primary mx-2 text-white shadow-none text-uppercase fw-bolder" style="font-size: 15px;" class="active" href="/contollers/transition/transition.php"><span><i class="fa fa-backward"></i> GESTIONNAIRE</span></a></li>
             <?php
             }
 
             if ($_SESSION['type'] != 'membre') {
                 ?>
-                <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 25px;" class="active" href="/views/home.php?link_up=<?= sha1('home_service_acceuil'); ?>"><span class="fa fa-home" style="color: #0069d9; "></span> Accueil</a></li>
+                <li role="presentation"><a class="btn btn-primary text-white shadow-none text-uppercase fw-bolder" style="font-size: 15px;" class="active" href="/views/home.php?link_up=<?= sha1('home_service_acceuil'); ?>"><span class="fa fa-home" style="color: #fff; "></span> Accueil</a></li>
                 <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px;" href="/views/home.php?link_up=<?= sha1('home_service_requisition'); ?>"><span class="fa fa-upload" style="color: #0069d9; "></span> Demande</a></li>
                 <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px;" href="/views/home.php?link_up=<?= sha1('home_service_reception'); ?>"><span class="fa fa-download" style="color: #0069d9; "></span> Entrée</a></li>
                 <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px;" href="/views/home.php?link_up=<?= sha1('home_service_sale'); ?>"><span class="fa fa-dollar" style="color: #0069d9; "></span> Vente production</a></li>

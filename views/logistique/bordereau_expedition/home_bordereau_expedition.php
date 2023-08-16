@@ -4,139 +4,64 @@ include './meta/menu_logistique.php';
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-4 text-start mt-3 mb-3">
-            <h3 class="text-primary fw-bolder">BORDEREAU D'EXPEDITION</h3>
+        <div class="col-md-2 text-start mt-3 mb-3">
+            <h4 class="text-primary fw-bolder">BORDEREAU D'EXPEDITION</h4>
         </div>
-        <div class="col-md-8 col-sm-12 mt-3 mb-3 text-end">
-            <button class="btn btn-primary text-white" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                <i class="fa fa-book"></i> NOUVEL OPERATION
-            </button>
+        <div class="col-md-10 mt-3 mb-3">
+            <form action="" method="post" id="FilterForm">
+                <div class="row">
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="mBordereau" id="mBordereau" placeholder="N° Bordereau">
+                    </div>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="Expediteur" id="Expediteur" placeholder="Expediteur">
+                    </div>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="Destinateur" id="Destinateur" placeholder="Destinateur">
+                    </div>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="Conductuer" id="Conductuer" placeholder="Conductuer">
+                    </div>
+                    <div class="col-md-2">
+                        <input class="form-control" type="date" name="filterDate_start" id="filterDate_start">
+                    </div>
+                    <div class="col-md-2">
+                        <input class="form-control" type="date" name="filterDate_end" id="filterDate_end">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="hidden" name="FilterFormBordereau" id="FilterFormBordereau">
+                        <button class="btn btn-primary w-100 mt-2 text-white" type="submit"> <i class="fa fa-search"></i> Rechercher</button>
+                    </div>
+                    <div class="col-md-2 text-end">
+                        <button class="btn btn-primary w-100 mt-2 text-white" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <i class="fa fa-book"></i> OPERATION
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <form action="" method="post" id="FilterForm">
-            <div class="row">
-                <div class="col-md-2">
-                <input class="form-control" type="text" name="mBordereau" id="mBordereau" placeholder="N° Bordereau">
-                </div>
-                <div class="col-md-2">
-                <input class="form-control" type="text" name="Expediteur" id="Expediteur" placeholder="Expediteur">
-                </div>
-                <div class="col-md-2">
-                <input class="form-control" type="text" name="Destinateur" id="Destinateur" placeholder="Destinateur">
-                </div>
-                <div class="col-md-2">
-                <input class="form-control" type="text" name="Conductuer" id="Conductuer" placeholder="Conductuer">
-                </div>
-                <div class="col-md-2">
-                <input class="form-control" type="date" name="filterDate_start" id="filterDate_start">
-                </div>
-                <div class="col-md-2">
-                <input class="form-control" type="date" name="filterDate_end" id="filterDate_end">
-                </div>
-                <div class="col-md-2">
-                <input type="hidden" name="FilterFormBordereau" id="FilterFormBordereau">
-                <button class="btn btn-primary w-100 mt-2 text-white" type="submit"> <i class="fa fa-search"></i> Rechercher</button>
-                </div>
-            </div>
-        </form>
-        <div class="row" id="list_bordereau">
-        <!-- <div class="col-4 p-4 rounded-start bg-primary">
-            <table class="display" style="width:100%;color:white">
-                <form action="" method="post" id="">
-                    <tbody>
-                        <div class="row">
-                            <div class="col-6">
-                                <tr>
-                                    <th class="small">DATE</th>
-                                    <td><input class="form-control" type="date" name="" id="" placeholder="" value="" required></td>
-                                </tr>
-                                <tr>
-                                    <th class="small">NUMERO BORDEREAU</th>
-                                    <td><input class="form-control" type="number" name="" id="" placeholder="" value="" required></td>
-                                </tr>
-                                <tr>
-                                    <th class="small">EXPEDITEUR</th>
-                                    <td><input class="form-control" type="text" name="" id="" placeholder="" value="" required></td>
-                                </tr>
-                                <tr>
-                                    <th class="small">DESTINATAIRE</th>
-                                    <td><input class="form-control" type="text" name="" id="" placeholder="" value="" required></td>
-                                </tr>
-                                <tr>
-                                    <th class="small">TRANSPORTEUR</th>
-                                    <td><input class="form-control" type="text" name="" id="" placeholder="" value="" required></td>
-                                </tr>
-                                <tr>
-                                    <th class="small">TELEPHONE</th>
-                                    <td><input class="form-control" type="tel" name="" id="" placeholder="" value="" required></td>
-                                </tr>
-                                <tr>
-                                    <th class="small">N° PLAQUE</th>
-                                    <td><input class="form-control" type="text" name="" id="" placeholder="" value="" required></td>
-                                </tr>
-                                <tr>
-                                    <th class="small">N° COLIS</th>
-                                    <td><input class="form-control" type="text" name="" id="" placeholder="" value="" required></td>
-                                </tr>
-                                <tr>
-                                    <th class="small">NATURE EMBALLAGE</th>
-                                    <td><input class="form-control" type="text" name="" id="" placeholder="" value="" required></td>
-                                </tr>
-                                <tr>
-                                    <th class="small">CONTENU</th>
-                                    <td><input class="form-control" type="text" name="" id="" placeholder="" value="" required></td>
-                                </tr>
-                                <tr>
-                                    <th class="small">PDS UN KG</th>
-                                    <td><input class="form-control" type="text" name="" id="" placeholder="" value="" required></td>
-                                </tr>
-                                <tr>
-                                    <th class="small">PDS TOT TONE</th>
-                                    <td><input class="form-control" type="text" name="" id="" placeholder="" value="" required></td>
-                                </tr>
-                                <tr>
-                                    <th class="small">PU TONE</th>
-                                    <td><input class="form-control" type="text" name="" id="" placeholder="" value="" required></td>
-                                </tr>
-                                <tr>
-                                    <th class="small">PT TONE</th>
-                                    <td><input class="form-control" type="text" name="" id="" placeholder="" value="" required></td>
-                                </tr>
-                                <tr>
-                                    <th class="small">MANQUE</th>
-                                    <td><input class="form-control" type="text" name="" id="" placeholder="" value="" required></td>
-                                </tr>
-                                <tr>
-                                    <th class="small">QTE ARRIVEE</th>
-                                    <td><input class="form-control" type="text" name="" id="" placeholder="" value="" required></td>
-                                </tr>
-                                <tr>
-                                    <th class="small">AVANCE/DEPENSE</th>
-                                    <td><input class="form-control" type="text" name="" id="" placeholder="" value="" required></td>
-                                </tr>
-                                <tr>
-                                    <th class="small">RESTE PAYER</th>
-                                    <td><input class="form-control" type="text" name="" id="" placeholder="" value="" required></td>
-                                </tr>
-                                <tr>
-                                    <th class="small">PAYEMENT</th>
-                                    <td><input class="form-control" type="text" name="" id="" placeholder="" value="" required></td>
-                                </tr>
-                                <tr>
-                                    <th class="small">SOLDE</th>
-                                    <td><input class="form-control" type="text" name="" id="" placeholder="" value="" required></td>
-                                </tr>
-                            </div>
-                            <div class="col-12">
-                                <tr>
-                                    <td><button class="btn btn-danger mt-1 text-white w-100" type="submit">Supprimer</button></td>
-                                    <td><button class="btn btn-info mt-1 bg-white text-primary w-100" type="submit">Modifier</button></td>
-                                </tr>
-                            </div>
-                        </div>
-                    </form>
-                </tbody>
+        
+        
+        <!-- <div class="row" id="list_bordereau"></div> -->
+
+        <div class="row">
+            <table id="caisse_list_sortie" class="display table-responsive" style="width:100%">
+                <thead>
+                    <tr>
+                        <th class="small">DATE& N° BORDEREAU</th>
+                        <th class="small">EXPEDITEUR& DESTINATAIRE</th>
+                        <th class="small">TRANSPORTEUR& N° PLAQUE& TELEPHONE</th>
+                        <th class="small">N° COLIS& NATURE EMBALLAGE& CONTENU</th>
+                        <th class="small">PoidsU KG& PoidsT TONE</th>
+                        <th class="small">PrixU TONE&PrixT TONE</th>
+                        <th class="small">MANQUE& QTE ARRIVEE</th>
+                        <th class="small">AVANCE& RESTE</th>
+                        <th class="small">PAYEMENT& SOLDE</th>
+                        <th class="small">PLUS</th>
+                    </tr>
+                </thead>
+                <tbody id="list_bordereau"></tbody>
             </table>
-        </div> -->
         </div>
     </div>
 </div>
