@@ -14,7 +14,7 @@ include 'meta/menu_general.php';
             <?php
             if (!empty($_SESSION['temp_admin_session'])) {
             ?>
-                <li role="presentation"> <a class="btn btn-primary mx-2 text-white shadow-none text-uppercase fw-bolder" style="font-size: 15px;" class="active" href="/contollers/transition/transition.php"><span><i class="fa fa-backward"></i> GESTIONNAIRE</span></a></li>
+                <li role="presentation"> <a class="btn btn-primary mx-2 text-white shadow-none text-uppercase fw-bolder" style="font-size: 15px;" class="active" href="/contollers/transition/transition.php"><span><i class="fa fa-backward"></i> GESTION</span></a></li>
             <?php
             }
 

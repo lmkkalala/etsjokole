@@ -68,8 +68,8 @@
                 </div>
           </form>
         </div>
-        <div class="col-12">
-            <table id="dette_list" class="display" style="width:100%">
+        <div class="col-12  table-responsive">
+            <table id="dette_list" class="table display" style="width:100%">
                 <thead>
                     <tr>
                         <th>DATE</th>
@@ -80,50 +80,7 @@
                         <th>PLUS</th>
                     </tr>
                 </thead>
-                <tbody id="list_dette_page">
-                    <!-- <form action="" method="post" id="">
-                      <tr>
-                        <td><input class="form-control" type="date" name="" id="" placeholder="" value=""></td>
-                        <td>
-                          <select class="form-control" name="" id="">
-                            <option value="20">Lucien Murhula Kalala</option>
-                              <?php
-                                foreach($allAgent as $key => $agent){
-                                  if ($allAgent[$key]['active'] == '1') {
-                                    if ($allAgent[$key]['grade'] != 'Admin' and $allAgent[$key]['grade'] != 'admin') {
-                              ?>
-                            <option value="<?=$allAgent[$key]['id']?>"><?=$allAgent[$key]['nom'].' '.$allAgent[$key]['postnom'].' '.$allAgent[$key]['prenom']?></option>
-                            <?php 
-                                  }
-                                }
-                              }
-                            ?>
-                          </select>
-                        </td>
-                        <td>
-                          <select class="form-control" name="" id="">
-                              <option value="Dette argent">Dette argent</option>
-                              <option value="Dette produit">Dette produit</option>
-                              <option value="Manquant">Manquant</option>
-                              <option value="Amande">Amande</option>
-                              <option value="Absence">Absence</option>
-                              <option value="Aucun">Aucun</option>
-                          </select>
-                        </td>
-                        <td><input class="form-control" type="number" name="" id="" placeholder="" value=""></td>
-                        <td>
-                          <select class="form-control" name="" id="">
-                              <option value="Dette">Dette</option>
-                              <option value="Rembourser">Rembourser</option>
-                          </select>
-                        </td>
-                        <td>
-                          <button class="btn btn-info mt-1 text-white w-100" type="submit">Modifier</button>
-                          <button class="btn btn-danger mt-1 text-white w-100" type="submit">Supprimer</button>
-                        </td>
-                      </tr>
-                    </form> -->
-                </tbody>
+                <tbody id="list_dette_page"></tbody>
             </table>
         </div>
     </div>

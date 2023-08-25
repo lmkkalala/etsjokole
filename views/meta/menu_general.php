@@ -9,9 +9,9 @@ include '../models/connexionM.php';
 include '../models/entreprise/entreprise.php';
 ?>
 <div class="container-fluid d-none d-md-block" style="margin-bottom: 10%;">
-    <div class="row w-100 fixed-top bg-primary" style="background-color: #008080;height: auto;">
+    <div class="row w-100 fixed-top bg-primary" style="background-color: #008080;height: 70px;">
         <div class="col-md-3" id="entete1-logo">
-            <a href="#" class="btn btn-none shadow-none">
+            <a href="#" class="text-decoration-none pt-1">
                 <?php
                 $bdentreprise = new BdEntreprise();
                 $entreprises = $bdentreprise->getEntreprise();
@@ -26,7 +26,7 @@ include '../models/entreprise/entreprise.php';
         </div>
         <div class="col-md-9" id="entete1-button">
             <div class="row text-white"> 
-                <div class="col-md-8 col-sm-12 mt-1">
+                <div class="col-md-8 col-sm-12 pt-1">
                     <span class="fa fa-unlock" style="font-size: 20px;"></span>
                     <span class="h6">
                         <?php
@@ -61,30 +61,30 @@ include '../models/entreprise/entreprise.php';
                         ?>
                     </span>
                 </div>
-                <div class="col-md-4 col-sm-6">
+                <div class="col-md-4">
                     <div class="row">
-                        <div class="col-md-6 col-sm-12 align-center">
-                            <span class="mx-2">
-                                <a class="btn btn bg-white text-primary mt-1 fs-6" href="/views/home.php?link=<?= sha1("admin_utilisateur_update_utilisateur_self") ?>&link_up=<?= sha1("home_admin_utilisateur") ?>">
+                        <div class="col-md-6 align-center pt-n1">
+                            <span class="">
+                                <a class="btn btn bg-white text-primary mt-0 fs-6" href="/views/home.php?link=<?= sha1("admin_utilisateur_update_utilisateur_self") ?>&link_up=<?= sha1("home_admin_utilisateur") ?>">
                                     <i class="fa fa-cog fs-6" aria-hidden="true"></i> <span class="fs-6">Parametre</span>
                                 </a>
                             </span>
                         </div>
-                        <div class="col-md-2 col-sm-12 align-center">
+                        <div class="col-md-2 align-center pt-1">
                             <form method="post" action="../contollers/logout/logoutController.php">
-                            <span class="mx-2">
-                                <button type="submit" name="bt_deconnexion" class="btn btn bg-white text-primary mt-1 fs-6">
+                            <span class="p-1">
+                                <button type="submit" name="bt_deconnexion" class="btn btn bg-white text-primary mt-0 fs-6">
                                     <i class="fa fa-sign-out" aria-hidden="true"></i>
                                 </button>
                             </span>
                             </form>
                         </div>
-                        <div class="col-md-2 col-sm-12 align-center">
-                        <span class="mx-2">
-                            <button type="button" class="btn btn bg-white text-primary mt-1 fs-6" id="toggle_menu">
-                                <i class="fa fa-list"></i>
-                            </button>
-                        </span>
+                        <div class="col-md-2 align-center pt-1">
+                            <span class="p-3">
+                                <button type="button" class="btn btn bg-white text-primary mt-0 fs-6" id="toggle_menu">
+                                    <i class="fa fa-list"></i>
+                                </button>
+                            </span>
                         </div>
                     </div>
                 </div>   

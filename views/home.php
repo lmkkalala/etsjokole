@@ -175,7 +175,7 @@ if (isset($_GET['mutationID'])) {
             <div class="d-none d-md-block"> 
                 <div class="row fixed-bottom bg-white" style="height: auto;">
                     <div class="col-md-4 col-sm-12 col-12 text-start mt-3">
-                        <span style="color: #0069d9;font-size: 15px;margin: 10px;">
+                        <span style="color: #0069d9;font-size: 15px;">
                             <p class="mx-4">
                                 Designed by <b>Rifin Ashuza K. and <a class="text-decoration-none" href="https://lucienkalala.github.io/PersonalPage"> LMK</a></b>
                                 <span class="fa fa-copyright pull-left" style="color: #0069d9; font-size: 20px;margin-right: 5px;"></span> 
@@ -186,16 +186,20 @@ if (isset($_GET['mutationID'])) {
                         </span>
                     </div>
                     <div class="col-md-8 col-sm-12 col-12 text-end mt-3">
-                        <div style="width: 100%;color: red">
-                            <span class="fa fa-shield pull-right" style="color: #0069d9; font-size: 20px;margin-right:15px;"></span>
-                            <span style="color: #0069d9;font-size: 15px;margin: 10px;">
-                                <p>
-                                    Powered by <b>UIG</b>
-                                    Web : <b>www.uig.com</b>
-                                    Email : <b>info@uig.com</b>
-                                    Téléphone : <b>+243 972 090 805</b>
-                                </p>
-                            </span>
+                        <div class="row" style="width: 100%;color: red">
+                            <div class="col-md-2">
+                                <span class="fa fa-shield" style="color: #0069d9; font-size: 20px; margin-left:150px;"></span>
+                            </div>
+                            <div class="col-md-10">
+                                <span style="color: #0069d9;font-size: 15px;">
+                                    <p>
+                                        Powered by <b>UIG</b>
+                                        Web : <b>www.uig.com</b>
+                                        Email : <b>info@uig.com</b>
+                                        Téléphone : <b>+243 972 090 805</b>
+                                    </p>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -18,7 +18,7 @@ $listDriver = $db->getWhere('agent','active','1','id');
   <div class="col-md-12 col-sm-12 mt-3">
       <form action="" method="post" id="FilterForm">
         <div class="row">
-            <div class="col-2">
+            <div class="col-md-2">
                 <select class="form-control"  name="filterAgent" id="filterAgent">
                   <option value="">Selection Agent</option>
                   <?php 
@@ -30,7 +30,7 @@ $listDriver = $db->getWhere('agent','active','1','id');
                   <?php } } } ?>
                 </select>
             </div>
-            <div class="col-2">
+            <div class="col-md-2">
                 <select class="form-control"  name="filterCategorie" id="filterCategorie">
                   <option value="">Rechercher Depense</option>
                   <option value="Boss">Boss</option>
@@ -41,16 +41,16 @@ $listDriver = $db->getWhere('agent','active','1','id');
                   <option value="Ingeniere">Ingeniere</option>
                 </select>
             </div>
-            <div class="col-2">
+            <div class="col-md-2">
               <!-- <input class="form-control" type="date" name="filterDate_start" id="filterDate_start"> -->
             </div>
-            <div class="col-2">
+            <div class="col-md-2">
               <input class="form-control" type="date" name="filterDate_start" id="filterDate_start">
             </div>
-            <div class="col-2">
+            <div class="col-md-2">
               <input class="form-control" type="date" name="filterDate_end" id="filterDate_end">
             </div>
-            <div class="col-2">
+            <div class="col-md-2">
               <input type="hidden" name="FilterDepenseForm" id="FilterDepenseForm">
               <button class="btn btn-primary w-100 text-white" type="submit"> <i class="fa fa-search"></i> Rechercher</button>
             </div>
@@ -58,8 +58,8 @@ $listDriver = $db->getWhere('agent','active','1','id');
       </form>
   </div>
   <div class="row">
-    <div class="col-12">
-        <table id="depense_list" class="display" style="width:100%">
+    <div class="col-md-12 table-responsive">
+        <table id="depense_list" class="table display" style="width:100%">
             <thead>
                 <tr>
                     <th>DATE</th>
@@ -69,30 +69,7 @@ $listDriver = $db->getWhere('agent','active','1','id');
                     <th>PLUS</th>
                 </tr>
             </thead>
-            <tbody id="list_depense_page">
-                <!-- <form action="" method="post">
-                  <tr>
-                      <td><input class="form-control" type="date" name="" id="" placeholder="" value=""></td>
-                      <td><input class="form-control" type="number" name="" id="" placeholder="" value=""></td>
-                      <td>
-                        <select class="form-control" name="category" id="category">
-                            <option value="">Selectionner Categorie</option>
-                            <option value="Boss">Boss</option>
-                            <option value="Mere Boss">Mere Boss</option>
-                            <option value="Boulangerie">Boulangerie</option>
-                            <option value="Chantier Boss">Chantier Boss</option>
-                            <option value="Beni">Beni</option>
-                            <option value="Ingeniere">Ingeniere</option>
-                        </select>
-                      </td>
-                      <td><input class="form-control" type="text" name="" id="" placeholder="" value=""></td>
-                      <td>
-                        <button class="btn btn-info mt-1 text-white w-100" type="submit">Modifier</button>
-                        <button class="btn btn-danger mt-1 text-white w-100" type="submit">Supprimer</button>
-                      </td>
-                  </tr>
-                </form> -->
-            </tbody>
+            <tbody id="list_depense_page"></tbody>
         </table>
     </div>
   </div>

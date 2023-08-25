@@ -4,15 +4,36 @@
 <script type="text/javascript" src="../web/select2/dist/js/select2.full.min.js"></script>
 <script type="text/javascript" src="/web/bootstrap/js/bootstrap5.min.js"></script>
 <script type="text/javascript" src="/web/datatable/jquery.dataTables.min.js"></script>
+    <?php
+        $page = '';
+
+            if (isset($_GET['link_up'])) {
+                if ($_GET['link_up'] == sha1('home_logistique_caisse')) {
+                    $page = 'home_caisse';
+                }elseif ($_GET['link_up'] == sha1('home_logistique_dette')) {
+                    $page = 'home_dette';
+                }elseif ($_GET['link_up'] == sha1('home_logistique_depense')) {
+                    $page = 'home_depense';
+                }elseif ($_GET['link_up'] == sha1('home_logistique_bordereau_expedition')) {
+                    $page = 'home_bordereau_expedition';
+                }elseif ($_GET['link_up'] == sha1('home_logistique_transport')) {
+                    $page = 'home_logistique_transport';
+                }elseif ($_GET['link_up'] == sha1('home_facture_client')) {
+                    $page = 'home_facture_client';
+                }elseif ($_GET['link_up'] == sha1('home_facture')) {
+                    $page = 'home_facture';
+                }
+            }
+    ?>
 
 <script type="text/javascript">
-        function list(val = '', modal = '') {
+        function list(val = '', modal = '', page = '') {
             if(val != '' && modal == ''){
                 event.preventDefault();
                 let form = new FormData($('#'+val+'')[0]);
                 $.ajax({
                     type:'POST',
-                    url:'<?=("/contollers/MoreControllers/control.php?code=".sha1('loadDataList'))?>',
+                    url:'<?=("/contollers/MoreControllers/control.php?code=".sha1('loadDataList'))?>'+'&page='+'<?=$page?>'+'',
                     data:form,
                     dataType:'json',
                     processData: false, 
@@ -33,7 +54,7 @@
                         $('#driver_list_data').html(data.htmlConducteurPage.listConducteur)
                         $('#vehicule_list_data').html(data.htmlConducteurPage.listVehicule)
                         $('#type_depense_list').html(data.htmlConducteurPage.listTypeDepense)
-                        $('#list_bordereau').html(data.htmlConducteurPage.listBordereau)
+                        $('#list_bordereau').html(data.listBordereau)
                         $('#list_transport_page').html(data.htmlConducteurPage.listCourse)
                         $('#list_depense_course').html(data.htmlConducteurPage.lisDepenseCourse)
                         if(data.selectedDataCourse != ''){
@@ -44,14 +65,26 @@
                     },
                 });
             }else{
-                if(modal != ''){
-                    modalID = modal;
-                }else{
-                    modalID = '';
-                }
+                // if(modal != ''){
+                //     modalID = modal;
+                // }else{
+                //     modalID = '';
+                // }
+
+                
+                modalID = (modal != '') ? modal: '';
+
+                // if (page != '') {
+                //     pageName = page;
+                // }else{
+                //     pageName = '';
+                // }
+
+                pageName = (page != '') ? page: '';
+
                 $.ajax({
                     type:'POST',
-                    url:'<?=("/contollers/MoreControllers/control.php?code=".sha1('loadDataList'))."&modal="?>'+modalID+'',
+                    url:'<?=("/contollers/MoreControllers/control.php?code=".sha1('loadDataList'))."&modal="?>'+modalID+'&page='+pageName+'',
                     dataType:'json',	
                     success: function(data){
                         $('#list_dette_page').html(data.htmlDettePage)
@@ -64,7 +97,7 @@
                         $('#driver_list_data').html(data.htmlConducteurPage.listConducteur)
                         $('#vehicule_list_data').html(data.htmlConducteurPage.listVehicule)
                         $('#type_depense_list').html(data.htmlConducteurPage.listTypeDepense)
-                        $('#list_bordereau').html(data.htmlConducteurPage.listBordereau)
+                        $('#list_bordereau').html(data.listBordereau)
                         $('#list_transport_page').html(data.htmlConducteurPage.listCourse)
                         $('#list_depense_course').html(data.htmlConducteurPage.lisDepenseCourse)
                         if(data.selectedDataCourse != ''){
@@ -80,9 +113,9 @@
         $('#add_depense').on('show.bs.modal', function (e) {
             var id = $(e.relatedTarget).data('id');
             if(id != undefined){
-                list('depense_course_form',id);
+                list('depense_course_form',id,'<?=$page?>');
             }else{
-                list('depense_course_form','undefined');
+                list('depense_course_form','undefined','<?=$page?>');
             }
         });
 
@@ -106,21 +139,7 @@
                         },	
                         success: function(data){
                                  $('button').prop('disabled',false);
-                                 list();
-                                // $('#list_dette_page').html(data.htmlDettePage)
-                                // $('#list_depense_page').html(data.htmlDepensePage)
-                                // $('#list_caisse_entre_page').html(data.htmlCaissePage.entre)
-                                // $('#list_caisse_sortie_page').html(data.htmlCaissePage.sortie)
-                                // $('#dollars').html(data.htmlCaissePage.dollars)
-                                // $('#fc').html(data.htmlCaissePage.fc)
-                                // $('#frw').html(data.htmlCaissePage.frw)
-                                // $('#driver_list_data').html(data.htmlConducteurPage.listConducteur)
-                                // $('#vehicule_list_data').html(data.htmlConducteurPage.listVehicule)
-                                // $('#type_depense_list').html(data.htmlConducteurPage.listTypeDepense)
-                                // $('#list_bordereau').html(data.htmlConducteurPage.listBordereau)
-                                // $('#list_transport_page').html(data.htmlConducteurPage.listCourse)
-                                // $('#list_depense_course').html(data.htmlConducteurPage.lisDepenseCourse)
-                                // $('#list_facture_page').html(data.factureData)
+                                 list('','','<?=$page?>');
                             }
                         })
                     }else{
@@ -134,22 +153,9 @@
                             $('button').prop('disabled',true);
                         },	
                         success: function(data){
+                            alert(data.msg);
                                 $('button').prop('disabled',false);
-                                list();
-                                // $('#list_dette_page').html(data.htmlDettePage)
-                                // $('#list_depense_page').html(data.htmlDepensePage)
-                                // $('#list_caisse_entre_page').html(data.htmlCaissePage.entre)
-                                // $('#list_caisse_sortie_page').html(data.htmlCaissePage.sortie)
-                                // $('#dollars').html(data.htmlCaissePage.dollars)
-                                // $('#fc').html(data.htmlCaissePage.fc)
-                                // $('#frw').html(data.htmlCaissePage.frw)
-                                // $('#driver_list_data').html(data.htmlConducteurPage.listConducteur)
-                                // $('#vehicule_list_data').html(data.htmlConducteurPage.listVehicule)
-                                // $('#type_depense_list').html(data.htmlConducteurPage.listTypeDepense)
-                                // $('#list_bordereau').html(data.htmlConducteurPage.listBordereau)
-                                // $('#list_transport_page').html(data.htmlConducteurPage.listCourse)
-                                // $('#list_depense_course').html(data.htmlConducteurPage.lisDepenseCourse)
-                                // $('#list_facture_page').html(data.factureData)
+                                list('','','<?=$page?>');
                             }
                         })
                     }
@@ -166,7 +172,7 @@
                     success: function(data){
                         if(data.status == 'success'){
                             alert(data.msg)
-                            list();
+                            list('','','<?=$page?>');
                         }else{
                             alert(data.msg)
                         }
@@ -182,8 +188,6 @@
         }else{
             operation('bordereau_form_update_'+id+'','update');
         }
-        
-        //console.log($('#bordereau_update_date'+id+'').val())
     }
 
     function deleteThis(id,table){
@@ -201,9 +205,7 @@
         $('#list_update_command_admin').DataTable();
         $('#vehicule_list').DataTable();
         $('#spend_list_transport').DataTable();
-
-        //$('#menu2-a').hide();
-        //$("#menu-gauche").hide();
+        $('#depense_type_list').DataTable();
 
         $('#toggle_menu').on('click',function(){
             $('#menu2-a').slideToggle("slow");
@@ -244,7 +246,9 @@
         });
 
         // function to see the data in a table
-        list();
+        <?php if ($page != '') { ?>
+            list('','','<?=$page?>');
+        <?php } ?>
 
         // add call function controller
         $('#new_depense,#operation_caisse,#add_dette_form,#add_driver_form,#add_vehicule_form,#bordereau_expedition_form,#type_depense_form,#add_course_form,#depense_course_form,#add_facture_form').on('submit',function(event){
@@ -271,7 +275,7 @@
                 success: function(data){
                     $('button').prop('disabled',false);
                     if(data.status == 'success'){
-                        list();
+                        list('','','<?=$page?>');
                         switch (data.page) {
                             case 'save_new_depense':
                                 $('#new_depense')[0].reset();
@@ -358,8 +362,6 @@
             $("#spSure".concat(k)).hide();
             
         });
-        
-        
         
         // if ($("#ckbControl".concat(k)).is(":checked")) {
         //     alert("Ravitaillement activé");

@@ -232,6 +232,7 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
         }
 
     $DB = new db();
+
     $allAgent = $DB->get('agent');
     $select = '';
     foreach($allAgent as $key => $agent){
@@ -242,6 +243,8 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
         }
     }
     
+   
+if(htmlspecialchars($_GET['page']) == 'home_dette'){    
     if ($conditionDette != '') {
         if ($_SESSION['type'] == 'logistique') {
             $listDette = $DB->getWhereMultiple('dette',$conditionDette);
@@ -256,10 +259,9 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
         }
     }
 
-    $table = "String('dette')";
-
     $listDetteData = '';
     $detteTotal = 0;
+    $table = "String('dette')";
     $rembourserTotal = 0;
     foreach ($listDette as $key => $value) {
         if ($listDette[$key]['operation'] == 'Dette') {
@@ -315,8 +317,11 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
     <td class="fw-bolder">RESTE A PAYER</td>
     <td class="h3 fw-bolder bg-primary text-white p-2">'.$format->formatCurrency($detteTotal-$rembourserTotal,'usd').'</td>
     </tr>';
+}else{
+    $listDetteData = '';
+}
 
-
+if(htmlspecialchars($_GET['page']) == 'home_depense'){
     if($conditionDepense != ''){
         if ($_SESSION['type'] == 'logistique') {
             $listDepense = $DB->getWhereMultiple('depense',$conditionDepense);
@@ -331,7 +336,6 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
         }
     }
     
-
     $listDepenseData = '';
     $depenseTotal = 0;
     $table = "String('depense')";
@@ -369,6 +373,12 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
     <td></td>
     <td class="h4 fw-bolder bg-primary text-white p-2">'.$format->formatCurrency($depenseTotal,'usd').'</td>
     </tr>';
+
+}else{
+    $listDepenseData = '';
+}
+
+if(htmlspecialchars($_GET['page']) == 'home_caisse'){
 
     if ($conditionCaisse != '') {
         $listCaisse = $DB->getWhereMultiple('caisse','operation = "Debiter" and '.$conditionCaisse);
@@ -472,11 +482,21 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
     $dollars = $totalDebitDollars - $totalCreditDollars;
     $fc = $totalDebitFc - $totalCreditFc;
     $frw = $totalDebitFrw - $totalCreditFrw;
+}else{
+    $dollars = '0.0';
+    $fc = '0.0';
+    $frw = '0.0';
+    $listCaisseData = '';
+    $listCaisseDataSortie = '';
+}
 
+if(htmlspecialchars($_GET['page']) == 'home_logistique_transport'){
     $listConducteur = $DB->getWhere('agent','grade','driver','id');
     $listConducteurData = '';
+    $table = "String('agent')";
     foreach ($listConducteur as $key => $value) {
     if ($listConducteur[$key]['active'] == '1') {
+        $btnStyle = ($listConducteur[$key]['active'] == '0') ? 'danger' : 'secondary';
         $listConducteurData = $listConducteurData.
     '<form action="" method="post" id="driver_list_data_form">
     <tr>
@@ -509,8 +529,7 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
             <input class="form-control" type="tel" name="phone" id="phone" value="'.$listConducteur[$key]['telephone'].'">
         </td>
         <td>
-            <button type="submit" class="btn btn-primary"><i class="fa fa-pencil"></i></button>
-            <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+            <button type="submit" class="btn btn-'.$btnStyle.'" onclick="updateThis('.$listConducteur[$key]['id'].','.$table.')" disabled><i class="fa fa-eye"></i></button>
         </td>
     </tr>
     </form>';
@@ -526,6 +545,7 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
     }
 
     $listVehicule = $DB->get('vehicule','id');
+    $table = "String('vehicule')";
     $listVehiculeData = '';
     $conducteurNames = '';
     $conducteurID = '';
@@ -536,6 +556,9 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
                 $conducteurNames =  $listConducteur[$key2]['nom'].' '.$listConducteur[$key2]['postnom'].' '.$listConducteur[$key2]['prenom'];
             }
         }
+        
+        $btnStyle = ($listVehicule[$key]['status'] == '0') ? 'danger' : 'secondary';
+
         $listVehiculeData = $listVehiculeData.
         '<form action="" method="post" id="vehicule_list_form_data">
         <tr>
@@ -561,15 +584,19 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
             </td>
             <td>
                 <button type="submit" class="btn btn-primary"><i class="fa fa-pencil"></i></button>
-                <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                <button type="submit" class="btn btn-'.$btnStyle.'" onclick="updateThis('.$listVehicule[$key]['id'].','.$table.')"><i class="fa fa-eye"></i></button>
             </td>
         </tr>
         </form>';
     }
-
+    //$btnStyle = array();
+    $table = "String('typedepense')";
     $typeDepense = $DB->get('typedepense','id');
     $typeDepenseData = '';
     foreach ($typeDepense as $key => $value) {
+
+    $btnStyle = ($typeDepense[$key]['status'] == '0') ? 'danger' : 'secondary';
+    
     $typeDepenseData = $typeDepenseData.
     '<form action="" method="post" id="">
         <tr>
@@ -587,12 +614,19 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
             </td>
             <td>
                 <button type="submit" class="btn btn-primary"><i class="fa fa-pencil"></i></button>
-                <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                <button type="submit" class="btn btn-'.$btnStyle.'" onclick="updateThis('.$typeDepense[$key]['id'].','.$table.')"><i class="fa fa-eye"></i></button>
             </td>
         </tr>
     </form>';
+    $btnStyle = '';
     }
+}else{
+    $listConducteurData = '';
+    $listVehiculeData = '';
+    $typeDepenseData = ''; 
+}
 
+if (htmlspecialchars($_GET['page']) == 'home_facture_client') {
     if ($conditionFacture != '') {
         if ($_SESSION['type'] == 'logistique') {
             $factureDataList = $DB->getWhereMultiple('facture',$conditionFacture);
@@ -604,9 +638,9 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
             $factureDataList = $DB->get('facture','id');
         }else{
             $factureDataList = $DB->getWhere('facture','agentID',$_SESSION['agentID']);
-        }
-        
+        } 
     }
+
     $table = "String('facture')";
     $factureData = '';
     $fullNameAgent = '';
@@ -656,8 +690,11 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
         </tr>
     </form>';
     }
+}else{
+    $factureData = ''; 
+}
 
-
+if(htmlspecialchars($_GET['page']) == 'home_logistique_transport'){
 
     if ($conditionDepenseCourse != '') {
         $depensetransport = $DB->getWhereMultiple('depensetransport',$conditionDepenseCourse);
@@ -718,7 +755,8 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
     <td></td>
     </tr>';
 
-    //die(date('Y-m',time()));
+
+
 
     if ($conditionCourse != '') {
         $typeCourse = $DB->getWhereMultiple('coursetransport',$conditionCourse);
@@ -812,6 +850,13 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
         <td>USD</td>
         
     </tr>';
+}else{
+    $lisDepenseCourse = '';
+    $typeCourseData = '';
+}
+
+if (htmlspecialchars($_GET['page']) == 'home_bordereau_expedition') {
+
 
     if ($conditionBordereau != '') {
         $listBordereau = $DB->getWhereMultiple('bordereau',$conditionBordereau);
@@ -823,7 +868,7 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
     $table = "String('bordereau')";
     foreach ($listBordereau as $key => $value) {
     $listBordereauData = $listBordereauData.
-            '<form action="" id="bordereau_form_update_'.$listBordereau[$key]['id'].'" method="post">
+            '<form action="" id="" method="post">
                 <tr>
                     <td>
                         <input class="form-control" type="date" name="bordereau_update_date'.$listBordereau[$key]['id'].'" id="bordereau_update_date'.$listBordereau[$key]['id'].'" value="'.$listBordereau[$key]['date'].'">
@@ -880,108 +925,11 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
                     </td>
                 </tr>
             </form>';
-
-//     '<div class="col-4 p-4 rounded-start">
-//     <table class="display" style="width:100%;">
-//         <form action="" id="bordereau_form_update_'.$listBordereau[$key]['id'].'" method="post">
-//             <tbody>
-//                 <div class="row">
-//                     <div class="col-6">
-//                         <tr>
-//                             <th class="small">DATE</th>
-//                             <td><input class="form-control" type="date" name="bordereau_update_date'.$listBordereau[$key]['id'].'" id="bordereau_update_date'.$listBordereau[$key]['id'].'" value="'.$listBordereau[$key]['date'].'"></td>
-//                         </tr>
-//                         <tr>
-//                             <th class="small">NUMERO BORDEREAU</th>
-//                             <td><input class="form-control" type="number" name="bordereau_update_nBordereau'.$listBordereau[$key]['id'].'" id="bordereau_update_nBordereau'.$listBordereau[$key]['id'].'" value="'.$listBordereau[$key]['nBordereau'].'"></td>
-//                         </tr>
-//                         <tr>
-//                             <th class="small">EXPEDITEUR</th>
-//                             <td><input class="form-control" type="text" name="bordereau_update_expediteur'.$listBordereau[$key]['id'].'" id="bordereau_update_expediteur'.$listBordereau[$key]['id'].'" value="'.$listBordereau[$key]['expediteur'].'"></td>
-//                         </tr>
-//                         <tr>
-//                             <th class="small">DESTINATAIRE</th>
-//                             <td><input class="form-control" type="text" name="bordereau_update_destinateur'.$listBordereau[$key]['id'].'" id="bordereau_update_destinateur'.$listBordereau[$key]['id'].'" value="'.$listBordereau[$key]['destinateur'].'"></td>
-//                         </tr>
-//                         <tr>
-//                             <th class="small">TRANSPORTEUR</th>
-//                             <td><input class="form-control" type="text" name="bordereau_update_transporteur'.$listBordereau[$key]['id'].'" id="bordereau_update_transporteur'.$listBordereau[$key]['id'].'" value="'.$listBordereau[$key]['transporteur'].'"></td>
-//                         </tr>
-//                         <tr>
-//                             <th class="small">TELEPHONE</th>
-//                             <td><input class="form-control" type="tel" name="bordereau_update_telephone'.$listBordereau[$key]['id'].'" id="bordereau_update_telephone'.$listBordereau[$key]['id'].'" value="'.$listBordereau[$key]['telephone'].'"></td>
-//                         </tr>
-//                         <tr>
-//                             <th class="small">N° PLAQUE</th>
-//                             <td><input class="form-control" type="text" name="bordereau_update_nPlaque'.$listBordereau[$key]['id'].'" id="bordereau_update_nPlaque'.$listBordereau[$key]['id'].'" value="'.$listBordereau[$key]['nPlaque'].'"></td>
-//                         </tr>
-//                         <tr>
-//                             <th class="small">N° COLIS</th>
-//                             <td><input class="form-control" type="text" name="bordereau_update_nColis'.$listBordereau[$key]['id'].'" id="bordereau_update_nColis'.$listBordereau[$key]['id'].'" value="'.$listBordereau[$key]['nColis'].'"></td>
-//                         </tr>
-//                         <tr>
-//                             <th class="small">NATURE EMBALLAGE</th>
-//                             <td><input class="form-control" type="text" name="bordereau_update_natureEmballage'.$listBordereau[$key]['id'].'" id="bordereau_update_natureEmballage'.$listBordereau[$key]['id'].'" value="'.$listBordereau[$key]['natureEmballage'].'"></td>
-//                         </tr>
-//                         <tr>
-//                             <th class="small">CONTENU</th>
-//                             <td><input class="form-control" type="text" name="bordereau_update_contenu'.$listBordereau[$key]['id'].'" id="bordereau_update_contenu'.$listBordereau[$key]['id'].'" value="'.$listBordereau[$key]['contenu'].'"></td>
-//                         </tr>
-//                         <tr>
-//                             <th class="small">PDS UN KG</th>
-//                             <td><input class="form-control" type="text" name="bordereau_update_pdsUnKg'.$listBordereau[$key]['id'].'" id="bordereau_update_pdsUnKg'.$listBordereau[$key]['id'].'" value="'.$listBordereau[$key]['pdsUnKg'].'"></td>
-//                         </tr>
-//                         <tr>
-//                             <th class="small">PDS TOT TONE</th>
-//                             <td><input class="form-control" type="text" name="bordereau_update_pdsTotalTone'.$listBordereau[$key]['id'].'" id="bordereau_update_pdsTotalTone'.$listBordereau[$key]['id'].'" value="'.$listBordereau[$key]['pdsTotalTone'].'"></td>
-//                         </tr>
-//                         <tr>
-//                             <th class="small">PU TONE</th>
-//                             <td><input class="form-control" type="text" name="bordereau_update_puTone'.$listBordereau[$key]['id'].'" id="bordereau_update_puTone'.$listBordereau[$key]['id'].'" value="'.$listBordereau[$key]['puTone'].'"></td>
-//                         </tr>
-//                         <tr>
-//                             <th class="small">PT TONE</th>
-//                             <td><input class="form-control" type="text" name="bordereau_update_ptTone'.$listBordereau[$key]['id'].'" id="bordereau_update_ptTone'.$listBordereau[$key]['id'].'" value="'.$listBordereau[$key]['ptTone'].'"></td>
-//                         </tr>
-//                         <tr>
-//                             <th class="small">MANQUE</th>
-//                             <td><input class="form-control" type="text" name="bordereau_update_manque'.$listBordereau[$key]['id'].'" id="bordereau_update_manque'.$listBordereau[$key]['id'].'" value="'.$listBordereau[$key]['manque'].'"></td>
-//                         </tr>
-//                         <tr>
-//                             <th class="small">QTE ARRIVEE</th>
-//                             <td><input class="form-control" type="text" name="bordereau_update_qteArriver'.$listBordereau[$key]['id'].'" id="bordereau_update_qteArriver'.$listBordereau[$key]['id'].'" value="'.$listBordereau[$key]['qteArriver'].'"></td>
-//                         </tr>
-//                         <tr>
-//                             <th class="small">AVANCE/DEPENSE</th>
-//                             <td><input class="form-control" type="text" name="bordereau_update_charge'.$listBordereau[$key]['id'].'" id="bordereau_update_charge'.$listBordereau[$key]['id'].'" value="'.$listBordereau[$key]['charge'].'"></td>
-//                         </tr>
-//                         <tr>
-//                             <th class="small">RESTE PAYER</th>
-//                             <td><input class="form-control" type="text" name="bordereau_update_restePayer'.$listBordereau[$key]['id'].'" id="bordereau_update_restePayer'.$listBordereau[$key]['id'].'" value="'.$listBordereau[$key]['restePayer'].'"></td>
-//                         </tr>
-//                         <tr>
-//                             <th class="small">PAYEMENT</th>
-//                             <td><input class="form-control" type="text" name="bordereau_update_payement'.$listBordereau[$key]['id'].'" id="bordereau_update_payement'.$listBordereau[$key]['id'].'" value="'.$listBordereau[$key]['payement'].'"></td>
-//                         </tr>
-//                         <tr>
-//                             <th class="small">SOLDE</th>
-//                             <td><input class="form-control" type="text" name="bordereau_update_solde'.$listBordereau[$key]['id'].'" id="bordereau_update_solde'.$listBordereau[$key]['id'].'" value="'.$listBordereau[$key]['solde'].'"></td>
-//                         </tr>
-//                     </div>
-//                     <div class="col-12">
-//                         <tr>
-//                         <input class="form-control" type="hidden" name="bordereau_form_backURL'.$listBordereau[$key]['id'].'" id="bordereau_form_backURL'.$listBordereau[$key]['id'].'" value="/views/home.php?link_up=b5c41067d2aa2806fba285ee55b8a371b35a7a06">
-//                             <input class="form-control" type="hidden" name="id" id="'.$listBordereau[$key]['id'].'" value="'.$listBordereau[$key]['id'].'">
-//                             <td><button class="btn btn-danger mt-1 text-white w-100" type="button" onclick="deleteThis('.$listBordereau[$key]['id'].','.$table.')" >Supprimer</button></td>
-//                             <td><button class="btn btn-primary mt-1 text-white w-100" type="button" name="bordereau_form_update" onclick="updateThis('.$listBordereau[$key]['id'].')" >Modifier</button></td>
-//                         </tr>
-//                     </div>
-//                 </div>
-//             </form>
-//         </tbody>
-//     </table>
-// </div>';
     }
+
+}else{
+    $listBordereauData = '';
+}
 
     $selectedDataCourse = '';
     $selectedDataDetails = '';
@@ -1031,13 +979,13 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
             ),
             'htmlDettePage'=>$listDetteData,
             'htmlDepensePage'=>$listDepenseData,
+            'listBordereau'=>$listBordereauData,
             'htmlConducteurPage'=>array(
                 'listCourse'=>$typeCourseData,
                 'lisDepenseCourse'=>$lisDepenseCourse,
                 'listConducteur'=>$listConducteurData,
                 'listVehicule'=>$listVehiculeData,
-                'listTypeDepense'=>$typeDepenseData,
-                'listBordereau'=>$listBordereauData
+                'listTypeDepense'=>$typeDepenseData
             ),
             'htmlCaissePage'=>array(
                 'entre'=>$listCaisseData,
@@ -1054,23 +1002,50 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
 
 $DB = new DB();
     if (isset($_GET['request']) and $_GET['request'] == sha1('update')) {
-        if (htmlspecialchars($_POST['to']) =='facture') {
-            $factureData = $DB->getwhere('facture','id',htmlspecialchars($_POST['id']));
-            if (count($factureData) > 0) {
-                $status = $factureData[0]['status'];
-                if ($status == 0) {
-                    $val = '1';
-                }else{
-                    $val = '0';
-                }
-            }else{
-                $val = '1';
-            }
+        // if (htmlspecialchars($_POST['to']) =='facture') {
+        //     $factureData = $DB->getwhere('facture','id',htmlspecialchars($_POST['id']));
+        //     if (count($factureData) > 0) {
+        //         $status = $factureData[0]['status'];
+        //         if ($status == 0) {
+        //             $val = '1';
+        //         }else{
+        //             $val = '0';
+        //         }
+        //     }else{
+        //         $val = '1';
+        //     }
 
-            $update = update(htmlspecialchars($_POST['to']) ,'status = ?', 'id = ?', [''.$val.'',''.htmlspecialchars($_POST['id']).'']);
+        //     $update = update(htmlspecialchars($_POST['to']) ,'status = ?', 'id = ?', [''.$val.'',''.htmlspecialchars($_POST['id']).'']);
+        // }else if(htmlspecialchars($_POST['to']) =='typedepense'){
+        //     $typedepense = $DB->getwhere('typedepense','id',htmlspecialchars($_POST['id']));
+        //     if (count($typedepense) > 0) {
+        //         $status = $typedepense[0]['status'];
+        //         if ($status == 0) {
+        //             $val = '1';
+        //         }else{
+        //             $val = '0';
+        //         }
+        //     }else{
+        //         $val = '1';
+        //     }
+        //     $update = update(htmlspecialchars($_POST['to']) ,'status = ?', 'id = ?', [''.$val.'',''.htmlspecialchars($_POST['id']).'']);
+        // }else{
+        //     $update == false;
+        // }
+
+        $getData = $DB->getwhere(htmlspecialchars($_POST['to']),'id',htmlspecialchars($_POST['id']));
+        if (count($getData) > 0) {
+            $status = $getData[0]['status'];
+            if ($status == 0) {
+                $val = '1';
+            }else{
+                $val = '0';
+            }
         }else{
-            $update == false;
+            $val = '1';
         }
+
+        $update = update(htmlspecialchars($_POST['to']) ,'status = ?', 'id = ?', [''.$val.'',''.htmlspecialchars($_POST['id']).'']);
 
         if ($update == true ) {
             echo json_encode(array('msg'=>'L\'opération a été effectuer avec success','status'=>'success'));

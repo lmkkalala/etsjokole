@@ -56,13 +56,11 @@
                     }
                 ?>
               </select>
-          <!-- <input class="form-control" type="text" name="Conductuer" id="Conductuer" placeholder="Conductuer"> -->
         </div>
         <div class="col-md-2">
           <input class="form-control" type="text" name="Destination" id="Destination" placeholder="Destination">
         </div>
         <div class="col-md-2">
-          <!-- <input class="form-control" type="text" name="Plaque" id="Plaque" placeholder="Plaque"> -->
         </div>
         <div class="col-md-2">
           <input class="form-control" type="date" name="filterDate_start" id="filterDate_start">
@@ -76,27 +74,27 @@
         </div>
       </div>
     </form>  
-    <div class="row">    
-        <div class="col-12">
-            <table id="transport_list" class="display" style="width:100%">
-                <thead>
-                    <tr>
-                        <th class="small">N°</th>
-                        <th class="small">DATE</th>
-                        <th class="small">CONDUCTEUR</th>
-                        <th class="small">PLAQUE</th>
-                        <th class="small">Contenu&DESTINATION</th>
-                        <th class="small">DESCRIPTION</th>
-                        <th class="small">Tonne / MONTANT</th>
-                        <th class="small">DEPENSE</th>
-                        <th class="small">MARGE</th>
-                        <th class="small">EXECUTER</th>
-                    </tr>
-                </thead>
-                <tbody id="list_transport_page"></tbody>
-            </table>
+      <div class="row">    
+        <div class="col-12 table-responsive">
+          <table id="transport_list" class="table display" style="width:100%">
+              <thead>
+                  <tr>
+                      <th class="small">N°</th>
+                      <th class="small">DATE</th>
+                      <th class="small">CONDUCTEUR</th>
+                      <th class="small">PLAQUE</th>
+                      <th class="small">Contenu&DESTINATION</th>
+                      <th class="small">DESCRIPTION</th>
+                      <th class="small">Tonne / MONTANT</th>
+                      <th class="small">DEPENSE</th>
+                      <th class="small">MARGE</th>
+                      <th class="small">EXECUTER</th>
+                  </tr>
+              </thead>
+              <tbody id="list_transport_page"></tbody>
+          </table>
         </div>
-    </div>
+      </div>
 </div>
 
 <div class="modal fade" id="add_type_depense" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -115,7 +113,7 @@
             </div>
             <div class="col-6">
               <label for="date" class="small fw-bolder">Montant ($)</label>
-              <input class="form-control" type="text" name="montant_type_depense" id="montant_type_depense" placeholder="" required>
+              <input class="form-control" type="number" step=0.01 name="montant_type_depense" id="montant_type_depense" placeholder="" required>
             </div>
             <div class="col-6">
               <label for="date" class="small fw-bolder">Pour aller</label>
@@ -142,7 +140,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <table  id="driver_list" class="display" style="width:100%">
+            <table  id="depense_type_list" class="display" style="width:100%">
                 <thead>
                     <tr>
                         <th>Date</th>
@@ -167,78 +165,54 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-
-        <form action="" method="post" id="FilterFormOther"> 
-      <div class="row">
-        <div class="col-md-4">
-          <select class="form-control" name="ConducteurDepenseCourse" id="ConducteurDepenseCourse">
-                <option value="">Selectionner Conducteur</option>
-                <?php
-                    $conducteurFullName = '';
-                    foreach ($listAgent as $key2 => $value) {
-                      $vehicule = $db->getWhere('vehicule','conducteurID',$listAgent[$key2]['id']);
-                      if (count($vehicule) > 0) {
-                        $plaque = $vehicule[0]['plaqueVehicule'];
-                      }else{
-                        $plaque = '';
-                      }
-                        if ($listAgent[$key2]['active'] == '1' and $listAgent[$key2]['grade'] == 'driver') {
-                        $conducteurFullName = $listAgent[$key2]['nom'].' '.$listAgent[$key2]['postnom'].' '.$listAgent[$key2]['prenom'];
-                ?>
-                    <option value="<?=$listAgent[$key2]['id']?>"><?=$conducteurFullName.' PLAQUE : '.$plaque?></option>
-                <?php
-                      }
-                    }
-                ?>
-          </select>
-        </div>
-        <div class="col-md-2">
-          <input class="form-control" type="date" name="filterDate_startDepenseCourse" id="filterDate_startDepenseCourse">
-        </div>
-        <div class="col-md-2">
-          <input class="form-control" type="date" name="filterDate_endDepenseCourse" id="filterDate_endDepenseCourse">
-        </div>
-        <div class="col-md-2">
-          <input type="hidden" name="FilterFormDepenseCourse" id="FilterFormDepenseCourse">
-          <button class="btn btn-primary w-100 text-white" type="submit"> <i class="fa fa-search"></i> Rechercher</button>
-        </div>
-      </div>
-    </form>  
-
-
-            <table  id="spend_list_transport" class="display" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Conducteur</th>
-                        <th>Description</th>
-                        <th>Les Depenses</th>
-                        <th>EXECUTER</th>
-                    </tr>
-                </thead>
-                <tbody id="list_depense_course">
-                    <!-- <form action="" method="post" id="">
-                        <tr>
-                            <td>
-                                <input class="form-control" type="date" name="name" id="name" placeholder="" readonly>
-                            </td>
-                            <td>
-                                <input class="form-control" type="text" name="name" id="name" placeholder="" readonly>
-                            </td>
-                            <td>
-                                <input class="form-control" type="text" name="phone" id="phone" placeholder="" readonly>
-                            </td>
-                            <td>
-                            <input class="form-control" type="text" name="phone" id="phone" placeholder="">
-                            </td>
-                            <td>
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-pencil"></i></button>
-                                <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                            </td>
-                        </tr>
-                    </form> -->
-                </tbody>
-            </table>
+          <form action="" method="post" id="FilterFormOther"> 
+            <div class="row">
+              <div class="col-md-4">
+                <select class="form-control" name="ConducteurDepenseCourse" id="ConducteurDepenseCourse">
+                      <option value="">Selectionner Conducteur</option>
+                      <?php
+                          $conducteurFullName = '';
+                          foreach ($listAgent as $key2 => $value) {
+                            $vehicule = $db->getWhere('vehicule','conducteurID',$listAgent[$key2]['id']);
+                            if (count($vehicule) > 0) {
+                              $plaque = $vehicule[0]['plaqueVehicule'];
+                            }else{
+                              $plaque = '';
+                            }
+                              if ($listAgent[$key2]['active'] == '1' and $listAgent[$key2]['grade'] == 'driver') {
+                              $conducteurFullName = $listAgent[$key2]['nom'].' '.$listAgent[$key2]['postnom'].' '.$listAgent[$key2]['prenom'];
+                      ?>
+                          <option value="<?=$listAgent[$key2]['id']?>"><?=$conducteurFullName.' PLAQUE : '.$plaque?></option>
+                      <?php
+                            }
+                          }
+                      ?>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <input class="form-control" type="date" name="filterDate_startDepenseCourse" id="filterDate_startDepenseCourse">
+              </div>
+              <div class="col-md-2">
+                <input class="form-control" type="date" name="filterDate_endDepenseCourse" id="filterDate_endDepenseCourse">
+              </div>
+              <div class="col-md-2">
+                <input type="hidden" name="FilterFormDepenseCourse" id="FilterFormDepenseCourse">
+                <button class="btn btn-primary w-100 text-white" type="submit"> <i class="fa fa-search"></i> Rechercher</button>
+              </div>
+            </div>
+          </form>  
+          <table  id="spend_list_transport" class="display table-responsive" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Conducteur</th>
+                    <th>Description</th>
+                    <th>Les Depenses</th>
+                    <th>EXECUTER</th>
+                </tr>
+            </thead>
+            <tbody id="list_depense_course"></tbody>
+          </table>
         </div>
     </div>
   </div>
@@ -308,16 +282,18 @@
                 <option value="">Selectionner Depense</option>
                 <?php
                   foreach ($listTypeDepense as $key => $value) {
+                    if ($listTypeDepense[$key]['status'] == '1') {
                 ?>
                   <option value="<?=$listTypeDepense[$key]['id']?>"><?=$listTypeDepense[$key]['description'].' '.$listTypeDepense[$key]['montant'].'$ Pour '.$listTypeDepense[$key]['destination']?></option>
                 <?php
+                    }
                   }
                 ?>
               </select>
             </div>
             <div class="col-6">
               <label for="date" class="small fw-bolder">Montant</label>
-              <input class="form-control" type="text" name="montant_depense_course" id="montant_depense_course" placeholder="Saisisser le montant" required>
+              <input class="form-control" type="number" step=0.01 name="montant_depense_course" id="montant_depense_course" placeholder="Saisisser le montant" required>
             </div>
           </div>
           <div class="row mt-2">
@@ -375,7 +351,7 @@
             </div>
             <div class="col-6">
               <label for="date" class="small fw-bolder">Prix COURSE</label>
-              <input class="form-control" type="text" name="course_prix" id="course_prix" placeholder="" required>
+              <input class="form-control" type="number" step=0.01 name="course_prix" id="course_prix" placeholder="" required>
             </div>
           </div>
           <div class="row">
@@ -551,8 +527,8 @@
             <h1 class="modal-title fs-5" id="staticBackdropLabel">LISTE CONDUCTEUR</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-            <table  id="driver_list" class="display" style="width:100%">
+        <div class="modal-body  table-responsive">
+            <table  id="driver_list" class="display table" style="width:100%">
                 <thead>
                     <tr>
                         <th>NOM</th>
@@ -566,34 +542,7 @@
                         <th>Plus</th>
                     </tr>
                 </thead>
-                <tbody id="driver_list_data">
-                    <!-- <form action="" method="post" id="driver_list_data_form">
-                        <tr>
-                            <td>
-                                <input class="form-control" type="text" name="name" id="name" placeholder="">
-                            </td>
-                            <td>
-                                <input class="form-control" type="text" name="name" id="name" placeholder="">
-                            </td>
-                            <td>
-                                <input class="form-control" type="text" name="name" id="name" placeholder="">
-                            </td>
-                            <td>
-                                <select class="form-control" name="genre" id="genre" >
-                                    <option name="" value="Homme">Homme</option>
-                                    <option name="" value="Femme">Femme</option>
-                                </select>
-                            </td>
-                            <td>
-                                <input class="form-control" type="tel" name="phone" id="phone" placeholder="" >
-                            </td>
-                            <td>
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-pencil"></i></button>
-                                <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                            </td>
-                        </tr>
-                    </form> -->
-                </tbody>
+                <tbody id="driver_list_data"></tbody>
             </table>
         </div>
     </div>

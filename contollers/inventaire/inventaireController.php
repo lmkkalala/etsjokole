@@ -32,9 +32,11 @@ if (isset($_POST['bt_enregistrer'])) {
         foreach ($biens as $bien) {
             $quantite_biens = $bien['quantite'];
         }
+        
         $ecart = $quantite - $quantite_biens;
         $bdinventaire = new BdInventaire();
-        if ($bdinventaire->addInventaire($date, $quantite, $ecart, $commentaire, $idbiens, $idaffectation)) {
+        $request = $bdinventaire->addInventaire($date, $quantite, $ecart, $commentaire, $idbiens, $idaffectation);
+        if ($request) {
             $error = "succes";
         } else {
             $error = "traitement_error";

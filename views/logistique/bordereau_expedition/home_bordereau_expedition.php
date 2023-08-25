@@ -166,7 +166,7 @@ include './meta/menu_logistique.php';
                         <tr>
                             <td>
                                 <input type="hidden" name="bordereau_expedition_btn" id="bordereau_expedition_btn">
-                                <button class="btn btn-info mt-1 text-white w-100" id="bordereau_add" type="submit">ENREGISTRER</button>
+                                <button class="btn btn-primary mt-1 text-white w-100" id="bordereau_add" type="submit">ENREGISTRER</button>
                             </td>
                         </tr>
                     </form>

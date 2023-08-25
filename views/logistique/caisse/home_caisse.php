@@ -57,8 +57,8 @@ $listDriver = $db->getWhere('agent','active','1','id');
           </div>
         </div>
         <h3>DEBIT CAISSE</h3>
-        <div class="col-md-12">
-            <table id="caisse_list_entre" class="display" style="width:100%">
+        <div class="col-md-12 table-responsive">
+            <table id="caisse_list_entre" class="table display" style="width:100%">
                 <thead>
                     <tr>
                         <th class="small">DATE</th>
@@ -73,25 +73,7 @@ $listDriver = $db->getWhere('agent','active','1','id');
                         <th class="small">PLUS</th>
                     </tr>
                 </thead>
-                <tbody id="list_caisse_entre_page">
-                    <!-- <form action="" method="post" id="">
-                      <tr>
-                          <td><input class="form-control" type="date" name="" id="" placeholder="" value=""></td>
-                          <td><input class="form-control" type="number" name="" id="" placeholder="" value=""></td>
-                          <td><input class="form-control" type="text" name="" id="" placeholder="" value=""></td>
-                          <td><input class="form-control" type="number" name="" id="" placeholder="" value=""></td>
-                          <td><input class="form-control" type="number" name="" id="" placeholder="" value=""></td>
-                          <td><input class="form-control" type="text" name="" id="" placeholder="" value=""></td>
-                          <td><input class="form-control" type="text" name="" id="" placeholder="" value=""></td>
-                          <td><input class="form-control" type="text" name="" id="" placeholder="" value=""></td>
-                          <td><input class="form-control" type="text" name="" id="" placeholder="" value=""></td>
-                          <td>
-                            <button class="btn btn-info mt-1 text-white w-100" type="submit">Modifier</button>
-                            <button class="btn btn-danger mt-1 text-white w-100" type="submit">Supprimer</button>
-                          </td>
-                      </tr>
-                    </form> -->
-                </tbody>
+                <tbody id="list_caisse_entre_page"></tbody>
             </table>
         </div>
         <h3>CREDIT CAISSE</h3>
@@ -126,8 +108,8 @@ $listDriver = $db->getWhere('agent','active','1','id');
             </div>
           </form>
         </div>
-        <div class="col-12">
-            <table id="caisse_list_sortie" class="display table-responsive" style="width:100%">
+        <div class="col-12 table-responsive">
+            <table id="caisse_list_sortie" class="display table" style="width:100%">
                 <thead>
                     <tr>
                         <th class="small">DATE</th>
