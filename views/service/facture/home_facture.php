@@ -9,7 +9,38 @@
     $BD = new DB();
     $allAgent = $db->getAgentById($_SESSION['agentID']);
 ?>
+<style>
+        #menu-gauche {
+            border-right-style: solid;
+            border-right-color: black;
+        }
 
+        #menu-gauche ul li {
+            padding: 8px;
+        }
+
+        #menu-gauche ul li a {
+            text-decoration: none;
+        }
+
+        #menu-gauche ul li span {
+            margin-right: 5px;
+        }
+        #entete1-logo a {
+            text-decoration: none;
+            color: white;
+            display: inline-block;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        #entete1-button {
+            padding: 15px;
+            padding-left: 5px;
+        }
+</style>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2 text-start mt-3 mb-3">

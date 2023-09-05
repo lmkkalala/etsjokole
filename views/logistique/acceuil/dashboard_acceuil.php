@@ -13,7 +13,7 @@ include '../models/utilisateur/utilisateur.php';
     <div class="panel panel-heading">
         <span class="fa fa-line-chart" style="color: forestgreen; font-size: 50px;margin-right: 5px;"></span><span class="h3">Tableau de bord</span>
         <span class="pull-right" style="color: red; font-size: 30px;margin-right: 0px;">*</span>
-        <span class="fa fa-bell-o pull-right" style="color: black; font-size: 30px;margin-right: 5px;"></span>
+        <span class="pull-right"><a class="btn btn text-primary" href="/views/home.php?link=<?= sha1("logistique_ravitaillement_liste_expired_fast")?>&link_up=<?= sha1("home_logistique_ravitaillement") ?>"><span class="fa fa-bell-o" style="color: black; font-size: 30px;"></span></a></span>
         <span class="fa fa-comments-o pull-right" style="color: black; font-size: 30px;margin-right: 5px;"></span>
         <span class="fa fa-envelope-o pull-right" style="color: black; font-size: 30px;margin-right: 5px;"></span>
     </div>
@@ -134,7 +134,6 @@ include '../models/utilisateur/utilisateur.php';
                 </tr>
             </table>
         </div>
-
     </div>
 </div>
 

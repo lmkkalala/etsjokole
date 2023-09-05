@@ -14,8 +14,14 @@ include './meta/menu_logistique.php';
             <div class="row">
                 <div id="menu-gauche" class="col-lg-3">
                     <ul class="list-menu list-unstyled" style="font-size: 20px;">
-                        <li class="list-inline-item"><span style="color: red;font-size: 20px;" class="fa fa-asterisk"></span><a href="/views/home.php?link_up=<?= sha1('home_logistique_customer'); ?>">Nouveau</a></li><br>
-                        <li class="list-inline-item"><span style="color: dodgerblue;font-size: 20px;" class="glyphicon glyphicon-list"></span><a href="/views/home.php?link=<?= sha1('logistique_customer_liste_all'); ?>&link_up=<?= sha1('home_logistique_customer'); ?>">Liste</a></li>
+                        <li class="list-inline-item">
+                            <span style="color: red;font-size: 20px;" class="fa fa-asterisk"></span>
+                            <a href="/views/home.php?link_up=<?= sha1('home_logistique_customer'); ?>">Nouveau</a>
+                        </li><br>
+                        <li class="list-inline-item">
+                            <span style="color: dodgerblue;font-size: 20px;" class="glyphicon glyphicon-list"></span>
+                            <a href="/views/home.php?link=<?= sha1('logistique_customer_liste_all'); ?>&link_up=<?= sha1('home_logistique_customer'); ?>">Liste</a>
+                        </li>
                     </ul>
                 </div>
                 <style>

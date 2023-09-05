@@ -415,17 +415,17 @@ if(htmlspecialchars($_GET['page']) == 'home_caisse'){
     </form>';
     }
     $listCaisseData = $listCaisseData.
-    '<tr class="bg-primary text-white">
-        <td class="fw-bolder text-white small">TOTAL DEBIT Dollors</td>
+    '<tr class="bg-primary text-dark">
+        <td class="fw-bolder text-dark small">TOTAL DEBIT Dollors</td>
         <td></td>
-        <td class="fw-bolder text-white">'.$format->formatCurrency($totalDebitDollars,'usd').'</td>
-        <td class="fw-bolder text-white small">TOTAL DEBIT FC</td>
+        <td class="fw-bolder text-dark">'.$format->formatCurrency($totalDebitDollars,'usd').'</td>
+        <td class="fw-bolder text-dark small">TOTAL DEBIT FC</td>
         <td></td>
-        <td class="fw-bolder text-white">'.$format->formatCurrency($totalDebitFc,'fcf').'</td>
-        <td class="fw-bolder text-white small">TOTAL DEBIT FRW</td>
+        <td class="fw-bolder text-dark">'.$format->formatCurrency($totalDebitFc,'fcf').'</td>
+        <td class="fw-bolder text-dark small">TOTAL DEBIT FRW</td>
         <td></td>
         <td></td>
-        <td class="fw-bolder text-white text-start">'.$format->formatCurrency($totalDebitFrw,'frw').'</td>
+        <td class="fw-bolder text-dark text-start">'.$format->formatCurrency($totalDebitFrw,'frw').'</td>
     </tr>
     ';
 
@@ -465,17 +465,17 @@ if(htmlspecialchars($_GET['page']) == 'home_caisse'){
     }
 
     $listCaisseDataSortie = $listCaisseDataSortie.
-    '<tr class="bg-primary text-white">
-        <td class="fw-bolder text-white">TOTAL CREDIT Dollors</td>
+    '<tr class="bg-primary text-dark">
+        <td class="fw-bolder text-dark">TOTAL CREDIT Dollors</td>
         <td></td>
-        <td class="fw-bolder text-white">'.$format->formatCurrency($totalCreditDollars,'usd').'</td>
-        <td class="fw-bolder text-white">TOTAL CREDIT FC</td>
+        <td class="fw-bolder text-dark">'.$format->formatCurrency($totalCreditDollars,'usd').'</td>
+        <td class="fw-bolder text-dark">TOTAL CREDIT FC</td>
         <td></td>
-        <td class="fw-bolder text-white">'.$format->formatCurrency($totalCreditFc,'fcf').'</td>
-        <td class="fw-bolder text-white">TOTAL CREDIT FRW</td>
+        <td class="fw-bolder text-dark">'.$format->formatCurrency($totalCreditFc,'fcf').'</td>
+        <td class="fw-bolder text-dark">TOTAL CREDIT FRW</td>
         <td></td>
         <td></td>
-        <td class="fw-bolder text-white">'.$format->formatCurrency($totalCreditFrw,'frw').'</td>
+        <td class="fw-bolder text-dark">'.$format->formatCurrency($totalCreditFrw,'frw').'</td>
     </tr>
     ';
 
@@ -618,7 +618,7 @@ if(htmlspecialchars($_GET['page']) == 'home_logistique_transport'){
             </td>
         </tr>
     </form>';
-    $btnStyle = '';
+        $btnStyle = '';
     }
 }else{
     $listConducteurData = '';
@@ -743,7 +743,7 @@ if(htmlspecialchars($_GET['page']) == 'home_logistique_transport'){
         </form>';
     }
     $lisDepenseCourse = $lisDepenseCourse.
-    '<tr class="bg-primary text-white"">
+    '<tr class="text-dark"">
     <td><input class="form-control" type="text" name="" id="" value="DEPENSE TOTAL" desabled></td>
     <td>
     </td>
@@ -837,7 +837,7 @@ if(htmlspecialchars($_GET['page']) == 'home_logistique_transport'){
     }
 
     $typeCourseData = $typeCourseData.
-    '<tr class="bg-primary text-white">
+    '<tr class="bg-primary text-dark">
         <td></td>
         <td>TONNAGE : </td>
         <td>'.$tonnageTotal.'</td>
@@ -847,8 +847,7 @@ if(htmlspecialchars($_GET['page']) == 'home_logistique_transport'){
         <td>'.$depenseTotal.' USD</td>
         <td>MARGE : </td>
         <td>'.$margeTotal.'</td>
-        <td>USD</td>
-        
+        <td> USD</td>
     </tr>';
 }else{
     $lisDepenseCourse = '';

@@ -22,7 +22,7 @@ if (isset($_GET['mutationID'])) {
             include 'meta/metatop.php';
         ?>
         <title>
-            Ets JOKOLE
+            Ets JOKOLE DIEU EST GRAND
         </title>
     </head>
     <body style="margin: 0">
@@ -173,32 +173,31 @@ if (isset($_GET['mutationID'])) {
             ?>
             <div style="margin-bottom:10%;"></div>
             <div class="d-none d-md-block"> 
-                <div class="row fixed-bottom bg-white" style="height: auto;">
-                    <div class="col-md-4 col-sm-12 col-12 text-start mt-3">
-                        <span style="color: #0069d9;font-size: 15px;">
-                            <p class="mx-4">
-                                Designed by <b>Rifin Ashuza K. and <a class="text-decoration-none" href="https://lucienkalala.github.io/PersonalPage"> LMK</a></b>
-                                <span class="fa fa-copyright pull-left" style="color: #0069d9; font-size: 20px;margin-right: 5px;"></span> 
-                            </p>
-                            <p class="mx-4 fw-bolder">
-                                <i class="fa fa-envelope-open fw-bolder"></i> rifinashuza.kuderha@gmail.com
-                            </p>
-                        </span>
-                    </div>
-                    <div class="col-md-8 col-sm-12 col-12 text-end mt-3">
-                        <div class="row" style="width: 100%;color: red">
-                            <div class="col-md-2">
-                                <span class="fa fa-shield" style="color: #0069d9; font-size: 20px; margin-left:150px;"></span>
+                <div class="fixed-bottom bg-primary" style="height: auto;">
+                    <div class="row">
+                        <div class="col-md-4 text-start mt-3">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span style="color: #fff;"><i class="fa fa-copyright mx-2" style="color: #fff; font-size: 20px;"></i> Designed by <b>Rifin Ashuza K. and <a class="text-decoration-none text-white" href="https://lucienkalala.github.io/PersonalPage"> LMK</a></b></span> 
+                                </div>
+                                <div class="col-md-12">
+                                    <span class="fw-bolder mx-2" style="color: #fff;"><i class="fa fa-envelope-open fw-bolder"></i> rifinashuza.kuderha@gmail.com</span>
+                                </div>
                             </div>
-                            <div class="col-md-10">
-                                <span style="color: #0069d9;font-size: 15px;">
-                                    <p>
-                                        Powered by <b>UIG</b>
-                                        Web : <b>www.uig.com</b>
-                                        Email : <b>info@uig.com</b>
-                                        Téléphone : <b>+243 972 090 805</b>
-                                    </p>
-                                </span>
+                        </div>
+                        <div class="col-md-8 text-end mt-3">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span class="fa fa-shield" style="color: #fff; font-size: 20px;"></span>
+                                    <span style="color: #fff;font-size: 15px;">
+                                        <span>
+                                            Powered by <b>UIG</b>
+                                            Web : <b>www.uig.com</b>
+                                            Email : <b>info@uig.com</b>
+                                            Téléphone : <b>+243 972 090 805</b>
+                                        </span>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -73,6 +73,7 @@ include '../models/attribution-biens/attributionBiens.php';
                     </thead>
                     <tbody>
                         <?php
+                        $bien_id = '';
                         $n = 0;
                         $bdravitaillement = new BdRavitaillement();
                         $valeur = "";
@@ -90,10 +91,11 @@ include '../models/attribution-biens/attributionBiens.php';
                                 foreach ($attributions as $attribution) {
                                     if ($attribution['quantite'] == 0) {
                                         $reste_vide = true;
+                                    }else{
+                                        $reste_vide = false;
                                     }
                                 }
-
-                                if (!$reste_vide) {
+                                if ($reste_vide == true) {
                                     ?>
                                     <tr>
                                         <td><?= $ravitaillement['id'] ?></td>
@@ -106,9 +108,17 @@ include '../models/attribution-biens/attributionBiens.php';
                                             foreach ($attributions as $attribution) {
                                                 ?>
                                                 <?= $attribution['aId'] ?> . <?= $attribution['date'] . " / " . $attribution['bDesignation'] . "-" . $attribution['quantite'] . " à " . $attribution['fDesignation'] . " pour " . $attribution['delai_livraison'] . " jour(s) / quantité : " . $attribution['quantite_minimale'] ?>
-                                                <?php
+                                            <?php
+                                                $bien_id = $attribution['bId'];
                                                 $quantite_biens=$attribution['quantite'];
                                             }
+                                                // $demand = $bdattributionbiens->select('demande','id',$bien_id);
+                                                // if (count($demand) > 0) {
+                                                //     $distribution = $bdattributionbiens->select('distrubution','demande_id',$demand[0]['id']);
+                                                //     if (count($distribution) > 0) {
+                                                //         $quantite_biens= $distribution[0]['quantite_actuelle'];
+                                                //     }
+                                                // }
                                             ?>
                                         </td>
                                         <td><?= $quantite_biens ?></td>

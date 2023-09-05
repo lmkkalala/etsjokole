@@ -46,10 +46,10 @@ include '../models/biens/biens.php';
             ?>
 
             <form class="form-horizontal" method="POST" action="../contollers/inventaire/inventaireController.php">
-                <div class="form-group-lg">
-                    <div class="input-group-lg">
+                <div class="row form-group-lg">
+                    <div class="col-md-10 input-group-lg">
                         <label class="control-label">Bien/produit :</label>
-                        <select class="form-control" name="cb_biens">
+                        <select class="form-control select2" name="cb_biens">
                             <option value="0">Choisir un biens/produit</option>
                             <?php
                             $bdbiens = new BdBiens();
@@ -70,26 +70,23 @@ include '../models/biens/biens.php';
                             ?>
                         </select>
                     </div>
-                    <div class="input-group-lg">
+                    <div class="col-md-10 input-group-lg">
                         <label class="control-label">Date :</label>
                         <input class="form-control" type="date" name="tb_date" value="<?= date('Y-m-d') ?>">
                     </div>
-                    <div class="input-group-lg">
+                    <div class="col-md-10 input-group-lg">
                         <label class="control-label">Quantité inventoriée : </label>
-                        <input class="form-control" type="number" name="tb_quantite" placeholder="Quantité inventoriée">
+                        <input class="form-control" type="number" step="0.01" name="tb_quantite" placeholder="Quantité inventoriée">
                     </div>
-                    <div class="input-group-lg">
+                    <div class="col-md-10 input-group-lg">
                         <label class="control-label">Commentaire : </label>
                         <textarea class="form-control" name="tb_commentaire" placeholder="Taper votre commentaire ici"></textarea>
                     </div>
-                    <fieldset>
-                        <legend></legend>
-                        <div class="input-group-lg">
+                    <div class="col-md-10 mt-1 input-group-lg">
                             <input type="hidden" name="tb_idaffectation" value="<?= $_SESSION['idaffectation'] ?>">
-                            <input class="btn btn-success" type="submit" name="bt_enregistrer" value="Enregistrer">
-                            <input class="btn btn-danger" type="reset" value="Initialiser">
-                        </div>
-                    </fieldset>
+                            <input class="btn btn-success mt-2" type="submit" name="bt_enregistrer" value="Enregistrer">
+                            <input class="btn btn-danger mt-2" type="reset" value="Initialiser">
+                    </div>
                 </div>
             </form>
         </div>

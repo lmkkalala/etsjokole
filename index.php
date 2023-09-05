@@ -18,7 +18,7 @@ session_start();
         }
         ?>
         <title>
-            Ets JOKOLE
+            Ets JOKOLE DIEU EST GRAND
         </title>
     </head>
     <body id="index">
@@ -26,15 +26,15 @@ session_start();
             <div class="container">
                 <div class="row mt-5">
                     <!-- <div class="col-8 contenu"> -->
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <div class="row d-flex justify-content-center">
-                            <div class="col-md-12">
+                            <div class="col-md-10">
                                 <?php
                                     if ((isset($_GET['reponse'])) && ($_GET['reponse'] == sha1("nomutilisateur_error"))) {
                                         ?>
                                         <div class="alert alert-danger">
                                             <span class="fa fa-user-times" style="color: darkred;font-size: 20px;"></span>
-                                            <span class="h5" style="color: darkred">Nom d'utilisateur ou mot de passe incorrects</span>
+                                            <span class="h6" style="color: darkred">Nom d'utilisateur ou mot de passe incorrects</span>
                                         </div>
                                         <?php
                                     }
@@ -44,7 +44,7 @@ session_start();
                                     ?>
                                     <div class="alert alert-danger">
                                         <span class="fa fa-won" style="color: darkred;font-size: 20px;"></span>
-                                        <span class="h5" style="color: darkred">Mot de passe incorrect</span>
+                                        <span class="h6" style="color: darkred">Mot de passe incorrect</span>
                                     </div>
                                 <?php
                                     }
@@ -53,7 +53,7 @@ session_start();
                                 ?>
                                     <div class="alert alert-warning">
                                         <span class="fa fa-pencil-square-o" style="color: darkred;font-size: 20px;"></span>
-                                        <span class="h5" style="color: darkred">Erreur de remplissage, Recommencer SVP</span>
+                                        <span class="h6" style="color: darkred">Erreur de remplissage, Recommencer SVP</span>
                                     </div>
                                 <?php
                                     }
@@ -62,7 +62,7 @@ session_start();
                                 ?>
                                     <div class="alert alert-success">
                                         <span class="fa fa-plug" style="color: forestgreen;font-size: 20px;"></span>
-                                        <span class="h5" style="color: forestgreen">Vous êtes deconnecté</span>
+                                        <span class="h6" style="color: forestgreen">Vous êtes deconnecté</span>
                                     </div>
                                 <?php
                                     }
@@ -71,7 +71,7 @@ session_start();
                                 ?>
                                     <div class="alert alert-info">
                                         <span class="fa fa-lock" style="color: #0069d9;font-size: 20px;"></span>
-                                        <span class="h5" style="color: #0069d9">Ce compte est désactivé, Contactez l'administrateur du système</span>
+                                        <span class="h6" style="color: #0069d9">Ce compte est désactivé, Contactez l'administrateur du système</span>
                                     </div>
                                 <?php
                                     }
@@ -105,7 +105,7 @@ session_start();
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 p-2">
+                    <div class="col-md-6 p-2 mx-2">
                         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                             <div class="mt-4">
                                 <div class="carousel-indicators">
@@ -118,37 +118,56 @@ session_start();
                                 <div class="carousel-item active bg-white opacity-75 p-4">
                                     <div class="row d-flex justify-content-center">
                                         <h4 class="text-end text-success"> <i class="fa fa-question-circle fs-1"></i> A PROPOS NOUS</h4>
-                                        <div class="col-md-12">
-                                            <p class="text-start">Nous sommes un établissement de vente et de transport des fournitures et produits de première nécessité, nous effectuons la vente et la distribution des produits tels que le sucre, le riz, la farine de blé, le savon en poudre, les bidons l'huile et bien des nombreux autres produits divers.</p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <img src="media/pictures-system/rice.avif" class="img-responsive" width="150" alt="">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <img src="media/pictures-system/truck2.jpg" class="img-responsive" width="200" alt="">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="text-start">Nous sommes un établissement de vente et de transport des fournitures et produits de première nécessité, nous effectuons la vente et la distribution des produits tels que le sucre, le riz, la farine de blé, le savon en poudre, les bidons l'huile et bien des nombreux autres produits divers.</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <img src="media/pictures-system/rice.avif" class="img-responsive" width="150" alt="">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <img src="media/pictures-system/truck2.jpg" class="img-responsive" width="200" alt="">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="carousel-item bg-white opacity-75 p-4">
                                     <div class="row d-flex justify-content-center">
-                                        <h4 class="text-start text-success text-center"> <i class="fa fa-balance-scale fs-1"></i> SERVICES</h4>
-                                        <div class="col-md-12 text-justify" style="margin-bottom: 23%;">
+                                        <h4 class="text-start text-success text-center"> <i class="fa fa-handshake-o fs-1"></i> SERVICES</h4>
+                                        <div class="col-md-12 text-justify">
                                             <ul class="list-inline-item">
-                                                <li> Vente du Riz </li>
-                                                <li> Vente du Farine de blué</li>
-                                                <li> Vente des Bidons Huiles </li>
-                                                <li> Vente des produits divers</li>
-                                                <li> Vente du Ciment</li>
+                                                <li> 
+                                                    <h5>PRODUIT ALIMENTAIRE</h5> 
+                                                    <ul>
+                                                        <li>Vente du Riz</li>
+                                                        <li> Vente du Farine de blué</li>
+                                                        <li> Vente des Bidons Huiles </li>
+                                                    </ul>
+                                                </li>
+                                                <li> 
+                                                    <h5>PRODUIT DIVERS</h5> 
+                                                    <ul>
+                                                        <li>Vente Biscuits</li>
+                                                        <li> Vente Bombon</li>
+                                                        <li> Vente Jus</li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <h5>PRODUIT DE CONSTRUCTION</h5> 
+                                                    <ul>
+                                                        <li>Vente du Ciment</li>
+                                                    </ul> 
+                                                </li>
                                                 <li> Transport des marchandises</li>
                                                 <li> Transport des materiaux de construction</li>
-                                                <li> Achat Des biens pour nos clients</li>
+                                                <li> Achat des biens pour nos clients</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="carousel-item bg-white opacity-75 p-4">
                                     <h4 class="text-start text-success text-center"> <i class="fa fa-home fs-1"></i> ADDRESSES</h4>
-                                    <div class="row" style="margin-bottom: 23%;">
+                                    <div class="row">
                                         <div class="col-md-12 text-center">
                                             <ul class="list-unstyled">
                                                 <li> <i class="fa fa-map-marker"></i> RDC / SUD-Kivu / Kamanyola </li>
@@ -166,20 +185,6 @@ session_start();
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div class="row">
-                                <div class="col-md-6">
-                                    <button class="carousel-control-prev" style="margin-top: 75%;" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                                        <span class="carousel-control-prev-icon bg-danger" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Previous</span>
-                                    </button>
-                                </div>
-                                <div class="col-md-6">
-                                    <button class="carousel-control-next" style="margin-top: 75%;" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                                        <span class="carousel-control-next-icon bg-danger" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Next</span>
-                                    </button>
-                                </div>
-                            </div> -->
                         </div>
                     </div>
                 </div>

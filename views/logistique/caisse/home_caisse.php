@@ -4,7 +4,38 @@ include '../models/crud/db.php';
 $db = new DB();
 $listDriver = $db->getWhere('agent','active','1','id');
 ?>
+<style>
+        #menu-gauche {
+            border-right-style: solid;
+            border-right-color: black;
+        }
 
+        #menu-gauche ul li {
+            padding: 8px;
+        }
+
+        #menu-gauche ul li a {
+            text-decoration: none;
+        }
+
+        #menu-gauche ul li span {
+            margin-right: 5px;
+        }
+        #entete1-logo a {
+            text-decoration: none;
+            color: white;
+            display: inline-block;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        #entete1-button {
+            padding: 15px;
+            padding-left: 5px;
+        }
+</style>
 <div class="container-fluid">
   <div class="row">
         <div class="col-md-2 text-start mt-3 mb-3">
@@ -46,10 +77,10 @@ $listDriver = $db->getWhere('agent','active','1','id');
         </div>
         
         <div class="row">
-          <div class="col-md-4 bg-primary text-start">
+          <div class="col-md-4 bg-primary text-start border-end border-bottom">
             <h5 class="fw-bolder text-white mt-3"><span id="dollars">0</span></h5>
           </div>
-          <div class="col-md-4 bg-primary text-start">
+          <div class="col-md-4 bg-primary text-start border-end border-bottom">
               <h5 class="fw-bolder text-white mt-3"><span id="fc">0</span></h5>
           </div>
           <div class="col-md-4 bg-primary text-start">
@@ -57,24 +88,24 @@ $listDriver = $db->getWhere('agent','active','1','id');
           </div>
         </div>
         <h3>DEBIT CAISSE</h3>
-        <div class="col-md-12 table-responsive">
-            <table id="caisse_list_entre" class="table display" style="width:100%">
-                <thead>
-                    <tr>
-                        <th class="small">DATE</th>
-                        <th class="small">BANQUE</th>
-                        <th class="small">N° BORDEREAU</th>
-                        <th class="small">DESCRIPTION</th>
-                        <th class="small">DEPOT $</th>
-                        <th class="small">DEPOT FC</th>
-                        <th class="small">DEPOT FRW</th>
-                        <th class="small">DEBITE PAR</th>
-                        <th class="small">APPROUVE PAR</th>
-                        <th class="small">PLUS</th>
-                    </tr>
-                </thead>
-                <tbody id="list_caisse_entre_page"></tbody>
-            </table>
+        <div class="col-md-12 table-responsive" style="height: 500px;overflow:scroll;">
+          <table id="caisse_list_entre" class="table display" style="width:100%">
+              <thead>
+                  <tr>
+                      <th class="small">DATE</th>
+                      <th class="small">BANQUE</th>
+                      <th class="small">N° BORDEREAU</th>
+                      <th class="small">DESCRIPTION</th>
+                      <th class="small">DEPOT $</th>
+                      <th class="small">DEPOT FC</th>
+                      <th class="small">DEPOT FRW</th>
+                      <th class="small">DEBITE PAR</th>
+                      <th class="small">APPROUVE PAR</th>
+                      <th class="small">PLUS</th>
+                  </tr>
+              </thead>
+              <tbody id="list_caisse_entre_page"></tbody>
+          </table>
         </div>
         <h3>CREDIT CAISSE</h3>
         <div class="col-md-12 col-sm-12 mt-3">
@@ -108,7 +139,7 @@ $listDriver = $db->getWhere('agent','active','1','id');
             </div>
           </form>
         </div>
-        <div class="col-12 table-responsive">
+        <div class="col-12 table-responsive" style="height: 500px;overflow:scroll;">
             <table id="caisse_list_sortie" class="display table" style="width:100%">
                 <thead>
                     <tr>
