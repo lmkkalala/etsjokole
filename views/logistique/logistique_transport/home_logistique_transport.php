@@ -106,7 +106,7 @@
       </div>
     </form>  
       <div class="row">    
-        <div class="col-12 table-responsive">
+        <div class="col-md-12 mt-3 table-responsive">
           <table id="transport_list" class="table display" style="width:100%">
               <thead>
                   <tr>
@@ -122,7 +122,8 @@
                       <th class="small">EXECUTER</th>
                   </tr>
               </thead>
-              <tbody id="list_transport_page"></tbody>
+              <tbody></tbody>
+              <!-- <tbody id="list_transport_page"></tbody> -->
           </table>
         </div>
       </div>
@@ -171,7 +172,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <table  id="depense_type_list" class="display" style="width:100%">
+            <table id="depense_type_list" class="display" style="width:100%">
                 <thead>
                     <tr>
                         <th>Date</th>
@@ -181,7 +182,8 @@
                         <th>EXECUTER</th>
                     </tr>
                 </thead>
-                <tbody id="type_depense_list"></tbody>
+                <tbody></tbody>
+                <!-- <tbody id="type_depense_list"></tbody> -->
             </table>
         </div>
     </div>
@@ -232,18 +234,21 @@
               </div>
             </div>
           </form>  
-          <table  id="spend_list_transport" class="display table-responsive" style="width:100%">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Conducteur</th>
-                    <th>Description</th>
-                    <th>Les Depenses</th>
-                    <th>EXECUTER</th>
-                </tr>
-            </thead>
-            <tbody id="list_depense_course"></tbody>
-          </table>
+          <div class="mt-3">
+            <table  id="spend_list_transport" class="display table-responsive" style="width:100%">
+              <thead>
+                  <tr>
+                      <th>Date</th>
+                      <th>Conducteur</th>
+                      <th>Description</th>
+                      <th>Les Depenses</th>
+                      <th>EXECUTER</th>
+                  </tr>
+              </thead>
+              <tbody></tbody>
+              <!-- <tbody id="list_depense_course"></tbody> -->
+            </table>
+          </div>
         </div>
     </div>
   </div>

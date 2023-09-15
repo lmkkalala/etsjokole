@@ -104,7 +104,8 @@ $listDriver = $db->getWhere('agent','active','1','id');
                       <th class="small">PLUS</th>
                   </tr>
               </thead>
-              <tbody id="list_caisse_entre_page"></tbody>
+              <tbody></tbody>
+              <!-- <tbody id="list_caisse_entre_page"></tbody> -->
           </table>
         </div>
         <h3>CREDIT CAISSE</h3>
@@ -139,24 +140,25 @@ $listDriver = $db->getWhere('agent','active','1','id');
             </div>
           </form>
         </div>
-        <div class="col-12 table-responsive" style="height: 500px;overflow:scroll;">
+        <div class="col-12 mt-3 table-responsive" style="height: 500px;overflow:scroll;">
             <table id="caisse_list_sortie" class="display table" style="width:100%">
-                <thead>
-                    <tr>
-                        <th class="small">DATE</th>
-                        <th class="small">BANQUE</th>
-                        <th class="small">N° BORDEREAU</th>
-                        <th class="small">DESCRIPTION</th>
-                        <th class="small">RETRAIT $</th>
-                        <th class="small">RETRAIT FC</th>
-                        <th class="small">RETRAIT FRW</th>
-                        <th class="small">CREDITE PAR</th>
-                        <th class="small">APPROUVE PAR</th>
-                        <th class="small">PLUS</th>
-                    </tr>
-                </thead>
-                <tbody id="list_caisse_sortie_page"></tbody>
-            </table>
+              <thead>
+                <tr>
+                  <th class="small">DATE</th>
+                  <th class="small">BANQUE</th>
+                  <th class="small">N° BORDEREAU</th>
+                  <th class="small">DESCRIPTION</th>
+                  <th class="small">RETRAIT $</th>
+                  <th class="small">RETRAIT FC</th>
+                  <th class="small">RETRAIT FRW</th>
+                  <th class="small">CREDITE PAR</th>
+                  <th class="small">APPROUVE PAR</th>
+                  <th class="small">PLUS</th>
+                </tr>
+              </thead>
+            <tbody></tbody>
+            <!-- <tbody id="list_caisse_sortie_page"></tbody> -->
+          </table>
         </div>
     </div>
 </div>

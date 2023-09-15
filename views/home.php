@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,6 +16,7 @@ if (isset($_GET['mutationID'])) {
     header('Location:../contollers/transition/transition.php?mutationID='.$_GET['mutationID']);
     die();
 }
+
 ?>
 <html lang="fr">
     <head>

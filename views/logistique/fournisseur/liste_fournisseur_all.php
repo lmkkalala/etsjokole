@@ -19,7 +19,7 @@ include '../models/fournisseur/fournisseur.php';
         <div>
             <fieldset>
                 <legend>List</legend>
-                <table class="table table-bordered table-responsive-lg table-condensed">
+                <table id="list_fournisseur" class="table table-bordered table-responsive-lg table-condensed">
                     <thead>
                     <th>
                         N°

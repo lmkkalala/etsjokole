@@ -259,7 +259,18 @@ if(htmlspecialchars($_GET['page']) == 'home_dette'){
         }
     }
 
-    $listDetteData = '';
+    $listDetteData = 
+'<thead>
+    <tr>
+        <th>DATE</th>
+        <th>AGENT</th>
+        <th>RAISON</th>
+        <th>MONTANT</th>
+        <th>OPERATION</th>
+        <th>PLUS</th>
+    </tr>
+</thead>
+<tbody>';
     $detteTotal = 0;
     $table = "String('dette')";
     $rembourserTotal = 0;
@@ -316,7 +327,8 @@ if(htmlspecialchars($_GET['page']) == 'home_dette'){
     <td class="h3 fw-bolder bg-primary text-white p-2">'.$format->formatCurrency($rembourserTotal,'usd').'</td>
     <td class="fw-bolder">RESTE A PAYER</td>
     <td class="h3 fw-bolder bg-primary text-white p-2">'.$format->formatCurrency($detteTotal-$rembourserTotal,'usd').'</td>
-    </tr>';
+    </tr>
+    </tbody>';
 }else{
     $listDetteData = '';
 }
@@ -336,7 +348,17 @@ if(htmlspecialchars($_GET['page']) == 'home_depense'){
         }
     }
     
-    $listDepenseData = '';
+    $listDepenseData = 
+'<thead>
+    <tr>
+        <th>DATE</th>
+        <th>MONTANT</th>
+        <th>CATERORIE</th>
+        <th>DESCRIPTION</th>
+        <th>PLUS</th>
+    </tr>
+</thead>
+<tbody>';
     $depenseTotal = 0;
     $table = "String('depense')";
     foreach ($listDepense as $key => $value) {
@@ -372,7 +394,8 @@ if(htmlspecialchars($_GET['page']) == 'home_depense'){
     <td></td>
     <td></td>
     <td class="h4 fw-bolder bg-primary text-white p-2">'.$format->formatCurrency($depenseTotal,'usd').'</td>
-    </tr>';
+    </tr>
+    </tbody>';
 
 }else{
     $listDepenseData = '';
@@ -386,7 +409,22 @@ if(htmlspecialchars($_GET['page']) == 'home_caisse'){
         $listCaisse = $DB->getWhere('caisse','operation','Debiter','id');
     }
     
-    $listCaisseData = '';
+    $listCaisseData = 
+'<thead>
+    <tr>
+        <th class="small">DATE</th>
+        <th class="small">BANQUE</th>
+        <th class="small">N° BORDEREAU</th>
+        <th class="small">DESCRIPTION</th>
+        <th class="small">DEPOT $</th>
+        <th class="small">DEPOT FC</th>
+        <th class="small">DEPOT FRW</th>
+        <th class="small">DEBITE PAR</th>
+        <th class="small">APPROUVE PAR</th>
+        <th class="small">PLUS</th>
+    </tr>
+</thead>
+<tbody>';
     $totalDebitDollars = 0;
     $totalDebitFc = 0;
     $totalDebitFrw = 0;
@@ -426,7 +464,7 @@ if(htmlspecialchars($_GET['page']) == 'home_caisse'){
         <td></td>
         <td></td>
         <td class="fw-bolder text-dark text-start">'.$format->formatCurrency($totalDebitFrw,'frw').'</td>
-    </tr>
+    </tr></tbody>
     ';
 
     if ($conditionCaisseCredit != '') {
@@ -435,7 +473,22 @@ if(htmlspecialchars($_GET['page']) == 'home_caisse'){
         $listCaisseSortie = $DB->getWhere('caisse','operation','Crediter','id');
     }
     
-    $listCaisseDataSortie = '';
+    $listCaisseDataSortie = 
+'<thead>
+    <tr>
+      <th class="small">DATE</th>
+      <th class="small">BANQUE</th>
+      <th class="small">N° BORDEREAU</th>
+      <th class="small">DESCRIPTION</th>
+      <th class="small">RETRAIT $</th>
+      <th class="small">RETRAIT FC</th>
+      <th class="small">RETRAIT FRW</th>
+      <th class="small">CREDITE PAR</th>
+      <th class="small">APPROUVE PAR</th>
+      <th class="small">PLUS</th>
+    </tr>
+  </thead>
+<tbody>';
     $totalCreditDollars = 0;
     $totalCreditFc = 0;
     $totalCreditFrw = 0;
@@ -477,6 +530,7 @@ if(htmlspecialchars($_GET['page']) == 'home_caisse'){
         <td></td>
         <td class="fw-bolder text-dark">'.$format->formatCurrency($totalCreditFrw,'frw').'</td>
     </tr>
+    </tbody>
     ';
 
     $dollars = $totalDebitDollars - $totalCreditDollars;
@@ -592,7 +646,17 @@ if(htmlspecialchars($_GET['page']) == 'home_logistique_transport'){
     //$btnStyle = array();
     $table = "String('typedepense')";
     $typeDepense = $DB->get('typedepense','id');
-    $typeDepenseData = '';
+    $typeDepenseData = 
+'<thead>
+    <tr>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Montant En $</th>
+        <th>Aller</th>
+        <th>EXECUTER</th>
+    </tr>
+</thead>
+<tbody>';
     foreach ($typeDepense as $key => $value) {
 
     $btnStyle = ($typeDepense[$key]['status'] == '0') ? 'danger' : 'secondary';
@@ -620,6 +684,7 @@ if(htmlspecialchars($_GET['page']) == 'home_logistique_transport'){
     </form>';
         $btnStyle = '';
     }
+    $typeDepenseData = $typeDepenseData.'</tbody>'; 
 }else{
     $listConducteurData = '';
     $listVehiculeData = '';
@@ -642,7 +707,18 @@ if (htmlspecialchars($_GET['page']) == 'home_facture_client') {
     }
 
     $table = "String('facture')";
-    $factureData = '';
+    $factureData = 
+'<thead>
+    <tr>
+        <th>DATE</th>
+        <th>AGENT</th>
+        <th>MONTANT</th>
+        <th>DESCRIPTION</th>
+        <th>SITUATION</th>
+        <th>PLUS</th>
+    </tr>
+</thead>
+<tbody>';
     $fullNameAgent = '';
     foreach ($factureDataList as $key => $value) {
         $select = '';
@@ -690,6 +766,7 @@ if (htmlspecialchars($_GET['page']) == 'home_facture_client') {
         </tr>
     </form>';
     }
+    $factureData = $factureData.'</tbody>';
 }else{
     $factureData = ''; 
 }
@@ -699,12 +776,22 @@ if(htmlspecialchars($_GET['page']) == 'home_logistique_transport'){
     if ($conditionDepenseCourse != '') {
         $depensetransport = $DB->getWhereMultiple('depensetransport',$conditionDepenseCourse);
     }else{
-        $depensetransport = $DB->getWhereMultiple('depensetransport','id');
+        $depensetransport = $DB->getWhereMultiple('depensetransport','date Like"%'.date('Y-m',time()).'%" ORDER BY date DESC');
     }
     $table = "String('depensetransport')";
     $typeAgent = $DB->getWhere('agent','active','1');
     $typedepense = $DB->get('typedepense','id'); 
-    $lisDepenseCourse = '';
+    $lisDepenseCourse = 
+    '<thead>
+    <tr>
+        <th>Date</th>
+        <th>Conducteur</th>
+        <th>Description</th>
+        <th>Les Depenses</th>
+        <th>EXECUTER</th>
+    </tr>
+    </thead>
+    <tbody>';
     $description = '';
     $DepenseTotalCourse = 0;
     foreach ($depensetransport as $key => $value) {
@@ -753,7 +840,7 @@ if(htmlspecialchars($_GET['page']) == 'home_logistique_transport'){
     <input class="form-control" type="text" name="" id="" value="'.$DepenseTotalCourse.' $" readonly>  
     </td>
     <td></td>
-    </tr>';
+    </tr><tbody>';
 
 
 
@@ -763,8 +850,24 @@ if(htmlspecialchars($_GET['page']) == 'home_logistique_transport'){
     }else{
         $typeCourse = $DB->getWhereMultiple('coursetransport','date Like"%'.date('Y-m',time()).'%" ORDER BY date DESC');
     }
+
     $listDepenseTransport = $DB->get('depensetransport','id'); 
-    $typeCourseData = '';
+
+    $typeCourseData = '<thead>
+                  <tr>
+                      <th class="small">N°</th>
+                      <th class="small">DATE</th>
+                      <th class="small">CONDUCTEUR</th>
+                      <th class="small">PLAQUE</th>
+                      <th class="small">Contenu&DESTINATION</th>
+                      <th class="small">DESCRIPTION</th>
+                      <th class="small">Tonne / MONTANT</th>
+                      <th class="small">DEPENSE</th>
+                      <th class="small">MARGE</th>
+                      <th class="small">EXECUTER</th>
+                  </tr>
+              </thead>
+              <tbody>';
     $conducteurID = '';
     $conducteurNames = '';
     $plaque = '';
@@ -848,7 +951,7 @@ if(htmlspecialchars($_GET['page']) == 'home_logistique_transport'){
         <td>MARGE : </td>
         <td>'.$margeTotal.'</td>
         <td> USD</td>
-    </tr>';
+    </tr></tbody>';
 }else{
     $lisDepenseCourse = '';
     $typeCourseData = '';
@@ -930,6 +1033,7 @@ if (htmlspecialchars($_GET['page']) == 'home_bordereau_expedition') {
     $listBordereauData = '';
 }
 
+if (htmlspecialchars($_GET['page']) == 'depense_modal') {
     $selectedDataCourse = '';
     $selectedDataDetails = '';
     if(isset($_GET['modal']) and !empty($_GET['modal'])){
@@ -967,6 +1071,10 @@ if (htmlspecialchars($_GET['page']) == 'home_bordereau_expedition') {
                 }
         } 
     }
+}else{
+    $selectedDataCourse = '';
+    $selectedDataDetails = '';
+}
    
 
     echo json_encode(

@@ -44,42 +44,63 @@
                     success: function(data){
                         $('button').prop('disabled',false);
                         
-                        $('#list_dette_page').html(data.htmlDettePage)
-                        $('#list_depense_page').html(data.htmlDepensePage)
-                        $('#list_caisse_entre_page').html(data.htmlCaissePage.entre)
-                        $('#list_caisse_sortie_page').html(data.htmlCaissePage.sortie)
-                        $('#dollars').html(data.htmlCaissePage.dollars)
-                        $('#fc').html(data.htmlCaissePage.fc)
-                        $('#frw').html(data.htmlCaissePage.frw)
-                        $('#driver_list_data').html(data.htmlConducteurPage.listConducteur)
-                        $('#vehicule_list_data').html(data.htmlConducteurPage.listVehicule)
-                        $('#type_depense_list').html(data.htmlConducteurPage.listTypeDepense)
-                        $('#list_bordereau').html(data.listBordereau)
-                        $('#list_transport_page').html(data.htmlConducteurPage.listCourse)
-                        $('#list_depense_course').html(data.htmlConducteurPage.lisDepenseCourse)
+                        if(data.htmlDettePage != ''){
+                            //$('#list_dette_page').html(data.htmlDettePage)
+                            $('#dette_list').html(data.htmlDettePage)
+                        }
+                        
+                        if(data.htmlDepensePage != ''){
+                            //$('#list_depense_page').html(data.htmlDepensePage)
+                            $('#depense_list').html(data.htmlDepensePage)
+                        }
+                        if(data.htmlCaissePage.entre != ''){
+                            //$('#list_caisse_entre_page').html(data.htmlCaissePage.entre)
+                            $('#caisse_list_entre').html(data.htmlCaissePage.entre)
+                        }
+                        if(data.htmlCaissePage.sortie != ''){
+                            //$('#list_caisse_sortie_page').html(data.htmlCaissePage.sortie)
+                            $('#caisse_list_sortie').html(data.htmlCaissePage.sortie)
+                        }
+                        if(data.htmlCaissePage.dollars != ''){
+                            $('#dollars').html(data.htmlCaissePage.dollars)
+                        }
+                        if(data.htmlCaissePage.fc != ''){
+                            $('#fc').html(data.htmlCaissePage.fc)
+                        }
+                        if(data.htmlCaissePage.frw != ''){
+                            $('#frw').html(data.htmlCaissePage.frw)
+                        }
+                        if(data.htmlConducteurPage.listConducteur != ''){
+                            $('#driver_list_data').html(data.htmlConducteurPage.listConducteur)
+                        }
+                        if(data.htmlConducteurPage.listVehicule != ''){
+                            $('#vehicule_list_data').html(data.htmlConducteurPage.listVehicule)
+                        }
+                        if(data.htmlConducteurPage.listTypeDepense != ''){
+                            $('#type_depense_list').html(data.htmlConducteurPage.listTypeDepense)
+                        }
+                        if(data.listBordereau != ''){
+                            $('#list_bordereau').html(data.listBordereau)
+                        }
+                        if(data.htmlConducteurPage.listCourse != ''){
+                            //$('#list_transport_page').html(data.htmlConducteurPage.listCourse)
+                            $('#transport_list').html(data.htmlConducteurPage.listCourse)
+                        }
+                        if(data.htmlConducteurPage.lisDepenseCourse != ''){
+                            //$('#list_depense_course').html(data.htmlConducteurPage.lisDepenseCourse)
+                            $('#spend_list_transport').html(data.htmlConducteurPage.lisDepenseCourse)
+                        }
                         if(data.selectedDataCourse != ''){
                             $('#depense_course_conducteur_id').html(data.selectedData.selectedDataCourse)
                             $('#course_transport_id').html(data.selectedData.selectedDataDetails)
                         }
-                        $('#list_facture_page').html(data.factureData)
+                        if(data.factureData != ''){
+                            $('#list_facture_page').html(data.factureData)
+                        }
                     },
                 });
             }else{
-                // if(modal != ''){
-                //     modalID = modal;
-                // }else{
-                //     modalID = '';
-                // }
-
-                
                 modalID = (modal != '') ? modal: '';
-
-                // if (page != '') {
-                //     pageName = page;
-                // }else{
-                //     pageName = '';
-                // }
-
                 pageName = (page != '') ? page: '';
 
                 $.ajax({
@@ -87,24 +108,59 @@
                     url:'<?=("/contollers/MoreControllers/control.php?code=".sha1('loadDataList'))."&modal="?>'+modalID+'&page='+pageName+'',
                     dataType:'json',	
                     success: function(data){
-                        $('#list_dette_page').html(data.htmlDettePage)
-                        $('#list_depense_page').html(data.htmlDepensePage)
-                        $('#list_caisse_entre_page').html(data.htmlCaissePage.entre)
-                        $('#list_caisse_sortie_page').html(data.htmlCaissePage.sortie)
-                        $('#dollars').html(data.htmlCaissePage.dollars)
-                        $('#fc').html(data.htmlCaissePage.fc)
-                        $('#frw').html(data.htmlCaissePage.frw)
-                        $('#driver_list_data').html(data.htmlConducteurPage.listConducteur)
-                        $('#vehicule_list_data').html(data.htmlConducteurPage.listVehicule)
-                        $('#type_depense_list').html(data.htmlConducteurPage.listTypeDepense)
-                        $('#list_bordereau').html(data.listBordereau)
-                        $('#list_transport_page').html(data.htmlConducteurPage.listCourse)
-                        $('#list_depense_course').html(data.htmlConducteurPage.lisDepenseCourse)
+                        if(data.htmlDettePage != ''){
+                            //$('#list_dette_page').html(data.htmlDettePage)
+                            $('#dette_list').html(data.htmlDettePage)
+                        }
+                        
+                        if(data.htmlDepensePage != ''){
+                            //$('#list_depense_page').html(data.htmlDepensePage)
+                            $('#depense_list').html(data.htmlDepensePage)
+                        }
+                        if(data.htmlCaissePage.entre != ''){
+                            //$('#list_caisse_entre_page').html(data.htmlCaissePage.entre)
+                            $('#caisse_list_entre').html(data.htmlCaissePage.entre)
+                        }
+                        if(data.htmlCaissePage.sortie != ''){
+                            //$('#list_caisse_sortie_page').html(data.htmlCaissePage.sortie)
+                            $('#caisse_list_sortie').html(data.htmlCaissePage.sortie)
+                        }
+                        if(data.htmlCaissePage.dollars != ''){
+                            $('#dollars').html(data.htmlCaissePage.dollars)
+                        }
+                        if(data.htmlCaissePage.fc != ''){
+                            $('#fc').html(data.htmlCaissePage.fc)
+                        }
+                        if(data.htmlCaissePage.frw != ''){
+                            $('#frw').html(data.htmlCaissePage.frw)
+                        }
+                        if(data.htmlConducteurPage.listConducteur != ''){
+                            $('#driver_list_data').html(data.htmlConducteurPage.listConducteur)
+                        }
+                        if(data.htmlConducteurPage.listVehicule != ''){
+                            $('#vehicule_list_data').html(data.htmlConducteurPage.listVehicule)
+                        }
+                        if(data.htmlConducteurPage.listTypeDepense != ''){
+                            $('#type_depense_list').html(data.htmlConducteurPage.listTypeDepense)
+                        }
+                        if(data.listBordereau != ''){
+                            $('#list_bordereau').html(data.listBordereau)
+                        }
+                        if(data.htmlConducteurPage.listCourse != ''){
+                            //$('#list_transport_page').html(data.htmlConducteurPage.listCourse)
+                            $('#transport_list').html(data.htmlConducteurPage.listCourse)
+                        }
+                        if(data.htmlConducteurPage.lisDepenseCourse != ''){
+                            //$('#list_depense_course').html(data.htmlConducteurPage.lisDepenseCourse)
+                            $('#spend_list_transport').html(data.htmlConducteurPage.lisDepenseCourse)
+                        }
                         if(data.selectedDataCourse != ''){
                             $('#depense_course_conducteur_id').html(data.selectedData.selectedDataCourse)
                             $('#course_transport_id').html(data.selectedData.selectedDataDetails)
                         }
-                        $('#list_facture_page').html(data.factureData)
+                        if(data.factureData != ''){
+                            $('#list_facture_page').html(data.factureData)
+                        }
                     },
                 });
             }
@@ -113,9 +169,9 @@
         $('#add_depense').on('show.bs.modal', function (e) {
             var id = $(e.relatedTarget).data('id');
             if(id != undefined){
-                list('depense_course_form',id,'<?=$page?>');
+                list('depense_course_form',id,'depense_modal');
             }else{
-                list('depense_course_form','undefined','<?=$page?>');
+                list('depense_course_form','undefined','depense_modal');
             }
         });
 
@@ -196,8 +252,7 @@
 
     $(document).ready(function () {
         $('#champ_depot, #champ_retrait, #depotParDiv, #creditParDiv').hide();
-        $('#caisse_list_entre').DataTable();
-        $('#caisse_list_sortie').DataTable();
+        $('#caisse_list_entre, #caisse_list_sortie').DataTable();
         $('#driver_list').DataTable();
         $('#transport_list').DataTable();
         $('#depense_list').DataTable();
@@ -206,6 +261,10 @@
         $('#vehicule_list').DataTable();
         $('#spend_list_transport').DataTable();
         $('#depense_type_list').DataTable();
+        $('#list_facture').DataTable();
+        $('#list_fournisseur').DataTable();
+        $('#list_fournisseur_update').DataTable();
+        $('#list_fournisseur_update_activate').DataTable();
 
         $('#toggle_menu').on('click',function(){
             $('#menu2-a').slideToggle("slow");
@@ -303,6 +362,11 @@
                                 break;
                             case 'operation_caisse_new':
                                 $('#operation_caisse')[0].reset();
+                                $('#operation').val('');
+                                $('#champ_depot').hide();
+                                $('#champ_retrait').hide();
+                                $('#creditParDiv').hide();
+                                $('#depotParDiv').hide();
                                 break;
                             case 'operation_new_facture':
                                 $('#add_facture_form')[0].reset();

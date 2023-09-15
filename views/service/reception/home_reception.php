@@ -17,6 +17,7 @@ include './meta/menu_service.php';
                         <li class="list-inline-item"><span style="color: orange;font-size: 20px;" class="glyphicon glyphicon-list"></span><span style="color: orange;font-size: 20px;" class="fa fa-share-alt"></span><a href="/views/home.php?link=<?= sha1("service_reception_liste_reception_all") ?>&link_up=<?= sha1("home_service_reception") ?>">Report</a></li>
                         <li class="list-inline-item"><span style="color: darkslategray;font-size: 20px;" class="fa fa-file-text"></span><span style="color: darkslategray;font-size: 20px;" class="fa fa-share-alt"></span><a href="/views/home.php?link=<?= sha1("service_reception_fiche_biens_reception_all") ?>&link_up=<?= sha1("home_service_reception") ?>">Lister Par Item</a></li>
                         <li class="list-inline-item"><span style="color: orange;font-size: 20px;" class="fa fa-file-o"></span><a href="/views/home.php?link=<?= sha1("service_reception_inventory") ?>&link_up=<?= sha1("home_service_reception") ?>">Inventoraire</a></li>
+                        <li class="list-inline-item"><span style="color: orange;font-size: 20px;" class="fa fa-file-o"></span><a href="/views/home.php?link=<?= sha1("old_inventaire") ?>&link_up=<?= sha1("home_service_reception") ?>">Ancien Inventaire</a></li>
                     </ul>
                 </div>
                 <style>
@@ -52,6 +53,8 @@ include './meta/menu_service.php';
                             include 'service/demande/fiche_biens_demande_self.php';
                         } else if ($_GET['link'] == sha1("service_reception_inventory")) {
                             include 'service/reception/reception_inventory.php';
+                        }else if ($_GET['link'] == sha1("old_inventaire")) {
+                            include 'service/reception/old_inventory.php';
                         }
                     } else {
                         include 'service/reception/liste_reception_all.php';

@@ -81,7 +81,7 @@
             <button class="btn btn-primary text-white" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">NOUVELLE FACTURE</button>
         </div>
         <div class="col-12">
-            <table id="dette_list" class="display" style="width:100%">
+            <table id="list_facture" class="display" style="width:100%">
                 <thead>
                     <tr>
                         <th>DATE</th>
@@ -92,9 +92,7 @@
                         <th>PLUS</th>
                     </tr>
                 </thead>
-                <tbody id="list_facture_page">
-                    
-                </tbody>
+                <tbody></tbody>
             </table>
         </div>
     </div>

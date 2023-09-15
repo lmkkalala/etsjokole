@@ -145,5 +145,11 @@ if (isset($_POST['bt_search_by_dates_inventory'])) {
     header('Location:../../views/home.php?link=' . sha1("service_reception_inventory") . '&reponse=' . sha1($reponse). '&date=' . ($date) .'&link_up=' . sha1("home_service_reception"));
 }
 
+if (isset($_POST['bt_search_by_dates_inventory_old'])) {
+    //    echo "dedans";die;
+        $date=$_POST['tb_date'];
+        header('Location:../../views/home.php?link=' . sha1("old_inventaire") . '&reponse=' . sha1($reponse). '&date=' . ($date) .'&link_up=' . sha1("home_service_reception"));
+    }
+
 ?>
 

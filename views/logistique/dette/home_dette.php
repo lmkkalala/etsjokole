@@ -99,7 +99,7 @@
                 </div>
           </form>
         </div>
-        <div class="col-12  table-responsive">
+        <div class="col-12 mt-3 table-responsive">
             <table id="dette_list" class="table display" style="width:100%">
                 <thead>
                     <tr>
@@ -111,7 +111,8 @@
                         <th>PLUS</th>
                     </tr>
                 </thead>
-                <tbody id="list_dette_page"></tbody>
+                <tbody></tbody>
+                <!-- <tbody id="list_dette_page"></tbody> -->
             </table>
         </div>
     </div>

@@ -100,7 +100,8 @@ padding-left: 5px;
                     <th>PLUS</th>
                 </tr>
             </thead>
-            <tbody id="list_depense_page"></tbody>
+            <tbody></tbody>
+            <!-- <tbody id="list_depense_page"></tbody> -->
         </table>
     </div>
   </div>

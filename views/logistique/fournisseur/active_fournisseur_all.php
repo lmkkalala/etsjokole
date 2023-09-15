@@ -46,7 +46,7 @@ include '../models/fournisseur/fournisseur.php';
                     <?php
                 }
                 ?>
-                <table class="table table-bordered table-responsive-lg">
+                <table id="list_fournisseur_update_activate" class="table table-bordered table-responsive-lg">
                     <thead>
                     <th>
                         N°
