@@ -175,15 +175,15 @@ if (isset($_GET['mutationID'])) {
             ?>
             <div style="margin-bottom:10%;"></div>
             <div class="d-none d-md-block"> 
-                <div class="fixed-bottom bg-primary" style="height: auto;">
-                    <div class="row">
+                <div class="fixed-bottom" style="height: auto; background-color: #000e1f;">
+                    <div class="row mb-2">
                         <div class="col-md-4 text-start mt-3">
                             <div class="row">
                                 <div class="col-md-12">
                                     <span style="color: #fff;"><i class="fa fa-copyright mx-2" style="color: #fff; font-size: 20px;"></i> Designed by <b>Rifin Ashuza K. and <a class="text-decoration-none text-white" href="https://lucienkalala.github.io/PersonalPage"> LMK</a></b></span> 
                                 </div>
                                 <div class="col-md-12">
-                                    <span class="fw-bolder mx-2" style="color: #fff;"><i class="fa fa-envelope-open fw-bolder"></i> rifinashuza.kuderha@gmail.com</span>
+                                    <!-- <span class="fw-bolder mx-2" style="color: #fff;"><i class="fa fa-envelope-open fw-bolder"></i> rifinashuza.kuderha@gmail.com</span> -->
                                 </div>
                             </div>
                         </div>
@@ -193,10 +193,11 @@ if (isset($_GET['mutationID'])) {
                                     <span class="fa fa-shield" style="color: #fff; font-size: 20px;"></span>
                                     <span style="color: #fff;font-size: 15px;">
                                         <span>
-                                            Powered by <b>UIG</b>
-                                            Web : <b>www.uig.com</b>
-                                            Email : <b>info@uig.com</b>
-                                            Téléphone : <b>+243 972 090 805</b>
+                                            <!-- Powered by <b>UIG</b>
+                                            Web : <b>www.uig.com</b> -->
+                                            <!-- Email : <b>info@uig.com</b> -->
+                                            Email : <b>contact@etsjokole.com</b>
+                                            Téléphone : <b><a href="tel:+243 972 090 805" class="text-decoration-none text-white">+243 972 090 805</a></b>
                                         </span>
                                     </span>
                                 </div>

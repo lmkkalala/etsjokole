@@ -399,11 +399,12 @@ if (isset($_POST['bt_search_by_service'])) {
     $date2 = securise($_POST['tb_date2']);
     $typerepas = securise($_POST['cb_typerepas']);
     $identiteClient = securise($_POST['cb_identiteClient']);
+    $autres_place = securise($_POST['autres_place']);
 
     if ($_SESSION['type'] == "logistique") {
-        header('Location:../../views/home.php?link=' . sha1($link) . '&use=' . ($motcle) . '&use2=' . ($motcle2) . '&use_date1=' . ($date1) . '&use_date2=' . ($date2) . '&use_typerepas=' . ($typerepas) . '&use_identiteClient=' . ($identiteClient) . '&link_up=' . sha1("home_logistique_livraison"));
+        header('Location:../../views/home.php?link=' . sha1($link) . '&use=' . ($motcle) . '&use2=' . ($motcle2) . '&use_date1=' . ($date1) . '&use_date2=' . ($date2) . '&use_typerepas=' . ($typerepas) . '&use_identiteClient=' . ($identiteClient) . '&link_up=' . sha1("home_logistique_livraison") .'& autres_place='.$autres_place);
     } else {
-        header('Location:../../views/home.php?link=' . sha1($link) . '&use=' . ($motcle) . '&use2=' . ($motcle2) . '&use_date1=' . ($date1) . '&use_date2=' . ($date2) . '&use_typerepas=' . ($typerepas) . '&use_identiteClient=' . ($identiteClient) . '&link_up=' . sha1("home_service_distribution"));
+        header('Location:../../views/home.php?link=' . sha1($link) . '&use=' . ($motcle) . '&use2=' . ($motcle2) . '&use_date1=' . ($date1) . '&use_date2=' . ($date2) . '&use_typerepas=' . ($typerepas) . '&use_identiteClient=' . ($identiteClient) . '&link_up=' . sha1("home_service_distribution") .'& autres_place='.$autres_place);
     }
 }
 ?>

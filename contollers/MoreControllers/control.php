@@ -231,6 +231,46 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
             $conditionCaisseCredit = '';
         }
 
+        if (isset($_POST['FilterFormReception'])) {
+            $conditionReceptionList = '';
+            $article = htmlspecialchars($_POST['article']);
+    
+            if ($article != '') {
+                $conditionReceptionList = $conditionReceptionList.' b.designation Like "%'.$article.'%"';
+            }
+
+            $filterDate_start = htmlspecialchars($_POST['filterDate_start']); 
+            $filterDate_end = htmlspecialchars($_POST['filterDate_end']);
+            if ($filterDate_start != '' and $filterDate_end != '') {
+                $conditionReceptionList = $article != '' ? $conditionReceptionList.' and ' : '';
+                $conditionReceptionList = $conditionReceptionList.' s.date >= "'.$filterDate_start.'" and  s.date <= "'.$filterDate_end.'"';
+            }
+        }else{
+            $conditionReceptionList = '';
+        }
+
+        if (isset($_POST['FilterFormReceptionPlace'])) {
+            $conditionReceptionDataAutrePlace = '';
+            $article = htmlspecialchars($_POST['articlePlace']);
+    
+            if ($article != '') {
+                $conditionReceptionDataAutrePlace = $conditionReceptionDataAutrePlace.' b.designation Like "%'.$article.'%"';
+            }
+
+            $filterDate_start = htmlspecialchars($_POST['filterDate_startPlace']); 
+            $filterDate_end = htmlspecialchars($_POST['filterDate_endPlace']);
+            if ($filterDate_start != '' and $filterDate_end != '') {
+                $conditionReceptionDataAutrePlace = $article != '' ? $conditionReceptionDataAutrePlace.' and ' : '';
+                $conditionReceptionDataAutrePlace = $conditionReceptionDataAutrePlace.' r.date >= "'.$filterDate_start.'" and  r.date <= "'.$filterDate_end.'"';
+            }
+        }else{
+            $conditionReceptionDataAutrePlace = '';
+        }
+
+        $conditionReception = "";
+
+
+
     $DB = new db();
 
     $allAgent = $DB->get('agent');
@@ -260,17 +300,17 @@ if(htmlspecialchars($_GET['page']) == 'home_dette'){
     }
 
     $listDetteData = 
-'<thead>
-    <tr>
-        <th>DATE</th>
-        <th>AGENT</th>
-        <th>RAISON</th>
-        <th>MONTANT</th>
-        <th>OPERATION</th>
-        <th>PLUS</th>
-    </tr>
-</thead>
-<tbody>';
+    '<thead>
+        <tr>
+            <th>DATE</th>
+            <th>AGENT</th>
+            <th>RAISON</th>
+            <th>MONTANT</th>
+            <th>OPERATION</th>
+            <th>PLUS</th>
+        </tr>
+    </thead>
+    <tbody>';
     $detteTotal = 0;
     $table = "String('dette')";
     $rembourserTotal = 0;
@@ -349,16 +389,16 @@ if(htmlspecialchars($_GET['page']) == 'home_depense'){
     }
     
     $listDepenseData = 
-'<thead>
-    <tr>
-        <th>DATE</th>
-        <th>MONTANT</th>
-        <th>CATERORIE</th>
-        <th>DESCRIPTION</th>
-        <th>PLUS</th>
-    </tr>
-</thead>
-<tbody>';
+    '<thead>
+        <tr>
+            <th>DATE</th>
+            <th>MONTANT</th>
+            <th>CATERORIE</th>
+            <th>DESCRIPTION</th>
+            <th>PLUS</th>
+        </tr>
+    </thead>
+    <tbody>';
     $depenseTotal = 0;
     $table = "String('depense')";
     foreach ($listDepense as $key => $value) {
@@ -406,25 +446,25 @@ if(htmlspecialchars($_GET['page']) == 'home_caisse'){
     if ($conditionCaisse != '') {
         $listCaisse = $DB->getWhereMultiple('caisse','operation = "Debiter" and '.$conditionCaisse);
     }else{
-        $listCaisse = $DB->getWhere('caisse','operation','Debiter','id');
+        $listCaisse = $DB->getWhere('caisse','operation','Debiter','date');
     }
     
     $listCaisseData = 
-'<thead>
-    <tr>
-        <th class="small">DATE</th>
-        <th class="small">BANQUE</th>
-        <th class="small">N° BORDEREAU</th>
-        <th class="small">DESCRIPTION</th>
-        <th class="small">DEPOT $</th>
-        <th class="small">DEPOT FC</th>
-        <th class="small">DEPOT FRW</th>
-        <th class="small">DEBITE PAR</th>
-        <th class="small">APPROUVE PAR</th>
-        <th class="small">PLUS</th>
-    </tr>
-</thead>
-<tbody>';
+    '<thead>
+        <tr>
+            <th class="small">DATE</th>
+            <th class="small">BANQUE</th>
+            <th class="small">N° BORDEREAU</th>
+            <th class="small">DESCRIPTION</th>
+            <th class="small">DEPOT $</th>
+            <th class="small">DEPOT FC</th>
+            <th class="small">DEPOT FRW</th>
+            <th class="small">DEBITE PAR</th>
+            <th class="small">APPROUVE PAR</th>
+            <th class="small">PLUS</th>
+        </tr>
+    </thead>
+    <tbody>';
     $totalDebitDollars = 0;
     $totalDebitFc = 0;
     $totalDebitFrw = 0;
@@ -470,25 +510,25 @@ if(htmlspecialchars($_GET['page']) == 'home_caisse'){
     if ($conditionCaisseCredit != '') {
         $listCaisseSortie = $DB->getWhereMultiple('caisse','operation = "Crediter" and '.$conditionCaisseCredit);
     }else{
-        $listCaisseSortie = $DB->getWhere('caisse','operation','Crediter','id');
+        $listCaisseSortie = $DB->getWhere('caisse','operation','Crediter','date');
     }
     
     $listCaisseDataSortie = 
-'<thead>
-    <tr>
-      <th class="small">DATE</th>
-      <th class="small">BANQUE</th>
-      <th class="small">N° BORDEREAU</th>
-      <th class="small">DESCRIPTION</th>
-      <th class="small">RETRAIT $</th>
-      <th class="small">RETRAIT FC</th>
-      <th class="small">RETRAIT FRW</th>
-      <th class="small">CREDITE PAR</th>
-      <th class="small">APPROUVE PAR</th>
-      <th class="small">PLUS</th>
-    </tr>
-  </thead>
-<tbody>';
+    '<thead>
+        <tr>
+        <th class="small">DATE</th>
+        <th class="small">BANQUE</th>
+        <th class="small">N° BORDEREAU</th>
+        <th class="small">DESCRIPTION</th>
+        <th class="small">RETRAIT $</th>
+        <th class="small">RETRAIT FC</th>
+        <th class="small">RETRAIT FRW</th>
+        <th class="small">CREDITE PAR</th>
+        <th class="small">APPROUVE PAR</th>
+        <th class="small">PLUS</th>
+        </tr>
+    </thead>
+    <tbody>';
     $totalCreditDollars = 0;
     $totalCreditFc = 0;
     $totalCreditFrw = 0;
@@ -536,12 +576,46 @@ if(htmlspecialchars($_GET['page']) == 'home_caisse'){
     $dollars = $totalDebitDollars - $totalCreditDollars;
     $fc = $totalDebitFc - $totalCreditFc;
     $frw = $totalDebitFrw - $totalCreditFrw;
+
+
+    $listBanqueData = $DB->get('comptebanque','date');
+
+    $listBanque =
+    '<thead>
+    <tr>
+      <th class="small">DATE</th>
+      <th class="small">BANQUE/N°COMPTE</th>
+      <th class="small">DESCRIPTION</th>
+      <th class="small">PLUS</th>
+    </tr>
+  </thead>
+    <tbody>';
+    $table = "String('comptebanque')";
+    foreach ($listBanqueData as $key => $value) {
+       $listBanque =  $listBanque.'<form action="" method="post" id="">
+        <tr>
+            <td><input class="form-control" type="date" name="" id="" placeholder="" value="'.$listBanqueData[$key]['date'].'" placeholder="yyyy-MM-dd"></td>
+            <td>
+            <input class="form-control" type="text" name="" id="" placeholder="" value="'.$listBanqueData[$key]['banque'].'">
+            <input class="form-control mt-1" type="text" name="" id="" placeholder="" value="'.$listBanqueData[$key]['n_compte'].'">
+            </td>
+            <td><textarea class="form-control" name="" id="" >'.$listBanqueData[$key]['description'].'</textarea></td>
+            <td>
+                <button class="btn btn-primary mt-1 text-white w-100" type="submit">Modifier</button>
+                <button class="btn btn-danger mt-1 text-white w-100" onclick="deleteThis('.$listBanqueData[$key]['id'].','.$table.')" type="button">Supprimer</button>
+            </td>
+        </tr>
+    </form>
+    </tbody>';
+    }
+
 }else{
     $dollars = '0.0';
     $fc = '0.0';
     $frw = '0.0';
     $listCaisseData = '';
     $listCaisseDataSortie = '';
+    $listBanque = '';
 }
 
 if(htmlspecialchars($_GET['page']) == 'home_logistique_transport'){
@@ -647,16 +721,16 @@ if(htmlspecialchars($_GET['page']) == 'home_logistique_transport'){
     $table = "String('typedepense')";
     $typeDepense = $DB->get('typedepense','id');
     $typeDepenseData = 
-'<thead>
-    <tr>
-        <th>Date</th>
-        <th>Description</th>
-        <th>Montant En $</th>
-        <th>Aller</th>
-        <th>EXECUTER</th>
-    </tr>
-</thead>
-<tbody>';
+    '<thead>
+        <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Montant En $</th>
+            <th>Aller</th>
+            <th>EXECUTER</th>
+        </tr>
+    </thead>
+    <tbody>';
     foreach ($typeDepense as $key => $value) {
 
     $btnStyle = ($typeDepense[$key]['status'] == '0') ? 'danger' : 'secondary';
@@ -708,17 +782,17 @@ if (htmlspecialchars($_GET['page']) == 'home_facture_client') {
 
     $table = "String('facture')";
     $factureData = 
-'<thead>
-    <tr>
-        <th>DATE</th>
-        <th>AGENT</th>
-        <th>MONTANT</th>
-        <th>DESCRIPTION</th>
-        <th>SITUATION</th>
-        <th>PLUS</th>
-    </tr>
-</thead>
-<tbody>';
+    '<thead>
+        <tr>
+            <th>DATE</th>
+            <th>AGENT</th>
+            <th>MONTANT</th>
+            <th>DESCRIPTION</th>
+            <th>SITUATION</th>
+            <th>PLUS</th>
+        </tr>
+    </thead>
+    <tbody>';
     $fullNameAgent = '';
     foreach ($factureDataList as $key => $value) {
         $select = '';
@@ -842,9 +916,6 @@ if(htmlspecialchars($_GET['page']) == 'home_logistique_transport'){
     <td></td>
     </tr><tbody>';
 
-
-
-
     if ($conditionCourse != '') {
         $typeCourse = $DB->getWhereMultiple('coursetransport',$conditionCourse);
     }else{
@@ -906,6 +977,9 @@ if(htmlspecialchars($_GET['page']) == 'home_logistique_transport'){
         $tonnageTotal = $tonnageTotal + $typeCourse[$key]['tonne'];
         $margeTotal = $margeTotal + ($typeCourse[$key]['prixCourse'] - $calcul);
         $rows++;
+        if (!is_int($calcul)) {
+            $calcul = intval($calcul);
+        }
         $typeCourseData = $typeCourseData.'<form action="" method="post" id="">
             <tr>
                 <td>'.$rows.'</td>
@@ -924,7 +998,7 @@ if(htmlspecialchars($_GET['page']) == 'home_logistique_transport'){
                     <input class="form-control mt-1" type="text" name="" id=""  value="'.$typeCourse[$key]['prixCourse'].'">
                 </td>
                 <td><input class="form-control" type="text" name="" id=""  value="'.$depenseTotalCourse.'" readonly></td>
-                <td><input class="form-control" type="text" name="" id=""  value="'.$typeCourse[$key]['prixCourse'] - $calcul.'"></td>
+                <td><input class="form-control" type="text" name="" id=""  value="'.($typeCourse[$key]['prixCourse'] - $calcul).'"></td>
                 <td>
                     <button class="btn btn-primary mt-1 text-white w-100" type="button" data-bs-toggle="modal" data-bs-target="#add_depense" data-id="'.$typeCourse[$key]['id'].'">
                         <i class="fa fa-money"></i>
@@ -1033,6 +1107,226 @@ if (htmlspecialchars($_GET['page']) == 'home_bordereau_expedition') {
     $listBordereauData = '';
 }
 
+if (htmlspecialchars($_GET['page']) == 'home_purchase') {
+    $selectField = '';
+    if ($conditionReception != '') {
+        $listReception = $DB->getWhereMultiple('lieureception',$conditionReception);
+    }else{
+        $listReception = $DB->get('lieureception','id');
+    }
+
+    if(count($listReception) == 0){
+        $listReceptionData = '<thead>
+        <tr>
+            <th>Date</th>
+            <th>Lieu</th>
+            <th>Address</th>
+            <th>Ville</th>
+            <th>Pays</th>
+            <th>Autre</th>
+        </tr>
+    </thead>
+    <tbody></tbody>';
+    }else{
+        $listReceptionData = 
+        '<thead>
+            <tr>
+                <th>Date</th>
+                <th>Lieu</th>
+                <th>Address</th>
+                <th>Ville</th>
+                <th>Pays</th>
+                <th>Autre</th>
+            </tr>
+        </thead>
+        <tbody>';
+        $table = "String('lieureception')";
+        
+        foreach ($listReception as $key => $value) {
+            $btnStyle = ($listReception[$key]['status'] == '0') ? 'danger' : 'secondary';
+            $listReceptionData = $listReceptionData.
+            '<form action="" method="post" id="">
+                <tr>
+                    <td><input class="form-control" type="date" name="" id="" placeholder="" value="'.$listReception[$key]['date'].'" placeholder="yyyy-MM-dd"></td>
+                    <td>
+                    <input class="form-control" type="text" name="" id="" placeholder="" value="'.$listReception[$key]['lieu'].'">
+                    </td>
+                    <td>
+                    <input class="form-control" type="text" name="" id="" placeholder="" value="'.$listReception[$key]['address'].'">
+                    </td>
+                    <td>
+                    <input class="form-control" type="text" name="" id="" placeholder="" value="'.$listReception[$key]['ville'].'">
+                    </td>
+                    <td>
+                    <input class="form-control" type="text" name="" id="" placeholder="" value="'.$listReception[$key]['pays'].'">
+                    </td>
+                    <td>
+                        <button class="btn btn-primary mt-1 text-white" type="submit"><i class="fa fa-pencil"></i></button>
+                        <button type="button" class="btn btn-'.$btnStyle.' mt-1" onclick="updateThis('.$listReception[$key]['id'].','.$table.')"><i class="fa fa-eye"></i></button>
+                    </td>
+                </tr>
+            </form>
+            </tbody>';
+            $btnStyle = '';
+            if ($listReception[$key]['status'] == 1) {
+                $selectField = $selectField.'<option value="'.$value['id'].'">'.$value['lieu'].'</option>';
+            }
+        }
+    }
+
+    if ($conditionReceptionList != '') {
+        $stockageData = $DB->getWhereMultipleMore(' *, s.id as sID, s.quantite as sQte FROM stockage s INNER JOIN attribution a ON a.id = s.attribution_id INNER JOIN biens b ON a.biens_id = b.id ',$conditionReceptionList,' ORDER BY s.date DESC ');
+    }else{
+        $condition = ' s.date Like "%'.date('Y-m').'%" ';
+        $stockageData = $DB->getWhereMultipleMore(' *, s.id as sID, s.quantite as sQte FROM stockage s INNER JOIN attribution a ON s.attribution_id = a.id ',$condition,' ORDER BY s.date DESC ');
+    }
+
+    if (count( $stockageData) == 0) {
+        $receptionPrincipalList = '<thead>
+        <th>
+            Date
+        </th>
+        <th width="100">
+            Article
+        </th>
+        <th>
+            Receptionner
+        </th>
+        <th>
+            Prix Reception
+        </th>
+        <th>
+            PU Place
+        </th>
+        </thead>
+        <tbody></tbody>';
+    }else{
+        $receptionPrincipalList = 
+        '<thead>
+            <th>
+                Date
+            </th>
+            <th width="100">
+                Article
+            </th>
+            <th>
+                Receptionner
+            </th>
+            <th>
+                Prix Reception
+            </th>
+            <th>
+                PU Place
+            </th>
+            </thead>
+        <tbody>';
+        foreach ($stockageData as $key => $stockageDataList) {
+            $Bien = $DB->getWhereMultiple('biens',' id = '.$stockageDataList['biens_id'].'');
+            $receptionPrincipalList = $receptionPrincipalList.
+                '<tr>
+                    <td>'.$stockageDataList["date"].'</td>
+                    <td>'.$Bien[0]["designation"].'</td>
+                    <td>'.$stockageDataList["sQte"].'</td>
+                    <td>'.$stockageDataList["prix"].'</td>
+                    <td>
+                    <form action="/contollers/MoreControllers/control.php" method="POST">
+                        <div class="row">
+                            <input type="hidden" name="bien_id" value="'.$Bien[0]["id"].'" class="form-control" id="">
+                            <div class="col-md-4 col-12">
+                                <select name="lieu_id" class="form-control" id="">
+                                    <option value="">Selectionner Lieu</option>'.$selectField.' 
+                                </select>
+                            </div>
+                            <div class="col-md-4 col-12">
+                                <input type="text" name="prix_reception" class="form-control" id="">
+                            </div>
+                            <div class="col-md-4 col-12">
+                                <input type="hidden" name="stockage_id" class="form-control" value="'.$stockageDataList['sID'].'" id="">
+                                <button type="submit" name="add_prix_reception_btn" class="form-control bg-secondary text-white" id="">Enregistrer</button>
+                            </div>
+                        </div>
+                    </form>
+                    </td>
+                </tr>
+            </tbody>';
+        }
+    }
+
+    if ($conditionReceptionDataAutrePlace != '') {
+        $ReceptionDataAutrePlace = $DB->getWhereMultipleMore(' *, r.id as rID, r.date as rDate FROM receptionautreprix r INNER JOIN biens b ON b.id = r.bien_id INNER JOIN lieureception l ON l.id = r.lieu_id ',$conditionReceptionDataAutrePlace,' ORDER BY r.date DESC ');
+    }else{
+        $conditionReceptionDataAutrePlace = ' r.date Like "%'.date('Y-m').'%" ';
+        $ReceptionDataAutrePlace = $DB->getWhereMultipleMore(' *, r.id as rID, r.date as rDate FROM receptionautreprix r INNER JOIN biens b ON b.id = r.bien_id INNER JOIN lieureception l ON l.id = r.lieu_id ',$conditionReceptionDataAutrePlace,' ORDER BY r.date DESC ');
+    }
+
+    if(count($ReceptionDataAutrePlace) == 0){
+        $ListReceptionDataAutrePlace = '<thead>
+            <th>
+                Date
+            </th>
+            <th width="300">
+                Article
+            </th>
+            <th>
+                Receptionner
+            </th>
+            <th>
+                Prix Reception
+            </th>
+            <th>
+                PU Place
+            </th>
+            <th>
+                Place
+            </th>
+        </thead>
+        <tbody></tbody>';
+    }else{
+        $ListReceptionDataAutrePlace = '<thead>
+        <th>
+            Date
+        </th>
+        <th width="300">
+            Article
+        </th>
+        <th>
+            Receptionner
+        </th>
+        <th>
+            Prix Reception
+        </th>
+        <th>
+            PU Place
+        </th>
+        <th>
+            Place
+        </th>
+        </thead>
+        <tbody>';
+        $table = "String('receptionautreprix')";
+        foreach ($ReceptionDataAutrePlace as $key => $ReceptionDataAutrePlaceList) {
+            $Bien = $DB->getWhereMultiple('biens',' id = '.$ReceptionDataAutrePlaceList['bien_id'].'');
+            $stockage = $DB->getWhereMultiple('stockage',' id = '.$ReceptionDataAutrePlaceList['stockage_id'].'');
+            $ListReceptionDataAutrePlace = $ListReceptionDataAutrePlace.
+            '<tr>
+                <td>'.$ReceptionDataAutrePlaceList["rDate"].'</td>
+                <td>'.$Bien[0]["designation"].'</td>
+                <td>'.$stockage[0]["quantite"].'</td>
+                <td>'.$ReceptionDataAutrePlaceList["prix_reception"].'</td>
+                <td>'.$ReceptionDataAutrePlaceList["lieu"].' - '.$ReceptionDataAutrePlaceList["address"].' - '.$ReceptionDataAutrePlaceList["ville"].' - '.$ReceptionDataAutrePlaceList["pays"].'</td>
+                <td><button type="submit" class="btn btn-danger"  onclick="deleteThis('.$ReceptionDataAutrePlaceList['rID'].','.$table.')"><i class="fa fa-trash"></i></button></td>
+            </tr>
+            </tbody>';
+        }
+    }
+
+
+}else{
+    $receptionPrincipalList = '';
+    $listReceptionData = '';
+    $ListReceptionDataAutrePlace = '';
+}
+
 if (htmlspecialchars($_GET['page']) == 'depense_modal') {
     $selectedDataCourse = '';
     $selectedDataDetails = '';
@@ -1074,8 +1368,7 @@ if (htmlspecialchars($_GET['page']) == 'depense_modal') {
 }else{
     $selectedDataCourse = '';
     $selectedDataDetails = '';
-}
-   
+}  
 
     echo json_encode(
         array(
@@ -1099,7 +1392,13 @@ if (htmlspecialchars($_GET['page']) == 'depense_modal') {
                 'sortie'=>$listCaisseDataSortie,
                 'dollars'=>$format->formatCurrency($dollars,'usd'),
                 'fc'=>$format->formatCurrency($fc,'fcf'),
-                'frw'=>$format->formatCurrency($frw,'frw')
+                'frw'=>$format->formatCurrency($frw,'frw'),
+                'listBanque'=>$listBanque
+            ),
+            'homePurchase'=>array(
+                'listReceptionPlace'=>$listReceptionData,
+                'receptionPrincipalList'=>$receptionPrincipalList,
+                'ListReceptionDataAutrePlace'=>$ListReceptionDataAutrePlace
             )
         )
     );
@@ -1158,8 +1457,7 @@ $DB = new DB();
             echo json_encode(array('msg'=>'L\'opération a été effectuer avec success','status'=>'success'));
         }else{
             echo json_encode(array('msg'=>'Echecs d\'opération ...','status'=>'fail'));
-        } 
-
+        }
     }
 
     if (isset($_GET['request']) and $_GET['request'] == sha1('delete')) {
@@ -1175,6 +1473,26 @@ $DB = new DB();
         }else{
             echo json_encode(array('msg'=>'Echecs d\'opération ...','status'=>'fail'));
         }  
+    }
+
+    if (isset($_POST['add_prix_reception_btn'])) {
+        $table = 'receptionautreprix';
+        $field = '(date,bien_id,lieu_id,prix_reception,stockage_id,addedbyID)';
+        $prepared = '?,?,?,?,?,?';
+        
+        $value = array(
+            date('Y-m-d',time()),
+            securise($_POST['bien_id']),
+            securise($_POST['lieu_id']),
+            securise($_POST['prix_reception']),
+            securise($_POST['stockage_id']),
+            $_SESSION['idutilisateur']
+        );
+        if (add($table,$field,$prepared,$value) == true) {
+            header('Location: ../../views/home.php?link_up=f2f9fc024f04be0e4612bb0f35a3a1514a7a1bdb&msg=Prix ajouter avec success.');
+        }else{
+            header('Location: ../../views/home.php?link_up=f2f9fc024f04be0e4612bb0f35a3a1514a7a1bdb&msg=Echecs veuiller reesseyer.');
+        } 
     }
 
     if (isset($_POST['save_new_depense'])) {
@@ -1198,6 +1516,45 @@ $DB = new DB();
             echo json_encode(array('msg'=>'La depense a été ajouté','status'=>'success','page'=>'save_new_depense'));
         }else{
             echo json_encode(array('msg'=>'Echecs d\'opération ...','status'=>'fail','page'=>'save_new_depense'));
+        }   
+    }
+
+    if (isset($_POST['add_banque'])) {
+        $table = 'comptebanque';
+        $field = '(date,banque,n_compte,description,addedbyID)';
+        $prepared = '?,?,?,?,?';
+        
+        $value = array(
+            securise($_POST['dateCompte']),
+            securise($_POST['Banque']),
+            securise($_POST['nCompte']),
+            securise($_POST['descriptionBanque']),
+            $_SESSION['idutilisateur']
+        );
+        if (add($table,$field,$prepared,$value) == true) {
+            echo json_encode(array('msg'=>'Le compte a été ajouté','status'=>'success','page'=>'add_banque'));
+        }else{
+            echo json_encode(array('msg'=>'Echecs d\'opération ...','status'=>'fail','page'=>'add_banque'));
+        }   
+    }
+
+    if (isset($_POST['add_lieu_reception'])) {
+        $table = 'lieureception';
+        $field = '(lieu,address,ville,pays,date,addedbyID)';
+        $prepared = '?,?,?,?,?';
+        
+        $value = array(
+            securise($_POST['lieu']),
+            securise($_POST['address']),
+            securise($_POST['ville']),
+            securise($_POST['pays']),
+            date('Y-m-d',time()),
+            $_SESSION['idutilisateur']
+        );
+        if (add($table,$field,$prepared,$value) == true) {
+            echo json_encode(array('msg'=>'Le compte a été ajouté','status'=>'success','page'=>'add_lieu_reception'));
+        }else{
+            echo json_encode(array('msg'=>'Echecs d\'opération ...','status'=>'fail','page'=>'add_lieu_reception'));
         }   
     }
 

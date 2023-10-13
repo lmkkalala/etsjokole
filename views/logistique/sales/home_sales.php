@@ -31,16 +31,16 @@ include './meta/menu_logistique.php';
                         margin-right: 5px;
                     }
                 </style>
-                <div class="col-lg-12" style="padding: 10px;height: 80vh;overflow: auto;">
-                    <fieldset>
-                        <legend class="text-primary fw-bolder"> SORTIE</legend>
-                        <table>
-                            <tr>
-                                <td><a class="btn btn-success" style="font-size: 30px; padding: 40px; margin-right: 90px; margin-left: 160px;" href="/views/home.php?link_up=<?= sha1("home_logistique_demande") ?>"><span style="font-size: 70px; margin: 20px;" class="fa fa-bell-o"></span>Requisition</a></td>
-                                <td><a class="btn btn-primary" style="font-size: 30px; padding: 40px;" href="/views/home.php?link_up=<?= sha1("home_logistique_livraison") ?>"><span style="font-size: 70px; margin: 20px;" class="fa fa-support"></span>Livraison</a></td>
-                            </tr>
-                        </table>
-                    </fieldset>
+                <div class="col-lg-12" style="height: 80vh;overflow: auto;">
+                    <div class="row">
+                        <legend class="text-secondary fw-bolder"> SORTIE</legend>
+                        <div class="col-md-4 mt-1">
+                            <a class="btn btn-secondary" style="font-size: 30px; padding: 30px;" href="/views/home.php?link_up=<?= sha1("home_logistique_demande") ?>"><span style="font-size: 70px; margin: 20px;" class="fa fa-bell-o"></span>Requisition</a>
+                        </div>
+                        <div class="col-md-4 mt-1">
+                            <a class="btn btn-secondary" style="font-size: 30px; padding: 30px;" href="/views/home.php?link_up=<?= sha1("home_logistique_livraison") ?>"><span style="font-size: 70px; margin: 20px;" class="fa fa-support"></span>Livraison</a>
+                        </div>
+                    </div>
                     <?php
                     
                     ?>

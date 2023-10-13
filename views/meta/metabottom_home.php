@@ -22,6 +22,8 @@
                     $page = 'home_facture_client';
                 }elseif ($_GET['link_up'] == sha1('home_facture')) {
                     $page = 'home_facture';
+                }elseif ($_GET['link_up'] == sha1('home_logistique_purchase')) {
+                    $page = 'home_purchase';
                 }
             }
     ?>
@@ -70,6 +72,9 @@
                         if(data.htmlCaissePage.frw != ''){
                             $('#frw').html(data.htmlCaissePage.frw)
                         }
+                        if(data.htmlCaissePage.listBanque != ''){
+                            $('#banque_table').html(data.htmlCaissePage.listBanque)
+                        }
                         if(data.htmlConducteurPage.listConducteur != ''){
                             $('#driver_list_data').html(data.htmlConducteurPage.listConducteur)
                         }
@@ -77,7 +82,7 @@
                             $('#vehicule_list_data').html(data.htmlConducteurPage.listVehicule)
                         }
                         if(data.htmlConducteurPage.listTypeDepense != ''){
-                            $('#type_depense_list').html(data.htmlConducteurPage.listTypeDepense)
+                            $('#depense_type_list').html(data.htmlConducteurPage.listTypeDepense)
                         }
                         if(data.listBordereau != ''){
                             $('#list_bordereau').html(data.listBordereau)
@@ -96,6 +101,18 @@
                         }
                         if(data.factureData != ''){
                             $('#list_facture_page').html(data.factureData)
+                        }
+
+                        if(data.homePurchase.listReceptionPlace != ''){
+                            $('#data_list_reception_place').html(data.homePurchase.listReceptionPlace)
+                        }
+
+                        if(data.homePurchase.receptionPrincipalList != ''){
+                            $('#ListReceptionData').html(data.homePurchase.receptionPrincipalList)
+                        }
+
+                        if(data.homePurchase.ListReceptionDataAutrePlace != ''){
+                            $('#ListReceptionDataAutrePlace').html(data.homePurchase.ListReceptionDataAutrePlace)
                         }
                     },
                 });
@@ -134,6 +151,9 @@
                         if(data.htmlCaissePage.frw != ''){
                             $('#frw').html(data.htmlCaissePage.frw)
                         }
+                        if(data.htmlCaissePage.listBanque != ''){
+                            $('#banque_table').html(data.htmlCaissePage.listBanque)
+                        }
                         if(data.htmlConducteurPage.listConducteur != ''){
                             $('#driver_list_data').html(data.htmlConducteurPage.listConducteur)
                         }
@@ -141,7 +161,7 @@
                             $('#vehicule_list_data').html(data.htmlConducteurPage.listVehicule)
                         }
                         if(data.htmlConducteurPage.listTypeDepense != ''){
-                            $('#type_depense_list').html(data.htmlConducteurPage.listTypeDepense)
+                            $('#depense_type_list').html(data.htmlConducteurPage.listTypeDepense)
                         }
                         if(data.listBordereau != ''){
                             $('#list_bordereau').html(data.listBordereau)
@@ -160,6 +180,18 @@
                         }
                         if(data.factureData != ''){
                             $('#list_facture_page').html(data.factureData)
+                        }
+
+                        if(data.homePurchase.listReceptionPlace != ''){
+                            $('#data_list_reception_place').html(data.homePurchase.listReceptionPlace)
+                        }
+
+                        if(data.homePurchase.receptionPrincipalList != ''){
+                            $('#ListReceptionData').html(data.homePurchase.receptionPrincipalList)
+                        }
+
+                        if(data.homePurchase.ListReceptionDataAutrePlace != ''){
+                            $('#ListReceptionDataAutrePlace').html(data.homePurchase.ListReceptionDataAutrePlace)
                         }
                     },
                 });
@@ -265,12 +297,15 @@
         $('#list_fournisseur').DataTable();
         $('#list_fournisseur_update').DataTable();
         $('#list_fournisseur_update_activate').DataTable();
+        $('#list_attribution_biens_encours_all').DataTable();
+        $('#list_attribution_biens_all').DataTable();
+        //$('#update_biens_all').DataTable();
+        $('#list_biens_all').DataTable();
 
         $('#toggle_menu').on('click',function(){
             $('#menu2-a').slideToggle("slow");
             $("#menu-gauche").slideToggle("slow");
         });
-
         $('#entete1-logo').on('click',function(){
             $('#menu2-a').slideToggle("slow");
             $("#menu-gauche").slideToggle("slow");
@@ -305,12 +340,14 @@
         });
 
         // function to see the data in a table
-        <?php if ($page != '') { ?>
+        let currentPage = '<?=$page?>';
+        
+        if( currentPage != ''){
             list('','','<?=$page?>');
-        <?php } ?>
+        }
 
         // add call function controller
-        $('#new_depense,#operation_caisse,#add_dette_form,#add_driver_form,#add_vehicule_form,#bordereau_expedition_form,#type_depense_form,#add_course_form,#depense_course_form,#add_facture_form').on('submit',function(event){
+        $('#new_depense,#operation_caisse,#add_dette_form,#add_driver_form,#add_vehicule_form,#bordereau_expedition_form,#type_depense_form,#add_course_form,#depense_course_form,#add_facture_form,#add_banque_form,#add_lieu_reception_form,#DataFormReception').on('submit',function(event){
             event.preventDefault();
             let form = new FormData(this);
             if(confirm('voulez vous continuer?') == false){
@@ -370,6 +407,12 @@
                                 break;
                             case 'operation_new_facture':
                                 $('#add_facture_form')[0].reset();
+                                break;
+                            case 'add_banque':
+                                $('#add_banque_form')[0].reset();
+                                break;
+                            case 'add_lieu_reception':
+                                $('#add_lieu_reception_form')[0].reset();
                                 break;
                         
                             default:
@@ -432,10 +475,6 @@
         //     $("#ajouterRav".concat(k)).show();
         // }
     }
-    
-    
-
-
 </script>
 
 

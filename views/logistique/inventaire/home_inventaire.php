@@ -12,7 +12,6 @@ include './meta/menu_logistique.php';
     <div class="col-md-12" style="background-color: whitesmoke;border-radius: 5px; height: 90vh;">
         <div class="container-fluid">
             <div class="row">
-                
                 <style>
                     #menu-gauche {
                         border-right-style: solid;
@@ -31,26 +30,18 @@ include './meta/menu_logistique.php';
                         margin-right: 5px;
                     }
                 </style>
-                <div class="col-md-9" style="padding: 10px;height: 80vh;overflow: auto;">
-                    <fieldset>
-                        <legend class="text-primary fw-bolder">INVENTAIRE</legend>
-                        
-                        <table>
-                            <tr>
-                                <td>
-                                    <a class="btn btn-danger" style="font-size: 30px; padding: 40px; margin-right: 90px;margin-left: 190px;" href="/views/home.php?link_up=<?= sha1("home_logistique_categorie") ?>">
-                                    <span style="font-size: 70px; margin: 20px;" class="fa fa-database"></span>Catégorie</a>
-                                </td>
-                                <td>
-                                    <a class="btn btn-primary" style="font-size: 30px; padding: 40px;" href="/views/home.php?link_up=<?= sha1("home_logistique_biens") ?>">
-                                    <span style="font-size: 70px; margin: 20px;" class="fa fa-cube"></span>Produit</a>
-                                </td>
-                            </tr>
-                        </table>
-                    </fieldset>
-                    <?php
-                    
-                    ?>
+                <div class="col-md-12" style="height: 80vh;overflow: auto;">
+                    <h1 class="text-secondary fw-bolder">INVENTAIRE</h1>  
+                    <div class="row">
+                        <div class="col-md-4">
+                            <a class="btn btn-secondary" style="font-size: 30px; padding: 40px;" href="/views/home.php?link_up=<?= sha1("home_logistique_categorie") ?>">
+                            <span style="font-size: 70px; margin: 20px;" class="fa fa-database"></span>Catégorie</a>
+                        </div>
+                        <div class="col-md-4">
+                            <a class="btn btn-secondary" style="font-size: 30px; padding: 40px;" href="/views/home.php?link_up=<?= sha1("home_logistique_biens") ?>">
+                            <span style="font-size: 70px; margin: 20px;" class="fa fa-cube"></span>Produit</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

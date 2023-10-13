@@ -5,6 +5,7 @@
  * and open the template in the editor.
  */
 include '../models/attribution-biens/attributionBiens.php';
+include '../models/crud/db.php';
 $dateStart = '';
 $dateEnd = '';
 ?>
@@ -34,8 +35,16 @@ $dateEnd = '';
                     }else{
                         $attributions = $bdattributionbiens->getAttributionBiensAllDescEncours();
                     }
+
+                    $db = new DB();
+
+                    if (isset($_POST['attr_id'])) {
+                        $etat = htmlspecialchars($_POST['etat']);
+                        $attr_id = htmlspecialchars($_POST['attr_id']);
+                        $update = $db->update('attribution','etat = ?','id = ?',[''.$etat.'',''.$attr_id.'']);
+                    }
                 ?>
-    <form action="../views/home.php?link=bc6749372a792df7e3460135262bf41aad976c1f&link_up=1f920fef6c620c4660a748aae5dd44da9e74ba9b" method="post">
+                <form action="../views/home.php?link=bc6749372a792df7e3460135262bf41aad976c1f&link_up=1f920fef6c620c4660a748aae5dd44da9e74ba9b" method="post">
                     <div class="row">
                         <div class="col-4">
                             <input class="form-control" type="date" name="dateStart" id="" value="<?=$dateStart?>">
@@ -49,10 +58,10 @@ $dateEnd = '';
                     </div>
                 </form>
     <div class="panel panel-body">
-        <div>
+        <div class="mt-3">
             <fieldset>
-                <legend>...</legend>
-                <table class="table table-bordered table-responsive-lg">
+                <legend>Biens</legend>
+                <table id="list_attribution_biens_encours_all" class="table table-bordered table-responsive-lg table-condensed">
                     <thead>
                     <th>
                         N°
@@ -95,11 +104,20 @@ $dateEnd = '';
                                     <b>
                                         <?php
                                         if ($attribution['etat']) {
-                                            echo 'Finalisée';
+                                            $etat = 'Finalisée';
+                                            $etat_val = 0;
+                                            $btnStyle = 'info';
                                         } else {
-                                            echo 'En cours';
+                                            $etat_val = 1;
+                                            $etat = 'En cours';
+                                            $btnStyle = 'danger';
                                         }
                                         ?>
+                                        <form action="../views/home.php?link=bc6749372a792df7e3460135262bf41aad976c1f&link_up=1f920fef6c620c4660a748aae5dd44da9e74ba9b" method="post">
+                                            <input type="hidden" name="attr_id" value="<?=$attribution['aId']?>">
+                                            <input type="hidden" name="etat" value="<?=$etat_val?>">
+                                            <button type="submit" name="changer_etat" class="btn btn-<?=$btnStyle?>"><?=$etat?></button>
+                                        </form>
                                     </b>
                                 </td>
                                 <td><?= $attribution['bDesignation']." : ".$attribution['gDesignation'] ?></td>

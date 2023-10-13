@@ -64,13 +64,13 @@
                           ?>
                       </select>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 mt-1">
                       <input class="form-control" type="date" name="filterDate_start" id="filterDate_start">
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 mt-1">
                       <input class="form-control" type="date" name="filterDate_end" id="filterDate_end">
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 mt-1">
                     <input type="hidden" name="FilterFormFacture" id="FilterFormFacture">
                       <button class="btn btn-primary w-100 text-white" type="submit"><i class="fa fa-search"></i> Rechercher</button>
                     </div>
@@ -78,10 +78,10 @@
           </form>
         </div>
         <div class="col-md-2 col-sm-12 mt-3 mb-3">
-            <button class="btn btn-primary text-white" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">NOUVELLE FACTURE</button>
+            <button class="btn btn-primary text-white w-100" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">NOUVELLE FACTURE</button>
         </div>
-        <div class="col-12">
-            <table id="list_facture" class="display" style="width:100%">
+        <div class="col-12 table-responsive">
+            <table id="list_facture" class="table display" style="width:100%">
                 <thead>
                     <tr>
                         <th>DATE</th>

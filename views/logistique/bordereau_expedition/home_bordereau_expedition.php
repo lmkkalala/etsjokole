@@ -41,25 +41,25 @@ include './meta/menu_logistique.php';
         <div class="col-md-10 mt-3 mb-3">
             <form action="" method="post" id="FilterForm">
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-2 mt-1">
                         <input class="form-control" type="text" name="mBordereau" id="mBordereau" placeholder="N° Bordereau">
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 mt-1">
                         <input class="form-control" type="text" name="Expediteur" id="Expediteur" placeholder="Expediteur">
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 mt-1">
                         <input class="form-control" type="text" name="Destinateur" id="Destinateur" placeholder="Destinateur">
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 mt-1">
                         <input class="form-control" type="text" name="Conductuer" id="Conductuer" placeholder="Conductuer">
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 mt-1">
                         <input class="form-control" type="date" name="filterDate_start" id="filterDate_start">
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 mt-1">
                         <input class="form-control" type="date" name="filterDate_end" id="filterDate_end">
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 mt-1">
                         <input type="hidden" name="FilterFormBordereau" id="FilterFormBordereau">
                         <button class="btn btn-primary w-100 mt-2 text-white" type="submit"> <i class="fa fa-search"></i> Rechercher</button>
                     </div>
@@ -76,23 +76,25 @@ include './meta/menu_logistique.php';
         <!-- <div class="row" id="list_bordereau"></div> -->
 
         <div class="row">
-            <table id="caisse_list_sortie" class="display table-responsive" style="width:100%">
-                <thead>
-                    <tr>
-                        <th class="small">DATE& N° BORDEREAU</th>
-                        <th class="small">EXPEDITEUR& DESTINATAIRE</th>
-                        <th class="small">TRANSPORTEUR& N° PLAQUE& TELEPHONE</th>
-                        <th class="small">N° COLIS& NATURE EMBALLAGE& CONTENU</th>
-                        <th class="small">PoidsU KG& PoidsT TONE</th>
-                        <th class="small">PrixU TONE&PrixT TONE</th>
-                        <th class="small">MANQUE& QTE ARRIVEE</th>
-                        <th class="small">AVANCE& RESTE</th>
-                        <th class="small">PAYEMENT& SOLDE</th>
-                        <th class="small">PLUS</th>
-                    </tr>
-                </thead>
-                <tbody id="list_bordereau"></tbody>
+            <div class="col-md-12 table-responsive">
+                <table id="caisse_list_sortie" class="table display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th class="small">DATE& N° BORDEREAU</th>
+                            <th class="small">EXPEDITEUR& DESTINATAIRE</th>
+                            <th class="small">TRANSPORTEUR& N° PLAQUE& TELEPHONE</th>
+                            <th class="small">N° COLIS& NATURE EMBALLAGE& CONTENU</th>
+                            <th class="small">PoidsU KG& PoidsT TONE</th>
+                            <th class="small">PrixU TONE&PrixT TONE</th>
+                            <th class="small">MANQUE& QTE ARRIVEE</th>
+                            <th class="small">AVANCE& RESTE</th>
+                            <th class="small">PAYEMENT& SOLDE</th>
+                            <th class="small">PLUS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="list_bordereau"></tbody>
             </table>
+            </div>
         </div>
     </div>
 </div>

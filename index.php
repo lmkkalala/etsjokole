@@ -21,12 +21,12 @@ session_start();
             Ets JOKOLE DIEU EST GRAND
         </title>
     </head>
-    <body id="index">
+    <!-- <body style="background-color: #000e1f;" id="index"> -->
+    <body style="background-color: #000e1f;">
         <section id="principalcover">
             <div class="container">
                 <div class="row mt-5">
-                    <!-- <div class="col-8 contenu"> -->
-                    <div class="col-md-5">
+                    <div class="col-md-6">
                         <div class="row d-flex justify-content-center">
                             <div class="col-md-10">
                                 <?php
@@ -80,11 +80,11 @@ session_start();
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <h1 class="text-center mt-3 text-white">Ets JOKOLE</h1>
-                                <p class="text-center text-white">Dieu est GRAND.</p>
+                                <h1 class="text-center mt-3 text-white h1 fw-bolder">Ets JOKOLE</h1>
+                                <p class="text-center text-white h4 fw-bolder">Dieu est GRAND.</p>
                             </div>
                             <div class="col-12">
-                                <h4 class="text-center mt-1 text-white">Connexion</h4>
+                                <h4 class="text-center mt-1 text-white fw-bolder">Connexion</h4>
                             </div>
                         </div>
                         <div class="row text-center">
@@ -105,8 +105,8 @@ session_start();
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 p-2 mx-2">
-                        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="col-md-6 mt-4">
+                        <div id="carouselExampleControls" class="carousel slide d-flex justify-content-center" data-bs-ride="carousel">
                             <div class="mt-4">
                                 <div class="carousel-indicators">
                                     <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="0" class="active bg-dark" aria-current="true" aria-label="Slide 1"></button>
@@ -114,26 +114,30 @@ session_start();
                                     <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="2" class="bg-dark" aria-label="Slide 3"></button>
                                 </div>
                             </div>
-                            <div class="row carousel-inner">
-                                <div class="carousel-item active bg-white opacity-75 p-4">
+                            <div class="row carousel-inner  bg-white opacity-75">
+                                <div class="carousel-item active p-4">
                                     <div class="row d-flex justify-content-center">
-                                        <h4 class="text-end text-success"> <i class="fa fa-question-circle fs-1"></i> A PROPOS NOUS</h4>
+                                        
                                         <div class="row">
+                                            <div class="col-md-8">
+                                                <h4 class="text-start text-success"> <i class="fa fa-question-circle fs-1"></i> A PROPOS NOUS</h4>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <img src="media/pictures-system/rice.avif" class="img-responsive" width="100" alt="">
+                                            </div>
                                             <div class="col-md-12">
                                                 <p class="text-start">Nous sommes un établissement de vente et de transport des fournitures et produits de première nécessité, nous effectuons la vente et la distribution des produits tels que le sucre, le riz, la farine de blé, le savon en poudre, les bidons l'huile et bien des nombreux autres produits divers.</p>
                                             </div>
-                                            <div class="col-md-4">
-                                                <img src="media/pictures-system/rice.avif" class="img-responsive" width="150" alt="">
-                                            </div>
+                                            
                                             <div class="col-md-6">
-                                                <img src="media/pictures-system/truck2.jpg" class="img-responsive" width="200" alt="">
+                                                <img src="media/pictures-system/truck2.jpg" class="img-responsive" width="150" alt="">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="carousel-item bg-white opacity-75 p-4">
+                                <div class="carousel-item p-4">
                                     <div class="row d-flex justify-content-center">
-                                        <h4 class="text-start text-success text-center"> <i class="fa fa-handshake-o fs-1"></i> SERVICES</h4>
+                                        <h4 class="text-start text-success text-start"> <i class="fa fa-handshake-o fs-1"></i> SERVICES</h4>
                                         <div class="col-md-12 text-justify">
                                             <ul class="list-inline-item">
                                                 <li> 
@@ -165,7 +169,7 @@ session_start();
                                         </div>
                                     </div>
                                 </div>
-                                <div class="carousel-item bg-white opacity-75 p-4">
+                                <div class="carousel-item p-4">
                                     <h4 class="text-start text-success text-center"> <i class="fa fa-home fs-1"></i> ADDRESSES</h4>
                                     <div class="row">
                                         <div class="col-md-12 text-center">

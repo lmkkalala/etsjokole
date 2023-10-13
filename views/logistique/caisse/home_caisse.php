@@ -3,6 +3,7 @@ include './meta/menu_logistique.php';
 include '../models/crud/db.php';
 $db = new DB();
 $listDriver = $db->getWhere('agent','active','1','id');
+$compteBanque = $db->getWhere('comptebanque','status','1','date');
 ?>
 <style>
         #menu-gauche {
@@ -39,30 +40,33 @@ $listDriver = $db->getWhere('agent','active','1','id');
 <div class="container-fluid">
   <div class="row">
         <div class="col-md-2 text-start mt-3 mb-3">
-            <h4 class="text-primary fw-bolder">JOURNAL CAISSE</h4>
+            <h5 class="text-primary fw-bolder mt-4">JOURNAL CAISSE</h5>
         </div>
         <div class="col-md-10 mt-3">
           <form action="" method="post" id="FilterForm">
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-2 mt-1">
                   <input class="form-control" type="text" name="filterNom" id="filterNom" placeholder="Effectuer Par">
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 mt-1">
                   <input class="form-control" type="text" name="filterNomApprover" id="filterNomApprover" placeholder="Approbateur">
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 mt-1">
                   <input class="form-control" type="text" name="filterNBordereau" id="filterNBordereau" placeholder="N° Bordereau">
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 mt-1">
                   <select class="form-control" name="FilterBanque" id="FilterBanque">
                     <option value="">Selectionner Banque</option>
                     <option name="cadeco" class="uppercase">cadeco</option>
+                    <?php foreach ($compteBanque as $key => $banques) { ?>
+                      <option name="cadeco" value="<?=$compteBanque[$key]['n_compte']?>" class="uppercase"><?=$compteBanque[$key]['banque']?></option>
+                    <?php  } ?>
                   </select>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 mt-1">
                   <input class="form-control" type="date" name="filterDate_start" id="filterDate_start">
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 mt-1">
                   <input class="form-control" type="date" name="filterDate_end" id="filterDate_end">
                 </div>
                 <div class="col-md-2 mt-1">
@@ -70,13 +74,19 @@ $listDriver = $db->getWhere('agent','active','1','id');
                   <button class="btn btn-primary text-white w-100" type="submit"> <i class="fa fa-search"></i> Rechercher</button>
                 </div>
                 <div class="col-md-2 mt-1">
-                    <button class="btn btn-primary text-white" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa fa-book"></i> OPERATION</button>
+                    <button class="btn btn-primary text-white w-100" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa fa-book"></i> OPERATION</button>
+                </div>
+                <div class="col-md-2 mt-1">
+                    <button class="btn btn-primary text-white w-100" type="button"  data-bs-toggle="modal" data-bs-target="#banque_list"><i class="fa fa-book"></i> COMPTE</button>
+                </div>
+                <div class="col-md-2 mt-1">
+                    <button class="btn btn-primary text-white w-100" type="button"  data-bs-toggle="modal" data-bs-target="#banque_list_add"><i class="fa fa-book"></i> LISTE COMPTE</button>
                 </div>
             </div>
           </form>
         </div>
         
-        <div class="row">
+        <div class="row mt-2 mb-2">
           <div class="col-md-4 bg-primary text-start border-end border-bottom">
             <h5 class="fw-bolder text-white mt-3"><span id="dollars">0</span></h5>
           </div>
@@ -112,25 +122,28 @@ $listDriver = $db->getWhere('agent','active','1','id');
         <div class="col-md-12 col-sm-12 mt-3">
           <form action="" method="post" id="FilterFormOther">
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-2 mt-1">
                   <input class="form-control" type="text" name="filterNomCredit" id="filterNomCredit" placeholder="Effectuer Par">
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 mt-1">
                   <input class="form-control" type="text" name="filterNomApproverCredit" id="filterNomApproverCredit" placeholder="Approbateur">
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 mt-1">
                   <input class="form-control" type="text" name="filterNBordereauCredit" id="filterNBordereauCredit" placeholder="N° Bordereau">
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 mt-1">
                   <select class="form-control" name="FilterBanqueCredit" id="FilterBanqueCredit">
                     <option value="">Selectionner Banque</option>
-                    <option name="cadeco" class="uppercase">cadeco</option>
+                    <option name="cadeco">cadeco</option>
+                    <?php foreach ($compteBanque as $key => $banques) { ?>
+                      <option name="cadeco" value="<?=$compteBanque[$key]['n_compte']?>" class="uppercase"><?=$compteBanque[$key]['banque']?></option>
+                    <?php  } ?>
                   </select>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 mt-1">
                   <input class="form-control" type="date" name="filterDate_startCredit" id="filterDate_startCredit">
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 mt-1">
                   <input class="form-control" type="date" name="filterDate_endCredit" id="filterDate_endCredit">
                 </div>
                 <div class="col-md-2 mt-1">
@@ -182,6 +195,9 @@ $listDriver = $db->getWhere('agent','active','1','id');
               <select class="form-control" name="banque" id="banque" required>
                 <option value="">Selectionner Banque</option>
                 <option name="cadeco" class="uppercase">cadeco</option>
+                <?php foreach ($compteBanque as $key => $banques) { ?>
+                      <option name="cadeco" value="<?=$compteBanque[$key]['n_compte']?>" class="uppercase"><?=$compteBanque[$key]['banque']?></option>
+                    <?php  } ?>
               </select>
             </div>
           </div>
@@ -256,6 +272,87 @@ $listDriver = $db->getWhere('agent','active','1','id');
             </div>
           </div>
         </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">FERMER</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="banque_list_add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">AJOUTER DES BANQUES</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <form action="" method="post" id="add_banque_form">
+              <div class="row">
+                <div class="col-md-12">
+                  <label for="date" class="small fw-bolder">Date</label>
+                  <input class="form-control" type="date" name="dateCompte" id="dateCompte" placeholder="" required>
+                </div>
+                <div class="col-md-12">
+                  <label for="date" class="small fw-bolder">Banque</label>
+                  <input class="form-control" type="text" name="Banque" id="Banque" placeholder="" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label for="date" class="small fw-bolder">Numero COMPTE</label>
+                  <input class="form-control" type="text" name="nCompte" id="nCompte" placeholder="" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label for="date" class="small fw-bolder">Description</label>
+                  <textarea class="form-control" type="text" name="descriptionBanque" id="descriptionBanque" placeholder="" required></textarea>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-md-12">
+                    <input type="hidden" name="add_banque" id="add_banque">
+                    <button type="submit" class="btn btn-primary w-100">ENREGISTRER</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">FERMER</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="banque_list" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">LIST DES BANQUES</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+          <table id="banque_table" class="display table" style="width:100%">
+              <thead>
+                <tr>
+                  <th class="small">DATE</th>
+                  <th class="small">BANQUE/N°COMPTE</th>
+                  <th class="small">DESCRIPTION</th>
+                  <th class="small">PLUS</th>
+                </tr>
+              </thead>
+            <tbody></tbody>
+          </table>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">FERMER</button>

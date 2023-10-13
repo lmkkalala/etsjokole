@@ -14,28 +14,28 @@ include 'meta/menu_general.php';
             <?php
             if (!empty($_SESSION['temp_admin_session'])) {
             ?>
-                <li role="presentation"> <a class="btn btn-primary mx-2 text-white shadow-none text-uppercase fw-bolder" style="font-size: 15px;" class="active" href="/contollers/transition/transition.php"><span><i class="fa fa-backward"></i> GESTION</span></a></li>
+                <li role="presentation"> <a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" class="active" href="/contollers/transition/transition.php"><span><i class="fa fa-backward"></i> GESTION</span></a></li>
             <?php
             }
 
             if ($_SESSION['type'] != 'membre') {
                 ?>
-                <li role="presentation"><a class="btn btn-primary text-white shadow-none text-uppercase fw-bolder" style="font-size: 15px;" class="active" href="/views/home.php?link_up=<?= sha1('home_service_acceuil'); ?>"><span class="fa fa-home" style="color: #fff; "></span> Accueil</a></li>
-                <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px;" href="/views/home.php?link_up=<?= sha1('home_service_requisition'); ?>"><span class="fa fa-upload" style="color: #0069d9; "></span> Demande</a></li>
-                <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px;" href="/views/home.php?link_up=<?= sha1('home_service_reception'); ?>"><span class="fa fa-download" style="color: #0069d9; "></span> Entrée</a></li>
-                <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px;" href="/views/home.php?link=<?= sha1("service_reception_inventory") ?>&link_up=<?= sha1("home_service_reception") ?>"><span class="fa fa-list-ol" style="color: #0069d9; "></span> Inventaire</a></li>
-                <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px;" href="/views/home.php?link_up=<?= sha1('home_service_sale'); ?>"><span class="fa fa-dollar" style="color: #0069d9; "></span> Vente production</a></li>
-                <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px;" href="/views/home.php?link_up=<?= sha1('home_service_distribution'); ?>"><span class="fa fa-dollar" style="color: #0069d9; "></span> Vente sur stock</a></li>
-                <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px;" href="/views/home.php?link_up=<?= sha1('home_service_recuperation'); ?>"><span class="fa fa-undo" style="color: #0069d9; "></span> Annuler vente</a></li>
-                <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px;" href="/views/home.php?link_up=<?= sha1('home_service_productionglobal'); ?>"><span class="fa fa-recycle" style="color: #0069d9; "></span> Production</a></li>
-                <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px;" href="/views/home.php?link_up=<?= sha1('home_service_participation'); ?>"><span class="fa fa-cube" style="color: #0069d9; "></span> Consommation MP</a></li>
-                <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px;" href="/views/home.php?link_up=<?= sha1('home_logistique_depense'); ?>"><span class="fa fa-dollar" style="color: #0069d9; "></span> DEPENSES</a></li>
-                <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px;" href="/views/home.php?link_up=<?= sha1('home_logistique_dette'); ?>"><span class="fa fa-dollar" style="color: #0069d9;"></span> DETTES</a></li>
-                <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px;" href="/views/home.php?link_up=<?= sha1('home_facture'); ?>"><span class="fa fa-pencil-square" style="color: #0069d9;"></span> Mes Factures</a></li>
+                <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" class="active" href="/views/home.php?link_up=<?= sha1('home_service_acceuil'); ?>"><span class="fa fa-home" style="color: #fff; "></span> Accueil</a></li>
+                <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="/views/home.php?link_up=<?= sha1('home_service_requisition'); ?>"><span class="fa fa-upload" ></span> Demande</a></li>
+                <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="/views/home.php?link_up=<?= sha1('home_service_reception'); ?>"><span class="fa fa-download" ></span> Entrée</a></li>
+                <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="/views/home.php?link=<?= sha1("service_reception_inventory") ?>&link_up=<?= sha1("home_service_reception") ?>"><span class="fa fa-list-ol" ></span> Inventaire</a></li>
+                <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="/views/home.php?link_up=<?= sha1('home_service_sale'); ?>"><span class="fa fa-dollar" ></span> Vente production</a></li>
+                <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="/views/home.php?link_up=<?= sha1('home_service_distribution'); ?>"><span class="fa fa-dollar" ></span> Vente sur stock</a></li>
+                <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="/views/home.php?link_up=<?= sha1('home_service_recuperation'); ?>"><span class="fa fa-undo" ></span> Annuler vente</a></li>
+                <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="/views/home.php?link_up=<?= sha1('home_service_productionglobal'); ?>"><span class="fa fa-recycle" ></span> Production</a></li>
+                <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="/views/home.php?link_up=<?= sha1('home_service_participation'); ?>"><span class="fa fa-cube" ></span> Consommation MP</a></li>
+                <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="/views/home.php?link_up=<?= sha1('home_logistique_depense'); ?>"><span class="fa fa-dollar" ></span> DEPENSES</a></li>
+                <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="/views/home.php?link_up=<?= sha1('home_logistique_dette'); ?>"><span class="fa fa-dollar" ></span> DETTES</a></li>
+                <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="/views/home.php?link_up=<?= sha1('home_facture'); ?>"><span class="fa fa-pencil-square" ></span> Mes Factures</a></li>
                 <?php
             } elseif ($_SESSION['type'] == 'membre') {
             ?>
-                <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" href="/views/home.php?link_up=<?= sha1('home_service_swaping'); ?>"><span class="fa fa-download" style="color: #0069d9; font-size: 15px;"></span>Swaping</a></li>
+                <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="/views/home.php?link_up=<?= sha1('home_service_swaping'); ?>"><span class="fa fa-download" style="color: #0069d9; font-size: 15px;"></span>Swaping</a></li>
             <?php
             }
             ?>

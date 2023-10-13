@@ -11,6 +11,7 @@ include '../models/affectation-service/affectationService.php';
 include '../models/service/service.php';
 include '../models/unite/unite.php';
 include '../models/crud/db.php';
+$DB = new DB();
 ?>
 <div class="panel">
     <div class="panel panel-heading">
@@ -145,8 +146,8 @@ include '../models/crud/db.php';
 
                             if ((isset($_GET['use_typerepas'])) && (($_GET['use_typerepas'] != "0") || (($_GET['use_date1'] != "") && ($_GET['use_date2'] != "")))) {
                                 if ((isset($_GET['use_typerepas'])) && (($typerepas == $_GET['use_typerepas']) || (($_GET['use_date1'] != "") && ($_GET['use_date2'] != "")))) {
-
-                                    ?>
+                                    
+                            ?>
                                     <tr style="background-color: dodgerblue; color: white; font-weight: bold;">
                                         <td>
                                             <?= $typerepas ?>
@@ -162,7 +163,7 @@ include '../models/crud/db.php';
                                         <td></td>
                                         <td></td>
                                     </tr>
-                                    <?php
+                            <?php
                                     $pat = 0;
                                     $pvt = 0;
                                     $cumul_value_typerepas = 0;
@@ -194,7 +195,9 @@ include '../models/crud/db.php';
                                                 $idaffectation_online = $livraison['dIdmutation'];
                                                 $infolivraison = $livraison['lDate'] . " " . $livraison['bDesignation'] . " : " . $livraison['marque'] . " / " . $livraison['gDesignation'] . " / quantité initiale : " . $livraison['lQuantite'] . " / quantité actuelle : " . $livraison['quantite_actuelle'];
                                             }
+
                                             $db = new DB();
+
                                             $distrubutionData = $db->getWhere('distrubution','id', $distribution['distribution_id']);
                                             if(count($distrubutionData) > 0){
                                                 $demande_id = $distrubutionData[0]['demande_id'];
@@ -215,12 +218,20 @@ include '../models/crud/db.php';
                                                 $pa = 0;
                                             }
 
+                                            if (isset($_GET['autres_place']) and $_GET['autres_place'] != '00') {
+                                                $autrePrix = $db->getWhereMultipleMore(' *, af.id as afID, r.id as rID FROM attribution a Inner Join stockage s ON a.id = s.attribution_id INNER JOIN receptionautreprix r ON s.id = r.stockage_id Inner join demande d ON d.biens_id = r.bien_id inner join distrubution ds ON ds.demande_id = d.id inner join affectation af ON af.distribution_id = ds.id ',' af.id = '.$distribution['id'].' and r.id = '.$_GET['autres_place'].'');
+                                                if (count($autrePrix) != 0) {
+                                                    $pa = $autrePrix[0]['prix_reception	'];
+                                                }
+                                            }
+                                            
+
                                             if (isset($infolivraison) && ($affiche_bon) && ($distribution['nombre_restant'] > 0)) {
                                                 $totalPA = $pa * $distribution['nombre_restant'];
                                                 $pat = $pat + $totalPA;
                                                 $pvt = $pvt + ($distribution['price'] * $distribution['nombre_restant']);
                                                 $n++;
-                                                    ?>
+                                            ?>
                                                 <tr>
                                                     <td><?= $distribution['venteposId'] ?></td>
                                                     <td><?= $distribution['id'] ?></td>

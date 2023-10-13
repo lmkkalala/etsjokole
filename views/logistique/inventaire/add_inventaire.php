@@ -23,7 +23,7 @@ include '../models/biens/biens.php';
                 <div class="alert alert-success">
                     <span class="glyphicon glyphicon-ok" style="font-size: 15px;margin-right: 5px;"></span><span>Enregistrement effectué avec succès</span>
                 </div>
-                <?php
+            <?php
             }
             ?>
             <?php

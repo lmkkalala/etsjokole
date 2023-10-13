@@ -62,7 +62,7 @@ include '../models/biens/biens.php';
             <br>
             <fieldset>
                 <legend>Les biens/produits</legend>
-                <table class="table table-bordered table-responsive-lg table-striped">
+                <table id="list_biens_all" class="table table-bordered table-responsive-lg table-striped">
                     <thead>
                     <th>
                         #

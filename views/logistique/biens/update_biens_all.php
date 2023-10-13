@@ -75,7 +75,7 @@ include '../models/categorie/categorie.php';
                         </div>
                     </form>
                 </fieldset>
-                <table class="table table-bordered table-responsive-lg table-condensed">
+                <table id="update_biens_all" class="table table-bordered table-responsive-lg table-condensed">
                     <thead>
                     <th>
                         N°
@@ -196,7 +196,7 @@ include '../models/categorie/categorie.php';
 
                                     </td>
                                 <input type = "hidden" name = "tb_idbiens" value ="<?= $bien['bId'] ?>">
-                                <td><button type="submit" class="btn btn-primary" name="bt_modifier"><span class="glyphicon glyphicon-pencil" style="color: white; font-size: 20px;margin-right: 5px;"></span></button></td>                                    
+                                <td><button type="submit" class="btn btn-primary" name="bt_modifier"><span class="glyphicon glyphicon-pencil" style="color: white; font-size: 20px;margin-right: 5px;"></span> Modifier</button></td>                                    
                                 </tr>
                             </div>
                         </form>

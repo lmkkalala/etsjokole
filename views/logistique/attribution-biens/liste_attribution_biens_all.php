@@ -5,6 +5,7 @@
  * and open the template in the editor.
  */
 include '../models/attribution-biens/attributionBiens.php';
+include '../models/crud/db.php';
 $dateStart = '';
 $dateEnd = '';
 ?>
@@ -32,6 +33,14 @@ $dateEnd = '';
                     }else{
                         $attributions = $bdattributionbiens->getAttributionBiensAllDesc();
                     }
+
+                    $db = new DB();
+
+                    if (isset($_POST['attr_id'])) {
+                        $etat = htmlspecialchars($_POST['etat']);
+                        $attr_id = htmlspecialchars($_POST['attr_id']);
+                        $update = $db->update('attribution','etat = ?','id = ?',[''.$etat.'',''.$attr_id.'']);
+                    }
                 ?>
                 <form action="../views/home.php?link=863075c3acf4eaf686d1c35afb50038d25af9367&link_up=1f920fef6c620c4660a748aae5dd44da9e74ba9b" method="post">
                     <div class="row">
@@ -50,7 +59,7 @@ $dateEnd = '';
         <div>
             <fieldset>
                 <legend>Orders</legend>
-                <table class="table table-bordered table-responsive-lg">
+                <table id="list_attribution_biens_all" class="table table-bordered table-responsive-lg table-condensed">
                     <thead>
                     <th>
                         Num. Commande
@@ -94,12 +103,21 @@ $dateEnd = '';
                                     <b>
                                         <?php
                                         if ($attribution['etat']) {
-                                            echo 'Finalisée';
+                                            $etat = 'Finalisée';
+                                            $etat_val = 0;
+                                            $btnStyle = 'info';
                                         } else {
-                                            echo 'En cours';
+                                            $etat_val = 1;
+                                            $etat = 'En cours';
+                                            $btnStyle = 'danger';
                                         }
                                         ?>
                                     </b>
+                                    <form action="../views/home.php?link=863075c3acf4eaf686d1c35afb50038d25af9367&link_up=1f920fef6c620c4660a748aae5dd44da9e74ba9b" method="post">
+                                        <input type="hidden" name="attr_id" value="<?=$attribution['aId']?>">
+                                        <input type="hidden" name="etat" value="<?=$etat_val?>">
+                                        <button type="submit" name="changer_etat" class="btn btn-<?=$btnStyle?>"><?=$etat?></button>
+                                    </form>
                                 </td>
                                 <td><?= $attribution['bDesignation']." : ".$attribution['gDesignation'] ?></td>
                                 <td><?= $attribution['technique_gestion'] ?></td>

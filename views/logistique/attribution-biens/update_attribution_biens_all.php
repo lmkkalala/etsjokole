@@ -156,9 +156,15 @@ $dateEnd = '';
                                     <td> -->
                                         <input class="form-control mt-1" type="text" name="tb_prix" value="<?= $attribution['aPrixUnitaire'] ?>">
                                     </td>
-                                    <td><input class="form-control" type="number" name="tb_delai" value="<?= $attribution['delai_livraison'] ?>"></td>
+                                    <td>
+                                        <input class="form-control" type="number" name="tb_delai" value="<?= $attribution['delai_livraison'] ?>">
+                                    </td>
                                     <input type = "hidden" name = "tb_idattribution" value ="<?= $attribution['aId'] ?>">
-                                <td><button type="submit" class="btn btn-primary" name="bt_modifier"><span class="glyphicon glyphicon-pencil" style="color: white; font-size: 20px;margin-right: 5px;"></span>Modifier</button></td>                                    
+                                    <td>
+                                        <button type="submit" class="btn btn-primary" name="bt_modifier">
+                                            <span class="glyphicon glyphicon-pencil" style="color: white; font-size: 20px;margin-right: 5px;"></span>Modifier
+                                        </button>
+                                    </td>                                    
                                 </tr>
                             </div>
                         </form>

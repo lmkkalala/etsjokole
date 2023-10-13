@@ -147,7 +147,10 @@ if (isset($_GET['use_date1'])) {
             $nRav++;
         }
         
-        $meanPrice=round(($cmPrix/$nRav),3);
+        if ($nRav != 0) {
+            $meanPrice=round(($cmPrix/$nRav),3);
+        }
+
         $valeurEntree=($meanPrice*$cumulQty);
 
     ?>

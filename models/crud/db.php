@@ -48,12 +48,25 @@ class DB{
 
     public function getWhereMultiple($table, $MoreCondition = '',$more = ''){
         if ($more == '') {
-            $more == 'ORDER BY date DESC';
+            $more == ' ORDER BY date DESC ';
         }else{
             $more == $more;
         }
         $db = connexion::connecter();
         $reponse = $db->query('SELECT * FROM '.$table.' WHERE '.$MoreCondition.''.$more.'');
+        return $reponse->fetchAll();
+        $reponse->closeCursor();
+
+    }
+
+    public function getWhereMultipleMore($table, $MoreCondition = '',$more = ''){
+        if ($more == '') {
+            $more == ' ORDER BY date DESC ';
+        }else{
+            $more == $more;
+        }
+        $db = connexion::connecter();
+        $reponse = $db->query('SELECT '.$table.' WHERE '.$MoreCondition.''.$more.'');
         return $reponse->fetchAll();
         $reponse->closeCursor();
 
