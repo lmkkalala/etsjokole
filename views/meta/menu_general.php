@@ -12,6 +12,22 @@ include '../models/entreprise/entreprise.php';
     #text-dark-moderated{
         color: #000e1f;
     }
+    .bg-mine-dash{
+        background-color: #000e1f;
+        color: white;
+    }
+
+    .bg-mine-dash:hover{
+        background-color: #000e1f;
+        color: #6c757d;
+    }
+
+    .bg-mine{
+        background-color: #000e1f;
+    }
+    .bg-mine span .ds:hover{
+        color: #fff;
+    }
 </style>
 <div class="container-fluid d-none d-md-block" style="margin-bottom: 10%;">
     <div class="row w-100 fixed-top mt-1" style="height: 70px; background-color: #000e1f;">
@@ -67,38 +83,52 @@ include '../models/entreprise/entreprise.php';
                     </span>
                 </div>
                 <div class="col-md-4">
-                    <div class="row">
-                        <div class="col-md-2 pt-1">
-                            <span class="mx-1">
-                                <a class="btn btn bg-white text-dark-moderated" style="color: #000e1f;" href="/views/home.php?link=<?= sha1("admin_utilisateur_update_utilisateur_self") ?>&link_up=<?= sha1("home_admin_utilisateur") ?>">
-                                    <i class="fa fa-cog fs-5" aria-hidden="true"></i>
-                                </a>
-                            </span>
-                        </div>
-                        <div class="col-md-2 pt-1">
-                            <span class="mx-2">
-                                <a class="btn btn bg-white text-dark-moderated" style="color: #000e1f;" href="/views/home.php?link=<?= sha1("logistique_ravitaillement_liste_expired_fast")?>&link_up=<?= sha1("home_logistique_ravitaillement") ?>">
-                                    <i class="fa fa-bell fs-5" aria-hidden="true"></i>
-                                </a>
-                            </span>
-                        </div>
-                        <div class="col-md-2 pt-1">
-                            <form method="post" action="../contollers/logout/logoutController.php">
-                            <span class="mx-3">
-                                <button type="submit" name="bt_deconnexion" class="btn btn bg-white text-dark-moderated" style="color: #000e1f;">
-                                    <i class="fa fa-sign-out fs-5" aria-hidden="true"></i>
-                                </button>
-                            </span>
-                            </form>
-                        </div>
-                        <div class="col-md-2 pt-1">
-                            <span class="mx-4">
-                                <button type="button" class="btn btn bg-white text-dark-moderated" id="toggle_menu" style="color: #000e1f;">
-                                    <i class="fa fa-list fs-5"></i>
-                                </button>
-                            </span>
+                    <div class="row mb-1"> 
+                        <div class="row mb-1">
+                            <div class="row mb-1">
+                            <div class="row d-flex justify-content-end">
+                                <div class="col-md-2">
+                                    <span class="mx-4">
+                                        <button type="button" class="btn btn bg-white text-dark-moderated" id="toggle_menu_F" style="color: #000e1f;">
+                                            <i class="fa fa-list fs-5"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                            </div>
                         </div>
                     </div>
+                    <div class="row mt-3 bg-mine rounded-2 p-4" style="display: none;"  id="menu_F">
+                            <div class="col-md-12">
+                                <span class="mx-2">
+                                    <img src="../../media/pictures-system/profile.png" class="img-fluid rounded-circle" width="50" alt="Profile">
+                                </span>
+                            </div>
+                            <div class="col-md-12 mt-1">
+                                <span class="mx-2">
+                                    <a class="btn btn bg-white text-dark-moderated" style="color: #000e1f;" href="/views/home.php?link=<?= sha1("admin_utilisateur_update_utilisateur_self") ?>&link_up=<?= sha1("home_admin_utilisateur") ?>">
+                                        <i class="fa fa-cog fs-5" aria-hidden="true"></i>
+                                    </a> <span class="fw-bolder ds"> <a href="/views/home.php?link=<?= sha1("admin_utilisateur_update_utilisateur_self") ?>&link_up=<?= sha1("home_admin_utilisateur") ?>" class="text-decoration-none text-white">PARAMETRE</a> </span>
+                                </span>
+                            </div>
+                            <div class="col-md-12 mt-1">
+                                <span class="mx-2">
+                                    <a class="btn btn bg-white text-dark-moderated" style="color: #000e1f;" href="/views/home.php?link=<?= sha1("logistique_ravitaillement_liste_expired_fast")?>&link_up=<?= sha1("home_logistique_ravitaillement") ?>">
+                                        <i class="fa fa-bell fs-5" aria-hidden="true"></i>
+                                    </a> <span class="fw-bolder ds"> <a href="/views/home.php?link=<?= sha1("logistique_ravitaillement_liste_expired_fast")?>&link_up=<?= sha1("home_logistique_ravitaillement") ?>" class="text-decoration-none text-white">NOTIFICATION</a> </span>
+                                </span>
+                            </div>
+                            <div class="col-md-12 mt-1">
+                                <form method="post" action="../contollers/logout/logoutController.php">
+                                    <span class="mx-2">
+                                        <button type="submit" name="bt_deconnexion" class="btn btn bg-white text-dark-moderated" style="color: #000e1f;">
+                                            <i class="fa fa-sign-out fs-5" aria-hidden="true"></i>
+                                        </button> 
+                                        <span class="fw-bolder ds" onclick="logout()"> <a href="#" class="text-decoration-none text-white">DECONNEXION</a></span>
+                                    </span>
+                                </form>
+                            </div>
+                        </div>
                 </div>   
             </div>
         </div>

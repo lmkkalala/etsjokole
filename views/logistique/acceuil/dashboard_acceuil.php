@@ -136,12 +136,6 @@ include '../models/utilisateur/utilisateur.php';
         </div>
     </div>
 </div>
-<style>
-    .bg-mine{
-        background-color: #000e1f;
-        color: white;
-    }
-</style>
 
 <div class="container-fluid">
     <div class="row">
@@ -185,7 +179,7 @@ include '../models/utilisateur/utilisateur.php';
             $n = $n + 1;
     ?>
         <div class="col-sm-12 col-md-3">
-            <a class="btn btn mt-2 w-100 bg-mine text-uppercase" href="<?=$lien?>"  rel="noopener noreferrer"> <i class="fa fa-home"></i> <?=$utilisateur['nomUtilisateur']?></a>
+            <a class="btn btn mt-2 w-100 bg-mine-dash text-uppercase" href="<?=$lien?>"  rel="noopener noreferrer"> <i class="fa fa-home"></i> <?=$utilisateur['nomUtilisateur']?></a>
         </div>
     <?php
            }

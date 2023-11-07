@@ -68,44 +68,41 @@ include '../models/ventePOS/VentePOS.php';
                     </legend>
                     <form class="form-inline" method="POST" action="../contollers/distribution/distributionController.php">
                         <div class="row">
-                        <div class="col-3">
-                            <label class="control-label">Date :</label>
-                            <input class="form-control" type="date" name="tb_date" value="<?= date('Y-m-d') ?>" >
-                        </div>
-
-                        <div class="col-3 mt-4">
-                            <select class="form-control select2" name="cb_typerepas">
-                                <!-- <option value="0">Choose a type</option>
-                                <option value="Input">Input</option>
-                                <option value="Diesel">Diesel and Fuel</option>
-                                <option value="Lubricant">Lubricant</option>
-                                <option value="Fleet">Fleet Maintenance</option>
-                                <option value="Plant">Plant Maintenance</option>
-                                <option value="cleaning">Cleaning</option>
-                                <option value="non-consomable">Non-consomable</option>
-                                <option value="Office and kitchen equipment">Office and kitchen equipment</option>
-                                <option value="Bar">Bar</option>
-                                <option value="Spoilage">Spoilage</option> -->
-                                <option value="Transfer" selected>Transfer to</option>
-                                <!-- <option value="Staff meal">Staff meal</option>
-                                <option value="Back to supplier">Back to supplier</option>
-                                <option value="Back charge to client">Back charge to client</option>
-                                <option value="Fonction">Fonction</option>
-                                <option value="PRO">PRO</option> -->
-                            </select>
-                        </div>
-
-                        <div class="col-3">
-                            <label class="control-label">Identité client :</label>
-                            <input class="form-control" type="text" name="tb_identiteClient">
-                        </div>
-
-                        <div class="col-3 mt-4">
-                            <input type="hidden" name="tb_idaffectation" value="<?= $_SESSION['idaffectation'] ?>">
-                            <button class="btn btn-success" type="submit" name="bt_select_date_type">
-                                <span class="fa fa-check"></span> OK
-                            </button>
-                        </div>
+                            <div class="col-3">
+                                <label class="control-label">Date :</label>
+                                <input class="form-control" type="date" name="tb_date" value="<?= date('Y-m-d') ?>" >
+                            </div>
+                            <div class="col-3 mt-4 d-none">
+                                <select class="form-control select2" name="cb_typerepas">
+                                    <!-- <option value="0">Choose a type</option>
+                                    <option value="Input">Input</option>
+                                    <option value="Diesel">Diesel and Fuel</option>
+                                    <option value="Lubricant">Lubricant</option>
+                                    <option value="Fleet">Fleet Maintenance</option>
+                                    <option value="Plant">Plant Maintenance</option>
+                                    <option value="cleaning">Cleaning</option>
+                                    <option value="non-consomable">Non-consomable</option>
+                                    <option value="Office and kitchen equipment">Office and kitchen equipment</option>
+                                    <option value="Bar">Bar</option>
+                                    <option value="Spoilage">Spoilage</option> -->
+                                    <option value="Transfer" selected>Transfer to</option>
+                                    <!-- <option value="Staff meal">Staff meal</option>
+                                    <option value="Back to supplier">Back to supplier</option>
+                                    <option value="Back charge to client">Back charge to client</option>
+                                    <option value="Fonction">Fonction</option>
+                                    <option value="PRO">PRO</option> -->
+                                </select>
+                            </div>
+                            <div class="col-3">
+                                <label class="control-label">Identité client :</label>
+                                <input class="form-control" type="text" name="tb_identiteClient" required>
+                            </div>
+                            <div class="col-3 mt-4">
+                                <input type="hidden" name="tb_idaffectation" value="<?= $_SESSION['idaffectation'] ?>">
+                                <button class="btn btn-success" type="submit" name="bt_select_date_type">
+                                    <span class="fa fa-check"></span> Valider
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </fieldset>
@@ -113,10 +110,10 @@ include '../models/ventePOS/VentePOS.php';
             }
             ?>
 
-<?php
-                if (isset($_GET['use_date'])) {
-                    ?>
-                        <fieldset>
+            <?php
+               if (isset($_GET['use_date'])) {
+            ?>
+                        <fieldset class="mt-3">
                             <form class="form-horizontal" method="POST" action="../contollers/distribution/distributionController.php">
                                         <table class="table table-bordered table-hover">
                                             <tr>
@@ -141,13 +138,13 @@ include '../models/ventePOS/VentePOS.php';
                                                     <input type="hidden" name="tb_use_date" value="<?= $_GET['use_date'] ?>">
                                                     <input type="hidden" name="tb_use_typerepas" value="<?= $_GET['use_typerepas'] ?>">
                                                     <input type="hidden" name="tb_use_identiteClient" value="<?= $_GET['use_identiteClient'] ?>">
-                                                    <input class="btn btn-primary w-100 mt-3" type="submit" name="bt_valider_ventePOS" value="Valider">
+                                                    <input class="btn btn-primary w-100 mt-4" type="submit" name="bt_valider_ventePOS" value="Valider">
                                                 </td>
                                                 <td>
                                                     <?php
                                                         if (isset($_GET['use_ventePOS'])) {
                                                             ?>  
-                                                                <a style="font-size: 20px;" href='../views/service/distribution/pdf_facture.php?use_ventePOS=<?= $_GET['use_ventePOS']?>&use_identiteClient=<?= $_GET['use_identiteClient'] ?>' class="btn btn-info pull-left">Imprimer facture</a>
+                                                                <a style="font-size: 15px;" href='../views/service/distribution/pdf_facture.php?use_ventePOS=<?= $_GET['use_ventePOS']?>&use_identiteClient=<?= $_GET['use_identiteClient'] ?>' class="btn btn-info pull-left mt-4">Imprimer facture</a>
                                                             <?php
                                                         }
                                                     ?>
@@ -157,7 +154,7 @@ include '../models/ventePOS/VentePOS.php';
                                         </table>
                                     </form>
                             </fieldset>
-                    <?php
+            <?php
                 }
             ?>
 
@@ -198,6 +195,8 @@ include '../models/ventePOS/VentePOS.php';
                                     <label class="control-label">Qté :</label>
                                     <input class="form-control" type="text" name="tb_quantite" placeholder="Quantité">
                                 </td>
+                            </tr>
+                            <tr>
                                 <td>
                                     <label class="control-label">PU vente :</label>
                                     <input class="form-control" type="text" name="tb_price" placeholder="Unit price (USD)" id="puSaleStock">
@@ -209,6 +208,8 @@ include '../models/ventePOS/VentePOS.php';
                                         <option value="CREDIT">CREDIT</option>
                                     </select>
                                 </td>
+                            </tr>
+                            <tr>
                                 <td>
                                     <label class="control-label">% TVA :</label>
                                     <input class="form-control" type="text" name="tb_tva" placeholder="en %" value="0">
@@ -217,9 +218,9 @@ include '../models/ventePOS/VentePOS.php';
                                     <input type="hidden" name="tb_idaffectation" value="<?= $_SESSION['idaffectation'] ?>">
                                     <input type="hidden" name="tb_use_date" value="<?= $_GET['use_date'] ?>">
                                     <input type="hidden" name="tb_use_typerepas" value="<?= $_GET['use_typerepas'] ?>">
-                                <input type="hidden" name="tb_use_identiteClient" value="<?= $_GET['use_identiteClient'] ?>">
-                                <input type="hidden" name="tb_use_ventePOS" value="<?= $_GET['use_ventePOS'] ?>">
-                                    <input class="btn btn-success" type="submit" name="bt_enregistrer" value="Enreg.">
+                                    <input type="hidden" name="tb_use_identiteClient" value="<?= $_GET['use_identiteClient'] ?>">
+                                    <input type="hidden" name="tb_use_ventePOS" value="<?= $_GET['use_ventePOS'] ?>">
+                                    <input class="btn btn-success mt-4" type="submit" name="bt_enregistrer" value="Enregister">
                                 </td>
                             </tr>
                         </table>

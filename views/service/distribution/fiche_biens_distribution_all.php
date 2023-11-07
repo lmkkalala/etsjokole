@@ -5,6 +5,7 @@
  * and open the template in the editor.
  */
 include '../models/biens/biens.php';
+
 ?>
 <div class="panel">
     <div class="panel panel-heading">

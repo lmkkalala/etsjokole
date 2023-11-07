@@ -77,16 +77,14 @@
                 <select class="form-control select2" name="autres_place">
                     <option value="">Selectionner ICI</option>
                     <option value="00" selected>Kamanyola</option>
-<?php
-    $LieuDataList = $DB->get('lieureception');
-    if (count($LieuDataList) != 0) {
-        foreach ($LieuDataList as $key => $value) {
-?>
+                    <?php
+                        $LieuDataList = $DB->get('lieureception');
+                        if (count($LieuDataList) != 0) {
+                            foreach ($LieuDataList as $key => $value) {
+                    ?>
                     <option value="<?=$value['id']?>"><?=$value['lieu']?></option>
-<?php } } ?>
-                    
+                    <?php } } ?>
                 </select>
-                <input type="hidden" name="tb_link" value="<?= $link ?>">
             </div>
             <div class="col-md-6">
                 <?php
@@ -120,7 +118,6 @@
                 }
                 ?>
             </strong>
-
         </h3>
-    </fieldset>
+    </div>
 </div>

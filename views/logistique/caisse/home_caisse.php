@@ -40,7 +40,7 @@ $compteBanque = $db->getWhere('comptebanque','status','1','date');
 <div class="container-fluid">
   <div class="row">
         <div class="col-md-2 text-start mt-3 mb-3">
-            <h5 class="text-primary fw-bolder mt-4">JOURNAL CAISSE</h5>
+            <h5 class="text-secondary fw-bolder mt-4">JOURNAL CAISSE</h5>
         </div>
         <div class="col-md-10 mt-3">
           <form action="" method="post" id="FilterForm">
@@ -71,29 +71,29 @@ $compteBanque = $db->getWhere('comptebanque','status','1','date');
                 </div>
                 <div class="col-md-2 mt-1">
                   <input type="hidden" name="FilterFormCaisse" id="FilterFormCaisse">
-                  <button class="btn btn-primary text-white w-100" type="submit"> <i class="fa fa-search"></i> Rechercher</button>
+                  <button class="btn btn-secondary text-white w-100" type="submit"> <i class="fa fa-search"></i> Rechercher</button>
                 </div>
                 <div class="col-md-2 mt-1">
-                    <button class="btn btn-primary text-white w-100" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa fa-book"></i> OPERATION</button>
+                    <button class="btn btn-secondary text-white w-100" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa fa-book"></i> OPERATION</button>
                 </div>
                 <div class="col-md-2 mt-1">
-                    <button class="btn btn-primary text-white w-100" type="button"  data-bs-toggle="modal" data-bs-target="#banque_list"><i class="fa fa-book"></i> COMPTE</button>
+                    <button class="btn btn-secondary text-white w-100" type="button"  data-bs-toggle="modal" data-bs-target="#banque_list"><i class="fa fa-book"></i> COMPTE</button>
                 </div>
                 <div class="col-md-2 mt-1">
-                    <button class="btn btn-primary text-white w-100" type="button"  data-bs-toggle="modal" data-bs-target="#banque_list_add"><i class="fa fa-book"></i> LISTE COMPTE</button>
+                    <button class="btn btn-secondary text-white w-100" type="button"  data-bs-toggle="modal" data-bs-target="#banque_list_add"><i class="fa fa-book"></i> LISTE COMPTE</button>
                 </div>
             </div>
           </form>
         </div>
         
         <div class="row mt-2 mb-2">
-          <div class="col-md-4 bg-primary text-start border-end border-bottom">
+          <div class="col-md-4 bg-secondary text-start border-end border-bottom">
             <h5 class="fw-bolder text-white mt-3"><span id="dollars">0</span></h5>
           </div>
-          <div class="col-md-4 bg-primary text-start border-end border-bottom">
+          <div class="col-md-4 bg-secondary text-start border-end border-bottom">
               <h5 class="fw-bolder text-white mt-3"><span id="fc">0</span></h5>
           </div>
-          <div class="col-md-4 bg-primary text-start">
+          <div class="col-md-4 bg-secondary text-start">
               <h5 class="fw-bolder text-white mt-3"><span id="frw">0</span></h5>
           </div>
         </div>
@@ -148,7 +148,7 @@ $compteBanque = $db->getWhere('comptebanque','status','1','date');
                 </div>
                 <div class="col-md-2 mt-1">
                   <input type="hidden" name="FilterFormCaisseCredit" id="FilterFormCaisseCredit">
-                  <button class="btn btn-primary text-white w-100" type="submit"> <i class="fa fa-search"></i> Rechercher</button>
+                  <button class="btn btn-secondary text-white w-100" type="submit"> <i class="fa fa-search"></i> Rechercher</button>
                 </div>
             </div>
           </form>

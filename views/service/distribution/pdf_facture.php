@@ -106,7 +106,7 @@ foreach ($distributions as $distribution) {
 $pdf->SetDrawColor(34, 139, 34);
 //Troisieme ligne
 //$pdf->Line(10, 70, 148 - 10, 70);
-
+$value_taux = 0;
 $BdTaux=new BdTaux();
 $tauxs=$BdTaux->getTauxActive();
 foreach($tauxs as $taux) {
@@ -114,7 +114,9 @@ foreach($tauxs as $taux) {
 }
 
 $pdf->SetFont('Times', 'B', 16);
-// $pdf->Cell(190, 10, utf8_decode("Total (FC): " . ($cumul_value_total*$value_taux)));
+if($value_taux != 0){
+$pdf->Cell(190, 10, utf8_decode("Total (FC): " . ($cumul_value_total*$value_taux)));
+}
 $pdf->SetFont('Times', 'B', 16);
 $pdf->Ln(5);
 $pdf->Cell(190, 10, utf8_decode("Total (USD): " . ($cumul_value_total)));

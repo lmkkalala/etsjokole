@@ -7,6 +7,8 @@
 ?>
 <?php
 $link = "service_distribution_fiche_biens_distribution_self";
+include '../models/crud/db.php';
+$DB = new DB();
 include("select_service.php");
 
 if (isset($_GET['use_date1'])) {

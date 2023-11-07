@@ -42,56 +42,57 @@
 <div class="container-fluid">
     <div class="row">
       <div class="col-md-3 col-sm-12 text-start mt-3 mb-3">
-          <h3 class="text-primary fw-bolder mt-1">TRANSPORT</h3>
-          <button class="btn btn-primary text-white w-100 mt-1" type="button"  data-bs-toggle="modal" data-bs-target="#list_depense"><i class="fa fa-book"></i> LISTE DEPENSE COURSE</button>
+          <h3 class="text-secondary fw-bolder mt-1">TRANSPORT</h3>
+          <button class="btn btn-secondary text-white w-100 mt-1" type="button"  data-bs-toggle="modal" data-bs-target="#list_depense"><i class="fa fa-book"></i> LISTE DEPENSE COURSE</button>
       </div>
       <div class="col-md-2 col-sm-12 mt-3 mb-3 text-end">
-          <button class="btn btn-primary text-white w-100 mt-1" type="button"  data-bs-toggle="modal" data-bs-target="#add_conducteur"><i class="fa fa-user-plus"></i> Conducteur</button>
-          <button class="btn btn-primary text-white w-100 mt-1" type="button"  data-bs-toggle="modal" data-bs-target="#list_conducteur"><i class="fa fa-user"></i> Liste Conducteur</button>
+          <button class="btn btn-secondary text-white w-100 mt-1" type="button"  data-bs-toggle="modal" data-bs-target="#add_conducteur"><i class="fa fa-user-plus"></i> Conducteur</button>
+          <button class="btn btn-secondary text-white w-100 mt-1" type="button"  data-bs-toggle="modal" data-bs-target="#list_conducteur"><i class="fa fa-user"></i> Liste Conducteur</button>
       </div>
       <div class="col-md-2 col-sm-12 mt-3 mb-3 text-end">
           <div class="row">
-              <button class="btn btn-primary text-white w-100 mt-1" type="button"  data-bs-toggle="modal" data-bs-target="#add_vehicule"><i class="fa fa-car"></i> Ajouter Vehicule</button>
-              <button class="btn btn-primary text-white w-100 mt-1" type="button"  data-bs-toggle="modal" data-bs-target="#list_vehicule"><i class="fa fa-car"></i> Liste Vehicule</button>
+              <button class="btn btn-secondary text-white w-100 mt-1" type="button"  data-bs-toggle="modal" data-bs-target="#add_vehicule"><i class="fa fa-car"></i> Ajouter Vehicule</button>
+              <button class="btn btn-secondary text-white w-100 mt-1" type="button"  data-bs-toggle="modal" data-bs-target="#list_vehicule"><i class="fa fa-car"></i> Liste Vehicule</button>
           </div>
       </div>
       <div class="col-md-2 col-sm-12 mt-3 mb-3 text-end">
-        <button class="btn btn-primary text-white w-100 mt-1" type="button"  data-bs-toggle="modal" data-bs-target="#add_type_depense"><i class="fa fa-money"></i> Type Depense</button>
-          <button class="btn btn-primary text-white w-100 mt-1" type="button"  data-bs-toggle="modal" data-bs-target="#list_type_depense"><i class="fa fa-money"></i> Liste Type</button>
+        <button class="btn btn-secondary text-white w-100 mt-1" type="button"  data-bs-toggle="modal" data-bs-target="#add_type_depense"><i class="fa fa-money"></i> Type Depense</button>
+          <button class="btn btn-secondary text-white w-100 mt-1" type="button"  data-bs-toggle="modal" data-bs-target="#list_type_depense"><i class="fa fa-money"></i> Liste Type</button>
       </div>
       <div class="col-md-3 col-sm-12 mt-3 mb-3 text-end">
-          <button class="btn btn-primary text-white w-100 mt-1" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa fa-book"></i> NOUVEAU COURSE</button>
-          <button class="btn btn-primary text-white w-100 mt-1" type="button"  data-bs-toggle="modal" data-bs-target="#add_depense"><i class="fa fa-money"></i> DEPENSE COURSE</button>
+          <button class="btn btn-secondary text-white w-100 mt-1" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa fa-book"></i> NOUVEAU COURSE</button>
+          <button class="btn btn-secondary text-white w-100 mt-1" type="button"  data-bs-toggle="modal" data-bs-target="#add_depense"><i class="fa fa-money"></i> DEPENSE COURSE</button>
       </div>
     </div>
     <form action="" method="post" id="FilterForm"> 
       <div class="row">
         <div class="col-md-2">
-        <select class="form-control" name="Conducteur" id="Conducteur">
-                <option value="">Selectionner Conducteur</option>
-                <?php
-                    $conducteurFullName = '';
-                    foreach ($listAgent as $key2 => $value) {
-                      $vehicule = $db->getWhere('vehicule','conducteurID',$listAgent[$key2]['id']);
-                      if (count($vehicule) > 0) {
-                        $plaque = $vehicule[0]['plaqueVehicule'];
-                      }else{
-                        $plaque = '';
-                      }
-                        if ($listAgent[$key2]['active'] == '1' and $listAgent[$key2]['grade'] == 'driver') {
-                        $conducteurFullName = $listAgent[$key2]['nom'].' '.$listAgent[$key2]['postnom'].' '.$listAgent[$key2]['prenom'];
-                ?>
-                    <option value="<?=$listAgent[$key2]['id']?>"><?=$conducteurFullName.' PLAQUE : '.$plaque?></option>
-                <?php
-                      }
+          <select class="form-control" name="Conducteur" id="Conducteur">
+              <option value="">Selectionner Conducteur</option>
+              <?php
+                  $conducteurFullName = '';
+                  foreach ($listAgent as $key2 => $value) {
+                    $vehicule = $db->getWhere('vehicule','conducteurID',$listAgent[$key2]['id']);
+                    if (count($vehicule) > 0) {
+                      $plaque = $vehicule[0]['plaqueVehicule'];
+                    }else{
+                      $plaque = '';
                     }
-                ?>
-              </select>
+                      if ($listAgent[$key2]['active'] == '1' and $listAgent[$key2]['grade'] == 'driver') {
+                      $conducteurFullName = $listAgent[$key2]['nom'].' '.$listAgent[$key2]['postnom'].' '.$listAgent[$key2]['prenom'];
+              ?>
+                  <option value="<?=$listAgent[$key2]['id']?>"><?=$conducteurFullName.' PLAQUE : '.$plaque?></option>
+              <?php
+                    }
+                  }
+              ?>
+          </select>
         </div>
         <div class="col-md-2">
           <input class="form-control" type="text" name="Destination" id="Destination" placeholder="Destination">
         </div>
         <div class="col-md-2">
+        <input class="form-control" type="text" value="Date debut et fin" readonly>
         </div>
         <div class="col-md-2">
           <input class="form-control" type="date" name="filterDate_start" id="filterDate_start">
@@ -101,7 +102,7 @@
         </div>
         <div class="col-md-2">
           <input type="hidden" name="FilterFormCourse" id="FilterFormCourse">
-          <button class="btn btn-primary w-100 text-white" type="submit"> <i class="fa fa-search"></i> Rechercher</button>
+          <button class="btn btn-secondary w-100 text-white" type="submit"> <i class="fa fa-search"></i> Rechercher</button>
         </div>
       </div>
     </form>  
@@ -112,11 +113,10 @@
                   <tr>
                       <th class="small">N°</th>
                       <th class="small">DATE</th>
-                      <th class="small">CONDUCTEUR</th>
-                      <th class="small">PLAQUE</th>
-                      <th class="small">Contenu&DESTINATION</th>
+                      <th class="small">CONDUCTEUR/PLAQUE</th>
+                      <th class="small">CONTENU/DESTINATION</th>
                       <th class="small">DESCRIPTION</th>
-                      <th class="small">Tonne / MONTANT</th>
+                      <th class="small">Tonne/MONTANT</th>
                       <th class="small">DEPENSE</th>
                       <th class="small">MARGE</th>
                       <th class="small">EXECUTER</th>
@@ -200,7 +200,7 @@
         <div class="modal-body">
           <form action="" method="post" id="FilterFormOther"> 
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-2 mt-2">
                 <select class="form-control" name="ConducteurDepenseCourse" id="ConducteurDepenseCourse">
                       <option value="">Selectionner Conducteur</option>
                       <?php
@@ -222,13 +222,16 @@
                       ?>
                 </select>
               </div>
-              <div class="col-md-2">
+              <div class="col-md-2 mt-2">
+                <input class="form-control" type="text" value="Date Debut et Fin"  readonly>
+              </div>
+              <div class="col-md-3 mt-2">
                 <input class="form-control" type="date" name="filterDate_startDepenseCourse" id="filterDate_startDepenseCourse">
               </div>
-              <div class="col-md-2">
+              <div class="col-md-3 mt-2">
                 <input class="form-control" type="date" name="filterDate_endDepenseCourse" id="filterDate_endDepenseCourse">
               </div>
-              <div class="col-md-2">
+              <div class="col-md-2 mt-2">
                 <input type="hidden" name="FilterFormDepenseCourse" id="FilterFormDepenseCourse">
                 <button class="btn btn-primary w-100 text-white" type="submit"> <i class="fa fa-search"></i> Rechercher</button>
               </div>

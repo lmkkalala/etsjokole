@@ -31,16 +31,18 @@ include './meta/menu_service.php';
                     }
                 </style>
                 <div class="col-lg-12" style="padding: 10px;height: 80vh;overflow: auto;">
-                    <fieldset>
-                        <legend class="text-primary fw-bolder">LES OPERATIONS</legend>
-                        <table>
-                            <tr>
-                                <td><a class="btn btn-info text-white" style="font-size: 30px; padding: 60px; margin-right: 90px;" href="/views/home.php?link_up=<?= sha1("home_service_demande") ?>"><span style="font-size: 70px; margin: 20px;" class="fa fa-list"></span>Réquisition</a></td>
-                                <td><a class="btn btn-warning text-white" style="font-size: 30px; padding: 60px; margin-right: 90px;" href="/views/home.php?link_up=<?= sha1("home_service_preparation") ?>"><span style="font-size: 70px; margin: 20px;" class="fa fa-calculator"></span>Activité</a></td>
-                                <td><a class="btn btn-success text-white" style="font-size: 30px; padding: 60px; margin-right: 90px;" href="/views/home.php?link_up=<?= sha1("home_service_reception") ?>"><span style="font-size: 70px; margin: 20px;" class="fa fa-download"></span>Entrée</a></td>
-                            </tr>
-                        </table>
-                    </fieldset>
+                    <h5 class="text-secondary fw-bolder">LES OPERATIONS</h5>
+                    <div class="row">
+                        <div class="col-md-3 mt-1">
+                            <a class="btn btn-secondary text-white" style="font-size: 20px; padding: 60px; " href="/views/home.php?link_up=<?= sha1("home_service_demande") ?>"><span style="font-size: 70px; margin: 20px;" class="fa fa-list"></span>Réquisition</a>
+                        </div>
+                        <div class="col-md-3 mt-1">
+                            <a class="btn btn-secondary text-white" style="font-size: 20px; padding: 60px;" href="/views/home.php?link_up=<?= sha1("home_service_preparation") ?>"><span style="font-size: 70px; margin: 20px;" class="fa fa-calculator"></span>Activité</a>
+                        </div>
+                        <div class="col-md-3 mt-1">
+                            <a class="btn btn-secondary text-white" style="font-size: 20px; padding: 60px;" href="/views/home.php?link_up=<?= sha1("home_service_reception") ?>"><span style="font-size: 70px; margin: 20px;" class="fa fa-download"></span>Entrée</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

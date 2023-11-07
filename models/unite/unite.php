@@ -147,7 +147,7 @@ class BdUnite {
 
     function getUniteByIdBiens($idbiens) {
         $bd = Connexion::connecter();
-        $reponse = $bd->query("SELECT * FROM unite WHERE biens_id='{$idbiens}'");
+        $reponse = $bd->query("SELECT * FROM unite WHERE biens_id='{$idbiens}' LIMIT 100");
         return $reponse->fetchAll();
         $reponse->closeCursor();
     }

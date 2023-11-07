@@ -81,10 +81,10 @@ session_start();
                         <div class="row">
                             <div class="col-12">
                                 <h1 class="text-center mt-3 text-white h1 fw-bolder">Ets JOKOLE</h1>
-                                <p class="text-center text-white h4 fw-bolder">Dieu est GRAND.</p>
+                                <p class="text-center text-white h3 fw-bolder">Dieu est GRAND.</p>
                             </div>
                             <div class="col-12">
-                                <h4 class="text-center mt-1 text-white fw-bolder">Connexion</h4>
+                                <h4 class="text-center mt-1 text-white fw-bolder h1">Connexion</h4>
                             </div>
                         </div>
                         <div class="row text-center">

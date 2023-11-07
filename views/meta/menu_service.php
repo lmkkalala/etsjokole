@@ -20,7 +20,7 @@ include 'meta/menu_general.php';
 
             if ($_SESSION['type'] != 'membre') {
                 ?>
-                <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" class="active" href="/views/home.php?link_up=<?= sha1('home_service_acceuil'); ?>"><span class="fa fa-home" style="color: #fff; "></span> Accueil</a></li>
+                <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" class="active" href="/views/home.php?link_up=<?= sha1('home_service_acceuil'); ?>"><span class="fa fa-home"></span> Accueil</a></li>
                 <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="/views/home.php?link_up=<?= sha1('home_service_requisition'); ?>"><span class="fa fa-upload" ></span> Demande</a></li>
                 <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="/views/home.php?link_up=<?= sha1('home_service_reception'); ?>"><span class="fa fa-download" ></span> Entrée</a></li>
                 <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="/views/home.php?link=<?= sha1("service_reception_inventory") ?>&link_up=<?= sha1("home_service_reception") ?>"><span class="fa fa-list-ol" ></span> Inventaire</a></li>

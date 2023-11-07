@@ -132,7 +132,7 @@ $dateEnd = '';
                                         </select>
                                     </td>
                                     <td>
-                                        <select class="form-control" name="cb_fournisseur">
+                                        <select class="form-control select2" name="cb_fournisseur">
                                             <?php
                                             $bdfournisseur = new BdFournisseur();
                                             $fournisseurs = $bdfournisseur->getFournisseurAllDesc();

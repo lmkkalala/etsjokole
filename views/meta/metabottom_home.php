@@ -29,6 +29,20 @@
     ?>
 
 <script type="text/javascript">
+    function logout(){
+        var form = {'bt_deconnexion':'backCall'};
+        $.ajax({
+            type:'POST',
+            url: '../contollers/logout/logoutController.php',
+            data:form,
+            dataType:'json',	
+            success: function(data){
+                if(data.status == 'success'){
+                    window.location.href = "../../index.php";
+                }
+            }
+        });
+    }
         function list(val = '', modal = '', page = '') {
             if(val != '' && modal == ''){
                 event.preventDefault();
@@ -208,31 +222,14 @@
         });
 
         function operation(val,toDo,table = null){
-                if (confirm('Voulez vous continuer cette operation?') == false) {
-                    return;
-                }
+            if (confirm('Voulez vous continuer cette operation?') == false) {
+                return;
+            }
 
-                if (toDo =='update') {
-                    if(table == null) {
-                        var form = new FormData($('#'+val+'')[0]);
-                        $.ajax({
-                        type:'POST',
-                        url: '<?=("/contollers/MoreControllers/control.php?request=".sha1('update'))?>',
-                        data:form,
-                        dataType:'json',
-                        processData: false, 
-                        contentType: false,
-                        beforeSend:function(){
-                            $('button').prop('disabled',true);
-                        },	
-                        success: function(data){
-                                 $('button').prop('disabled',false);
-                                 list('','','<?=$page?>');
-                            }
-                        })
-                    }else{
-                        var form = {'id':val,'to':table};
-                        $.ajax({
+            if (toDo =='update') {
+                if(Number.isInteger(val) == true || typeof val === 'string') {
+                    var form = {'id':val,'to':table};
+                    $.ajax({
                         type:'POST',
                         url: '<?=("/contollers/MoreControllers/control.php?request=".sha1('update'))?>',
                         data:form,
@@ -244,37 +241,71 @@
                             alert(data.msg);
                                 $('button').prop('disabled',false);
                                 list('','','<?=$page?>');
-                            }
-                        })
-                    }
-                }else if(toDo == 'delete'){
-                    var form = {'id':val,'to':table};
-                    $.ajax({
-                    type:'POST',
-                    url: '<?=("/contollers/MoreControllers/control.php?request=".sha1('delete'))?>',
-                    data:form,
-                    dataType:'json',
-                    beforeSend:function(){
-                        $('button').prop('disabled',true);
-                    },	
-                    success: function(data){
-                        if(data.status == 'success'){
-                            alert(data.msg)
-                            list('','','<?=$page?>');
-                        }else{
-                            alert(data.msg)
                         }
-                        $('button').prop('disabled',false);
+                    });
+                }else{
+                    $.ajax({
+                        type:'POST',
+                        url: '<?=("/contollers/MoreControllers/control.php?request=".sha1('update'))?>',
+                        data: val,
+                        dataType:'json',
+                        // processData: false, 
+                        // contentType: false,
+                        beforeSend:function(){
+                            $('button').prop('disabled',true);
+                        },	
+                        success: function(data){
+                            $('button').prop('disabled',false);
+                            alert(data.msg);
+                            list('','','<?=$page?>');
+                        }
+                    });
+                }
+            }else if(toDo == 'delete'){
+                var form = {'id':val,'to':table};
+                $.ajax({
+                type:'POST',
+                url: '<?=("/contollers/MoreControllers/control.php?request=".sha1('delete'))?>',
+                data:form,
+                dataType:'json',
+                beforeSend:function(){
+                    $('button').prop('disabled',true);
+                },	
+                success: function(data){
+                    if(data.status == 'success'){
+                        alert(data.msg)
+                        list('','','<?=$page?>');
+                    }else{
+                        alert(data.msg)
                     }
-                })
+                    $('button').prop('disabled',false);
+                    }
+                });
             }
         }
 
-    function updateThis(id,table = null){
-        if (table != null) {
+    function updateThis(id,table = null, toBeDone = ''){
+
+        if (table == 'caisse' && toBeDone == 'formData' ) {
+            
+        }else if (table == 'vehicule' && toBeDone == 'formData') {
+            
+        }else if (table == 'typedepense' && toBeDone == 'formData') {
+            
+        }else if (table == 'coursetransport' && toBeDone == 'formData') {
+            var form = {
+                'courseTransportDate_': $('#courseTransportDate_'+id+'').val(),
+                'courseTransportContenu_': $('#courseTransportContenu_'+id+'').val(),
+                'courseTransportDestination_': $('#courseTransportDestination_'+id+'').val(),
+                'courseTransportDescription_': $('#courseTransportDescription_'+id+'').val(),
+                'courseTransportTonne_': $('#courseTransportTonne_'+id+'').val(),
+                'prixCourse_': $('#prixCourse_'+id+'').val(),
+                'id':id,
+                'table':table
+            };
+            operation(form,'update',''+table+'');
+        }else if(table != null && toBeDone == '') {
             operation(''+id+'','update',''+table+'');
-        }else{
-            operation('bordereau_form_update_'+id+'','update');
         }
     }
 
@@ -306,6 +337,11 @@
             $('#menu2-a').slideToggle("slow");
             $("#menu-gauche").slideToggle("slow");
         });
+        
+        $('#toggle_menu_F').on('click',function(){
+            $('#menu_F').slideToggle("slow");
+        });
+
         $('#entete1-logo').on('click',function(){
             $('#menu2-a').slideToggle("slow");
             $("#menu-gauche").slideToggle("slow");
