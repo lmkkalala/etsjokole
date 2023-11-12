@@ -1539,8 +1539,37 @@ if(isset($_GET['Local'])){
         $table = 'stockvente';
         $field = '(date,nFacture,numero_surFacture,articleFacturer,quantiteFacturer,prixFacturer,depotID,factureDe)';
         $prepared = '?,?,?,?,?,?,?,?';
+
+        if(securise($_POST['nFacture']) == ''){
+            echo json_encode(
+                array('htmlVente'=>array('status'=>'echec','sms'=>'Echec d\' enregistrement ... Vous avez pas selectionner de numero systeme.','article'=>''))
+            );
+            return;
+        }
+
+        if(securise($_POST['dateVente']) == '0000-00-00' || securise($_POST['dateVente']) == ''){
+            echo json_encode(
+                array('htmlVente'=>array('status'=>'echec','sms'=>'Echec d\' enregistrement ... veuiller entre une date.','article'=>''))
+            );
+            return;
+        }
+
+        $approvision = $DB->getWhereMultiple('approvisiondepot','articleID = "'.securise($_POST['articleFacturer']).'" and depotID = "'.securise($_POST['OptionDepotVente']).'"');
+        $sommeAppro = 0;
+        foreach ($approvision as $key => $value1) {
+            $sommeAppro = $sommeAppro + $value1['quantite'];
+        }
+
+        $vente = $DB->getWhereMultiple('stockvente','articleFacturer = "'.securise($_POST['articleFacturer']).'" and depotID = "'.securise($_POST['OptionDepotVente']).'"');
+        $sommeQuantite = 0;
+        foreach ($vente as $key => $value2) {
+            $sommeQuantite = $sommeQuantite + $value2['quantiteFacturer'];
+        }
+
+        $quantite = $sommeAppro - $sommeQuantite;
         
         $articleRow = $DB->getWhereMultipleMore(' * FROM articlesystemlocal ','id = '.securise($_POST['articleFacturer']).' AND quantite > 0 ');
+        
         $facture = $DB->getWhere('numfacturelocal','numerofacture',securise($_POST['nFacture']));
         if (count($facture) == 0) {
             $added = add('numfacturelocal','(numerofacture,date)','?,?',array(securise($_POST['nFacture']),securise($_POST['dateVente'])));
@@ -1552,7 +1581,8 @@ if(isset($_GET['Local'])){
             }
         }
 
-        if (count($articleRow) > 0) {
+
+        if (count($articleRow) > 0 || $quantite > 0) {
             if ($articleRow[0]['quantite'] >= securise($_POST['quantiteFacturer'])) {
                 $stock = $articleRow[0]['quantite'] - securise($_POST['quantiteFacturer']);
                 $update = $DB->update('articlesystemlocal' ,'quantite = ?', 'id = ?', [''.$stock.'',''.securise($_POST['articleFacturer']).'']);
@@ -1597,14 +1627,14 @@ if(isset($_GET['Local'])){
         $id = '';
         if (isset($_GET['id'])) {
             if(isset($_POST['dateStart']) and isset($_POST['dateEnd'])){
-                $venteFuntion = ListVente($_GET['id'],$_POST['dateStart'],$_POST['dateEnd'],$_POST['FactureDefiltre']);
+                $venteFuntion = ListVente($_GET['id'],$_POST['dateStart'],$_POST['dateEnd'],$_POST['FactureDefiltre'],$_POST['OptionDepotDe']);
             }else{
                 $venteFuntion = ListVente($_GET['id']);
             }
             $id = $_GET['id'];
         }else{
             if(isset($_POST['dateStart']) and isset($_POST['dateEnd'])){
-                $venteFuntion = ListVente('',$_POST['dateStart'],$_POST['dateEnd'],$_POST['FactureDefiltre']);
+                $venteFuntion = ListVente('',$_POST['dateStart'],$_POST['dateEnd'],$_POST['FactureDefiltre'],$_POST['OptionDepotDe']);
             }else{
                 $venteFuntion = ListVente();
             } 
@@ -1856,54 +1886,61 @@ function ListArticle ($articleFilter = '' ,$optionID = ''){
     $table = "String('articlesystemlocal')";
     $list = $DB->getWhereMultiple('articlesystemlocal','status = 1 '.$articleFilter.'');
     foreach ($list as $key => $value) {
+        if($value['quantite'] != 0){
+            if(!empty($optionID)){
+                
+                $approvision = $DB->getWhereMultiple('approvisiondepot','articleID = "'.$value['id'].'" and depotID = "'.$optionID.'"');
+                $sommeAppro = 0;
+                foreach ($approvision as $key => $value1) {
+                    $sommeAppro = $sommeAppro + $value1['quantite'];
+                }
 
-        if(!empty($optionID)){
+                $vente = $DB->getWhereMultiple('stockvente','articleFacturer = "'.$value['id'].'" and depotID = "'.$optionID.'"');
+                $sommeQuantite = 0;
+                foreach ($vente as $key => $value2) {
+                    $sommeQuantite = $sommeQuantite + $value2['quantiteFacturer'];
+                }
+
+                $quantite = $sommeAppro - $sommeQuantite;
+                $sommeAppro = 0;
+                $sommeQuantite = 0;
+            }else{
+                $quantite = $value['quantite'];
+            }
+
+            if($quantite < 500){
+                $background_color = 'bg-danger text-white';
+            }else{
+                $background_color = 'bg-dark text-white';
+            }
             
-            $approvision = $DB->getWhereMultiple('approvisiondepot','articleID = "'.$value['id'].'" and depotID = "'.$optionID.'"');
-            $sommeAppro = 0;
-            foreach ($approvision as $key => $value1) {
-                $sommeAppro = $sommeAppro + $value1['quantite'];
-            }
-
-            $vente = $DB->getWhereMultiple('stockvente','articleFacturer = "'.$value['id'].'" and depotID = "'.$optionID.'"');
-            $sommeQuantite = 0;
-            foreach ($vente as $key => $value2) {
-                $sommeQuantite = $sommeQuantite + $value2['quantiteFacturer'];
-            }
-
-            $quantite = $sommeAppro - $sommeQuantite;
-            $sommeAppro = 0;
-            $sommeQuantite = 0;
-        }else{
-            $quantite = $value['quantite'];
+            $article = $article.'
+            <form action="" method="post">
+                <tr>
+                    <td>'.$num.'</td>
+                    <td>
+                        <input type="text" class="form-control" name="articleUpdate_'.$value['id'].'" id="articleUpdate_'.$value['id'].'"  value="'.$value['article'].'">
+                        <input type="text" class="form-control mt-2" name="emballageUpdate_'.$value['id'].'" id="emballageUpdate_'.$value['id'].'"  value="'.$value['emballage'].'">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control '.$background_color.'" name="quantiteUpdate_'.$value['id'].'" id="quantiteUpdate_'.$value['id'].'"  value="'.$quantite.'">
+                        <input type="text" class="form-control mt-2" name="prixUpdate_'.$value['id'].'" id="prixUpdate_'.$value['id'].'" value="'.$value['prix'].'">
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-secondary mt-1" onclick="updateThis('.$value['id'].','.$table.')"><i class="fa fa-pencil-square-o"></i></button>
+                        <button type="button" class="btn btn-danger mt-1" onclick="deleteThis('.$value['id'].','.$table.')"><i class="fa fa-trash-o"></i></button>
+                    </td>
+                </tr>
+            </form>';
+            $num ++;
         }
-        
-        $article = $article.'
-        <form action="" method="post">
-            <tr>
-                <td>'.$num.'</td>
-                <td>
-                    <input type="text" class="form-control" name="articleUpdate_'.$list[$key]['id'].'" id="articleUpdate_'.$list[$key]['id'].'"  value="'.$value['article'].'">
-                    <input type="text" class="form-control mt-2" name="emballageUpdate_'.$list[$key]['id'].'" id="emballageUpdate_'.$list[$key]['id'].'"  value="'.$value['emballage'].'">
-                </td>
-                <td>
-                    <input type="text" class="form-control" name="quantiteUpdate_'.$list[$key]['id'].'" id="quantiteUpdate_'.$list[$key]['id'].'"  value="'.$quantite.'">
-                    <input type="text" class="form-control mt-2" name="prixUpdate_'.$list[$key]['id'].'" id="prixUpdate_'.$list[$key]['id'].'" value="'.$value['prix'].'">
-                </td>
-                <td>
-                    <button type="button" class="btn btn-secondary mt-1" onclick="updateThis('.$list[$key]['id'].','.$table.')"><i class="fa fa-pencil-square-o"></i></button>
-                    <button type="button" class="btn btn-danger mt-1" onclick="deleteThis('.$list[$key]['id'].','.$table.')"><i class="fa fa-trash-o"></i></button>
-                </td>
-            </tr>
-        </form>';
-        $num ++;
     }
     $article = $article.
     '</tbody>';
     return $article;
 }
 
-function ListVente($nFacture = '', $dateStart = '', $dateEnd = '', $FactureDefiltre = ''){
+function ListVente($nFacture = '', $dateStart = '', $dateEnd = '', $FactureDefiltre = '', $OptionDepotDe = ''){
     $vente = 
     '<thead>
         <tr>
@@ -1921,11 +1958,17 @@ function ListVente($nFacture = '', $dateStart = '', $dateEnd = '', $FactureDefil
         $FactureDefiltre = ' and sv.factureDe = "'.$FactureDefiltre.'" ';
     }
 
+    if ($OptionDepotDe == '') {
+        $OptionDepotDe = '';
+    }else{
+        $OptionDepotDe = ' and sv.depotID = "'.$OptionDepotDe.'" ';
+    }
+
     if ($nFacture == '') {
         if(!empty($dateStart) and !empty($dateEnd)){
             $list = $DB->getWhereMultiple('numfacturelocal',' date >= "'.$dateStart.'" and date <= "'.$dateEnd.'" ');
         }else{
-            $list = $DB->get('numfacturelocal');
+            $list = $DB->getWhereMultiple('numfacturelocal','date Like "%'.date('Y-m-d').'%"');
         }
     }else{
         if(!empty($dateStart) and !empty($dateEnd) and !empty($nFacture)){
@@ -1933,13 +1976,13 @@ function ListVente($nFacture = '', $dateStart = '', $dateEnd = '', $FactureDefil
         }else if (!empty($dateStart) and !empty($dateEnd)) {
             $list = $DB->getWhereMultiple('numfacturelocal',' date >= "'.$dateStart.'" and date <= "'.$dateEnd.'"');
         }else{
-            $list = $DB->getWhereMultiple('numfacturelocal',' numerofacture = "'.$nFacture.'" '); 
+            $list = $DB->getWhereMultiple('numfacturelocal',' numerofacture = "'.$nFacture.'" and date Like "%'.date('Y-m-d').'%"'); 
         }
     }
     $prixT = 0;
     foreach ($list as $key => $value) {
         $table = "String('stockvente')";
-        $stockvente = $DB->getWhereMultipleMore(' *, sv.id as sID From stockvente sv INNER JOIN articlesystemlocal a ON sv.articleFacturer = a.id ',' sv.nFacture = "'.$value['numerofacture'].'" '.$FactureDefiltre.' ' ,' ORDER BY sv.id DESC ');
+        $stockvente = $DB->getWhereMultipleMore(' *, sv.id as sID From stockvente sv INNER JOIN articlesystemlocal a ON sv.articleFacturer = a.id ',' sv.nFacture = "'.$value['numerofacture'].'" '.$FactureDefiltre.' '.$OptionDepotDe.' ' ,' ORDER BY sv.id DESC ');
         $s = 0;
         $stockVenteList = '';
         if (count($stockvente) > 0) {
@@ -1960,18 +2003,20 @@ function ListVente($nFacture = '', $dateStart = '', $dateEnd = '', $FactureDefil
             <tr>
                 <td>'.$value['date'].'</td>
                 <td><strong class="border-bottom border-2 border-dark"> N° Facture </strong> <br> '.$valueVente['numero_surFacture'].' <br> <strong class="border-bottom border-2 border-dark"> ID SYSTEM </strong><br> '.$value['numerofacture'].'</td>
-                <td>
-                    <table class="table">
-                        <tbody>
-                            '.$stockVenteList.'
-                            <tr>
-                                <td>Total </td>
-                                <td></td>
-                                <td></td>
-                                <td>'.$s.' $</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <td >
+                    <div style="max-height:150px; overflow:auto;">
+                        <table class="table">
+                            <tbody>
+                                '.$stockVenteList.'
+                                <tr>
+                                    <td>Total </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>'.$s.' $</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </td>
                 <td>
                     <button type="button" class="btn btn-danger"  onclick="deleteThis('.$nFacture.','.$table.')"><i class="fa fa-trash-o"></i></button>
