@@ -285,7 +285,7 @@
                             <input type="date" id="dateEnd" name="dateEnd" class="form-control">
                         </div>
                         <div class="col-md-3">
-                            <button type="submit" class="btn btn-secondary mt-4 w-100">Rechercher</button>
+                            <button type="submit" class="btn btn-secondary mt-2 w-100">Rechercher</button>
                         </div>
                     </div>
                 </form>
@@ -455,7 +455,7 @@ $('#reset').on('click',function(){
 })
 
 $('#show-form').on('click',function(){
-    $('#formDepotList').toggle()
+    $('#formDepotList').toggle();
 })    
 
 $('#prixUnitaire, #quantiteFacturer').on('change',function(){
@@ -468,16 +468,14 @@ $('#prixUnitaire, #quantiteFacturer').on('change',function(){
 
 function deleteThis(val,table,venteID = ''){
     if (confirm('Voulez-vous continuer?') == false) {
-        return
+        return;
     }else{
         let code = prompt('Entrer Le code de validation','');
-        if(code != 'adminPass'){
-            alert("Vous avez saisie un mot de passe incorrect.")
-            return
-        }
+        let codeVal = "adminPassLMK@";
 
-        if (table == 'articlesystemlocal') {
-
+        if(code != codeVal){
+            alert("Vous avez saisie un mot de passe incorrect.");
+            return;
         }
     }
 
@@ -508,7 +506,7 @@ function deleteThis(val,table,venteID = ''){
                         // $('#prixUnitaire').val('');
                     }
                 }
-            alert(data.msg)
+            alert(data.msg);
             $('button').prop('disabled',false);
         }
     });
@@ -516,12 +514,12 @@ function deleteThis(val,table,venteID = ''){
 
 function updateThis(val,table){
     if (confirm('Voulez-vous continuer?') == false) {
-        return
+        return;
     }else{
         let code = prompt('Entrer Le code de validation','');
-        if(code != 'adminPass'){
-            alert("Vous avez saisie un mot de passe incorrect.")
-            return
+        if(code != 'adminPassLMK@'){
+            alert("Vous avez saisie un mot de passe incorrect.");
+            return;
         }
     }
 
@@ -544,9 +542,9 @@ function updateThis(val,table){
     },	
     success: function(data){
             if(data.status == 'success'){
-                alert(data.msg)
+                alert(data.msg);
             }else{
-                alert(data.msg)
+                alert(data.msg);
             }
             $('button').prop('disabled',false);
         }
@@ -565,49 +563,49 @@ function ListTable(val = '',produit = ''){
         dataType:'json',
         success: function(data){
             if (data.htmlArticle.article != '') {
-            $('#ListArticle').html(data.htmlArticle.article)
+            $('#ListArticle').html(data.htmlArticle.article);
             }
 
             if (data.htmlArticle.ListDepot != '') {
-            $('#ListDepot').html(data.htmlArticle.ListDepot)
+            $('#ListDepot').html(data.htmlArticle.ListDepot);
             }
 
             if (data.htmlArticle.ListApprovision != '') {
-                $('#ListApprovision').html(data.htmlArticle.ListApprovision)
+                $('#ListApprovision').html(data.htmlArticle.ListApprovision);
             }
 
             if (produit == '') {
                 if (data.htmlArticle.OptionArticle != '') {
-                    $('#articleFacturer').html(data.htmlArticle.OptionArticle)
+                    $('#articleFacturer').html(data.htmlArticle.OptionArticle);
                 }
             }
 
             if (data.htmlArticle.OptionArticle != '') {
-                $('#article').html(data.htmlArticle.OptionArticle)
+                $('#article').html(data.htmlArticle.OptionArticle);
             }
 
             if (data.htmlArticle.OptionDepot != '') {
-                $('#OptionDepotDe').html(data.htmlArticle.OptionDepot)
+                $('#OptionDepotDe').html(data.htmlArticle.OptionDepot);
             }
 
             if (data.htmlArticle.OptionDepot != '') {
-                $('#OptionDepot').html(data.htmlArticle.OptionDepot)
+                $('#OptionDepot').html(data.htmlArticle.OptionDepot);
             }
 
             if (data.htmlArticle.OptionDepot != '') {
-                $('#OptionDepotVente').html(data.htmlArticle.OptionDepot)
+                $('#OptionDepotVente').html(data.htmlArticle.OptionDepot);
             }
 
             if (data.htmlArticle.OptionDepot != '') {
-                $('#OptionDepotList').html(data.htmlArticle.OptionDepot)
+                $('#OptionDepotList').html(data.htmlArticle.OptionDepot);
             }
         
             if(data.htmlArticle.vente != '' && data.htmlArticle.id == '' || data.htmlArticle.id == null){
-                $('#ListVenteAll').html(data.htmlArticle.vente)
+                $('#ListVenteAll').html(data.htmlArticle.vente);
             } 
             
             if(data.htmlArticle.vente != '' && data.htmlArticle.id != '' && data.htmlArticle.id != null){
-                $('#ListVente').html(data.htmlArticle.vente)
+                $('#ListVente').html(data.htmlArticle.vente);
             }
         },
     });
@@ -615,7 +613,7 @@ function ListTable(val = '',produit = ''){
 
 $('document').ready(function(){
     ListTable();
-    $('#formDepotList').hide()
+    $('#formDepotList').hide();
 });
 
 $('#validate_n_facture').on('submit',function(){
@@ -635,13 +633,13 @@ $('#validate_n_facture').on('submit',function(){
             $('button').prop('disabled',false);
             
             if(data.htmlFactureNumber != ''){
-                $('#nFacture').val(data.htmlFactureNumber.nFacture)
-                $('#dateVente').val(data.htmlFactureNumber.dateVente)
-                $('#articleFacturer').val('')
-                $('#quantiteFacturer').val('')
-                $('#prixFacturer').val('')
+                $('#nFacture').val(data.htmlFactureNumber.nFacture);
+                $('#dateVente').val(data.htmlFactureNumber.dateVente);
+                $('#articleFacturer').val('');
+                $('#quantiteFacturer').val('');
+                $('#prixFacturer').val('');
                 $('#prixUnitaire').val('');
-                $('#ListVente').html('')
+                $('#ListVente').html('');
             }
         },
     });
@@ -652,7 +650,7 @@ $('#add_article_form').on('submit',function(){
         return
     }else{
         let code = prompt('Entrer Le code de validation','');
-        if(code != 'adminPassLMK'){
+        if(code != 'adminPassLMK@'){
             alert("Vous avez saisie un mot de passe incorrect.")
             return
         }
@@ -728,7 +726,7 @@ $('#FilterFacture').on('submit',function(){
             success: function(data){
                 $('button').prop('disabled',false);
                 if (data.htmlArticle.vente != '') {
-                $('#ListVenteAll').html(data.htmlArticle.vente)
+                $('#ListVenteAll').html(data.htmlArticle.vente);
                 }
             },
         });
@@ -752,7 +750,7 @@ $('#OptionDepotList').on('change',function(){
             data:form,
             dataType:'json',	
             success: function(data){
-                $('#ListArticle').html(data.htmlArticle.article)
+                $('#ListArticle').html(data.htmlArticle.article);
             },
         });
 });
@@ -775,7 +773,7 @@ $('#articleFilter').on('change',function(){
             data:form,
             dataType:'json',	
             success: function(data){
-                $('#ListArticle').html(data.htmlArticle.article)
+                $('#ListArticle').html(data.htmlArticle.article);
             },
         });
 });
@@ -810,10 +808,28 @@ $('#approvionDepot').on('submit',function(){
         if (confirm('Voulez-vous continuer?') == false) {
             return
         }else{
+            let val = $('#OptionDepot').val();
             let code = prompt('Entrer Le code de validation','');
-            if(code != 'adminPass'){
-                alert("Vous avez saisie un mot de passe incorrect.")
-                return
+            let codeVal = '';
+
+            switch (val) {
+                case '1':
+                    codeVal = 'adminPassLiwa';
+                    break;
+                case '2':
+                    codeVal = 'adminPassGloire';
+                    break;
+                case '3':
+                    codeVal = 'adminPassLabane';
+                    break;
+                default:
+                    codeVal = "adminPassLMK@";
+                    break;
+            }
+
+            if(code != codeVal){
+                alert("Vous avez saisie un mot de passe incorrect.");
+                return;
             }
         }
         event.preventDefault();
@@ -831,8 +847,8 @@ $('#approvionDepot').on('submit',function(){
             success: function(data){
                 $('button').prop('disabled',false);
                 if (data.html.ListDepot != '') {
-                $('#ListApprovision').html(data.html.ListApprovision)
-                $('#approvionDepot')[0].reset();
+                    $('#ListApprovision').html(data.html.ListApprovision)
+                    $('#approvionDepot')[0].reset();
                 }
                 ListTable();
                 alert(data.html.sms);

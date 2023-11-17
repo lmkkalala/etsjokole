@@ -1554,6 +1554,8 @@ if(isset($_GET['Local'])){
             return;
         }
 
+        $quantite = 0;
+
         $approvision = $DB->getWhereMultiple('approvisiondepot','articleID = "'.securise($_POST['articleFacturer']).'" and depotID = "'.securise($_POST['OptionDepotVente']).'"');
         $sommeAppro = 0;
         foreach ($approvision as $key => $value1) {
@@ -1561,12 +1563,12 @@ if(isset($_GET['Local'])){
         }
 
         $vente = $DB->getWhereMultiple('stockvente','articleFacturer = "'.securise($_POST['articleFacturer']).'" and depotID = "'.securise($_POST['OptionDepotVente']).'"');
-        $sommeQuantite = 0;
+        $sommeVendu = 0;
         foreach ($vente as $key => $value2) {
-            $sommeQuantite = $sommeQuantite + $value2['quantiteFacturer'];
+            $sommeVendu = $sommeVendu + $value2['quantiteFacturer'];
         }
 
-        $quantite = $sommeAppro - $sommeQuantite;
+        $quantite = $sommeAppro - $sommeVendu;
         
         $articleRow = $DB->getWhereMultipleMore(' * FROM articlesystemlocal ','id = '.securise($_POST['articleFacturer']).' AND quantite > 0 ');
         
@@ -1582,8 +1584,8 @@ if(isset($_GET['Local'])){
         }
 
 
-        if (count($articleRow) > 0 || $quantite > 0) {
-            if ($articleRow[0]['quantite'] >= securise($_POST['quantiteFacturer'])) {
+        if (count($articleRow) > 0) {
+            if ($articleRow[0]['quantite'] >= securise($_POST['quantiteFacturer']) and $quantite >= securise($_POST['quantiteFacturer']) ) {
                 $stock = $articleRow[0]['quantite'] - securise($_POST['quantiteFacturer']);
                 $update = $DB->update('articlesystemlocal' ,'quantite = ?', 'id = ?', [''.$stock.'',''.securise($_POST['articleFacturer']).'']);
                 if ($update) {
