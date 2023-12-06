@@ -53,11 +53,11 @@
                         <div  class="input-group-lg">
                             <input type="checkbox" class="checkbox"
                             <?php
-                            if ($n <= $quantite_choosen_distribution) {
-                                echo ' ' . 'checked' . ' ';
-                            }
+                                if ($n <= $quantite_choosen_distribution) {
+                                    echo ' ' . 'checked' . ' ';
+                                }
                             ?> 
-                                   name="<?= "chk_" . $unite['id'] ?>" value="<?= $unite['id'] ?>">
+                                   name="<?= "chk_" . $unite['id'] ?>" id="<?= "chk_" . $unite['id'] ?>" value="<?= $unite['id'] ?>">
                         </div>
                     </td>
                 </tr>

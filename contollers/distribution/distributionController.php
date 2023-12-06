@@ -12,6 +12,8 @@ include '../../models/distribution/distribution.php';
 include '../../models/livraison/livraison.php';
 include '../../models/unite/unite.php';
 include '../../models/ventePOS/VentePOS.php';
+include '../../models/affectation-service/affectationService.php';
+include '../../models/crud/db.php';
 ?>
 <?php
 
@@ -37,14 +39,7 @@ if (isset($_POST['bt_enregistrer'])) {
 
     $tva=securise($_POST['tb_tva']);
 
-
-    //    echo $idlivraison;die;
-    //    echo $idaffectation;die;
-    //    echo $date;die;
-    //    echo $quantite;die;
-
     if ($idlivraison != 0 && $idaffectation != 0 && $date != "" && $quantite > 0 && $price != "" && $price > 0 && $typerepas != "" && $ventePOSId != ""  && $ventePOSId > 0 && $tva !="" && $tva >= 0) {
-
         $bdlivraison = new BdLivraison();
         $livraisons = $bdlivraison->getLivraisonById($idlivraison);
         
@@ -52,37 +47,147 @@ if (isset($_POST['bt_enregistrer'])) {
             $newquantite = $livraison['quantite_actuelle'];
         }
         
-        // echo $newquantite;die;
         if ($quantite <= $newquantite) {
-            $newquantite = $newquantite - $quantite;
-
+            if ($type != 'CASH_A_RETIRER') {
+                $newquantite = $newquantite - $quantite;
+            }
+            
             $bddistribution = new BdDistribution();
             if ($bddistribution->addDistribution($date, $quantite, $price, $idlivraison, $idaffectation, $typerepas, $identiteClient,$ventePOSId,$tva,$type)) {
                 if ($bdlivraison->diminueQuantiteLivraison($idlivraison, $newquantite)) {
                     $error = "succes";
+        
+                    if (isset($_GET['backCall'])) {
+                        panier($idlivraison);
+                        echo json_encode(array('message'=>'La vente de l\'article a été ajoutée avec success.','status'=>$error));
+                    }else{
+                        header('Location:../../views/home.php?link=' . sha1("service_distribution_panier_distribution_add") . '&reponse=' . sha1($error) . '&use_date=' . ($date) . '&use_typerepas=' . ($typerepas) . '&use_affectation=' . ($idaffectation). '&use_ventePOS=' . ($ventePOSId) . '&use_identiteClient=' . ($identiteClient) . '&link_up=' . sha1("home_service_distribution"));
+                        die;
+                    }
                     
-                    header('Location:../../views/home.php?link=' . sha1("service_distribution_panier_distribution_add") . '&reponse=' . sha1($error) . '&use_date=' . ($date) . '&use_typerepas=' . ($typerepas) . '&use_affectation=' . ($idaffectation). '&use_ventePOS=' . ($ventePOSId) . '&use_identiteClient=' . ($identiteClient) . '&link_up=' . sha1("home_service_distribution"));
-                    die;
                 } else {
                     $error = "traitement_error";
-                    header('Location:../../views/home.php?link=' . sha1("service_distribution_add") . '&reponse=' . sha1($error) . '&use_date=' . ($date) . '&use_typerepas=' . ($typerepas) . '&use_affectation=' . ($idaffectation) . '&use_identiteClient=' . ($identiteClient). '&use_ventePOS=' . ($ventePOSId) . '&link_up=' . sha1("home_service_distribution"));
-                    die;
+                    if (isset($_GET['backCall'])) {
+                        echo json_encode(array('message'=>'Echec d\'enregistrement','status'=>$error));
+                    }else{
+                        header('Location:../../views/home.php?link=' . sha1("service_distribution_add") . '&reponse=' . sha1($error) . '&use_date=' . ($date) . '&use_typerepas=' . ($typerepas) . '&use_affectation=' . ($idaffectation) . '&use_identiteClient=' . ($identiteClient). '&use_ventePOS=' . ($ventePOSId) . '&link_up=' . sha1("home_service_distribution"));
+                        die;
+                    }
                 }
             } else {
                 $error = "traitement_error";
-                header('Location:../../views/home.php?link=' . sha1("service_distribution_add") . '&reponse=' . sha1($error) . '&use_date=' . ($date) . '&use_typerepas=' . ($typerepas) . '&use_affectation=' . ($idaffectation) . '&use_identiteClient=' . ($identiteClient). '&use_ventePOS=' . ($ventePOSId) . '&link_up=' . sha1("home_service_distribution"));
-                die;
+                if (isset($_GET['backCall'])) {
+                    echo json_encode(array('message'=>'Echec d\'enregistrement','status'=>$error));
+                }else{
+                    header('Location:../../views/home.php?link=' . sha1("service_distribution_add") . '&reponse=' . sha1($error) . '&use_date=' . ($date) . '&use_typerepas=' . ($typerepas) . '&use_affectation=' . ($idaffectation) . '&use_identiteClient=' . ($identiteClient). '&use_ventePOS=' . ($ventePOSId) . '&link_up=' . sha1("home_service_distribution"));
+                    die;
+                }
             }
         } else {
             $error = "quantite_error";
-            header('Location:../../views/home.php?link=' . sha1("service_distribution_add") . '&reponse=' . sha1($error) . '&use_date=' . ($date) . '&use_typerepas=' . ($typerepas) . '&use_affectation=' . ($idaffectation) . '&use_identiteClient=' . ($identiteClient). '&use_ventePOS=' . ($ventePOSId) . '&link_up=' . sha1("home_service_distribution"));
-            die;
+            if (isset($_GET['backCall'])) {
+                echo json_encode(array('message'=>'Echec d\'enregistrement','status'=>$error));
+            }else{
+                header('Location:../../views/home.php?link=' . sha1("service_distribution_add") . '&reponse=' . sha1($error) . '&use_date=' . ($date) . '&use_typerepas=' . ($typerepas) . '&use_affectation=' . ($idaffectation) . '&use_identiteClient=' . ($identiteClient). '&use_ventePOS=' . ($ventePOSId) . '&link_up=' . sha1("home_service_distribution"));
+                die;
+            }
         }
     } else {
         $error = "remplissage_error";
-        header('Location:../../views/home.php?link=' . sha1("service_distribution_add") . '&reponse=' . sha1($error) . '&use_date=' . ($date) . '&use_typerepas=' . ($typerepas) . '&use_affectation=' . ($idaffectation) . '&use_identiteClient=' . ($identiteClient). '&use_ventePOS=' . ($ventePOSId) . '&link_up=' . sha1("home_service_distribution"));
-        die;
+        if (isset($_GET['backCall'])) {
+            echo json_encode(array('message'=>'Echec d\'enregistrement, veuiller remplir tout les champs ...','status'=>$error));
+        }else{
+            header('Location:../../views/home.php?link=' . sha1("service_distribution_add") . '&reponse=' . sha1($error) . '&use_date=' . ($date) . '&use_typerepas=' . ($typerepas) . '&use_affectation=' . ($idaffectation) . '&use_identiteClient=' . ($identiteClient). '&use_ventePOS=' . ($ventePOSId) . '&link_up=' . sha1("home_service_distribution"));
+            die;
+        }
     }
+}
+
+if (isset($_POST['bt_enregistrer_panier'])) {
+    
+    $idaffectation = securise($_POST['tb_idaffectation']);
+    $date = securise($_POST['tb_use_date']);
+    $typerepas = securise($_POST['tb_use_typerepas']);
+    $identiteClient = securise($_POST['tb_use_identiteClient']);
+    $ventePOS = securise($_POST['tb_use_ventePOS']);
+
+    $m = 0;
+    
+    $iddistribution = securise($_POST['cb_distribution']);
+
+    $bddistribution = new BdDistribution();
+    $distributions = $bddistribution->getDistributionById($iddistribution);
+    foreach ($distributions as $distribution) {
+        $quantite_distribue = $distribution['nombre'];
+        $bdlivraison = new BdLivraison();
+        $livraisons = $bdlivraison->getLivraisonById($distribution['distribution_id']);
+        foreach ($livraisons as $livraison) {
+            $idbiens = $livraison['bId'];
+        }
+    }
+    $bdunite = new BdUnite();
+    $unites = $bdunite->getUniteByIdBiens($idbiens);
+    $panier = "";
+    foreach ($unites as $unite) {
+        if ((isset($_POST['chk_' . $unite['id']]))) {
+            $panier = $panier . "/" . $_POST['chk_' . $unite['id']];
+            $m++;
+        }
+    }
+    
+    if ($iddistribution != "" && $panier != "" && (($m == $quantite_distribue))) {
+        foreach ($unites as $unite) {
+            if ((isset($_POST['chk_' . $unite['id']]))) {
+                if ($bdunite->desactiveUniteDistribution($_POST['chk_' . $unite['id']])) {
+                }
+            }
+        }
+
+        if ($bddistribution->setPanier($iddistribution, $panier)) {
+            $reponse = "succes";
+        } else {
+            $reponse = "traitement_error";
+        }
+    } else {
+        $reponse = "remplissage_error";
+    }
+
+    header('Location:../../views/home.php?link=' . sha1("service_distribution_add") . '&use_date=' . ($date) . '&use_typerepas=' . ($typerepas) . '&use_affectation=' . ($idaffectation) . '&use_identiteClient=' . ($identiteClient) . '&use_ventePOS=' . ($ventePOS) . '&reponse=' . sha1($reponse) . '&link_up=' . sha1("home_service_distribution").'#selectProduct');
+}
+
+function panier($iddistribution){
+    $m = 0;
+    
+    $iddistribution = $iddistribution;
+
+    $bddistribution = new BdDistribution();
+    $distributions = $bddistribution->getDistributionById($iddistribution);
+    foreach ($distributions as $distribution) {
+        $quantite_distribue = $distribution['nombre'];
+        $bdlivraison = new BdLivraison();
+        $livraisons = $bdlivraison->getLivraisonById($distribution['distribution_id']);
+        foreach ($livraisons as $livraison) {
+            $idbiens = $livraison['bId'];
+        }
+    }
+    $bdunite = new BdUnite();
+    $unites = $bdunite->getUniteByIdBiens($idbiens);
+    $panier = "";
+    foreach ($unites as $unite) {
+        if ((isset($_POST['chk_' . $unite['id']]))) {
+            $panier = $panier . "/" . $unite['id'];
+            $m++;
+        }
+    }
+    
+    if ($iddistribution != "" && $panier != "" && (($m == $quantite_distribue))) {
+        foreach ($unites as $unite) {
+            if (isset($unite['id'])) {
+                $bdunite->desactiveUniteDistribution($unite['id']);
+            }
+        }
+        $bddistribution->setPanier($iddistribution, $panier);
+    }   
 }
 
 if (isset($_POST['bt_valider_ventePOS'])) {
@@ -97,12 +202,7 @@ if (isset($_POST['bt_valider_ventePOS'])) {
 
     $ventePOSId=securise($_POST['tb_venteposId']);
 
-    //    echo $idlivraison;die;
-    //    echo $idaffectation;die;
-    //    echo $date;die;
-    //    echo $quantite;die;
-
-    if ($date != "" && $typerepas != "") {
+    if ($date != "" || $typerepas != "") {
 
         $bdVentePOS=new BdVentePOS();
 
@@ -111,8 +211,6 @@ if (isset($_POST['bt_valider_ventePOS'])) {
         foreach ($ventePOSs as $vp) {
             array_push($lesIdVentePOS,$vp['id']);
         }
-
-        // echo $ventePOSId; die;
 
         if (!(in_array($ventePOSId,$lesIdVentePOS))) {
             $recentIdVentePOS=0;
@@ -276,54 +374,51 @@ if (isset($_POST['bt_encours_fournisseur_self'])) {
     header('Location:../../views/home.php?link=' . sha1("logistique_attribution_biens_fiche_attribution_fournisseur_self") . '&reponse=' . sha1($reponse) . '&use=' . ($idfournisseur) . '&link_up=' . sha1("home_logistique_attribution_biens"));
 }
 
+//die($_POST['bt_RetirerDistribution']);
 
-
-if (isset($_POST['bt_enregistrer_panier'])) {
-
+if (isset($_POST['bt_RetirerDistribution'])) {
+    
+    $idlivraison=securise($_POST['distribution_id']);
     $idaffectation = securise($_POST['tb_idaffectation']);
     $date = securise($_POST['tb_use_date']);
     $typerepas = securise($_POST['tb_use_typerepas']);
     $identiteClient = securise($_POST['tb_use_identiteClient']);
     $ventePOS = securise($_POST['tb_use_ventePOS']);
+    $type = securise($_POST['typePaiement']);
+    $quantite = securise($_POST['quantiteVendu']);
 
-    $m = 0;
-    $iddistribution = securise($_POST['cb_distribution']);
-    $bddistribution = new BdDistribution();
-    $distributions = $bddistribution->getDistributionById($iddistribution);
-    foreach ($distributions as $distribution) {
-        $quantite_distribue = $distribution['nombre'];
-        $bdlivraison = new BdLivraison();
-        $livraisons = $bdlivraison->getLivraisonById($distribution['distribution_id']);
+    $bdlivraison = new BdLivraison();
+    $livraisons = $bdlivraison->getLivraisonById($idlivraison);
+        
         foreach ($livraisons as $livraison) {
-            $idbiens = $livraison['bId'];
+            $newquantite = $livraison['quantite_actuelle'];
         }
-    }
-    $bdunite = new BdUnite();
-    $unites = $bdunite->getUniteByIdBiens($idbiens);
-    $panier = "";
-    foreach ($unites as $unite) {
-        if ((isset($_POST['chk_' . $unite['id']]))) {
-            $panier = $panier . "/" . $_POST['chk_' . $unite['id']];
-            $m++;
-        }
-    }
-    //    echo $panier;die;
-    if ($iddistribution != "" && $panier != "" && (($m == $quantite_distribue))) {
-        foreach ($unites as $unite) {
-            if ((isset($_POST['chk_' . $unite['id']]))) {
-                if ($bdunite->desactiveUniteDistribution($_POST['chk_' . $unite['id']])) {
-                }
+        
+        if ($quantite <= $newquantite) {
+            if ($type == 'CASH_A_RETIRER') {
+                $newquantite = $newquantite - $quantite;
             }
+
+            $DB = new DB();
+            $count = $DB->getWhereMultipleMore(" id FROM affectation "," distribution_id = '".$idlivraison."' AND typePaiement = 'CASH_A_RETIRER' ");
+            if(count($count) > 0){
+                $updateType = $DB->update("affectation","typePaiement = ?","distribution_id = ?", array('CASH',$idlivraison));
+                if($updateType){
+                    if ($bdlivraison->diminueQuantiteLivraison($idlivraison,$newquantite)) {
+                        $error = "success";
+                    }
+                }else{
+                    $error = "cash_retirer_error";  
+                }
+            }else{
+                $error = "cash_retirer_error";
+            }
+        }else{
+            $error = "quantite_error";
         }
-        if ($bddistribution->setPanier($iddistribution, $panier)) {
-            $reponse = "succes";
-        } else {
-            $reponse = "traitement_error";
-        }
-    } else {
-        $reponse = "remplissage_error";
-    }
+
     header('Location:../../views/home.php?link=' . sha1("service_distribution_add") . '&use_date=' . ($date) . '&use_typerepas=' . ($typerepas) . '&use_affectation=' . ($idaffectation) . '&use_identiteClient=' . ($identiteClient) . '&use_ventePOS=' . ($ventePOS) . '&reponse=' . sha1($reponse) . '&link_up=' . sha1("home_service_distribution").'#selectProduct');
+    die;
 }
 
 if (isset($_POST['bt_delete_lineDistribution'])) {
@@ -334,6 +429,7 @@ if (isset($_POST['bt_delete_lineDistribution'])) {
     $typerepas = securise($_POST['tb_use_typerepas']);
     $identiteClient = securise($_POST['tb_use_identiteClient']);
     $ventePOS = securise($_POST['tb_use_ventePOS']);
+    $typePaiement = securise($_POST['typePaiement']);
 
     $m = 0;
     $iddistribution = securise($distributionId);
@@ -357,33 +453,42 @@ if (isset($_POST['bt_delete_lineDistribution'])) {
     
 
     if ($iddistribution != "" && ((1))) {
-        if ($bdlivraison->augmenteQuantiteLivraison($livraisons[0]['lId'],($quantiteActuelleLiv+$quantite_distribue))) {
-            
-        }
-        
-        $itemsDist=explode('/',$panierDistribution);
-        
-        foreach ($itemsDist as $iDist) {
-            if ($iDist!="") {
-                if ($bdunite->activeUniteDistribution($iDist)) {
-                }
-            }
-        }
-        
-        if ($bddistribution->setPanier($iddistribution, "")) {
+        if ($typePaiement == 'CASH_A_RETIRER') {
             if ($bddistribution->deleteDistribution($iddistribution)) {
                 $reponse = "succes";
+            } else{
+                $reponse = "traitement_error";
             }
+        }else{
+            if ($bdlivraison->augmenteQuantiteLivraison($livraisons[0]['lId'],($quantiteActuelleLiv+$quantite_distribue))) {
+                $itemsDist=explode('/',$panierDistribution);
             
-        } else {
-            $reponse = "traitement_error";
+                foreach ($itemsDist as $iDist) {
+                    if ($iDist!="") {
+                        if ($bdunite->activeUniteDistribution($iDist)) {
+                        }
+                    }
+                }
+                
+                if ($bddistribution->setPanier($iddistribution, "")) {
+                    if ($bddistribution->deleteDistribution($iddistribution)) {
+                        $reponse = "succes";
+                    }else{
+                        $reponse = "traitement_error";
+                    }
+                    
+                } else {
+                    $reponse = "traitement_error";
+                }
+            }else{
+                $reponse = "traitement_error";
+            }
         }
     } else {
         $reponse = "remplissage_error";
     }
     header('Location:../../views/home.php?link=' . sha1("service_distribution_add") . '&use_date=' . ($date) . '&use_typerepas=' . ($typerepas) . '&use_affectation=' . ($idaffectation) . '&use_identiteClient=' . ($identiteClient) . '&use_ventePOS=' . ($ventePOS) . '&reponse=' . sha1($reponse) . '&link_up=' . sha1("home_service_distribution").'#selectProduct');
     die;
-    
 }
 
 if (isset($_POST['bt_search_by_service'])) {

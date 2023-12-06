@@ -1,9 +1,9 @@
 <!-- <script type="text/javascript" src="../web/jquery/jquery-min.js"></script> -->
-<script type="text/javascript" src="/web/jquery/jquery-3.5.1.js"></script>
+<script type="text/javascript" src="../web/jquery/jquery-3.5.1.js"></script>
 <script type="text/javascript" src="../web/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../web/select2/dist/js/select2.full.min.js"></script>
-<script type="text/javascript" src="/web/bootstrap/js/bootstrap5.min.js"></script>
-<script type="text/javascript" src="/web/datatable/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../web/bootstrap/js/bootstrap5.min.js"></script>
+<script type="text/javascript" src="../web/datatable/jquery.dataTables.min.js"></script>
     <?php
         $page = '';
 
@@ -249,8 +249,6 @@
                         url: '<?=("/contollers/MoreControllers/control.php?request=".sha1('update'))?>',
                         data: val,
                         dataType:'json',
-                        // processData: false, 
-                        // contentType: false,
                         beforeSend:function(){
                             $('button').prop('disabled',true);
                         },	
@@ -262,23 +260,27 @@
                     });
                 }
             }else if(toDo == 'delete'){
-                var form = {'id':val,'to':table};
+                var form = 
+                {
+                    'id':val,
+                    'to':table
+                };
                 $.ajax({
-                type:'POST',
-                url: '<?=("/contollers/MoreControllers/control.php?request=".sha1('delete'))?>',
-                data:form,
-                dataType:'json',
-                beforeSend:function(){
-                    $('button').prop('disabled',true);
-                },	
-                success: function(data){
-                    if(data.status == 'success'){
-                        alert(data.msg)
-                        list('','','<?=$page?>');
-                    }else{
-                        alert(data.msg)
-                    }
-                    $('button').prop('disabled',false);
+                    type:'POST',
+                    url: '<?=("/contollers/MoreControllers/control.php?request=".sha1('delete'))?>',
+                    data:form,
+                    dataType:'json',
+                    beforeSend:function(){
+                        $('button').prop('disabled',true);
+                    },	
+                    success: function(data){
+                        if(data.status == 'success'){
+                            alert(data.msg)
+                            list('','','<?=$page?>');
+                        }else{
+                            alert(data.msg)
+                        }
+                        $('button').prop('disabled',false);
                     }
                 });
             }
@@ -313,7 +315,47 @@
         operation(''+id+'','delete',''+table+'');
     }
 
+    $('#add_vente').on('submit',function (event) {
+        event.preventDefault();
+        if($('#tb_idaffectation').val() == '' || $('#tb_use_date').val() == '' || $('#tb_use_identiteClient').val() == '' || $('#tb_use_ventePOS').val() == ''){
+            alert("Vous devez d'abord selectionner la date, le numéro de vente et le nom du client.")
+        }else{
+            if($('#tb_idaffectation').val() == undefined || $('#tb_use_date').val() == undefined || $('#tb_use_typerepas').val() == undefined || $('#tb_use_identiteClient').val() == undefined || $('#tb_use_ventePOS').val() == undefined){
+                alert("Vous devez d'abord selectionner la date, le numéro de vente et le nom du client.")
+            }else{
+                if(confirm('Voulez vous confirmer?') == false) {
+                    return;
+                }
+                let form = new FormData(this);
+                $.ajax({
+                    type:'POST',
+                    url:'<?=("../contollers/distribution/distributionController.php?backCall")?>',
+                    data:form,
+                    dataType:'json',
+                    processData: false, 
+                    contentType: false,
+                    beforeSend:function(){
+                        $('button').prop('disabled',true);
+                    },	
+                    success: function(data){
+                        $('button').prop('disabled',false);
+                        if(data.status == 'succes'){
+                            alert(data.message);
+                            location.href = '';
+                            //$('#venteListData').load(location.href+" #venteListData");
+                        }
+
+                        $('#Notifier').fadeOut(5000);
+
+                        $('#add_vente')[0].reset();
+                    }
+                });
+            }
+        }
+    });
+
     $(document).ready(function () {
+        $('#Notifier').fadeOut(5000);
         $('#champ_depot, #champ_retrait, #depotParDiv, #creditParDiv').hide();
         $('#caisse_list_entre, #caisse_list_sortie').DataTable();
         $('#driver_list').DataTable();
@@ -465,9 +507,7 @@
             });
         });
     });
-</script>
 
-<script type="text/javascript">
      $(function () {
         $('.select2').select2({
             placeholder:"Choisir une valeur",
@@ -486,6 +526,14 @@
         let puSale=itPuSale[5].split(" ")
         $("#puSaleStock").val(puSale[4]);
         
+    });
+
+    $("#cb_livraison").change(function () {
+        let stItem=$("#cb_livraison :selected").text()
+        // alert(stItem)
+        let itPuSale=stItem.split("/")
+        let puSale=itPuSale[5].split(" ")
+        $("#tb_price").val(puSale[4]);
     });
     
     $("#ajouterRav").toggle();

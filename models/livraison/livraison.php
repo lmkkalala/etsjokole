@@ -296,6 +296,15 @@ class BdLivraison
         $reponse->closeCursor();
     }
 
+    public function getLivraisonWithQuantiteByIdBiensWhere($idbiens, $and = '')
+    {
+        $bd = Connexion::connecter();
+        $reponse = $bd->query("SELECT l.quantite_actuelle,agl.nom AS lNom, agl.postnom AS lPostnom,agl.prenom AS lPrenom,l.id AS lId,l.date AS lDate,l.quantite AS lQuantite,l.etat AS lEtat,l.demande_id AS lidDemande,l.mutation_id AS lidMutation, ag.id AS agId,ag.nom,ag.postnom,ag.prenom,s.id AS sId,s.designation AS sDesignation,d.id AS dId,d.date,d.quantite AS dQuantite,d.etat AS dEtat,d.mutation_id AS dIdmutation,b.id AS bId,b.designation AS bDesignation,b.marque,b.technique_gestion,b.quantite,b.stock_max,b.stock_min,b.stock_critique,b.type_perissable,b.active,g.id AS gID,g.designation AS gDesignation FROM biens b INNER JOIN (demande d INNER JOIN (mutation m INNER JOIN agent ag ON(m.agent_id=ag.id) INNER JOIN service s ON(m.service_id=s.id)) ON(d.mutation_id=m.id) INNER JOIN (distrubution l INNER JOIN (mutation ml INNER JOIN agent agl ON(ml.agent_id=agl.id)) ON(l.mutation_id=ml.id)) ON(d.id=l.demande_id)) ON(b.id=d.biens_id) INNER JOIN groupebiens g ON(b.groupeBiens_id=g.id) WHERE b.id='{$idbiens}' ".$and." ORDER BY l.id DESC");
+
+        return $reponse->fetchAll();
+        $reponse->closeCursor();
+    }
+
     public function getLivraisonById($idlivraison)
     {
         $bd = Connexion::connecter();

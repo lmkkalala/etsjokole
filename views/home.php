@@ -27,7 +27,7 @@ if (isset($_GET['mutationID'])) {
             Ets JOKOLE DIEU EST GRAND
         </title>
     </head>
-    <body style="margin: 0">
+    <body style="margin: 0;">
         <div class="container-fluid">
             <?php
 

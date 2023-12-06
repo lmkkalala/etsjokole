@@ -45,10 +45,10 @@ include '../models/crud/db.php';
             </fieldset>
             <fieldset >
                 <?php
-                if (isset($_GET['date'])) {
-                    ?>
+                    if (isset($_GET['date']) and !empty($_GET['date'])) {
+                ?>
                     <a style="font-size: 20px;" href='../views/service/reception/pdf_reception_inventory.php?date=<?= $_GET['date'] ?>' class="btn btn-primary pull-left">Print in PDF</a>
-                    <?php
+                <?php
                 }
                 ?>
 
@@ -81,7 +81,9 @@ include '../models/crud/db.php';
                     </th>
                     </thead>
                     <tbody>
-                        <?php
+                    <?php
+                    
+                    if (isset($_GET['date']) and !empty($_GET['date'])) {
                         $bienVendu = 0;
                         $n = 0;
                         $cumul_value = 0;
@@ -94,10 +96,10 @@ include '../models/crud/db.php';
                             $cumul_quantite_actuelle = 0;
                             $bienVendu = 0;
                             $trouve = FALSE;
-                            $livraisons = $bdlivraison->getLivraisonWithQuantiteByIdBiens($bien['bId']);
+                            $livraisons = $bdlivraison->getLivraisonWithQuantiteByIdBiensWhere($bien['bId'], " AND l.date < '".$_GET['date']."' ");
+                            
                             foreach ($livraisons as $livraison) {
                                 $livraison_etat = $livraison['lEtat'];
-                                //if ((isset($_GET['date'])) && (($livraison_etat == 0) && ($_GET['date']>=$livraison['lDate']))) {
                                 if ((isset($_GET['date'])) && (($livraison_etat == 0))) {
                                     if ($livraison['sId']==$_SESSION['idservice']) {
                                         $trouve = TRUE;
@@ -107,30 +109,21 @@ include '../models/crud/db.php';
 
                             if ($trouve) {
                                 $n++;
-                            ?>
+                        ?>
                                 <tr>
                                     <td><?= $n ?></td>
                                     <td><?= $bien['bId'] ?></td>
                                     <td><?= $bien['bDesignation'] ?></td>
                                     <td><?= $bien['gDesignation'] ?></td>
                                     <?php
-                                    $livraisons = $bdlivraison->getLivraisonWithQuantiteByIdBiens($bien['bId']);
+                                    $livraisons = $bdlivraison->getLivraisonWithQuantiteByIdBiensWhere($bien['bId'], " AND l.date < '".$_GET['date']."' AND ag.id = '".$_SESSION['idaffectation']."' ");
+                                    
                                     foreach ($livraisons as $livraison) {
-                                        $livraison_etat = $livraison['lEtat'];
-                                        if ($livraison_etat == 0) {
-                                            if ($livraison['sId'] == $_SESSION['idservice']) {
-                                                if($livraison['lDate'] <= $_GET['date'] ) {
-                                                    $cumul_quantite_actuelle = $cumul_quantite_actuelle + $livraison['quantite_actuelle'];
-                                                }
-                                            }
-                                        }
-
-                                        $vente  = $db->getWhere('affectation','distribution_id',$livraison['lId']);
+                                        $cumul_quantite_actuelle = $cumul_quantite_actuelle + $livraison['quantite_actuelle'];
+                                        $vente  = $db->getWhereMultipleMore(" * FROM affectation "," distribution_id = '".$livraison['lId']."' AND date >= '".$_GET['date']."' AND date <= '".date('Y-m-d')."' ");
                                         if (count($vente) > 0) {
                                             foreach ($vente as $venteBien) {
-                                                if($venteBien['date'] >= $_GET['date']){ 
-                                                    $bienVendu = $bienVendu + $venteBien['nombre_restant'];
-                                                }
+                                                $bienVendu = $bienVendu + $venteBien['nombre'];
                                             }
                                         }
                                     }
@@ -146,7 +139,7 @@ include '../models/crud/db.php';
                                         $somme_prix_biens = $somme_prix_biens + $ravitaillement['prix'];
                                     }
                                     
-                                    if ($s>0) {
+                                    if ($s > 0) {
                                         $average_price = ($somme_prix_biens / $s);
                                     }
                                     
@@ -161,17 +154,20 @@ include '../models/crud/db.php';
                                     </td>
                                 </tr>
                             <?php
-                                }
+                            }
                         }
-                        ?>
+                    }
+                    ?>
                     </tbody>
                     <tfoot>
+                    <?php if (isset($_GET['date']) and !empty($_GET['date'])) { ?>
                     <td style="font-size: 20px;">
                         <span>Nombre:</span><span><?= $n ?></span>
                     </td>
                     <td style="color: dodgerblue; font-weight: bold;">
                         <?= "Total value : " . round($cumul_value,3) . " USD" ?>
                     </td>
+                    <?php } ?>
                     </tfoot>
                 </table>
             </fieldset>
