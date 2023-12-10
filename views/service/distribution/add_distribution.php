@@ -144,7 +144,7 @@ include '../models/ventePOS/VentePOS.php';
                                         </div>
                                         <div class="col-md-3">
                                             <label class="control-label">Identité client :</label>
-                                            <input class="form-control" type="text" name="tb_use_identiteClient" value="<?= $_GET['use_identiteClient'] ?>" required>
+                                            <input class="form-control" type="text" name="tb_use_identiteClient" value="<?= @$_GET['use_identiteClient'] ?>" required>
                                         </div>
                                         
                                         <div class="col-md-3">

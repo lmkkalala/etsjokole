@@ -129,6 +129,10 @@ include '../models/crud/db.php';
                                     }
 
                                     $cumul_quantite_actuelle = $cumul_quantite_actuelle + $bienVendu;
+                                    $bg="";
+                                    if ($cumul_quantite_actuelle > 0) {
+                                       $bg="bg-info text-white";
+                                    }
 
                                     $somme_prix_biens = 0;
                                     $s = 0;
@@ -144,7 +148,7 @@ include '../models/crud/db.php';
                                     }
                                     
                                     ?>
-                                    <td style="color:dodgerblue; font-weight:bold;"><?= $cumul_quantite_actuelle ?></td>
+                                    <td class="<?=$bg?>" style="color:dodgerblue; font-weight:bold;"><?= $cumul_quantite_actuelle ?></td>
                                     <td><?= round($average_price,3) ?></td>
                                     <td>
                                         <?php
