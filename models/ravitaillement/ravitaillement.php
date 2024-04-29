@@ -291,6 +291,14 @@ class BdRavitaillement
         $reponse->closeCursor();
     }
 
+    function getRavitaillementByIdBiensMore($idbiens,$more = '')
+    {
+        $bd = Connexion::connecter();
+        $reponse = $bd->query("SELECT s.id,s.date,s.quantite,s.prix,s.dateExpiration,s.delai_realise,s.type,s.active,s.attribution_id,AB.fournisseur_id FROM stockage s INNER JOIN (attribution AB INNER JOIN biens B ON(AB.biens_id=B.id)) ON(s.attribution_id=AB.id) WHERE B.id='{$idbiens}' ".$more." ");
+        return $reponse->fetchAll();
+        $reponse->closeCursor();
+    }
+
     function getRavitaillementByIdBiensInferieurRavId($idbiens,$idravitaillement)
     {
         $bd = Connexion::connecter();

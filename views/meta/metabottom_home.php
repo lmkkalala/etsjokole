@@ -29,6 +29,12 @@
     ?>
 
 <script type="text/javascript">
+
+    // $('button,input').on('submit',function(){
+    //     $('button,input').attr('disabled');
+    //     alert('ok');
+    // });
+
     function logout(){
         var form = {'bt_deconnexion':'backCall'};
         $.ajax({
@@ -43,255 +49,266 @@
             }
         });
     }
-        function list(val = '', modal = '', page = '') {
-            if(val != '' && modal == ''){
-                event.preventDefault();
-                let form = new FormData($('#'+val+'')[0]);
-                $.ajax({
-                    type:'POST',
-                    url:'<?=("/contollers/MoreControllers/control.php?code=".sha1('loadDataList'))?>'+'&page='+'<?=$page?>'+'',
-                    data:form,
-                    dataType:'json',
-                    processData: false, 
-                    contentType: false,
-                    beforeSend:function(){
-                        $('button').prop('disabled',true);
-                    },	
-                    success: function(data){
-                        $('button').prop('disabled',false);
-                        
-                        if(data.htmlDettePage != ''){
-                            //$('#list_dette_page').html(data.htmlDettePage)
-                            $('#dette_list').html(data.htmlDettePage)
-                        }
-                        
-                        if(data.htmlDepensePage != ''){
-                            //$('#list_depense_page').html(data.htmlDepensePage)
-                            $('#depense_list').html(data.htmlDepensePage)
-                        }
-                        if(data.htmlCaissePage.entre != ''){
-                            //$('#list_caisse_entre_page').html(data.htmlCaissePage.entre)
-                            $('#caisse_list_entre').html(data.htmlCaissePage.entre)
-                        }
-                        if(data.htmlCaissePage.sortie != ''){
-                            //$('#list_caisse_sortie_page').html(data.htmlCaissePage.sortie)
-                            $('#caisse_list_sortie').html(data.htmlCaissePage.sortie)
-                        }
-                        if(data.htmlCaissePage.dollars != ''){
-                            $('#dollars').html(data.htmlCaissePage.dollars)
-                        }
-                        if(data.htmlCaissePage.fc != ''){
-                            $('#fc').html(data.htmlCaissePage.fc)
-                        }
-                        if(data.htmlCaissePage.frw != ''){
-                            $('#frw').html(data.htmlCaissePage.frw)
-                        }
-                        if(data.htmlCaissePage.listBanque != ''){
-                            $('#banque_table').html(data.htmlCaissePage.listBanque)
-                        }
-                        if(data.htmlConducteurPage.listConducteur != ''){
-                            $('#driver_list_data').html(data.htmlConducteurPage.listConducteur)
-                        }
-                        if(data.htmlConducteurPage.listVehicule != ''){
-                            $('#vehicule_list_data').html(data.htmlConducteurPage.listVehicule)
-                        }
-                        if(data.htmlConducteurPage.listTypeDepense != ''){
-                            $('#depense_type_list').html(data.htmlConducteurPage.listTypeDepense)
-                        }
-                        if(data.listBordereau != ''){
-                            $('#list_bordereau').html(data.listBordereau)
-                        }
-                        if(data.htmlConducteurPage.listCourse != ''){
-                            //$('#list_transport_page').html(data.htmlConducteurPage.listCourse)
-                            $('#transport_list').html(data.htmlConducteurPage.listCourse)
-                        }
-                        if(data.htmlConducteurPage.lisDepenseCourse != ''){
-                            //$('#list_depense_course').html(data.htmlConducteurPage.lisDepenseCourse)
-                            $('#spend_list_transport').html(data.htmlConducteurPage.lisDepenseCourse)
-                        }
-                        if(data.selectedDataCourse != ''){
-                            $('#depense_course_conducteur_id').html(data.selectedData.selectedDataCourse)
-                            $('#course_transport_id').html(data.selectedData.selectedDataDetails)
-                        }
-                        if(data.factureData != ''){
-                            $('#list_facture_page').html(data.factureData)
-                        }
 
-                        if(data.homePurchase.listReceptionPlace != ''){
-                            $('#data_list_reception_place').html(data.homePurchase.listReceptionPlace)
-                        }
+    function list(val = '', modal = '', page = '') {
+        if(val != '' && modal == ''){
+            event.preventDefault();
+            let form = new FormData($('#'+val+'')[0]);
+            $.ajax({
+                type:'POST',
+                url:'<?=("/contollers/MoreControllers/control.php?code=".sha1('loadDataList'))?>'+'&page='+'<?=$page?>'+'',
+                data:form,
+                dataType:'json',
+                processData: false, 
+                contentType: false,
+                beforeSend:function(){
+                    $('button').prop('disabled',true);
+                },	
+                success: function(data){
+                    $('button').prop('disabled',false);
+                    
+                    if(data.htmlDettePage != ''){
+                        //$('#list_dette_page').html(data.htmlDettePage)
+                        $('#dette_list').html(data.htmlDettePage)
+                    }
+                    
+                    if(data.htmlDepensePage != ''){
+                        //$('#list_depense_page').html(data.htmlDepensePage)
+                        $('#depense_list').html(data.htmlDepensePage)
+                    }
+                    if(data.htmlCaissePage.entre != ''){
+                        //$('#list_caisse_entre_page').html(data.htmlCaissePage.entre)
+                        $('#caisse_list_entre').html(data.htmlCaissePage.entre)
+                    }
+                    if(data.htmlCaissePage.sortie != ''){
+                        //$('#list_caisse_sortie_page').html(data.htmlCaissePage.sortie)
+                        $('#caisse_list_sortie').html(data.htmlCaissePage.sortie)
+                    }
+                    if(data.htmlCaissePage.dollars != ''){
+                        $('#dollars').html(data.htmlCaissePage.dollars)
+                    }
+                    if(data.htmlCaissePage.fc != ''){
+                        $('#fc').html(data.htmlCaissePage.fc)
+                    }
+                    if(data.htmlCaissePage.frw != ''){
+                        $('#frw').html(data.htmlCaissePage.frw)
+                    }
+                    if(data.htmlCaissePage.listBanque != ''){
+                        $('#banque_table').html(data.htmlCaissePage.listBanque)
+                    }
+                    if(data.htmlConducteurPage.listConducteur != ''){
+                        $('#driver_list_data').html(data.htmlConducteurPage.listConducteur)
+                    }
+                    if(data.htmlConducteurPage.listVehicule != ''){
+                        $('#vehicule_list_data').html(data.htmlConducteurPage.listVehicule)
+                    }
+                    if(data.htmlConducteurPage.listTypeDepense != ''){
+                        $('#depense_type_list').html(data.htmlConducteurPage.listTypeDepense)
+                    }
+                    if(data.listBordereau != ''){
+                        $('#list_bordereau').html(data.listBordereau)
+                    }
+                    if(data.htmlConducteurPage.listCourse != ''){
+                        //$('#list_transport_page').html(data.htmlConducteurPage.listCourse)
+                        $('#transport_list').html(data.htmlConducteurPage.listCourse)
+                    }
+                    if(data.htmlConducteurPage.lisDepenseCourse != ''){
+                        //$('#list_depense_course').html(data.htmlConducteurPage.lisDepenseCourse)
+                        $('#spend_list_transport').html(data.htmlConducteurPage.lisDepenseCourse)
+                    }
+                    if(data.selectedDataCourse != ''){
+                        $('#depense_course_conducteur_id').html(data.selectedData.selectedDataCourse)
+                        $('#course_transport_id').html(data.selectedData.selectedDataDetails)
+                    }
+                    if(data.factureData != ''){
+                        $('#list_facture_page').html(data.factureData)
+                    }
 
-                        if(data.homePurchase.receptionPrincipalList != ''){
-                            $('#ListReceptionData').html(data.homePurchase.receptionPrincipalList)
-                        }
+                    if(data.homePurchase.listReceptionPlace != ''){
+                        $('#data_list_reception_place').html(data.homePurchase.listReceptionPlace)
+                    }
 
-                        if(data.homePurchase.ListReceptionDataAutrePlace != ''){
-                            $('#ListReceptionDataAutrePlace').html(data.homePurchase.ListReceptionDataAutrePlace)
-                        }
-                    },
-                });
-            }else{
-                modalID = (modal != '') ? modal: '';
-                pageName = (page != '') ? page: '';
+                    if(data.homePurchase.receptionPrincipalList != ''){
+                        $('#ListReceptionData').html(data.homePurchase.receptionPrincipalList)
+                    }
 
-                $.ajax({
-                    type:'POST',
-                    url:'<?=("/contollers/MoreControllers/control.php?code=".sha1('loadDataList'))."&modal="?>'+modalID+'&page='+pageName+'',
-                    dataType:'json',	
-                    success: function(data){
-                        if(data.htmlDettePage != ''){
-                            //$('#list_dette_page').html(data.htmlDettePage)
-                            $('#dette_list').html(data.htmlDettePage)
-                        }
-                        
-                        if(data.htmlDepensePage != ''){
-                            //$('#list_depense_page').html(data.htmlDepensePage)
-                            $('#depense_list').html(data.htmlDepensePage)
-                        }
-                        if(data.htmlCaissePage.entre != ''){
-                            //$('#list_caisse_entre_page').html(data.htmlCaissePage.entre)
-                            $('#caisse_list_entre').html(data.htmlCaissePage.entre)
-                        }
-                        if(data.htmlCaissePage.sortie != ''){
-                            //$('#list_caisse_sortie_page').html(data.htmlCaissePage.sortie)
-                            $('#caisse_list_sortie').html(data.htmlCaissePage.sortie)
-                        }
-                        if(data.htmlCaissePage.dollars != ''){
-                            $('#dollars').html(data.htmlCaissePage.dollars)
-                        }
-                        if(data.htmlCaissePage.fc != ''){
-                            $('#fc').html(data.htmlCaissePage.fc)
-                        }
-                        if(data.htmlCaissePage.frw != ''){
-                            $('#frw').html(data.htmlCaissePage.frw)
-                        }
-                        if(data.htmlCaissePage.listBanque != ''){
-                            $('#banque_table').html(data.htmlCaissePage.listBanque)
-                        }
-                        if(data.htmlConducteurPage.listConducteur != ''){
-                            $('#driver_list_data').html(data.htmlConducteurPage.listConducteur)
-                        }
-                        if(data.htmlConducteurPage.listVehicule != ''){
-                            $('#vehicule_list_data').html(data.htmlConducteurPage.listVehicule)
-                        }
-                        if(data.htmlConducteurPage.listTypeDepense != ''){
-                            $('#depense_type_list').html(data.htmlConducteurPage.listTypeDepense)
-                        }
-                        if(data.listBordereau != ''){
-                            $('#list_bordereau').html(data.listBordereau)
-                        }
-                        if(data.htmlConducteurPage.listCourse != ''){
-                            //$('#list_transport_page').html(data.htmlConducteurPage.listCourse)
-                            $('#transport_list').html(data.htmlConducteurPage.listCourse)
-                        }
-                        if(data.htmlConducteurPage.lisDepenseCourse != ''){
-                            //$('#list_depense_course').html(data.htmlConducteurPage.lisDepenseCourse)
-                            $('#spend_list_transport').html(data.htmlConducteurPage.lisDepenseCourse)
-                        }
-                        if(data.selectedDataCourse != ''){
-                            $('#depense_course_conducteur_id').html(data.selectedData.selectedDataCourse)
-                            $('#course_transport_id').html(data.selectedData.selectedDataDetails)
-                        }
-                        if(data.factureData != ''){
-                            $('#list_facture_page').html(data.factureData)
-                        }
+                    if(data.homePurchase.ListReceptionDataAutrePlace != ''){
+                        $('#ListReceptionDataAutrePlace').html(data.homePurchase.ListReceptionDataAutrePlace)
+                    }
+                },
+            });
+        }else{
+            modalID = (modal != '') ? modal: '';
+            pageName = (page != '') ? page: '';
 
-                        if(data.homePurchase.listReceptionPlace != ''){
-                            $('#data_list_reception_place').html(data.homePurchase.listReceptionPlace)
-                        }
+            $.ajax({
+                type:'POST',
+                url:'<?=("/contollers/MoreControllers/control.php?code=".sha1('loadDataList'))."&modal="?>'+modalID+'&page='+pageName+'',
+                dataType:'json',	
+                success: function(data){
+                    if(data.htmlDettePage != ''){
+                        //$('#list_dette_page').html(data.htmlDettePage)
+                        $('#dette_list').html(data.htmlDettePage)
+                    }
+                    
+                    if(data.htmlDepensePage != ''){
+                        //$('#list_depense_page').html(data.htmlDepensePage)
+                        $('#depense_list').html(data.htmlDepensePage)
+                    }
+                    if(data.htmlCaissePage.entre != ''){
+                        //$('#list_caisse_entre_page').html(data.htmlCaissePage.entre)
+                        $('#caisse_list_entre').html(data.htmlCaissePage.entre)
+                    }
+                    if(data.htmlCaissePage.sortie != ''){
+                        //$('#list_caisse_sortie_page').html(data.htmlCaissePage.sortie)
+                        $('#caisse_list_sortie').html(data.htmlCaissePage.sortie)
+                    }
+                    if(data.htmlCaissePage.dollars != ''){
+                        $('#dollars').html(data.htmlCaissePage.dollars)
+                    }
+                    if(data.htmlCaissePage.fc != ''){
+                        $('#fc').html(data.htmlCaissePage.fc)
+                    }
+                    if(data.htmlCaissePage.frw != ''){
+                        $('#frw').html(data.htmlCaissePage.frw)
+                    }
+                    if(data.htmlCaissePage.listBanque != ''){
+                        $('#banque_table').html(data.htmlCaissePage.listBanque)
+                    }
+                    if(data.htmlConducteurPage.listConducteur != ''){
+                        $('#driver_list_data').html(data.htmlConducteurPage.listConducteur)
+                    }
+                    if(data.htmlConducteurPage.listVehicule != ''){
+                        $('#vehicule_list_data').html(data.htmlConducteurPage.listVehicule)
+                    }
+                    if(data.htmlConducteurPage.listTypeDepense != ''){
+                        $('#depense_type_list').html(data.htmlConducteurPage.listTypeDepense)
+                    }
+                    if(data.listBordereau != ''){
+                        $('#list_bordereau').html(data.listBordereau)
+                    }
+                    if(data.htmlConducteurPage.listCourse != ''){
+                        //$('#list_transport_page').html(data.htmlConducteurPage.listCourse)
+                        $('#transport_list').html(data.htmlConducteurPage.listCourse)
+                    }
+                    if(data.htmlConducteurPage.lisDepenseCourse != ''){
+                        //$('#list_depense_course').html(data.htmlConducteurPage.lisDepenseCourse)
+                        $('#spend_list_transport').html(data.htmlConducteurPage.lisDepenseCourse)
+                    }
+                    if(data.selectedDataCourse != ''){
+                        $('#depense_course_conducteur_id').html(data.selectedData.selectedDataCourse)
+                        $('#course_transport_id').html(data.selectedData.selectedDataDetails)
+                    }
+                    if(data.factureData != ''){
+                        $('#list_facture_page').html(data.factureData)
+                    }
 
-                        if(data.homePurchase.receptionPrincipalList != ''){
-                            $('#ListReceptionData').html(data.homePurchase.receptionPrincipalList)
-                        }
+                    if(data.homePurchase.listReceptionPlace != ''){
+                        $('#data_list_reception_place').html(data.homePurchase.listReceptionPlace)
+                    }
 
-                        if(data.homePurchase.ListReceptionDataAutrePlace != ''){
-                            $('#ListReceptionDataAutrePlace').html(data.homePurchase.ListReceptionDataAutrePlace)
-                        }
-                    },
-                });
-            }
+                    if(data.homePurchase.receptionPrincipalList != ''){
+                        $('#ListReceptionData').html(data.homePurchase.receptionPrincipalList)
+                    }
+
+                    if(data.homePurchase.ListReceptionDataAutrePlace != ''){
+                        $('#ListReceptionDataAutrePlace').html(data.homePurchase.ListReceptionDataAutrePlace)
+                    }
+                },
+            });
+        }
+    }
+
+    $('#add_depense').on('show.bs.modal', function (e) {
+        var id = $(e.relatedTarget).data('id');
+        if(id != undefined){
+            list('depense_course_form',id,'depense_modal');
+        }else{
+            list('depense_course_form','undefined','depense_modal');
+        }
+    });
+
+    function operation(val,toDo,table = null){
+        if (confirm('Voulez vous continuer cette operation?') == false) {
+            return;
         }
 
-        $('#add_depense').on('show.bs.modal', function (e) {
-            var id = $(e.relatedTarget).data('id');
-            if(id != undefined){
-                list('depense_course_form',id,'depense_modal');
-            }else{
-                list('depense_course_form','undefined','depense_modal');
-            }
-        });
-
-        function operation(val,toDo,table = null){
-            if (confirm('Voulez vous continuer cette operation?') == false) {
-                return;
-            }
-
-            if (toDo =='update') {
-                if(Number.isInteger(val) == true || typeof val === 'string') {
-                    var form = {'id':val,'to':table};
-                    $.ajax({
-                        type:'POST',
-                        url: '<?=("/contollers/MoreControllers/control.php?request=".sha1('update'))?>',
-                        data:form,
-                        dataType:'json',
-                        beforeSend:function(){
-                            $('button').prop('disabled',true);
-                        },	
-                        success: function(data){
-                            alert(data.msg);
-                                $('button').prop('disabled',false);
-                                list('','','<?=$page?>');
-                        }
-                    });
-                }else{
-                    $.ajax({
-                        type:'POST',
-                        url: '<?=("/contollers/MoreControllers/control.php?request=".sha1('update'))?>',
-                        data: val,
-                        dataType:'json',
-                        beforeSend:function(){
-                            $('button').prop('disabled',true);
-                        },	
-                        success: function(data){
-                            $('button').prop('disabled',false);
-                            alert(data.msg);
-                            list('','','<?=$page?>');
-                        }
-                    });
-                }
-            }else if(toDo == 'delete'){
-                var form = 
-                {
-                    'id':val,
-                    'to':table
-                };
+        if (toDo =='update') {
+            if(Number.isInteger(val) == true || typeof val === 'string') {
+                var form = {'id':val,'to':table};
                 $.ajax({
                     type:'POST',
-                    url: '<?=("/contollers/MoreControllers/control.php?request=".sha1('delete'))?>',
+                    url: '<?=("/contollers/MoreControllers/control.php?request=".sha1('update'))?>',
                     data:form,
                     dataType:'json',
                     beforeSend:function(){
                         $('button').prop('disabled',true);
                     },	
                     success: function(data){
-                        if(data.status == 'success'){
-                            alert(data.msg)
+                        alert(data.msg);
+                            $('button').prop('disabled',false);
                             list('','','<?=$page?>');
-                        }else{
-                            alert(data.msg)
-                        }
+                    }
+                });
+            }else{
+                $.ajax({
+                    type:'POST',
+                    url: '<?=("/contollers/MoreControllers/control.php?request=".sha1('update'))?>',
+                    data: val,
+                    dataType:'json',
+                    beforeSend:function(){
+                        $('button').prop('disabled',true);
+                    },	
+                    success: function(data){
                         $('button').prop('disabled',false);
+                        alert(data.msg);
+                        list('','','<?=$page?>');
                     }
                 });
             }
+        }else if(toDo == 'delete'){
+            var form = 
+            {
+                'id':val,
+                'to':table
+            };
+            $.ajax({
+                type:'POST',
+                url: '<?=("/contollers/MoreControllers/control.php?request=".sha1('delete'))?>',
+                data:form,
+                dataType:'json',
+                beforeSend:function(){
+                    $('button').prop('disabled',true);
+                },	
+                success: function(data){
+                    if(data.status == 'success'){
+                        alert(data.msg)
+                        list('','','<?=$page?>');
+                    }else{
+                        alert(data.msg)
+                    }
+                    $('button').prop('disabled',false);
+                }
+            });
         }
+    }
 
     function updateThis(id,table = null, toBeDone = ''){
 
         if (table == 'caisse' && toBeDone == 'formData' ) {
             
         }else if (table == 'vehicule' && toBeDone == 'formData') {
-            
+            var form = {
+                'Vdate_': $('#Vdate_'+id+'').val(),
+                'Vplaque_': $('#Vplaque_'+id+'').val(),
+                'typeVehicule_': $('#typeVehicule_'+id+'').val(),
+                'marqueVehicule_': $('#marqueVehicule_'+id+'').val(),
+                'couleurVehicule_': $('#couleurVehicule_'+id+'').val(),
+                'conducteur_': $('#conducteur_'+id+'').val(),
+                'id':id,
+                'table':table
+            };
+            operation(form,'update',''+table+'');
         }else if (table == 'typedepense' && toBeDone == 'formData') {
             
         }else if (table == 'coursetransport' && toBeDone == 'formData') {
@@ -340,21 +357,44 @@
                     success: function(data){
                         $('button').prop('disabled',false);
                         if(data.status == 'succes'){
+                            $('#add_vente')[0].reset();
                             alert(data.message);
                             location.href = '';
                             //$('#venteListData').load(location.href+" #venteListData");
+                        }else{
+                            alert(data.message); 
                         }
-
                         $('#Notifier').fadeOut(5000);
-
-                        $('#add_vente')[0].reset();
                     }
                 });
             }
         }
     });
 
+    function demandEncours(){
+        $.ajax({
+            type:'GET',
+            url: '../contollers/MoreControllers/control.php?demandEncours',
+            dataType:'json',	
+            success: function(data){
+                if(data.status == 'success'){
+                    $('#DemandEncoursIcon').attr('class','fa fa-bell fa-shake fs-5 text-danger h4');
+                    $('#DemandEncours').text(data.value);
+                }else{
+                    $('#DemandEncoursIcon').attr('class','fa fa-bell fs-5 text-white')
+                }
+            }
+        });  
+    }
+
+    setInterval(
+        demandEncours, 
+        600000
+    );
+
     $(document).ready(function () {
+        
+        demandEncours();
         $('#Notifier').fadeOut(5000);
         $('#champ_depot, #champ_retrait, #depotParDiv, #creditParDiv').hide();
         $('#caisse_list_entre, #caisse_list_sortie').DataTable();
@@ -407,6 +447,26 @@
                 $('#creditParDiv').hide();
                 $('#depotParDiv').hide();
             }
+        });
+
+        $('#listVenteGlobal').on('submit',function(event){
+            event.preventDefault();
+            let form = new FormData(this);
+            $.ajax({
+                type:'POST',
+                url: '<?=("/contollers/MoreControllers/control.php?code=".sha1('loadDataList'))."&page=distributionGlobalBiens"?>',
+                data:form,
+                dataType:'json',  
+                processData: false, 
+                contentType: false,	
+                beforeSend:function(){
+                    $('button').attr('disabled',true);
+                },  
+                success: function(data){
+                    $('button').attr('disabled',false);
+                    $('#VenteProduitGlobal').html(data.distributionGlobalBiens)
+                }
+            }); 
         });
 
         $('#FilterForm').on('submit',function(event){
@@ -560,7 +620,3 @@
         // }
     }
 </script>
-
-
-
-

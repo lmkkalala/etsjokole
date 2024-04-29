@@ -16,6 +16,7 @@ if (isset($_GET['mutationID'])) {
         $idaffectation = $affectation['Id'];
         $idservice = $affectation['Sid'];
         $AgentID = $affectation['Aid'];
+        $mSeller = $affectation['mSeller'];
     }
 
     $_SESSION['identite'] = $identite;
@@ -25,6 +26,8 @@ if (isset($_GET['mutationID'])) {
     $_SESSION['idutilisateur'] = $AgentID;
     $_SESSION['idservice'] = $idservice;
     $_SESSION['type'] = 'other';
+    $_SESSION['agentID'] = $AgentID;
+    $_SESSION['mSeller'] = $mSeller;
     
     $reponse = 'Vous étez connected en tant que '.$identite;
     header('Location: ../../views/home.php?link_up=' . sha1("home_service_acceuil") . '&reponse=' . sha1($reponse).'');
@@ -37,6 +40,8 @@ if (isset($_GET['mutationID'])) {
         $grade = $affectation['grade'];
         $idaffectation = $affectation['Id'];
         $idservice = $affectation['Sid'];
+        $AgentID = $affectation['Aid'];
+        $mSeller = $affectation['mSeller'];
     }
 
     $_SESSION['identite'] = $identite;
@@ -46,6 +51,8 @@ if (isset($_GET['mutationID'])) {
     $_SESSION['idutilisateur'] = $_SESSION['temp_admin_id'];
     $_SESSION['idservice'] = $idservice;
     $_SESSION['type'] = 'logistique';
+    $_SESSION['agentID'] = $AgentID;
+    $_SESSION['mSeller'] = $mSeller;
 
     $reponse = 'Vous étez connected en tant que '.$identite;
     $_SESSION['temp_admin_session'] = '';

@@ -69,6 +69,11 @@ if (isset($_POST['bt_modifier'])) {
     $sexe = $_POST['rb_sexe'];
     $grade = $_POST['tb_grade'];
     $codebar = $_POST['tb_codebar'];
+    $start_time = $_POST['start_time'];
+    $end_time = $_POST['end_time'];
+    $daily_sell = $_POST['daily_sell'];
+    $multi_seller_account = $_POST['multi_seller_account'];
+
     $with_upload = FALSE;
     $resultat = FALSE;
     if ($nom != "" && $postnom != "" && $prenom != "" && $sexe != "" && $grade != "" && $codebar != "") {
@@ -88,7 +93,7 @@ if (isset($_POST['bt_modifier'])) {
         if ($with_upload) {
             if ($resultat) {
                 $bdagent = new BdAgent();
-                if ($bdagent->updateAgentWithPhoto($idagent, $nom, $postnom, $prenom, $sexe, $grade, $codebar, ($nom . "-" . $postnom . "-" . $prenom . "-" . $codebar . $extension_self))) {
+                if ($bdagent->updateAgentWithPhoto($idagent, $nom, $postnom, $prenom, $sexe, $grade, $codebar, ($nom . "-" . $postnom . "-" . $prenom . "-" . $codebar . $extension_self), $start_time, $end_time, $daily_sell,$multi_seller_account)) {
                     $reponse = "succes";
                 } else {
                     $reponse = "traitement_error";
@@ -98,7 +103,7 @@ if (isset($_POST['bt_modifier'])) {
             }
         } else {
             $bdagent = new BdAgent();
-            if ($bdagent->updateAgent($idagent, $nom, $postnom, $prenom, $sexe, $grade, $codebar)) {
+            if ($bdagent->updateAgent($idagent, $nom, $postnom, $prenom, $sexe, $grade, $codebar,$start_time, $end_time, $daily_sell,$multi_seller_account)) {
                 $reponse = "succes";
             } else {
                 $reponse = "traitement_error";

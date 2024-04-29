@@ -18,24 +18,28 @@ include '../models/agent/agent.php';
             <fieldset>
                 <legend>Search :</legend>
                 <form class="form-inline" method="POST" action="../contollers/agent/agentController.php">
-                    <div class="form-group-lg">
-                        <select class="form-control select2" name="cb_agent">
-                            <option value="0">Choose a agent</option>
-                            <?php
-                            $bdagent = new BdAgent();
-                            $agents = $bdagent->getAgentAll();
-                            foreach ($agents as $agent) {
-                                if (1) {
+                    <div class="row form-group-lg">
+                        <div class="col-md-8">
+                            <select class="form-control select2" name="cb_agent">
+                                <option value="0">Choose a agent</option>
+                                <?php
+                                $bdagent = new BdAgent();
+                                $agents = $bdagent->getAgentAll();
+                                foreach ($agents as $agent) {
                                     if (1) {
-                                        ?>
-                                        <option value="<?= $agent['id'] ?>"><?= $agent['nom'] . " " . $agent['postnom'] . " " . $agent['prenom'] . " / " . $agent['codebar'] . " / " . $agent['grade'] ?></option>
-                                        <?php
+                                        if (1) {
+                                            ?>
+                                            <option value="<?= $agent['id'] ?>"><?= $agent['nom'] . " " . $agent['postnom'] . " " . $agent['prenom'] . " / " . $agent['codebar'] . " / " . $agent['grade'] ?></option>
+                                            <?php
+                                        }
                                     }
                                 }
-                            }
-                            ?>
-                        </select>
-                        <button type="submit" class="btn btn-success" name="bt_search_for_all"><span class="glyphicon glyphicon-search" style="color: white; font-size: 30px;margin-right: 5px;"></span></button>
+                                ?>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-success" name="bt_search_for_all"><span class="glyphicon glyphicon-search"></span> Rechercher</button>
+                        </div>
                     </div>
                 </form>
             </fieldset>

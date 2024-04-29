@@ -130,6 +130,12 @@ $pdf->Ln(8);
 $pdf->Cell(190, 10, utf8_decode("Saller : " . ($_SESSION['identite'])));
 $pdf->Ln(15);
 $pdf->Cell(190, 10, utf8_decode("NB : Les marchandises vendues ne sont ni échangées ni reprises."));
+$pdf->SetFont('Times', 'B', 12);
+$pdf->Ln(5);
+$pdf->Cell(190, 10, utf8_decode("vous devez retirer vos marchandises au plus tard dans une semaine"));
+$pdf->SetFont('Times', 'B', 12);
+$pdf->Ln(5);
+$pdf->Cell(190, 10, utf8_decode(" à 17 heure 00 à compte du jour de votre achat."));
 $pdf->SetDrawColor(34, 139, 34);
 //Troisieme ligne
 //$pdf->Line(10, 110, 148 - 10, 110);

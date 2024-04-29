@@ -58,13 +58,19 @@ $cumul_value_total = 0;
 $n=0;
 $cumul_value_typerepas=0;
 
+if (isset($_GET['service'])) {
+    $service = htmlentities($_GET['service']);
+}else{
+    $service = $_SESSION['idservice'];
+}
+
 foreach ($distributions as $distribution) {
 
                 if (1) {
 
                     $affiche_bon = false;
-                    //                            $bdmutation=new BdAffectationService();
-                    //                            $affectations=$bdaffectation->getAffectationServiceByService($idservice);
+                    // $bdmutation=new BdAffectationService();
+                    // $affectations=$bdaffectation->getAffectationServiceByService($idservice);
                     $bdlivraison = new BdLivraison();
                     $livraisons = $bdlivraison->getLivraisonById($distribution['distribution_id']);
                     foreach ($livraisons as $livraison) {
@@ -74,7 +80,7 @@ foreach ($distributions as $distribution) {
                             $bdaffectation = new BdAffectationService();
                             $affectations = $bdaffectation->getAffectationServiceById($demande['mutation_id']);
                             foreach ($affectations as $affectation) {
-                                if ($affectation['service_id'] == $_SESSION['idservice']) {
+                                if ($affectation['service_id'] == $service) {
                                     $affiche_bon = true;
                                 }
                             }
@@ -112,19 +118,31 @@ $tauxs=$BdTaux->getTauxActive();
 foreach($tauxs as $taux) {
     $value_taux=$taux['value'];
 }
+if (isset($_GET['seller']) ){
+    $seller = ($_SESSION['identite'] == $_GET['seller']) ? $_SESSION['identite']: $_GET['seller'];
+}else{
+    $seller = $_SESSION['identite'] ;
+}
+
 
 $pdf->SetFont('Times', 'B', 16);
 if($value_taux != 0){
-$pdf->Cell(190, 10, utf8_decode("Total (FC): " . ($cumul_value_total*$value_taux)));
+    $pdf->Cell(190, 10, utf8_decode("Total (FC): " . ($cumul_value_total*$value_taux)));
 }
 $pdf->SetFont('Times', 'B', 16);
 $pdf->Ln(5);
 $pdf->Cell(190, 10, utf8_decode("Total (USD): " . ($cumul_value_total)));
 $pdf->SetFont('Times', 'B', 12);
 $pdf->Ln(8);
-$pdf->Cell(190, 10, utf8_decode("Saller : " . ($_SESSION['identite'])));
+$pdf->Cell(190, 10, utf8_decode("Saller : " . $seller ));
 $pdf->Ln(15);
-$pdf->Cell(190, 10, utf8_decode("NB : Les marchandises vendues ne sont ni échangées ni reprises. "));
+$pdf->Cell(190, 10, utf8_decode("NB : Les marchandises vendues ne sont ni échangées ni reprises,"));
+$pdf->SetFont('Times', 'B', 12);
+$pdf->Ln(5);
+$pdf->Cell(190, 10, utf8_decode("vous devez retirer vos marchandises au plus tard dans une semaine"));
+$pdf->SetFont('Times', 'B', 12);
+$pdf->Ln(5);
+$pdf->Cell(190, 10, utf8_decode(" à 17 heure 00 à compte du jour de votre achat."));
 $pdf->SetDrawColor(34, 139, 34);
 //Troisieme ligne
 //$pdf->Line(10, 110, 148 - 10, 110);

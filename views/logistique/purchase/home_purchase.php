@@ -11,33 +11,33 @@ include './meta/menu_logistique.php';
         <div class="container-fluid">
             <div class="row">
 <style>
-#menu-gauche {
-    border-right-style: solid;
-    border-right-color: black;
-}
-#menu-gauche ul li {
-    padding: 8px;
-}
+    #menu-gauche {
+        border-right-style: solid;
+        border-right-color: black;
+    }
+    #menu-gauche ul li {
+        padding: 8px;
+    }
 
-#menu-gauche ul li a {
-    text-decoration: none;
-}
+    #menu-gauche ul li a {
+        text-decoration: none;
+    }
 
-#menu-gauche ul li span {
-    margin-right: 5px;
-}            
-#entete1-logo a {
-    text-decoration: none;
-    color: white;
-    display: inline-block;
-}
-body {
-    margin: 0;
-}
-#entete1-button {
-    padding: 15px;
-    padding-left: 5px;
-}
+    #menu-gauche ul li span {
+        margin-right: 5px;
+    }            
+    #entete1-logo a {
+        text-decoration: none;
+        color: white;
+        display: inline-block;
+    }
+    body {
+        margin: 0;
+    }
+    #entete1-button {
+        padding: 15px;
+        padding-left: 5px;
+    }
 </style>
 <?php if (isset($_GET['msg'])) {  ?>
 

@@ -93,9 +93,13 @@ $dateEnd = '';
                     </thead>
                     <tbody>
                         <?php
-                        
+                        $qte = 0;
                         foreach ($attributions as $attribution) {
                             $n++;
+                            $stocks = $db->getWhereMultipleMore(" * FROM stockage "," attribution_id = ".$attribution['aId']."");
+                            foreach ($stocks as $key => $stock) {
+                                $qte = $qte + $stock['quantite']; 
+                            }
                             ?>
                             <tr>
                                 <td><?= $attribution['numeroOrder'] ?></td>
@@ -123,11 +127,16 @@ $dateEnd = '';
                                 <td><?= $attribution['bDesignation']." : ".$attribution['gDesignation'] ?></td>
                                 <td><?= $attribution['technique_gestion'] ?></td>
                                 <td><?= $attribution['fDesignation']." : ".$attribution['domaine'] ?></td>
-                                <td><?= $attribution['quantite_minimale'] ?></td>
+                                <td>
+                                    Commande: <?= $attribution['quantite_minimale'] ?><br>
+                                    Reception: <span class="fw-bolder text-success"><?= $qte ?></span><br>
+                                    Reste: <span class="fw-bolder text-info"><?= $attribution['quantite_minimale'] - $qte ?> </span>
+                                </td>
                                 <td><?= $attribution['aPrixUnitaire'] ?></td>
                                 <td><?= $attribution['delai_livraison'] ?></td>
                             </tr>
                             <?php
+                            $qte = 0 ;
                         }
                         ?>
                     </tbody>

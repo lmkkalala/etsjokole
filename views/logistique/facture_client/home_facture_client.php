@@ -81,7 +81,7 @@
             <button class="btn btn-primary text-white w-100" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">NOUVELLE FACTURE</button>
         </div>
         <div class="col-12 table-responsive">
-            <table id="list_facture" class="table display" style="width:100%">
+            <table id="list_facture_page" class="table display" style="width:100%">
                 <thead>
                     <tr>
                         <th>DATE</th>

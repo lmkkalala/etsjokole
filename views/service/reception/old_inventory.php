@@ -23,7 +23,7 @@ include '../models/crud/db.php';
                 <form class="form-inline" method="POST" action="../contollers/reception/receptionController.php">
                     <div class="row form-group-lg">
                         <div class="col-6">
-                            <input type="date" class="form-control" name="tb_date">
+                            <input type="date" class="form-control" name="tb_date" value="<?=(isset($_GET['date'])) ? $_GET['date']: date('Y-m-d')?>">
                         </div>
                         <div class="col-6">
                             <button type="submit" class="btn btn-success mt-1" name="bt_search_by_dates_inventory_old">
@@ -47,7 +47,7 @@ include '../models/crud/db.php';
                 <?php
                     if (isset($_GET['date']) and !empty($_GET['date'])) {
                 ?>
-                    <a style="font-size: 20px;" href='../views/service/reception/pdf_reception_inventory.php?date=<?= $_GET['date'] ?>' class="btn btn-primary pull-left">Print in PDF</a>
+                    <a style="font-size: 20px;" href='../views/service/reception/pdf_reception_inventory.php?date=<?= $_GET['date'] ?>&time=old' class="btn btn-primary pull-left">Print in PDF</a>
                 <?php
                 }
                 ?>
@@ -116,7 +116,7 @@ include '../models/crud/db.php';
                                     <td><?= $bien['bDesignation'] ?></td>
                                     <td><?= $bien['gDesignation'] ?></td>
                                     <?php
-                                    $livraisons = $bdlivraison->getLivraisonWithQuantiteByIdBiensWhere($bien['bId'], " AND l.date < '".$_GET['date']."' AND ag.id = '".$_SESSION['idaffectation']."' ");
+                                    $livraisons = $bdlivraison->getLivraisonWithQuantiteByIdBiensWhere($bien['bId'], " AND l.date < '".$_GET['date']."' AND m.id = '".$_SESSION['idaffectation']."' ");
                                     
                                     foreach ($livraisons as $livraison) {
                                         $cumul_quantite_actuelle = $cumul_quantite_actuelle + $livraison['quantite_actuelle'];

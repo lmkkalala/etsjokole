@@ -5,6 +5,10 @@ session_start();
 include '../../models/connexion.php';
 
 include '../../models/crud/db.php';
+
+include '../../models/biens/biens.php';
+
+include '../../models/distribution/distribution.php';
     
 function add($table,$field,$prepared,$value){
     $DB = new db();
@@ -29,6 +33,16 @@ function securise($donnee) {
 }
 
 $formData = "String('formData')";
+
+if (isset($_GET['demandEncours'])) {
+    $DB = new db();
+    $Encours = $DB->getWhereMultipleMore(" * FROM demande LEFT JOIN distrubution ON demande.id = distrubution.demande_id "," distrubution.demande_id IS NULL "," ORDER BY demande.date DESC LIMIT 100");
+    if (count($Encours) > 0) {
+        echo json_encode(array('status'=>'success','value'=>count($Encours)));
+    }else{
+        echo json_encode(array('status'=>'fail','value'=>''));
+    }
+}
 
 if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
     $format = new NumberFormatter('de_DE',NumberFormatter::CURRENCY);
@@ -708,7 +722,7 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
                     <input class="form-control" type="tel" name="couleurVehicule_'.$listVehicule[$key]['id'].'" id="couleurVehicule_'.$listVehicule[$key]['id'].'" value="'.$listVehicule[$key]['couleurVehicule'].'">
                 </td>
                 <td>
-                    <select class="form-control" name="genre" id="genre" readonly>
+                    <select class="form-control" name="conducteur_'.$listVehicule[$key]['id'].'" id="conducteur_'.$listVehicule[$key]['id'].'">
                         <option value="'.$conducteurID.'">'.$conducteurNames.'</option>'.$conducteurList.'
                     </select>
                 </td>
@@ -1183,10 +1197,10 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
         }
 
         if ($conditionReceptionList != '') {
-            $stockageData = $DB->getWhereMultipleMore(' *, s.id as sID, s.quantite as sQte FROM stockage s INNER JOIN attribution a ON a.id = s.attribution_id INNER JOIN biens b ON a.biens_id = b.id ',$conditionReceptionList,' ORDER BY s.date DESC ');
+            $stockageData = $DB->getWhereMultipleMore(' *, s.id as sID, s.quantite as sQte, s.date as sDate FROM stockage s INNER JOIN attribution a ON a.id = s.attribution_id INNER JOIN biens b ON a.biens_id = b.id ',$conditionReceptionList,' ORDER BY s.date DESC ');
         }else{
             $condition = ' s.date Like "%'.date('Y-m').'%" ';
-            $stockageData = $DB->getWhereMultipleMore(' *, s.id as sID, s.quantite as sQte FROM stockage s INNER JOIN attribution a ON s.attribution_id = a.id ',$condition,' ORDER BY s.date DESC ');
+            $stockageData = $DB->getWhereMultipleMore(' *, s.id as sID, s.quantite as sQte, s.date as sDate FROM stockage s INNER JOIN attribution a ON s.attribution_id = a.id ',$condition,' ORDER BY s.date DESC ');
         }
 
         if (count( $stockageData) == 0) {
@@ -1232,7 +1246,7 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
                 $Bien = $DB->getWhereMultiple('biens',' id = '.$stockageDataList['biens_id'].'');
                 $receptionPrincipalList = $receptionPrincipalList.
                     '<tr>
-                        <td>'.$stockageDataList["date"].'</td>
+                        <td>'.$stockageDataList["sDate"].'</td>
                         <td>'.$Bien[0]["designation"].'</td>
                         <td>'.$stockageDataList["sQte"].'</td>
                         <td>'.$stockageDataList["prix"].'</td>
@@ -1376,7 +1390,68 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
     }else{
         $selectedDataCourse = '';
         $selectedDataDetails = '';
-    }  
+    }
+    
+    if (htmlspecialchars($_GET['page']) == 'distributionGlobalBiens') {
+        $distributionGlobalBiens = '';;
+        $n = 1;
+        $listData = '';
+        $bdbiens = new BdBiens();
+        $biens = $bdbiens->getBiensAllDescActive();
+        $pv = 0;
+        $sv = 0;
+        $pvM = 0;
+        $pvT = 0;
+        $credit = 0;
+        $cb_service = htmlspecialchars($_POST['cb_service']);
+        if ($cb_service == '0') {
+            $condition_ = " ";
+        }else{
+            $condition_ = " affectation.mutation_id = ".$cb_service." AND";
+        }
+        foreach ($biens as $bien) {
+            $select = " *, biens.id as bid, affectation.price as aPrix, affectation.nombre as aN FROM affectation INNER JOIN distrubution ON distrubution.id = affectation.distribution_id INNER JOIN demande ON demande.id = distrubution.demande_id INNER JOIN biens ON demande.biens_id = biens.id ";
+            $condition = $condition_." biens.id = ".$bien['bId']." AND affectation.date >= '".$_POST["start_date"]."' AND affectation.date <= '".$_POST["end_date"]."' ";
+            $affectations =  $DB->getWhereMultipleMore($select,$condition,' ORDER BY affectation.date DESC ');
+            if (count($affectations) > 0) {
+                foreach ($affectations as $affectation) {
+                    $pv = $pv + ($affectation['aPrix'] * $affectation['aN']);
+                    $sv = $sv + $affectation['aN'];
+                    if ($affectation['typePaiement'] == 'CREDIT') {
+                        $credit = $credit +  ($affectation['aPrix'] * $affectation['aN']);
+                    }
+                }
+
+                $pvM = $pv/$sv;
+
+                $pvT = $pvT + $pv;
+
+                $listData = $listData.'<tr>
+                    <td>'.$n.'</td>
+                    <td>'.$bien['bId'].' / '.$bien['bDesignation'] .' /'. $bien['gDesignation'].'</td>
+                    <td>'.$sv.'</td>
+                    <td>'.$pvM.'</td>
+                    <td>'.$pv.'</td>
+                </tr>';
+                $distributionGlobalBiens = $listData;
+                $n++;
+            }
+            $pv = 0;
+            $sv = 0;
+        }
+        $distributionGlobalBiens = $distributionGlobalBiens .
+        '<tr class="bolder">
+            <td></td>
+            <td></td>
+            <td>Vente : '.$pvT.' $</td>
+            <td>Credit: '.$credit.' $</td>
+            <td>Cash : '.$pvT-$credit.' $</td>
+        </tr>';
+    }else{
+        $distributionGlobalBiens = '';
+    }
+    
+    
 
     echo json_encode(
         array(
@@ -1407,13 +1482,16 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
                 'listReceptionPlace'=>$listReceptionData,
                 'receptionPrincipalList'=>$receptionPrincipalList,
                 'ListReceptionDataAutrePlace'=>$ListReceptionDataAutrePlace
-            )
+            ),
+            'distributionGlobalBiens'=> $distributionGlobalBiens
         )
     );
 }
 
 $DB = new DB();
 
+
+// This is a part of the backen of the app that is no longer used
 if(isset($_GET['Local'])){
     if(isset($_POST['validate_n_facture_btn'])){
         $validate_n_facture_btn = htmlspecialchars($_POST['selected_date']);
@@ -1769,16 +1847,18 @@ if(isset($_GET['Local'])){
             htmlspecialchars($_POST['emballageUpdate_']),
             htmlspecialchars($_POST['prixUpdate_']),
             htmlspecialchars($_POST['id'])
-        );  
+        );
 
-        $update = update(htmlspecialchars($_POST['table']) ,' article = ?,quantite = ?, emballage = ?,prix = ? ', ' id = ? ', $value);
+        $field = ' article = ?,quantite = ?, emballage = ?,prix = ? ';
+
+        $update = update(htmlspecialchars($_POST['table']) ,$field, ' id = ? ', $value);
 
         if ($update == true ) {
             echo json_encode(array('msg'=>'L\'opération a été effectuer avec success','status'=>'success'));
         }else{
             echo json_encode(array('msg'=>'Echecs d\'opération ...','status'=>'fail'));
         } 
-     }
+    }
 }
 
 function ListApprovision(){
@@ -2045,6 +2125,7 @@ function OptionDepot (){
     }
     return $option;
 }
+
 function OptionArticle (){
     $DB = new DB();
     $option = '<option value="">SELECTIONNER PRODUIT</option>';
@@ -2054,6 +2135,7 @@ function OptionArticle (){
     }
     return $option;
 }
+// Up to here
 
 /* --------------------------------------------------- CHECKING CONDITION FROM FORM TO INSERT, DELETE AND UPDATE DATA IN THE DATABASE -----------------------------------------------------*/
 
@@ -2074,25 +2156,43 @@ function OptionArticle (){
 
             $update = update(htmlspecialchars($_POST['to']) ,'status = ?', 'id = ?', [''.$val.'',''.htmlspecialchars($_POST['id']).'']);
         }else if(isset($_POST['table'])){
-            if($_POST['table'] == 'coursetransport'){
-                $data = array(
-                   htmlspecialchars($_POST['courseTransportDate_']),
-                   htmlspecialchars($_POST['courseTransportDestination_']),
-                   htmlspecialchars($_POST['courseTransportContenu_']),
-                   htmlspecialchars($_POST['courseTransportTonne_']),
-                   htmlspecialchars($_POST['prixCourse_']),
-                   htmlspecialchars($_POST['courseTransportDescription_']),
-                   htmlspecialchars($_POST['id'])
-                );
 
-                $prepared = ' date = ?, destination = ?, contenu = ?, tonne = ?, prixCourse = ?, description = ?';
-
-                $condition = ' id = ?';
-
-                $update = update(htmlspecialchars($_POST['table']) ,$prepared, $condition, $data);
-            }else{
-                $update = true; 
+            switch ($_POST['table']) {
+                case 'vehicule':
+                    $data = array(
+                        htmlspecialchars($_POST['Vdate_']),
+                        htmlspecialchars($_POST['Vplaque_']),
+                        htmlspecialchars($_POST['typeVehicule_']),
+                        htmlspecialchars($_POST['marqueVehicule_']),
+                        htmlspecialchars($_POST['couleurVehicule_']),
+                        htmlspecialchars($_POST['conducteur_']),
+                        htmlspecialchars($_POST['id'])
+                    );
+                    $prepared = ' date = ?, plaqueVehicule = ?, typeVehicule = ?, marqueVehicule = ?,couleurVehicule = ?, conducteurID = ? ';
+                    $condition = ' id = ? ';
+                    break;
+                case 'coursetransport':
+                    $data = array(
+                        htmlspecialchars($_POST['courseTransportDate_']),
+                        htmlspecialchars($_POST['courseTransportDestination_']),
+                        htmlspecialchars($_POST['courseTransportContenu_']),
+                        htmlspecialchars($_POST['courseTransportTonne_']),
+                        htmlspecialchars($_POST['prixCourse_']),
+                        htmlspecialchars($_POST['courseTransportDescription_']),
+                        htmlspecialchars($_POST['id'])
+                     );
+     
+                    $prepared = ' date = ?, destination = ?, contenu = ?, tonne = ?, prixCourse = ?, description = ?';
+                    $condition = ' id = ?';
+                    break;
+                default:
+                    $data = array();
+                    $prepared = '';
+                    $condition = '';
+                    break;
             }
+
+            $update = update(htmlspecialchars($_POST['table']) ,$prepared, $condition, $data);
             
         }
         

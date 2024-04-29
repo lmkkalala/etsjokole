@@ -86,12 +86,12 @@ class BdRecuperation {
         $bd = Connexion::connecter();
         if($date != ''){
             if ($dateEnd != '') {
-                $reponse = $bd->query('SELECT *, ag.nom AS snom, ag.postnom AS spostnom, ag.prenom AS sprenom, a.nom as pnom, a.postnom as ppostnom, a.prenom as pprenom FROM recuperation r INNER JOIN distrubution d ON (r.command_id = d.id) INNER JOIN agent a ON (r.addedbyID = a.id) INNER JOIN agent ag ON (r.agent_id = ag.id) INNER JOIN biens b ON (r.bien_id = b.id) WHERE r.date >= "'.$date.'" and r.date <= "'.$dateEnd.'"');
+                $reponse = $bd->query('SELECT *, ag.nom AS snom, ag.postnom AS spostnom, ag.prenom AS sprenom, a.nom as pnom, a.postnom as ppostnom, a.prenom as pprenom FROM recuperation r INNER JOIN distrubution d ON (r.command_id = d.id) INNER JOIN agent a ON (r.addedbyID = a.id) INNER JOIN agent ag ON (r.agent_id = ag.id) INNER JOIN biens b ON (r.bien_id = b.id) WHERE r.date >= "'.$date.'" and r.date <= "'.$dateEnd.'" ORDER BY r.id DESC');
             }else{
-                $reponse = $bd->query('SELECT *, ag.nom AS snom, ag.postnom AS spostnom, ag.prenom AS sprenom, a.nom as pnom, a.postnom as ppostnom, a.prenom as pprenom FROM recuperation r INNER JOIN distrubution d ON (r.command_id = d.id) INNER JOIN agent a ON (r.addedbyID = a.id) INNER JOIN agent ag ON (r.agent_id = ag.id) INNER JOIN biens b ON (r.bien_id = b.id) WHERE r.date LIKE "%'.$date.'%"');
+                $reponse = $bd->query('SELECT *, ag.nom AS snom, ag.postnom AS spostnom, ag.prenom AS sprenom, a.nom as pnom, a.postnom as ppostnom, a.prenom as pprenom FROM recuperation r INNER JOIN distrubution d ON (r.command_id = d.id) INNER JOIN agent a ON (r.addedbyID = a.id) INNER JOIN agent ag ON (r.agent_id = ag.id) INNER JOIN biens b ON (r.bien_id = b.id) WHERE r.date LIKE "%'.$date.'%" ORDER BY r.id DESC');
             }
         }else{
-            $reponse = $bd->query('SELECT *, ag.nom AS snom, ag.postnom AS spostnom, ag.prenom AS sprenom, a.nom as pnom, a.postnom as ppostnom, a.prenom as pprenom FROM recuperation r INNER JOIN distrubution d ON (r.command_id = d.id) INNER JOIN agent a ON (r.addedbyID = a.id) INNER JOIN agent ag ON (r.agent_id = ag.id) INNER JOIN biens b ON (r.bien_id = b.id)');
+            $reponse = $bd->query('SELECT *, ag.nom AS snom, ag.postnom AS spostnom, ag.prenom AS sprenom, a.nom as pnom, a.postnom as ppostnom, a.prenom as pprenom FROM recuperation r INNER JOIN distrubution d ON (r.command_id = d.id) INNER JOIN agent a ON (r.addedbyID = a.id) INNER JOIN agent ag ON (r.agent_id = ag.id) INNER JOIN biens b ON (r.bien_id = b.id)  WHERE r.date LIKE "%'.date('Y-m').'%" ORDER BY r.id DESC');
         }
         
         return $reponse->fetchAll();

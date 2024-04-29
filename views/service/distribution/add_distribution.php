@@ -10,6 +10,7 @@ include '../models/preparation/preparation.php';
 include '../models/distribution/distribution.php';
 include '../models/demande/demande.php';
 include '../models/ventePOS/VentePOS.php';
+include '../models/service/service.php';
 ?>
 <div class="panel">
     <div class="panel panel-heading">
@@ -120,6 +121,31 @@ include '../models/ventePOS/VentePOS.php';
                         <fieldset class="mt-3">
                             <form class="form-horizontal" method="POST" action="../contollers/distribution/distributionController.php">
                                     <div class="row">
+                                        <?php
+                                            if ( $_SESSION['mSeller'] == 1) {
+                                        ?>
+                                        <div class="col-md-3">
+                                            <label class="control-label">Choisir Depot :</label>
+                                            <select class="form-control select2" name="service_id">
+                                                <option value="<?=$_SESSION['idservice']?>" selected><?=(isset($_GET['seller_name'])? $_GET['seller_name']:'Choisir un POS/Departement/Service')?></option>
+                                                <?php
+                                                    $bdservice = new BdService();
+                                                    $services = $bdservice->getServiceAllDesc();
+                                                    foreach ($services as $service) {
+                                                ?>
+                                                    <option value="<?= $service['id'] ?>"><?= $service['designation'] ?></option>
+                                                <?php
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <?php
+                                            }else{
+                                        ?>
+                                            <input type="hidden" name="service_id" value="<?=$_SESSION['idservice']?>">
+                                        <?php
+                                            }
+                                        ?>
                                         <div class="col-md-3">
                                             <label class="control-label">Date :</label>
                                             <input class="form-control" type="date" name="tb_use_date" value="<?= $date ?>" required>
@@ -140,25 +166,21 @@ include '../models/ventePOS/VentePOS.php';
                                             <label class="control-label">Numéro vente</label>
                                             <input type="text" class="form-control" name="tb_venteposId" value="<?= ($displayedVentePOSId) ?>">
                                         </div>
-                                        <div class="col-md-3 mt-4 d-none">
-                                        </div>
                                         <div class="col-md-3">
                                             <label class="control-label">Identité client :</label>
                                             <input class="form-control" type="text" name="tb_use_identiteClient" value="<?= @$_GET['use_identiteClient'] ?>" required>
                                         </div>
-                                        
                                         <div class="col-md-3">
-                                            <input type="hidden" name="tb_idaffectation" value="<?= @$_SESSION['idaffectation'] ?>">
                                             <!-- <input type="hidden" name="tb_use_date" value="<?= $date ?>"> -->
+                                            <input type="hidden" name="tb_idaffectation" value="<?= @$_SESSION['idaffectation'] ?>">
                                             <input type="hidden" name="tb_use_typerepas" value="<?= $typeRepat ?>">
-                                            <!-- <input type="hidden" name="tb_use_identiteClient" value="<?= @$_GET['use_identiteClient'] ?>"> -->
                                             <input class="btn btn-primary w-100 mt-4" type="submit" name="bt_valider_ventePOS" value="Valider">
                                         </div>
                                         <div class="col-md-4">
                                             <?php
-                                                if (isset($_GET['use_ventePOS'])) {
+                                                if (isset($_GET['use_ventePOS']) and isset($_GET['seller_name'])) {
                                             ?>  
-                                                <a style="font-size: 15px;" href='../views/service/distribution/pdf_facture.php?use_ventePOS=<?= $_GET['use_ventePOS']?>&use_identiteClient=<?= $_GET['use_identiteClient'] ?>' target="_blank" class="btn btn-info text-white pull-left mt-4">Imprimer facture</a>
+                                                <a style="font-size: 15px;" href='../views/service/distribution/pdf_facture.php?use_ventePOS=<?= $_GET['use_ventePOS']?>&use_identiteClient=<?= $_GET['use_identiteClient'] ?>&seller=<?=htmlspecialchars($_GET['seller_name'])?>&service=<?=htmlspecialchars($_GET['service'])?>' target="_blank" class="btn btn-info text-white pull-left mt-4">Imprimer facture</a>
                                             <?php
                                                 }
                                             ?>
@@ -175,7 +197,9 @@ include '../models/ventePOS/VentePOS.php';
                 //if ((isset($_GET['use_ventePOS'])) &&( (isset($_GET['use_date'])) && (($_GET['use_date'] != "") && ($_GET['use_typerepas'] != "0") && ($_GET['use_affectation'] != "")))) {
             ?>
             <legend>
-                <p style="color: orange; font-weight: bold;"><?= "Date : " . @$_GET['use_date'] . " / Type : " . @$_GET['use_typerepas']. " / Identit. Client : " . @$_GET['use_identiteClient'] ?></p>
+                <p style="color: orange; font-weight: bold;">
+                    <?= "Date : " . @$_GET['use_date'] . " / Type : " . @$_GET['use_typerepas']. " / Identit. Client : " . @$_GET['use_identiteClient'] ?>
+                </p>
             </legend>
 
             <div id="venteListData">
@@ -187,14 +211,19 @@ include '../models/ventePOS/VentePOS.php';
                                 <select class="form-control select2" name="cb_livraison" id="cb_livraison">
                                     <option value="0">Choisir le produit : </option>
                                     <?php
+                                    if (isset($_GET['service'])) {  
+                                        $serviceID = ($_GET['service'] == $_SESSION['idservice']) ? $_SESSION['idservice'] : htmlspecialchars($_GET['service']);
+                                    }else{
+                                        $serviceID = $_SESSION['idservice'];
+                                    }
                                     $bdlivraison = new BdLivraison();
                                     $livraisons = $bdlivraison->getLivraisonWithQuantitePositive();
                                     foreach ($livraisons as $livraison) {
                                         $livraison_etat = $livraison['lEtat'];
                                         if ($livraison_etat == 0 && $livraison['quantite_actuelle']>0) {
-                                            if ($livraison['sId'] == $_SESSION['idservice']) {
+                                            if ($livraison['sId'] == $serviceID) {
                                     ?>
-                                                <option value="<?= $livraison['lId'] ?>"><?= $livraison['lDate'] . " " . $livraison['bDesignation']. " / code:  " . $livraison['codebarre'] . " / Categ: " . $livraison['gDesignation'] . " / quantité initiale : " . $livraison['lQuantite'] . " / quantité actuelle : " . $livraison['quantite_actuelle']. " / PU vente : " . $livraison['prixunitaire'] ?></option>
+                                            <option value="<?= $livraison['lId'] ?>"><?= $livraison['lDate'] . " " . $livraison['bDesignation']. " / code:  " . $livraison['codebarre'] . " / Categ: " . $livraison['gDesignation'] . " / quantité initiale : " . $livraison['lQuantite'] . " / quantité actuelle : " . $livraison['quantite_actuelle']. " / PU vente : " . $livraison['prixunitaire'] ?></option>
                                     <?php
                                             }
                                         }
@@ -228,7 +257,14 @@ include '../models/ventePOS/VentePOS.php';
                                 <input class="form-control" type="text" name="tb_tva" id="tb_tva" placeholder="en %" value="0">
                             </td>
                             <td>
-                                <input type="hidden" name="tb_idaffectation" id="tb_idaffectation" value="<?= $_SESSION['idaffectation'] ?>" required>
+                                <?php
+                                    if (isset($_GET['use_affectation'])) {
+                                        $idaffectation = htmlspecialchars($_GET['use_affectation']);
+                                    }else{
+                                        $idaffectation = $_SESSION['idaffectation'];
+                                    }
+                                ?>
+                                <input type="hidden" name="tb_idaffectation" id="tb_idaffectation" value="<?= $idaffectation ?>" required>
                                 <input type="hidden" name="tb_use_date" id="tb_use_date" value="<?= @$_GET['use_date'] ?>" required>
                                 <input type="hidden" name="tb_use_typerepas" id="tb_use_typerepas" value="<?= $typeRepat ?>" required>
                                 <input type="hidden" name="tb_use_identiteClient" id="tb_use_identiteClient" value="<?= @$_GET['use_identiteClient'] ?>" required>

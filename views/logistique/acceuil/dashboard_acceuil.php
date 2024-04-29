@@ -149,7 +149,7 @@ include '../models/utilisateur/utilisateur.php';
         $lien = '';
         $reponse = '';
         $BdUtilisateur = new BdUtilisateur();
-        $utilisateurs = $BdUtilisateur->getUtilisateurAllDesc();
+        $utilisateurs = $BdUtilisateur->getUtilisateurAllDescWhere(' where active = 1');
         foreach ($utilisateurs as $utilisateur) {
             if ($utilisateur['type'] == "admin") {
                 $lien = 'http://' . $_SERVER['SERVER_NAME'] .'/views/home.php?link_up=' . sha1("home_admin_acceuil") . '&reponse=' . sha1($reponse).'&mutationID='.$utilisateur['mutation_id'];
@@ -173,7 +173,6 @@ include '../models/utilisateur/utilisateur.php';
                 $lien = 'http://' . $_SERVER['SERVER_NAME'] .'/views/home.php?link_up=' . sha1("home_admin_acceuil") . '&reponse=' . sha1($reponse).'&mutationID='.$utilisateur['mutation_id'];
                 
             }
-            // "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']
 
            if($utilisateur['type'] == 'other'){
             $n = $n + 1;
@@ -187,4 +186,5 @@ include '../models/utilisateur/utilisateur.php';
     ?>
     </div>
 </div>
+
 

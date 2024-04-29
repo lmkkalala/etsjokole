@@ -140,14 +140,14 @@ class BdUnite {
 
     function getUniteByName($val) {
         $bd = Connexion::connecter();
-        $reponse = $bd->query("SELECT * FROM unite WHERE unite.code LIKE '%{$val}%'");
+        $reponse = $bd->query("SELECT * FROM unite WHERE unite.code LIKE '%{$val}%' LIMIT 2000");
         return $reponse->fetchAll();
         $reponse->closeCursor();
     }
 
     function getUniteByIdBiens($idbiens) {
         $bd = Connexion::connecter();
-        $reponse = $bd->query("SELECT * FROM unite WHERE biens_id='{$idbiens}' LIMIT 100");
+        $reponse = $bd->query("SELECT * FROM unite WHERE biens_id='{$idbiens}' LIMIT 1000");
         return $reponse->fetchAll();
         $reponse->closeCursor();
     }

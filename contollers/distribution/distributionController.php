@@ -39,6 +39,29 @@ if (isset($_POST['bt_enregistrer'])) {
 
     $tva=securise($_POST['tb_tva']);
 
+    $DB = new DB();
+    $agent = $DB->getWhere('agent','id',$_SESSION['agentID'],'id',1);
+
+    $current_time = date('H:i');
+    $current_date = date('Y-m-d');
+    if (count($agent) > 0) {
+        if (!empty($agent[0]['start_time']) || !empty($agent[0]['end_time'])) {
+            if ($current_time < $agent[0]['start_time'] || $current_time > $agent[0]['end_time']) {
+                echo json_encode(array('message'=>'Vous n\'etez pas autoriser a effectuer de vente en ce moment, contacter l\'IT pour plus d\'information','status'=>'traitement_error')); 
+                return;
+            }
+        }
+
+        if ($agent[0]['daily_sell'] == 1 and $current_date < $date) {
+            echo json_encode(array('message'=>' Vous essayer d\'effectuer une vente à une date déjà passer, veuiller contacter l\'IT pour faire cela.','status'=>'traitement_error')); 
+            return; 
+        }
+
+    }else{
+        echo json_encode(array('message'=>'Agent Inconnu.','status'=>'traitement_error')); 
+        return;
+    }
+
     if ($idlivraison != 0 && $idaffectation != 0 && $date != "" && $quantite > 0 && $price != "" && $price > 0 && $typerepas != "" && $ventePOSId != ""  && $ventePOSId > 0 && $tva !="" && $tva >= 0) {
         $bdlivraison = new BdLivraison();
         $livraisons = $bdlivraison->getLivraisonById($idlivraison);
@@ -191,21 +214,29 @@ function panier($iddistribution){
 }
 
 if (isset($_POST['bt_valider_ventePOS'])) {
-    
+    $DB = new DB();
     $idaffectation = securise($_POST['tb_idaffectation']);
     $date = securise($_POST['tb_use_date']);
-    
+    $seller_name = $_SESSION['identite'];
     $typerepas = securise($_POST['tb_use_typerepas']);
     $identiteClient = securise($_POST['tb_use_identiteClient']);
 
-    $serviceId=$_SESSION['idservice'];
-
+    if ($_SESSION['idservice'] == securise($_POST['service_id'])) {
+        $serviceId = $_SESSION['idservice'];
+    }else{
+        $serviceId = securise($_POST['service_id']);
+        $row_affection = $DB->getWhereMultipleMore(' * FROM mutation INNER JOIN agent ON agent.id = mutation.agent_id',' service_id = '.$serviceId.'');
+        if (count($row_affection) > 0) {
+            $idaffectation = $row_affection[0]['id'];
+            $seller_name = $row_affection[0]['nom']." ".$row_affection[0]['postnom']." ".$row_affection[0]['prenom'];
+        }
+    }
+    
     $ventePOSId=securise($_POST['tb_venteposId']);
 
     if ($date != "" || $typerepas != "") {
 
         $bdVentePOS=new BdVentePOS();
-
         $ventePOSs=$bdVentePOS->getVentePOSAll();
         $lesIdVentePOS=[];
         foreach ($ventePOSs as $vp) {
@@ -214,7 +245,6 @@ if (isset($_POST['bt_valider_ventePOS'])) {
 
         if (!(in_array($ventePOSId,$lesIdVentePOS))) {
             $recentIdVentePOS=0;
-
             if ($bdVentePOS->addVentePOS($ventePOSId,$serviceId)) {
                 $ventePOSs=$bdVentePOS->getVentePOSRecentId();
                 $recentIdVentePOS=$ventePOSs[0]['recentId'];
@@ -233,7 +263,7 @@ if (isset($_POST['bt_valider_ventePOS'])) {
         
     }
 
-    header('Location:../../views/home.php?link=' . sha1("service_distribution_add") . '&reponse=' . sha1($error) . '&use_date=' . ($date) . '&use_typerepas=' . ($typerepas) . '&use_affectation=' . ($idaffectation) . '&use_identiteClient=' . ($identiteClient) . '&use_ventePOS=' . ($recentIdVentePOS) . '&link_up=' . sha1("home_service_distribution"));
+    header('Location:../../views/home.php?link=' . sha1("service_distribution_add") .'&service='.$serviceId.'&reponse=' . sha1($error) . '&use_date=' . ($date) . '&use_typerepas=' . ($typerepas) . '&use_affectation=' . ($idaffectation) . '&use_identiteClient=' . ($identiteClient) . '&use_ventePOS=' . ($recentIdVentePOS) . '&link_up=' . sha1("home_service_distribution").'&seller_name='.$seller_name.'');
     die;
 }
 
@@ -386,6 +416,7 @@ if (isset($_POST['bt_RetirerDistribution'])) {
     $ventePOS = securise($_POST['tb_use_ventePOS']);
     $type = securise($_POST['typePaiement']);
     $quantite = securise($_POST['quantiteVendu']);
+    $row_affectationID = securise($_POST['row_affectationID']);
 
     $bdlivraison = new BdLivraison();
     $livraisons = $bdlivraison->getLivraisonById($idlivraison);
@@ -400,9 +431,9 @@ if (isset($_POST['bt_RetirerDistribution'])) {
             }
 
             $DB = new DB();
-            $count = $DB->getWhereMultipleMore(" id FROM affectation "," distribution_id = '".$idlivraison."' AND typePaiement = 'CASH_A_RETIRER' ");
+            $count = $DB->getWhereMultipleMore(" id FROM affectation "," id = '".$row_affectationID."' AND typePaiement = 'CASH_A_RETIRER' ");
             if(count($count) > 0){
-                $updateType = $DB->update("affectation","typePaiement = ?","distribution_id = ?", array('CASH',$idlivraison));
+                $updateType = $DB->update("affectation","typePaiement = ?","id = ?", array('CASH',$row_affectationID));
                 if($updateType){
                     if ($bdlivraison->diminueQuantiteLivraison($idlivraison,$newquantite)) {
                         $error = "success";

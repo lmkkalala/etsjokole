@@ -51,25 +51,25 @@ include '../models/entreprise/entreprise.php';
                     <span class="fa fa-unlock" style="font-size: 20px;"></span>
                     <span class="h6">
                         <?php
-                        $type = $_SESSION['type'];
-                        
-                        if ($type == "admin") {
-                            echo 'Administrateur du système';
-                        } else if ($type === "logistique") {
-                            echo 'Stock';
-                        } else if ($type == "Administration") {
-                            echo 'Administration';
-                        } else if ($type == "other") {
-                            echo $_SESSION['service'];
-                        } else if ($type == "personnel") {
-                            echo 'Direction du personnel';
-                        } else if ($type == "membre") {
-                            echo "";
-                        } else if ($type == "administration") {
-                            echo "Finance";
-                        } else if ($type == "hr_mb") {
-                            echo "HR";
-                        }
+                            $type = $_SESSION['type'];
+                            
+                            if ($type == "admin") {
+                                echo 'Administrateur du système';
+                            } else if ($type === "logistique") {
+                                echo 'Stock';
+                            } else if ($type == "Administration") {
+                                echo 'Administration';
+                            } else if ($type == "other") {
+                                echo $_SESSION['service'];
+                            } else if ($type == "personnel") {
+                                echo 'Direction du personnel';
+                            } else if ($type == "membre") {
+                                echo "";
+                            } else if ($type == "administration") {
+                                echo "Finance";
+                            } else if ($type == "hr_mb") {
+                                echo "HR";
+                            }
                         ?>
                     </span>
                     <span class="glyphicon glyphicon-chevron-right" style="color: forestgreen; font-size: 10px;margin-top: 10px;"></span>
@@ -81,6 +81,17 @@ include '../models/entreprise/entreprise.php';
                         }
                         ?>
                     </span>
+                    <?php
+                        if ($type != "personnel" and $type != "membre" and $type != "other") {
+                    ?>
+                    <span class="mx-4">
+                        <a class="btn" href="/views/home.php?link=<?= sha1("logistique_demande_liste_demande_encours")?>&link_up=<?= sha1("home_logistique_demande")?>">
+                            <i class="fa fa-bell fs-5 text-white" id="DemandEncoursIcon" aria-hidden="true"></i>
+                        </a> <span class="fw-bolder ds"> <a href="/views/home.php?link=<?= sha1("logistique_demande_liste_demande_encours")?>&link_up=<?= sha1("home_logistique_demande")?>" class="text-decoration-none text-white"> <span id="DemandEncours">0</span> Encours</a> </span>
+                    </span>
+                    <?php 
+                        } 
+                    ?>
                 </div>
                 <div class="col-md-4">
                     <div class="row mb-1"> 
@@ -98,17 +109,20 @@ include '../models/entreprise/entreprise.php';
                             </div>
                         </div>
                     </div>
-                    <div class="row mt-3 bg-mine rounded-2 p-4" style="display: none;"  id="menu_F">
-                            <div class="col-md-12">
-                                <span class="mx-2">
-                                    <img src="../../media/pictures-system/profile.png" class="img-fluid rounded-circle" width="50" alt="Profile">
-                                </span>
+                    <div class="row mt-3 bg-mine rounded-2 p-2" style="display: none;"  id="menu_F">
+                            <div class="row">
+                                <div class="col-md-6"></div>
+                                <div class="col-md-6">
+                                    <span class="mx-2">
+                                        <img src="../../media/pictures-system/profile.png" class="img-fluid rounded-circle" width="50" alt="Profile">
+                                    </span>
+                                </div>
                             </div>
                             <div class="col-md-12 mt-1">
                                 <span class="mx-2">
                                     <a class="btn btn bg-white text-dark-moderated" style="color: #000e1f;" href="/views/home.php?link=<?= sha1("admin_utilisateur_update_utilisateur_self") ?>&link_up=<?= sha1("home_admin_utilisateur") ?>">
                                         <i class="fa fa-cog fs-5" aria-hidden="true"></i>
-                                    </a> <span class="fw-bolder ds"> <a href="/views/home.php?link=<?= sha1("admin_utilisateur_update_utilisateur_self") ?>&link_up=<?= sha1("home_admin_utilisateur") ?>" class="text-decoration-none text-white">PARAMETRE</a> </span>
+                                    </a> <span class="fw-bolder ds"> <a href="/views/home.php?link=<?= sha1("admin_utilisateur_update_utilisateur_self") ?>&link_up=<?= sha1("home_admin_utilisateur") ?>" class="text-decoration-none text-white">PROFILE</a> </span>
                                 </span>
                             </div>
                             <div class="col-md-12 mt-1">
