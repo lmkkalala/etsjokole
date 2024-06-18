@@ -62,9 +62,9 @@ if (1) {
 }
 
 $pdf->SetFont('Times', 'B', 8);
-$pdf->SetWidths(array(15, 15, 45, 28, 25, 28, 38));
+$pdf->SetWidths(array(15, 15, 40, 25, 25, 25, 30, 20));
 //foreach ($theads as $thead) {
-$pdf->Row(array(decode('No'), decode('Id'), decode('Item'), decode('Category'), decode('Actual quantity'), decode('Unit price (USD)'), decode('Actual value (USD)')));
+$pdf->Row(array(decode('No'), decode('Id'), decode('Item'), decode('Category'), decode('Actual quantity'), decode('Unit price (USD)'), decode('Actual value (USD)'), decode('PV')));
 //    $pdf->Cell(18, 7, decode($thead), 1);
 //}
 
@@ -121,24 +121,24 @@ foreach ($biens as $bien) {
                 $livraisons = $bdlivraison->getLivraisonWithQuantitePositiveByIdBiens($bien['bId']);
             } 
 
-            foreach ($livraisons as $livraison) {
-                $vente  = $db->getWhereMultipleMore(" * FROM affectation "," distribution_id = '".$livraison['lId']."' AND date >= '".$_GET['date']."' AND date <= '".date('Y-m-d')."' ");
-                if (count($vente) > 0) {
-                    foreach ($vente as $venteBien) {
-                        $bienVendu = $bienVendu + $venteBien['nombre'];
-                    }
-                }
-
-                $livraison_etat = $livraison['lEtat'];
-                if ($livraison_etat == 0) {
-                    if ($livraison['sId']==$_SESSION['idservice']) {
-                        $cumul_quantite_actuelle = $cumul_quantite_actuelle + $livraison['quantite_actuelle'];
-                    }
-                }
-            }
-
             if ($old == 'Yes') {
+                foreach ($livraisons as $livraison) {
+                    $vente  = $db->getWhereMultipleMore(" * FROM affectation "," distribution_id = '".$livraison['lId']."' AND date >= '".$_GET['date']."' AND date <= '".date('Y-m-d')."' ");
+                    if (count($vente) > 0) {
+                        foreach ($vente as $venteBien) {
+                            $bienVendu = $bienVendu + $venteBien['nombre'];
+                        }
+                    }
+    
+                    $livraison_etat = $livraison['lEtat'];
+                    if ($livraison_etat == 0) {
+                        if ($livraison['sId']==$_SESSION['idservice']) {
+                            $cumul_quantite_actuelle = $cumul_quantite_actuelle + $livraison['quantite_actuelle'];
+                        }
+                    }
+                }
                 $cumul_quantite_actuelle = $cumul_quantite_actuelle + $bienVendu;
+                $bienVendu = 0;
             }
         
             $somme_prix_biens = 0;
@@ -162,16 +162,18 @@ foreach ($biens as $bien) {
     
             $v7 = round(($cumul_quantite_actuelle * $average_price),3);
             $cumul_value = round(($cumul_value + ($cumul_quantite_actuelle * $average_price)),3);
+
+            $v8 = $bien['bPv'];
             
         
-        $pdf->Row(array(decode($v1), decode($v2), decode($v3), decode($v4), decode($v5), decode($v6), decode($v7)));
+        $pdf->Row(array(decode($v1), decode($v2), decode($v3), decode($v4), decode($v5), decode($v6), decode($v7), decode($v8)));
     }
     
     
 
 }
 
-$pdf->Row(array(decode("Nber : " . $n), decode(""), decode(""), decode(""), decode(""), decode(""), decode("Total value : " . $cumul_value . " USD")));
+$pdf->Row(array(decode("Nber : " . $n), decode(""), decode(""), decode(""), decode(""), decode(""), decode(""), decode("Total value : " . $cumul_value . " USD")));
 
 $pdf->Output("");
 ?>

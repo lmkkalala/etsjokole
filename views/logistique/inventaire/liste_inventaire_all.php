@@ -198,7 +198,7 @@ include '../models/ravitaillement/ravitaillement.php';
                         ?>
                     </tbody>
                     <tfoot>
-                    <td style="">
+                    <td>
                         <span>Nombre:</span><span><?= $n ?></span>
                     </td>
                     <td style="font-weight: bold; color: orange;">

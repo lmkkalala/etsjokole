@@ -47,7 +47,7 @@ include '../models/crud/db.php';
                 <?php
                     if (isset($_GET['date']) and !empty($_GET['date'])) {
                 ?>
-                    <a style="font-size: 20px;" href='../views/service/reception/pdf_reception_inventory.php?date=<?= $_GET['date'] ?>&time=old' class="btn btn-primary pull-left">Print in PDF</a>
+                    <a style="font-size: 20px;" href='../views/service/reception/pdf_reception_inventory.php?date=<?= $_GET['date'] ?>&time=old' target="_blank" class="btn btn-primary pull-left">Print in PDF</a>
                 <?php
                 }
                 ?>
@@ -142,6 +142,8 @@ include '../models/crud/db.php';
                                         $s++;
                                         $somme_prix_biens = $somme_prix_biens + $ravitaillement['prix'];
                                     }
+
+                                    $average_price = 0;
                                     
                                     if ($s > 0) {
                                         $average_price = ($somme_prix_biens / $s);

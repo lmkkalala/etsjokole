@@ -63,7 +63,7 @@ padding-left: 5px;
                     </ul>
                 </div>
 
-                <div class="col-lg-9" style="padding: 10px;height: 80vh;overflow: auto;">
+                <div id="main_container" class="col-lg-9" style="padding: 10px;height: 80vh;overflow: auto;">
                     
                     <?php
                     if (isset($_GET['link'])) {

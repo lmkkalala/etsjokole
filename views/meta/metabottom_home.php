@@ -214,6 +214,12 @@
                     if(data.homePurchase.ListReceptionDataAutrePlace != ''){
                         $('#ListReceptionDataAutrePlace').html(data.homePurchase.ListReceptionDataAutrePlace)
                     }
+
+                    if(data.payement_fournisseurData != ''){
+                        $('#payement_fournisseurData').html(data.payement_fournisseurData)
+                    }else{
+                        $('#payement_fournisseurData').html('')
+                    }
                 },
             });
         }
@@ -226,6 +232,16 @@
         }else{
             list('depense_course_form','undefined','depense_modal');
         }
+    });
+
+    $('#add_payment_form').on('show.bs.modal', function (e) {
+        var attribution_id = $(e.relatedTarget).data('id');
+        $('#attribution_id').val(attribution_id);
+    });
+
+    $('#list_payment_form').on('show.bs.modal', function (e) {
+        var attribution_id = $(e.relatedTarget).data('id');
+        list('',attribution_id,'payement_fournisseurData');
     });
 
     function operation(val,toDo,table = null){
@@ -246,8 +262,8 @@
                     },	
                     success: function(data){
                         alert(data.msg);
-                            $('button').prop('disabled',false);
-                            list('','','<?=$page?>');
+                        $('button').prop('disabled',false);
+                        list('','','<?=$page?>');
                     }
                 });
             }else{
@@ -392,8 +408,17 @@
         600000
     );
 
+    function menu_show(){
+        $('#menu2-a').slideToggle("slow");
+        $("#menu-gauche").slideToggle("slow");
+        if($("#main_container").attr("class") != 'col-md-12'){
+            $("#main_container").attr("class","col-md-12");
+        }else{
+            $("#main_container").attr("class","col-md-9 col-lg-9");
+        }
+    }
+
     $(document).ready(function () {
-        
         demandEncours();
         $('#Notifier').fadeOut(5000);
         $('#champ_depot, #champ_retrait, #depotParDiv, #creditParDiv').hide();
@@ -415,9 +440,10 @@
         //$('#update_biens_all').DataTable();
         $('#list_biens_all').DataTable();
 
+        //menu_show();
+
         $('#toggle_menu').on('click',function(){
-            $('#menu2-a').slideToggle("slow");
-            $("#menu-gauche").slideToggle("slow");
+            menu_show();
         });
         
         $('#toggle_menu_F').on('click',function(){
@@ -425,8 +451,7 @@
         });
 
         $('#entete1-logo').on('click',function(){
-            $('#menu2-a').slideToggle("slow");
-            $("#menu-gauche").slideToggle("slow");
+            menu_show();
         });
 
         $('#operation').on('change',function(){
@@ -485,7 +510,7 @@
         }
 
         // add call function controller
-        $('#new_depense,#operation_caisse,#add_dette_form,#add_driver_form,#add_vehicule_form,#bordereau_expedition_form,#type_depense_form,#add_course_form,#depense_course_form,#add_facture_form,#add_banque_form,#add_lieu_reception_form,#DataFormReception').on('submit',function(event){
+        $('#new_depense,#operation_caisse,#add_dette_form,#add_driver_form,#add_vehicule_form,#bordereau_expedition_form,#type_depense_form,#add_course_form,#depense_course_form,#add_facture_form,#add_banque_form,#add_lieu_reception_form,#DataFormReception,#add_deposit_form').on('submit',function(event){
             event.preventDefault();
             let form = new FormData(this);
             if(confirm('voulez vous continuer?') == false){
@@ -511,6 +536,11 @@
                     if(data.status == 'success'){
                         list('','','<?=$page?>');
                         switch (data.page) {
+                            case 'save_deposit_data':
+                                if (data.status == 'success') {
+                                    $('#add_deposit_form')[0].reset();
+                                }
+                                break;
                             case 'save_new_depense':
                                 $('#new_depense')[0].reset();
                                 break;

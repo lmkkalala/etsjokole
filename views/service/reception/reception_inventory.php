@@ -64,7 +64,7 @@ $pa = 0;
                 <?php
                 if (isset($_GET['date'])) {
                     ?>
-                    <a style="font-size: 20px;" href='../views/service/reception/pdf_reception_inventory.php?date=<?= $_GET['date'] ?>' class="btn btn-primary pull-left">Print in PDF</a>
+                    <a style="font-size: 20px;" href='../views/service/reception/pdf_reception_inventory.php?date=<?= $_GET['date'] ?>' target="_blank" class="btn btn-primary pull-left">Print in PDF</a>
                     <?php
                 }
                 ?>
@@ -95,6 +95,9 @@ $pa = 0;
                     </th>
                     <th>
                         Actual value (USD)
+                    </th>
+                    <th>
+                        PV
                     </th>
                     </thead>
                     <tbody>
@@ -177,6 +180,7 @@ $pa = 0;
                                         $cumul_value = $cumul_value + ($cumul_quantite_actuelle * $average_price);
                                         ?>
                                     </td>
+                                    <td><?= $bien['bPv'] ?></td>
                                 </tr>
                                 <?php
                             }

@@ -9,6 +9,7 @@ include '../models/demande/demande.php';
 include '../models/recuperation/recuperation.php';
 $dateStart = '';
 $dateEnd = '';
+$produit = '';
 ?>
 <div class="panel">
     <div class="panel panel-heading">
@@ -23,30 +24,42 @@ $dateEnd = '';
                     $date = date('Y-m',time());
                     $n = 0;
                     $bdlivraison = new BdRecuperation();
-                    if (isset($_POST['dateStart']) and isset($_POST['dateEnd'])) {
+                    $produit = (isset($_POST['produit']) and !empty($_POST['produit']))? htmlspecialchars($_POST['produit']) : '';
+                    if ($_SESSION['type'] == 'logistique') {
+                        $condition = (empty($_POST['produit'])) ? '' : ' AND b.designation LIKE "%'.htmlspecialchars($_POST['produit']).'%"';
+                    }else{
+                        $condition = (empty($_POST['produit'])) ? ' AND agent_id = "'.$_SESSION['agentID'].'"' : ' AND b.designation LIKE "%'.htmlspecialchars($_POST['produit']).'%" AND agent_id = "'.$_SESSION['agentID'].'"';
+                    }
+                    
+                    if (isset($_POST['dateStart']) and isset($_POST['dateEnd']) and isset($_POST['produit']) ) {
+                       
                         if(!empty($_POST['dateStart']) and !empty($_POST['dateEnd'])){
                             $dateStart = htmlspecialchars($_POST['dateStart']);
                             $dateEnd = htmlspecialchars($_POST['dateEnd']);
-                            $livraisons = $bdlivraison->getRecuperationAllData($dateStart,$dateEnd);
+                            
+                            $livraisons = $bdlivraison->getRecuperationAllData($dateStart,$dateEnd,$condition);
                         }else if(!empty($_POST['dateStart'])){
                             $dateStart = htmlspecialchars($_POST['dateStart']);
-                            $livraisons = $bdlivraison->getRecuperationAllData($dateStart);
+                            $livraisons = $bdlivraison->getRecuperationAllData($dateStart,'',$condition);
                         }else{
-                            $livraisons = $bdlivraison->getRecuperationAllData();
+                            $livraisons = $bdlivraison->getRecuperationAllData('','',$condition);
                         }
                     }else{
-                        $livraisons = $bdlivraison->getRecuperationAllData();
+                        $livraisons = $bdlivraison->getRecuperationAllData('','',$condition);
                     }
                 ?>
                 <form action="../views/home.php?link=cc29d915e0aff03b7668cb8dd7aa96ff33efcb0f&link_up=4802ab2ed36a6a26e9ece959716b6af785eeb218" method="post">
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="produit" id="" value="<?=$produit?>">
+                        </div>
+                        <div class="col-md-3">
                             <input class="form-control" type="date" name="dateStart" id="" value="<?=$dateStart?>">
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-3">
                             <input class="form-control" type="date" name="dateEnd" id="" value="<?=$dateEnd?>">
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-3">
                             <input class="btn btn-info" type="submit" name="rechercher" id="rechercher" value="Rechercher">
                         </div>
                     </div>
@@ -86,7 +99,7 @@ $dateEnd = '';
                                 ?>
                                 <tr>
                                     <td><?= $n ?></td>
-                                    <td><?= $livraison['date'] ?></td>
+                                    <td><?= $livraison['rDATE'] ?></td>
                                     <td><?= $livraison['snom'] . " " . $livraison['spostnom'] . " " . $livraison['sprenom'] ?></td>
                                     <td><?= $livraison['designation'] ?></td>
                                     <td><?= 'Sur '.$livraison['quantite_old'].' on Recuperer '.$livraison['quantite_recuperer'] ?></td>

@@ -122,7 +122,8 @@ include '../models/service/service.php';
                             <form class="form-horizontal" method="POST" action="../contollers/distribution/distributionController.php">
                                     <div class="row">
                                         <?php
-                                            if ( $_SESSION['mSeller'] == 1) {
+                                            if (isset($_SESSION['mSeller'])) {
+                                                if ($_SESSION['mSeller'] == 1) {
                                         ?>
                                         <div class="col-md-3">
                                             <label class="control-label">Choisir Depot :</label>
@@ -140,6 +141,11 @@ include '../models/service/service.php';
                                             </select>
                                         </div>
                                         <?php
+                                                }else{
+                                        ?>
+                                            <input type="hidden" name="service_id" value="<?=$_SESSION['idservice']?>">
+                                        <?php
+                                                }
                                             }else{
                                         ?>
                                             <input type="hidden" name="service_id" value="<?=$_SESSION['idservice']?>">

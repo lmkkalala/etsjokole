@@ -224,7 +224,7 @@ $DB = new DB();
                                             }
 
                                             if (isset($_GET['autres_place']) and $_GET['autres_place'] != '00') {
-                                                $autrePrix = $db->getWhereMultipleMore(' *, af.id as afID, r.id as rID FROM attribution a Inner Join stockage s ON a.id = s.attribution_id INNER JOIN receptionautreprix r ON s.id = r.stockage_id Inner join demande d ON d.biens_id = r.bien_id inner join distrubution ds ON ds.demande_id = d.id inner join affectation af ON af.distribution_id = ds.id ',' af.id = '.$distribution['id'].' and r.id = '.$_GET['autres_place'].'');
+                                                $autrePrix = $db->getWhereMultipleMore(' *, af.id as afID, r.id as rID FROM attribution a Inner Join stockage s ON a.id = s.attribution_id INNER JOIN receptionautreprix r ON s.id = r.stockage_id Inner join demande d ON d.biens_id = r.bien_id inner join distrubution ds ON ds.demande_id = d.id inner join affectation af ON af.distribution_id = ds.id ',' af.id = "'.$distribution['id'].'" and r.id = "'.$_GET['autres_place'].'"');
                                                 if (count($autrePrix) != 0) {
                                                     $pa = $autrePrix[0]['prix_reception'];
                                                 }

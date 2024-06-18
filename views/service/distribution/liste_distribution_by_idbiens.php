@@ -92,7 +92,10 @@ if (isset($_GET['use_date1'])) {
             $n++;
             ?>
             <tr>
-                <td><?= $distribution['id'] ?></td>
+                <td>
+                    <?='Numero : '. $distribution['id'].'<br>' ?>
+                    <?='Num vente : '. $distribution['venteposId'] ?>
+                </td>
                 <td><?= $distribution['date'] ?></td>
                 <td><?= $infolivraison ?></td>
                 
@@ -134,7 +137,7 @@ if (isset($_GET['use_date1'])) {
 <td style="font-size: 20px; color: dodgerblue; font-weight:bold;">
     <?php
         $cmPrix=0;
-        $nRav=-1;
+        $nRav=0;
         $meanPrice=0;
         $ravitaillements=[];
         
@@ -158,6 +161,10 @@ if (isset($_GET['use_date1'])) {
     ?>
     <span>
         <p><?= "Prix moyen: ".$meanPrice ?> USD</p>
+    </span>
+</td>
+<td style="font-size: 20px; color: dodgerblue; font-weight:bold;">
+    <span>
         <p><?= " Valeur entrée: ".$valeurEntree ?> USD</p>
     </span>
 </td>

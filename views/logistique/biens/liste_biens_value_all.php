@@ -54,7 +54,7 @@ include '../models/unite/unite.php';
                     <a style="font-size: 20px;" href='../views/logistique/biens/pdf_list_biens_value_all.php' class="btn btn-primary pull-left">Print in PDF</a>
                     <?php
                     ?>
-                    <a style="font-size: 20px;" href='../views/logistique/biens/excel_list_biens_value_all.php' class="btn btn-success pull-right">Export to Excel</a>
+                    <!-- <a style="font-size: 20px;" href='../views/logistique/biens/excel_list_biens_value_all.php' class="btn btn-success pull-right">Export to Excel</a> -->
                 <?php
                 } else {
                 }
@@ -134,7 +134,8 @@ include '../models/unite/unite.php';
                                     $somme_prix_biens = 0;
                                     $s = 0;
                                     $bdravitaillement = new BdRavitaillement();
-                                    $ravitaillements = $bdravitaillement->getRavitaillementByIdBiensMore($bien['bId'],'ORDER BY s.id DESC Limit 10');
+                                    $ravitaillements = $bdravitaillement->getRavitaillementByIdBiensMore($bien['bId'],'ORDER BY s.id DESC Limit 3');
+                                    
                                     foreach ($ravitaillements as $ravitaillement) {
                                         $s++;
                                         $somme_prix_biens = $somme_prix_biens + $ravitaillement['prix'];

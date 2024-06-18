@@ -171,7 +171,9 @@ include '../models/affectation-service/affectationService.php';
                                             <input type="hidden" name="tb_idlivraison" value="<?= $livraison['lId'] ?>">
                                             <input type="hidden" name="tb_idagent" value="<?= $livraison['agId'] ?>">
                                             <input type="hidden" name="tb_idbien" value="<?= $livraison['bId'] ?>">
-                                            <button type="submit" class="btn btn-primary" name="bt_recuperer_low"><span class="fa fa-recycle" style="font-size: 25px;margin-right: 5px;"></span></button>
+                                            <button type="submit" class="btn btn-primary" name="bt_recuperer_low">
+                                                <span class="fa fa-recycle" style="font-size: 25px;margin-right: 5px;"></span>
+                                            </button>
                                         </form>
                                     </td>
                                 </tr>
