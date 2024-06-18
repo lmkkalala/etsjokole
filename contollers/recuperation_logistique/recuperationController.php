@@ -38,18 +38,19 @@ if (isset($_POST['bt_enregistrer'])) {
         }
         if ($quantite <= $newquantite) {
             $newquantite = $newquantite - $quantite;
-//            echo $newquantite;die;
             if ($bdrecuperation->addRecuperation($date, $quantite, $iddistribution, $idaffectation)) {
 
                 if ($bddistribution->diminueQuantiteDistribution($iddistribution, $newquantite)) {
                     $bdlivraison = new BdLivraison();
                     $livraisons = $bdlivraison->getLivraisonById($idlivraison);
                     foreach ($livraisons as $livraison) {
+                        $quantite_old_livre = $livraison['lQuantite'];
                         $new_quantite_actuelle = $livraison['quantite_actuelle'];
                     }
                     $new_quantite_actuelle = $new_quantite_actuelle + $quantite;
                     if ($bdlivraison->augmenteQuantiteLivraison($idlivraison, $new_quantite_actuelle)) {
-                        
+                        $bdlivraison->diminueQuantiteLivraison($idlivraison, $quantite_old_livre - $quantite,'quantite');
+                        $error = "succes";
                     } else {
                         $error = "traitement_error";
                     }
@@ -172,6 +173,7 @@ if (isset($_POST['bt_recuperer_low'])) {
                     $quantite_biens = $quantite_biens + $quantite_recupere;
 
                     if ($bdbiens->augmenteQuantiteBiens($bien['bId'], $quantite_biens)) {
+                        $bdlivraison->diminueQuantiteLivraison($idlivraison, $quantite_biens_last - $quantite,'quantite');
                         $paniers = explode("/", $livraison['panier']);
                         $code = "";
                         $bdunite = new BdUnite();

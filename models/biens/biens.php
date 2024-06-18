@@ -64,28 +64,28 @@ class BdBiens {
 
     function getBiensAll() {
         $bd = Connexion::connecter();
-        $reponse = $bd->query('SELECT b.id AS bId,b.designation AS bDesignation,b.marque,b.quantite,b.stock_max,b.stock_min,b.stock_critique,b.type_perissable,b.technique_gestion,b.active,g.id AS gID,g.designation AS gDesignation FROM biens b INNER JOIN groupebiens g ON(b.groupeBiens_id=g.id)');
+        $reponse = $bd->query('SELECT b.prixunitaire AS bPv ,b.id AS bId,b.designation AS bDesignation,b.marque,b.quantite,b.stock_max,b.stock_min,b.stock_critique,b.type_perissable,b.technique_gestion,b.active,g.id AS gID,g.designation AS gDesignation FROM biens b INNER JOIN groupebiens g ON(b.groupeBiens_id=g.id)');
         return $reponse->fetchAll();
         $reponse->closeCursor();
     }
 
     function getBiensByName($val) {
         $bd = Connexion::connecter();
-        $reponse = $bd->query("SELECT b.id AS bId,b.designation AS bDesignation,b.codebarre,b.marque,b.quantite,b.stock_max,b.stock_min,b.stock_critique,b.type_perissable,b.technique_gestion,b.active,g.id AS gID,g.designation AS gDesignation FROM biens b INNER JOIN groupebiens g ON(b.groupeBiens_id=g.id) WHERE b.designation LIKE '%{$val}%' OR g.designation LIKE '%{$val}%' OR b.marque LIKE '%{$val}%'");
+        $reponse = $bd->query("SELECT b.prixunitaire AS bPv ,b.id AS bId,b.designation AS bDesignation,b.codebarre,b.marque,b.quantite,b.stock_max,b.stock_min,b.stock_critique,b.type_perissable,b.technique_gestion,b.active,g.id AS gID,g.designation AS gDesignation FROM biens b INNER JOIN groupebiens g ON(b.groupeBiens_id=g.id) WHERE b.designation LIKE '%{$val}%' OR g.designation LIKE '%{$val}%' OR b.marque LIKE '%{$val}%'");
         return $reponse->fetchAll();
         $reponse->closeCursor();
     }
 
     function getBiensAllDesc() {
         $bd = Connexion::connecter();
-        $reponse = $bd->query('SELECT b.id AS bId,b.prixunitaire,b.codebarre,b.designation AS bDesignation,b.marque,b.quantite,b.stock_max,b.stock_min,b.stock_critique,b.type_perissable,b.technique_gestion,b.active,b.prixunitaire,g.id AS gId,g.designation AS gDesignation FROM biens b INNER JOIN groupebiens g ON(b.groupeBiens_id=g.id) ORDER BY b.id DESC');
+        $reponse = $bd->query('SELECT b.prixunitaire AS bPv ,b.id AS bId,b.prixunitaire,b.codebarre,b.designation AS bDesignation,b.marque,b.quantite,b.stock_max,b.stock_min,b.stock_critique,b.type_perissable,b.technique_gestion,b.active,b.prixunitaire,g.id AS gId,g.designation AS gDesignation FROM biens b INNER JOIN groupebiens g ON(b.groupeBiens_id=g.id) ORDER BY b.id DESC');
         return $reponse->fetchAll();
         $reponse->closeCursor();
     }
 
     function getBiensById($idbiens) {
         $bd = Connexion::connecter();
-        $reponse = $bd->query("SELECT b.id AS bId,b.prixunitaire,b.designation AS bDesignation,b.codebarre,b.marque,b.quantite,b.stock_max,b.stock_min,b.stock_critique,b.type_perissable,b.technique_gestion,b.active,g.id AS gID,g.designation AS gDesignation FROM biens b INNER JOIN groupebiens g ON(b.groupeBiens_id=g.id) WHERE b.id='{$idbiens}'");
+        $reponse = $bd->query("SELECT b.prixunitaire AS bPv, b.id AS bId,b.prixunitaire,b.designation AS bDesignation,b.codebarre,b.marque,b.quantite,b.stock_max,b.stock_min,b.stock_critique,b.type_perissable,b.technique_gestion,b.active,g.id AS gID,g.designation AS gDesignation FROM biens b INNER JOIN groupebiens g ON(b.groupeBiens_id=g.id) WHERE b.id='{$idbiens}'");
         return $reponse->fetchAll();
         $reponse->closeCursor();
     }

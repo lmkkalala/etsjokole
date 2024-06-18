@@ -270,7 +270,7 @@ class BdRavitaillement
     function getRavitaillementBetweenInfDate2ByIdBiens($date2, $idbiens)
     {
         $bd = Connexion::connecter();
-        $reponse = $bd->query("SELECT s.id,s.date,s.quantite,s.prix,s.dateExpiration,s.delai_realise,s.type,s.active,s.attribution_id,AB.fournisseur_id FROM stockage s INNER JOIN (attribution AB INNER JOIN biens B ON(AB.biens_id=B.id)) ON(s.attribution_id=AB.id) WHERE s.date<='{$date2}' AND B.id='{$idbiens}'");
+        $reponse = $bd->query("SELECT s.id,s.date,s.quantite,s.prix,s.dateExpiration,s.delai_realise,s.type,s.active,s.attribution_id,AB.fournisseur_id FROM stockage s INNER JOIN (attribution AB INNER JOIN biens B ON(AB.biens_id=B.id)) ON(s.attribution_id=AB.id) WHERE s.date<='{$date2}' AND B.id='{$idbiens}' ORDER BY s.id DESC LIMIT 5");
         return $reponse->fetchAll();
         $reponse->closeCursor();
     }

@@ -26,6 +26,12 @@ function securise($donnee)
 }
 
 if (isset($_POST['bt_enregistrer'])) {
+
+    if ($_SESSION['grade'] != 'Seller') {
+        echo json_encode(array('message'=>'Ceci est un compte de depot stock et non un compte vendeur ..., contacter l\'IT pour plus de precision.','status'=>'traitement_error')); 
+        return;
+    }
+
     $idlivraison = securise($_POST['cb_livraison']);
     $idaffectation = securise($_POST['tb_idaffectation']);
     $quantite = securise($_POST['tb_quantite']);
@@ -225,9 +231,9 @@ if (isset($_POST['bt_valider_ventePOS'])) {
         $serviceId = $_SESSION['idservice'];
     }else{
         $serviceId = securise($_POST['service_id']);
-        $row_affection = $DB->getWhereMultipleMore(' * FROM mutation INNER JOIN agent ON agent.id = mutation.agent_id',' service_id = '.$serviceId.'');
+        $row_affection = $DB->getWhereMultipleMore(' *, mutation.id As mID FROM mutation INNER JOIN agent ON agent.id = mutation.agent_id',' service_id = '.$serviceId.'');
         if (count($row_affection) > 0) {
-            $idaffectation = $row_affection[0]['id'];
+            $idaffectation = $row_affection[0]['mID'];
             $seller_name = $row_affection[0]['nom']." ".$row_affection[0]['postnom']." ".$row_affection[0]['prenom'];
         }
     }

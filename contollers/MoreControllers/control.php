@@ -1450,6 +1450,64 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
     }else{
         $distributionGlobalBiens = '';
     }
+
+    if (htmlspecialchars($_GET['page']) == 'payement_fournisseurData') {
+        $listData = '';
+        $montantTotal = 0;
+        $table = "String('payement_fournisseur')";
+        $select = " * FROM payement_fournisseur ";
+        $condition = "attribution_id = ".htmlspecialchars($_GET['modal'])."";
+        $payement_fournisseurData = '<thead>
+            <tr>
+                <th class="small">DATE</th>
+                <th class="small">Transporteur</th>
+                <th class="small">Receveur</th>
+                <th class="small">Montant</th>
+                <th class="small">Preuve</th>
+                <th class="small">Plus</th>
+            </tr>
+            </thead><tbody>';
+        $payement_fournisseur =  $DB->getWhereMultipleMore($select,$condition,' ORDER BY date DESC ');
+        $attribution_row =  $DB->getWhereMultipleMore(' * FROM attribution',' id = '.htmlspecialchars($_GET['modal']).'',' ORDER BY date DESC ');
+        if (count($attribution_row) > 0) {
+            $paT = $attribution_row[0]['quantite_minimale'] * $attribution_row[0]['prixunitaire'];
+        }else{
+            $paT = 0;
+        }
+        
+        if (count($payement_fournisseur) > 0) {
+            foreach ($payement_fournisseur as $payement_fournisseurs) {
+                if ($payement_fournisseurs['recu'] != '') {
+                    $enable_download = 'download';
+                    $recu = $_SERVER['SERVER_NAME'].'../'.$payement_fournisseurs['recu'];
+                }else{
+                    $enable_download = 'onclick="alert("Aucun fichier disponible.")"';
+                    $recu = "#"; 
+                }
+                    $montantTotal = $montantTotal + $payement_fournisseurs['montant'];
+                    $listData = $listData.'<tr>
+                    <td>'.$payement_fournisseurs['date'].'</td>
+                    <td>'.$payement_fournisseurs['transporteur'].'</td>
+                    <td>'.$payement_fournisseurs['receveur'].'</td>
+                    <td>'.$payement_fournisseurs['montant'].'</td>
+                    <td><a href="'.$recu.'" class="btn btn-info" '.$enable_download.'><i class="fa fa-download"></i></button></a></td>
+                    <td><button type="button" class="btn btn-danger" onclick="deleteThis('.$payement_fournisseurs['id'].','.$table.')" ><i class="fa fa-trash"></i></button></td>
+                </tr>';
+            }
+            $payement_fournisseurData = $payement_fournisseurData.'<br>'.$listData.'
+            <tr class="bg-info">
+                <td>MONTANT : </td>
+                <td>'.$paT.'</td>
+                <td>DEPOT : </td>
+                <td class="text-bolder">'.$montantTotal.' $</td>
+                <td>RESTE :  </td>
+                <td>'.$paT - $montantTotal.'</td>
+            </tr>
+            </tbody>';
+        }
+    }else{
+        $payement_fournisseurData = '';
+    }
     
     
 
@@ -1483,7 +1541,8 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
                 'receptionPrincipalList'=>$receptionPrincipalList,
                 'ListReceptionDataAutrePlace'=>$ListReceptionDataAutrePlace
             ),
-            'distributionGlobalBiens'=> $distributionGlobalBiens
+            'distributionGlobalBiens'=> $distributionGlobalBiens,
+            'payement_fournisseurData' => $payement_fournisseurData
         )
     );
 }
@@ -1491,7 +1550,7 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
 $DB = new DB();
 
 
-// This is a part of the backen of the app that is no longer used
+// This is a part of the backend of the app that is no longer used
 if(isset($_GET['Local'])){
     if(isset($_POST['validate_n_facture_btn'])){
         $validate_n_facture_btn = htmlspecialchars($_POST['selected_date']);
@@ -2279,6 +2338,35 @@ function OptionArticle (){
             echo json_encode(array('msg'=>'Le compte a été ajouté','status'=>'success','page'=>'add_banque'));
         }else{
             echo json_encode(array('msg'=>'Echecs d\'opération ...','status'=>'fail','page'=>'add_banque'));
+        }   
+    }
+
+    if (isset($_POST['save_deposit_data'])) {
+        $table = 'payement_fournisseur';
+        $field = '(attribution_id,transporteur,receveur,montant,recu,date,addedbyID)';
+        $prepared = '?,?,?,?,?,?,?';
+
+        if (!empty($_FILES['recu']['size'])) {
+            $file_new_location = '../../media/recu/';
+            $file_name = $_FILES['recu']['name'];
+            $recu = (move_uploaded_file($_FILES['recu']['tmp_name'],$file_new_location.''. $file_name) == true ) ? $file_new_location.''. $file_name: '';
+        }else{
+            $recu = '';
+        }
+        
+        $value = array(
+            securise($_POST['attribution_id']),
+            securise($_POST['transporteur']),
+            securise($_POST['reveveur']),
+            securise($_POST['montant']),
+            $recu,
+            securise($_POST['date_is']),
+            $_SESSION['idutilisateur']
+        );
+        if (add($table,$field,$prepared,$value) == true) {
+            echo json_encode(array('msg'=>'Le depot a été ajouté','status'=>'success','page'=>'save_deposit_data'));
+        }else{
+            echo json_encode(array('msg'=>'Echecs d\'opération ...','status'=>'fail','page'=>'save_deposit_data'));
         }   
     }
 

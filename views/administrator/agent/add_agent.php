@@ -82,7 +82,7 @@
                     </div>
                     <div class="input-group-lg">
                         <label class="control-label">Grade :</label>
-                        <input class="form-control" type="text" name="tb_grade" placeholder="Grade" required>
+                        <input class="form-control" type="text" name="tb_grade" placeholder="Grade" value="Seller" required>
                     </div>
                     <div class="input-group-lg">
                         <label class="control-label">Code barre :</label>

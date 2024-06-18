@@ -323,11 +323,12 @@ class BdLivraison
         $reponse->closeCursor();
     }
 
-    public function diminueQuantiteLivraison($idlivraison, $newquantite)
+    public function diminueQuantiteLivraison($idlivraison, $newquantite,$field = '')
     {
+        $field = ($field == '')?'quantite_actuelle':$field;
         try {
             $bd = Connexion::connecter();
-            $query = $bd->prepare('UPDATE distrubution SET quantite_actuelle=? WHERE id=?');
+            $query = $bd->prepare('UPDATE distrubution SET '.$field.'=? WHERE id=?');
             $query->execute([$newquantite, $idlivraison]);
             $query->closeCursor();
 
