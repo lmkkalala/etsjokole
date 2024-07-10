@@ -22,48 +22,48 @@ include '../models/service/service.php';
         <span class="h4">Sur stock</span>
     </div>
     <div class="panel panel-body">
-        <div>
+        <div class="container">
             <div id="Notifier">
-            <?php
-            if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("succes")))) {
-            ?>
-                <div class="alert alert-success">
-                    <span class="glyphicon glyphicon-ok" style="font-size: 15px;margin-right: 5px;"></span><span>Enregistrement effectué avec succès</span>
-                </div>
-            <?php
-            }
-            ?>
-            <?php
-            if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("traitement_error")))) {
-            ?>
-                <div class="alert alert-danger">
-                    <span class="glyphicon glyphicon-ban-circle" style="font-size: 15px;margin-right: 5px;"></span><span>Erreur d'enregistrement</span>
-                </div>
-            <?php
-            }
-            ?>
-            <?php
-            if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("remplissage_error")))) {
-            ?>
-                <div class="alert alert-warning">
-                    <span class="glyphicon glyphicon-blackboard" style="font-size: 15px;margin-right: 5px;"></span><span>Erreur de remplissage, Recommencer SVP</span>
-                </div>
-            <?php
-            }
-            ?>
-            <?php
-            if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("quantite_error")))) {
-            ?>
-                <div class="alert alert-danger">
-                    <span class="glyphicon glyphicon-edit" style="font-size: 15px;margin-right: 5px;"></span><span>Quantity error. Please correct</span>
-                </div>
-            <?php
-            }
-            ?>
+                <?php
+                if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("succes")))) {
+                ?>
+                    <div class="alert alert-success">
+                        <span class="glyphicon glyphicon-ok" style="font-size: 15px;margin-right: 5px;"></span><span>Enregistrement effectué avec succès</span>
+                    </div>
+                <?php
+                }
+                ?>
+                <?php
+                if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("traitement_error")))) {
+                ?>
+                    <div class="alert alert-danger">
+                        <span class="glyphicon glyphicon-ban-circle" style="font-size: 15px;margin-right: 5px;"></span><span>Erreur d'enregistrement</span>
+                    </div>
+                <?php
+                }
+                ?>
+                <?php
+                if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("remplissage_error")))) {
+                ?>
+                    <div class="alert alert-warning">
+                        <span class="glyphicon glyphicon-blackboard" style="font-size: 15px;margin-right: 5px;"></span><span>Erreur de remplissage, Recommencer SVP</span>
+                    </div>
+                <?php
+                }
+                ?>
+                <?php
+                if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("quantite_error")))) {
+                ?>
+                    <div class="alert alert-danger">
+                        <span class="glyphicon glyphicon-edit" style="font-size: 15px;margin-right: 5px;"></span><span>Quantity error. Please correct</span>
+                    </div>
+                <?php
+                }
+                ?>
             </div>
 
             <?php
-            if (1) {
+                if (1) {
             ?>
                 <fieldset>
                     <legend>
@@ -118,83 +118,83 @@ include '../models/service/service.php';
                 $date = isset($_GET['use_date']) ? $_GET['use_date']: date('Y-m-d');
                 $typeRepat = (isset($_GET['use_typerepas']) && !empty($_GET['use_typerepas'])) ?  $_GET['use_typerepas'] : 'Transfer';
             ?>
-                        <fieldset class="mt-3">
-                            <form class="form-horizontal" method="POST" action="../contollers/distribution/distributionController.php">
-                                    <div class="row">
-                                        <?php
-                                            if (isset($_SESSION['mSeller'])) {
-                                                if ($_SESSION['mSeller'] == 1) {
-                                        ?>
-                                        <div class="col-md-3">
-                                            <label class="control-label">Choisir Depot :</label>
-                                            <select class="form-control select2" name="service_id">
-                                                <option value="<?=$_SESSION['idservice']?>" selected><?=(isset($_GET['seller_name'])? $_GET['seller_name']:'Choisir un POS/Departement/Service')?></option>
-                                                <?php
-                                                    $bdservice = new BdService();
-                                                    $services = $bdservice->getServiceAllDesc();
-                                                    foreach ($services as $service) {
-                                                ?>
-                                                    <option value="<?= $service['id'] ?>"><?= $service['designation'] ?></option>
-                                                <?php
-                                                    }
-                                                ?>
-                                            </select>
-                                        </div>
-                                        <?php
-                                                }else{
-                                        ?>
-                                            <input type="hidden" name="service_id" value="<?=$_SESSION['idservice']?>">
-                                        <?php
-                                                }
-                                            }else{
-                                        ?>
-                                            <input type="hidden" name="service_id" value="<?=$_SESSION['idservice']?>">
-                                        <?php
-                                            }
-                                        ?>
-                                        <div class="col-md-3">
-                                            <label class="control-label">Date :</label>
-                                            <input class="form-control" type="date" name="tb_use_date" value="<?= $date ?>" required>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <?php
-                                                $recentIdVentePOS=0;
-                                                $bdVentePOS=new BdVentePOS();
-                                                $ventePOSs=$bdVentePOS->getVentePOSRecentId();
-                                                $recentIdVentePOS=$ventePOSs[0]['recentId'];
-                                                if (isset($_GET['use_ventePOS'])) {
-                                                    $displayedVentePOSId=$_GET['use_ventePOS'];
-                                                } else {
-                                                    $displayedVentePOSId=($recentIdVentePOS+1);
-                                                }
-                                                
-                                            ?>
-                                            <label class="control-label">Numéro vente</label>
-                                            <input type="text" class="form-control" name="tb_venteposId" value="<?= ($displayedVentePOSId) ?>">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label class="control-label">Identité client :</label>
-                                            <input class="form-control" type="text" name="tb_use_identiteClient" value="<?= @$_GET['use_identiteClient'] ?>" required>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <!-- <input type="hidden" name="tb_use_date" value="<?= $date ?>"> -->
-                                            <input type="hidden" name="tb_idaffectation" value="<?= @$_SESSION['idaffectation'] ?>">
-                                            <input type="hidden" name="tb_use_typerepas" value="<?= $typeRepat ?>">
-                                            <input class="btn btn-primary w-100 mt-4" type="submit" name="bt_valider_ventePOS" value="Valider">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <?php
-                                                if (isset($_GET['use_ventePOS']) and isset($_GET['seller_name'])) {
-                                            ?>  
-                                                <a style="font-size: 15px;" href='../views/service/distribution/pdf_facture.php?use_ventePOS=<?= $_GET['use_ventePOS']?>&use_identiteClient=<?= $_GET['use_identiteClient'] ?>&seller=<?=htmlspecialchars($_GET['seller_name'])?>&service=<?=htmlspecialchars($_GET['service'])?>' target="_blank" class="btn btn-info text-white pull-left mt-4">Imprimer facture</a>
-                                            <?php
-                                                }
-                                            ?>
-                                            
-                                        </div>
-                                    </div>
-                                </form>
-                            </fieldset>
+            <fieldset class="mt-3">
+                <form class="form-horizontal" method="POST" action="../contollers/distribution/distributionController.php">
+                    <div class="row">
+                        <?php
+                            if (isset($_SESSION['mSeller'])) {
+                                if ($_SESSION['mSeller'] == 1) {
+                        ?>
+                        <div class="col-md-3">
+                            <label class="control-label">Choisir Depot :</label>
+                            <select class="form-control select2" name="service_id">
+                                <option value="<?=$_SESSION['idservice']?>" selected><?=(isset($_GET['seller_name'])? $_GET['seller_name']:'Choisir un POS/Departement/Service')?></option>
+                                <?php
+                                    $bdservice = new BdService();
+                                    $services = $bdservice->getServiceAllDesc();
+                                    foreach ($services as $service) {
+                                ?>
+                                    <option value="<?= $service['id'] ?>"><?= $service['designation'] ?></option>
+                                <?php
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                        <?php
+                                }else{
+                        ?>
+                            <input type="hidden" name="service_id" value="<?=$_SESSION['idservice']?>">
+                        <?php
+                                }
+                            }else{
+                        ?>
+                            <input type="hidden" name="service_id" value="<?=$_SESSION['idservice']?>">
+                        <?php
+                            }
+                        ?>
+                        <div class="col-md-3">
+                            <label class="control-label">Date :</label>
+                            <input class="form-control" type="date" name="tb_use_date" value="<?= $date ?>" required>
+                        </div>
+                        <div class="col-md-3">
+                            <?php
+                                $recentIdVentePOS=0;
+                                $bdVentePOS=new BdVentePOS();
+                                $ventePOSs=$bdVentePOS->getVentePOSRecentId();
+                                $recentIdVentePOS=$ventePOSs[0]['recentId'];
+                                if (isset($_GET['use_ventePOS'])) {
+                                    $displayedVentePOSId=$_GET['use_ventePOS'];
+                                } else {
+                                    $displayedVentePOSId=($recentIdVentePOS+1);
+                                }
+                                
+                            ?>
+                            <label class="control-label">Numéro vente</label>
+                            <input type="text" class="form-control" name="tb_venteposId" value="<?= ($displayedVentePOSId) ?>">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="control-label">Identité client :</label>
+                            <input class="form-control" type="text" name="tb_use_identiteClient" value="<?= @$_GET['use_identiteClient'] ?>" required>
+                        </div>
+                        <div class="col-md-3">
+                            <!-- <input type="hidden" name="tb_use_date" value="<?= $date ?>"> -->
+                            <input type="hidden" name="tb_idaffectation" value="<?= @$_SESSION['idaffectation'] ?>">
+                            <input type="hidden" name="tb_use_typerepas" value="<?= $typeRepat ?>">
+                            <input class="btn btn-primary w-100 mt-4" type="submit" name="bt_valider_ventePOS" value="Valider">
+                        </div>
+                        <div class="col-md-4">
+                            <?php
+                                if (isset($_GET['use_ventePOS']) and isset($_GET['seller_name'])) {
+                            ?>  
+                                <a style="font-size: 15px;" href='../views/service/distribution/pdf_facture.php?use_ventePOS=<?= $_GET['use_ventePOS']?>&use_identiteClient=<?= $_GET['use_identiteClient'] ?>&seller=<?=htmlspecialchars($_GET['seller_name'])?>&service=<?=htmlspecialchars($_GET['service'])?>' target="_blank" class="btn btn-info text-white pull-left mt-4">Imprimer facture</a>
+                            <?php
+                                }
+                            ?>
+                            
+                        </div>
+                    </div>
+                </form>
+            </fieldset>
             <?php
                // }
             ?>

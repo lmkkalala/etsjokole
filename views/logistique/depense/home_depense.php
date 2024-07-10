@@ -39,14 +39,14 @@ padding-left: 5px;
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-10 col-sm-12 mt-3 mb-3">
-        <h3 class="text-primary">DEPENSES</h3>
+        <h3 class="text-secondary">DEPENSES</h3>
     </div>
     
     <div class="col-md-2 col-sm-12 mt-3 mb-3 text-end">
-        <button class="btn btn-primary text-white w-100" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">AJOUTER DEPENSES</button>
+        <button class="btn btn-secondary text-white w-100" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">AJOUTER DEPENSES</button>
     </div>
   </div>
-  <div class="col-md-12 col-sm-12 mt-3">
+  <div class="col-md-12 col-sm-12 mt-2 mb-3">
       <form action="" method="post" id="FilterForm">
         <div class="row">
             <div class="col-md-2">
@@ -83,7 +83,7 @@ padding-left: 5px;
             </div>
             <div class="col-md-2">
               <input type="hidden" name="FilterDepenseForm" id="FilterDepenseForm">
-              <button class="btn btn-primary w-100 text-white" type="submit"> <i class="fa fa-search"></i> Rechercher</button>
+              <button class="btn btn-secondary w-100 text-white" type="submit"> <i class="fa fa-search"></i> Rechercher</button>
             </div>
         </div>
       </form>
@@ -167,14 +167,14 @@ padding-left: 5px;
           <div class="row mt-2">
             <div class="col-12">
               <input type="hidden" name="save_new_depense" id="save_new_depense">
-              <button type="submit" class="btn btn-primary">ENREGISTRER</button>
+              <button type="submit" class="btn btn-secondary">ENREGISTRER</button>
             </div>
           </div>
         </form>
       </div>
-      <div class="modal-footer">
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">FERMER</button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

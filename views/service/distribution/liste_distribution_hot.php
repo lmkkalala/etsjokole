@@ -7,25 +7,16 @@
 ?>
 
 <legend>Sales list</legend>
-    <table class="table table-bordered table-striped table-responsive-lg">
+    <table class="table table-bordered table-striped table-responsive-md">
         <thead>
         <th>
-            Sale Number
+            Info
         </th>
         <th>
-            N°
+            Article
         </th>
         <th>
-            Date
-        </th>
-        <th>
-            Client
-        </th>
-        <th>
-            Item
-        </th>
-        <th>
-            Quantity
+            Quantite
         </th>
         <th>
             Price (USD)
@@ -40,11 +31,11 @@
             Value TTC (USD)
         </th>
         <th>
-            
+            Plus
         </th>
     </thead>
     <tbody>
-        <div>
+        <div id="sell_list_data">
             <?php
             $n = 0;
             if (1) {
@@ -96,10 +87,12 @@
                         $n++;
                         ?>
                         <tr>
-                            <td><?= $distribution['venteposId'] ?></td>
-                            <td><?= $distribution['id'] ?></td>
-                            <td><?= $distribution['date'] ?></td>
-                            <td><strong style="color: #0080c0;"><?= $distribution['identiteClient'] ?></strong></td>
+                            <td>
+                                N° Vente: <?= $distribution['venteposId'] ?> <br>
+                                N°: <?= $distribution['id'] ?> <br>
+                                Date: <?= $distribution['date'] ?> <br>
+                                Noms: <strong style="color: #0080c0;"><?= $distribution['identiteClient'] ?></strong>
+                            </td>
                             <td><?= $infolivraison ?></td>
                             <td><?= $distribution['nombre_restant'] ?></td>
                             <td><?= $distribution['price'] ?></td>
@@ -142,17 +135,18 @@
                                     </div>
                                     <?php } ?>
                                     <div class="col-md-12 mt-2">
-                                        <form class="form-horizontal" method="POST" action="../contollers/distribution/distributionController.php">
+                                        <form class="form-horizontal" id="delete_sell_<?= $distribution['id'] ?>" onsubmit="delete_sell(event,<?= $distribution['id'] ?>)" method="POST" action="../contollers/distribution/distributionController.php">
                                             <div class="input-group-lg">
-                                                <input class="btn btn-danger w-100" type="submit" name="bt_delete_lineDistribution" value="Delete">
-                                                <input type="hidden" name="tb_idaffectation" value="<?= $_SESSION['idaffectation'] ?>">
-                                                <input type="hidden" name="tb_distributionId" value="<?= $distribution['id'] ?>">
-                                                <input type="hidden" name="typePaiement" value="<?= $distribution['typePaiement'] ?>">
-                                                <input type="hidden" name="tb_use_date" value="<?= $_GET['use_date'] ?>">
-                                                <input type="hidden" name="tb_use_typerepas" value="<?= $_GET['use_typerepas'] ?>">
-                                                <input type="hidden" name="tb_use_identiteClient" value="<?= $_GET['use_identiteClient'] ?>">
-                                                <input type="hidden" name="tb_use_ventePOS" value="<?= $_GET['use_ventePOS'] ?>">
-                                                <input type="hidden" name="row_affectationID" value="<?= $distribution['id'] ?>">
+                                                <button class="btn btn-danger w-100" type="submit"><i class="btn-dange fa fa-trash"></i></button>
+                                                <input class="btn btn-danger w-100" type="hidden" id="bt_delete_lineDistribution" name="bt_delete_lineDistribution">
+                                                <input type="hidden" id="tb_idaffectation" name="tb_idaffectation" value="<?= $_SESSION['idaffectation'] ?>">
+                                                <input type="hidden" id="tb_distributionId" name="tb_distributionId" value="<?= $distribution['id'] ?>">
+                                                <input type="hidden" id="typePaiement" name="typePaiement" value="<?= $distribution['typePaiement'] ?>">
+                                                <input type="hidden" id="tb_use_date" name="tb_use_date" value="<?= $_GET['use_date'] ?>">
+                                                <input type="hidden" id="tb_use_typerepas" name="tb_use_typerepas" value="<?= $_GET['use_typerepas'] ?>">
+                                                <input type="hidden" id="tb_use_identiteClient" name="tb_use_identiteClient" value="<?= $_GET['use_identiteClient'] ?>">
+                                                <input type="hidden" id="tb_use_ventePOS" name="tb_use_ventePOS" value="<?= $_GET['use_ventePOS'] ?>">
+                                                <input type="hidden" id="row_affectationID" name="row_affectationID" value="<?= $distribution['id'] ?>">
                                             </div>
                                         </form>
                                     </div>
@@ -180,6 +174,6 @@
                     <span> Total TTC : </span><span><?= $cumul_value_total ?> USD</span>
                 </td>
             </tfoot>
-    </div>
+        </div>
 </table>
 

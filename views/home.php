@@ -17,6 +17,13 @@ if (isset($_GET['mutationID'])) {
     die();
 }
 
+$Maintenance = false;
+
+if ($Maintenance) {
+    die("Système en maintenance ... ");
+    return;
+}
+
 ?>
 <html lang="fr">
     <head>

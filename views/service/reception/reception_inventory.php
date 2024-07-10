@@ -101,7 +101,7 @@ $pa = 0;
                     </th>
                     </thead>
                     <tbody>
-                        <?php
+                    <?php
                         $n = 0;
                         $cumul_value = 0;
                         $average_price = 0;
@@ -125,7 +125,7 @@ $pa = 0;
 
                             if ($trouve) {
                                 $n++;
-                                ?>
+                            ?>
                                 <tr>
                                     <td><?= $n ?></td>
                                     <td><?= $bien['bId'] ?></td>
@@ -175,16 +175,17 @@ $pa = 0;
                                     <td style="color:dodgerblue; font-weight:bold;"><?= $cumul_quantite_actuelle ?></td>
                                     <td><?= round($average_price,3) ?></td>
                                     <td>
-                                        <?php
+                                    <?php
                                         echo round(($cumul_quantite_actuelle * $average_price),3);
                                         $cumul_value = $cumul_value + ($cumul_quantite_actuelle * $average_price);
-                                        ?>
+                                    ?>
                                     </td>
                                     <td><?= $bien['bPv'] ?></td>
                                 </tr>
-                                <?php
-                            }
-                            $pa = 0;
+                            <?php
+                                $average_price = 0;
+                                $pa = 0;   
+                            } 
                         }
                         ?>
                     </tbody>

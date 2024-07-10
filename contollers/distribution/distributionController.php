@@ -502,8 +502,7 @@ if (isset($_POST['bt_delete_lineDistribution'])) {
             
                 foreach ($itemsDist as $iDist) {
                     if ($iDist!="") {
-                        if ($bdunite->activeUniteDistribution($iDist)) {
-                        }
+                        $bdunite->activeUniteDistribution($iDist);
                     }
                 }
                 
@@ -524,8 +523,20 @@ if (isset($_POST['bt_delete_lineDistribution'])) {
     } else {
         $reponse = "remplissage_error";
     }
-    header('Location:../../views/home.php?link=' . sha1("service_distribution_add") . '&use_date=' . ($date) . '&use_typerepas=' . ($typerepas) . '&use_affectation=' . ($idaffectation) . '&use_identiteClient=' . ($identiteClient) . '&use_ventePOS=' . ($ventePOS) . '&reponse=' . sha1($reponse) . '&link_up=' . sha1("home_service_distribution").'#selectProduct');
-    die;
+
+    if (isset($_GET['backCall'])) {
+        if ($reponse == 'succes') {
+            echo json_encode(array('message'=>'Vente supprimer avec success.','status'=>$reponse)); 
+            return;
+        }else{
+            echo json_encode(array('message'=>"Echec d' execution.",'status'=>$reponse)); 
+            return;
+        }
+    }else{
+        header('Location:../../views/home.php?link=' . sha1("service_distribution_add") . '&use_date=' . ($date) . '&use_typerepas=' . ($typerepas) . '&use_affectation=' . ($idaffectation) . '&use_identiteClient=' . ($identiteClient) . '&use_ventePOS=' . ($ventePOS) . '&reponse=' . sha1($reponse) . '&link_up=' . sha1("home_service_distribution").'#selectProduct');
+        die;
+    }
+    
 }
 
 if (isset($_POST['bt_search_by_service'])) {

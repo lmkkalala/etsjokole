@@ -23,43 +23,34 @@ include '../models/unite/unite.php';
                 <legend>Rechercher :</legend>
                 <form class="form-inline" method="POST" action="../contollers/biens/biensController.php">
                     <div class="row form-group-lg">
-                        <div class="col-6">
-                        <select class="form-control select2" name="cb_biens">
-                            <option value="0">Choose item</option>
-                            <?php
-                            $bdbiens = new BdBiens();
-                            $biens = $bdbiens->getBiensAllDesc();
-                            foreach ($biens as $bien) {
-                                if (1) {
+                        <div class="col-md-4 mt-1">
+                            <select class="form-control select2" name="cb_biens">
+                                <option value="0">Choose item</option>
+                                <?php
+                                $bdbiens = new BdBiens();
+                                $biens = $bdbiens->getBiensAllDesc();
+                                foreach ($biens as $bien) {
                                     if (1) {
-                            ?>
-                                        <option value="<?= $bien['bId'] ?>"><?= $bien['bDesignation'] . " / Marque : " . $bien['marque'] . " / " . $bien['gDesignation'] . " / Codebarre: " . $bien['codebarre'] ?></option>
-                            <?php
+                                        if (1) {
+                                ?>
+                                            <option value="<?= $bien['bId'] ?>"><?= $bien['bDesignation'] . " / Marque : " . $bien['marque'] . " / " . $bien['gDesignation'] . " / Codebarre: " . $bien['codebarre'] ?></option>
+                                <?php
+                                        }
                                     }
                                 }
-                            }
-                            ?>
-                        </select>
+                                ?>
+                            </select>
                         </div>
-                        <div class="col-6">
-                        <button type="submit" class="btn btn-success" name="bt_search_for_all_for_value"><span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-success w-100 mt-1" name="bt_search_for_all_for_value"><span class="glyphicon glyphicon-search btn" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
+                        </div>
+                        <div class="col-md-4">
+                            <a style="font-size: 20px;" href='../views/logistique/biens/pdf_list_biens_value_all.php' class="btn btn-secondary w-100 mt-1">Print in PDF</a>
+                   
+                            <!-- <a style="font-size: 20px;" href='../views/logistique/biens/excel_list_biens_value_all.php' class="btn btn-success pull-right">Export to Excel</a> -->
                         </div>
                     </div>
                 </form>
-            </fieldset>
-            <fieldset>
-                <?php
-                if ((1)) {
-                ?>
-                    <a style="font-size: 20px;" href='../views/logistique/biens/pdf_list_biens_value_all.php' class="btn btn-primary pull-left">Print in PDF</a>
-                    <?php
-                    ?>
-                    <!-- <a style="font-size: 20px;" href='../views/logistique/biens/excel_list_biens_value_all.php' class="btn btn-success pull-right">Export to Excel</a> -->
-                <?php
-                } else {
-                }
-                ?>
-
             </fieldset>
             <br>
             <fieldset>
@@ -67,7 +58,7 @@ include '../models/unite/unite.php';
                 <table class="table table-bordered table-responsive-lg table-striped">
                     <thead>
                         <th>
-                            #
+                            N° #
                         </th>
                         <th>
                             Category
@@ -114,8 +105,8 @@ include '../models/unite/unite.php';
                             if ($bien['quantite']) {
                         ?>
                                 <tr>
-                                    <td><?= $bien['bId'] ?></td>
-                                    <td><?= $bien['gDesignation'] ?></td>
+                                    <td><?=$n?></td>
+                                    <td><?= $bien['bId'] ?> <br><?= $bien['gDesignation'] ?></td>
                                     <td><?= $bien['bDesignation'] ?></td>
                                     <td>
                                         <b>
@@ -172,8 +163,9 @@ include '../models/unite/unite.php';
                                     </td>
                                 </tr>
                         <?php
-                            }
                             $n++;
+                            }
+                            
                         }
                         ?>
                     </tbody>

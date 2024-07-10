@@ -387,6 +387,35 @@
         }
     });
 
+    function delete_sell(event, value) {
+        event.preventDefault();
+        if(confirm('Voulez vous confirmer?') == false) {
+            return;
+        }
+        let form = new FormData($('#delete_sell_'+value+'')[0]);
+        $.ajax({
+            type:'POST',
+            url:'<?=("../contollers/distribution/distributionController.php?backCall=Yes")?>',
+            data:form,
+            dataType:'json',
+            processData: false, 
+            contentType: false,
+            beforeSend:function(){
+                $('button').prop('disabled',true);
+            },	
+            success: function(data){
+                $('button').prop('disabled',false);
+                if(data.status == 'succes'){
+                    alert(data.message);
+                    location.href = '';
+                }else{
+                    alert(data.message); 
+                }
+                $('#Notifier').fadeOut(5000);
+            }
+        });
+    }
+
     function demandEncours(){
         $.ajax({
             type:'GET',
@@ -614,8 +643,7 @@
         // alert(stItem)
         let itPuSale=stItem.split("/")
         let puSale=itPuSale[5].split(" ")
-        $("#puSaleStock").val(puSale[4]);
-        
+        $("#puSaleStock").val(puSale[4]); 
     });
 
     $("#cb_livraison").change(function () {

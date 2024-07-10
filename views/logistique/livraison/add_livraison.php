@@ -70,13 +70,18 @@ if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("quantite_error")))) {
 <div style="background-color: whitesmoke; padding: 10px;">
     <form class="form-horizontal" method="POST" action="../contollers/livraison/livraisonController.php">
         <div class="row form-group-lg">
-            <div class="col-6 input-group-lg">
+            <div class="col-md-6 input-group-lg">
                 <label class="control-label">Activity :</label>
-                <select class="form-control select2" name="cb_preparation">
+                <select class="form-control w-100 select2" name="cb_preparation">
                     <option value="0">Choisir une activité</option>
                     <?php
                     $bdpreparation = new BdPreparation();
-                    $preparations = $bdpreparation->getPreparationAllDesc();
+                    if (isset($_GET['use_preparation']) and !empty($_GET['use_preparation'])) {
+                        $preparations = $bdpreparation->getPreparationAllDesc('WHERE active = 1 and id = '.htmlspecialchars($_GET['use_preparation']).'','dateHeure');
+                    }else{
+                        $preparations = $bdpreparation->getPreparationAllDesc("INNER JOIN demande ON preparation.mutation_id = demande.mutation_id WHERE preparation.active = 1 and demande.etat = 0","dateHeure","preparation.mutation_id,preparation.id,preparation.dateHeure, preparation.typerepas,preparation.active");
+                    }
+                    
                     foreach ($preparations as $preparation) {
                         if ($preparation['active']) {
                             if (1) {
@@ -91,17 +96,18 @@ if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("quantite_error")))) {
                                 }
                                 ?>
                                 <option value="<?= $preparation['id'] ?>"><?= $preparation['typerepas'] ." / ". $designation_service." / " . $preparation['dateHeure'] ?></option>
-                                <?php
+                    <?php
                             }
                         }
                     }
+
                     ?>
                 </select>
-            </div>                    
-            <div class="col-6">
-                <legend></legend>
+            </div>    
+                            
+            <div class="col-md-6">
                 <div class="input-group-lg">
-                    <input class="btn btn-success" type="submit" name="bt_select_preparation_for_add_livraison" value="Selectionner">
+                    <input class="btn btn-secondary w-100" type="submit" name="bt_select_preparation_for_add_livraison" value="Selectionner">
                 </div>
                 </div>
         </div>
