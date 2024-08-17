@@ -75,39 +75,39 @@ include '../models/biens/biens.php';
                 </fieldset>
                 <table id="listdatabyid" class="table table-bordered table-responsive-lg mt-2">
                     <thead>
-                    <tr>
-                    <th>
-                        N°
-                    </th>
-                    <th>
-                        Category
-                    </th>
-                    <th>
-                        Name
-                    </th>
+                        <tr>
+                            <th>
+                                N°
+                            </th>
+                            <th>
+                                Category
+                            </th>
+                            <th>
+                                Name
+                            </th>
 
-                    <th>
-                        Marque
-                    </th>
-                    <th>
-                        Périssable
-                    </th>
-                    <th>
-                        Quantité
-                    </th>
-                    <th>
-                        Stock max
-                    </th>
-                    <th>
-                        Stock min
-                    </th>
-                    <th>
-                        Stock critique
-                    </th>
-                    <th>
-                        Opération / Etat
-                    </th>
-                    </tr>
+                            <th>
+                                Marque
+                            </th>
+                            <th>
+                                Périssable
+                            </th>
+                            <th>
+                                Quantité
+                            </th>
+                            <th>
+                                Stock max
+                            </th>
+                            <th>
+                                Stock min
+                            </th>
+                            <th>
+                                Stock critique
+                            </th>
+                            <th>
+                                Opération / Etat
+                            </th>
+                        </tr>
                     </thead>
                     <tbody>
                         <?php

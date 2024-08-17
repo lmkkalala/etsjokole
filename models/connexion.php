@@ -21,10 +21,20 @@ class Connexion {
             
         } catch (PDOException $e) {
             echo "
-            <h3>Système en maintenance. Veuillez reessayer après quelques minutes
-            <br>
-            Merci.
-            </h3>";
+            <div class='container'>
+                <div class='row'>
+                    <div class='col-12'>
+                        <h1>Ets JOKOLE DIEU EST GRAND</h1>
+                        <h2>Nous avons rencontrés un problème lié à la base de données.</h2>
+                        <h3>
+                            Système en maintenance. Veuillez reessayer après quelques minutes
+                            <br>
+                            <h4>Merci.</h4> 
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            ";
             die;
         }
         

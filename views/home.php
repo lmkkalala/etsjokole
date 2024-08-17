@@ -8,6 +8,9 @@
 session_start();
 
 if (!isset($_SESSION['identite'])) {
+    if (!isset($reponse)) {
+        $reponse = '';
+    }
     header('Location:../index.php?reponse='.sha1($reponse));
     die;
 }

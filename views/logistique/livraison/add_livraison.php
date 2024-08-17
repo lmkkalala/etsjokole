@@ -79,12 +79,15 @@ if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("quantite_error")))) {
                     if (isset($_GET['use_preparation']) and !empty($_GET['use_preparation'])) {
                         $preparations = $bdpreparation->getPreparationAllDesc('WHERE active = 1 and id = '.htmlspecialchars($_GET['use_preparation']).'','dateHeure');
                     }else{
-                        $preparations = $bdpreparation->getPreparationAllDesc("INNER JOIN demande ON preparation.mutation_id = demande.mutation_id WHERE preparation.active = 1 and demande.etat = 0","dateHeure","preparation.mutation_id,preparation.id,preparation.dateHeure, preparation.typerepas,preparation.active");
+                        $preparations = $bdpreparation->getPreparationAllDesc("INNER JOIN demande ON preparation.mutation_id = demande.mutation_id WHERE preparation.active = 1 AND demande.etat = 0 ","dateHeure","preparation.mutation_id,preparation.id,preparation.dateHeure, preparation.typerepas,preparation.active, demande.etat");
                     }
+
+                    $displayed_demande = '';
+                    $displayed_ID = '';
                     
                     foreach ($preparations as $preparation) {
-                        if ($preparation['active']) {
-                            if (1) {
+                        if ($preparation['etat'] == 0) {
+                            if ($preparation['dateHeure'] != $displayed_demande OR $displayed_ID != $preparation['id']) {
                                 $bdaffectationservice = new BdAffectationService();
                                 $affectationservices = $bdaffectationservice->getAffectationServiceById($preparation['mutation_id']);
                                 foreach ($affectationservices as $affectationservice) {
@@ -94,9 +97,11 @@ if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("quantite_error")))) {
                                         $designation_service = $service['designation'];
                                     }
                                 }
-                                ?>
+                    ?>
                                 <option value="<?= $preparation['id'] ?>"><?= $preparation['typerepas'] ." / ". $designation_service." / " . $preparation['dateHeure'] ?></option>
                     <?php
+                                $displayed_demande = $preparation['dateHeure'];
+                                $displayed_ID = $preparation['id'];
                             }
                         }
                     }

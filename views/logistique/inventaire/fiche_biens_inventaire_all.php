@@ -34,24 +34,24 @@ include '../models/biens/biens.php';
                 <legend>Liste des biens/produits</legend>
                 <table class="table table-bordered table-responsive-lg">
                     <thead>
-                    <th>
-                        N°
-                    </th>
-                    <th>
-                        Catégorie
-                    </th>
-                    <th>
-                        Désignation
-                    </th>
-                    <th>
-                        Marque
-                    </th>
-                    <th>
-                        Périssable
-                    </th>
-                    <th>
-                        Opération
-                    </th>
+                        <th>
+                            N°
+                        </th>
+                        <th>
+                            Catégorie
+                        </th>
+                        <th>
+                            Désignation
+                        </th>
+                        <th>
+                            Marque
+                        </th>
+                        <th>
+                            Périssable
+                        </th>
+                        <th>
+                            Opération
+                        </th>
                     </thead>
                     <tbody>
                         <?php

@@ -75,7 +75,7 @@ include '../models/ravitaillement/ravitaillement.php';
                 <?php
                 if ((isset($_GET['use_date1']))) {
                     ?>
-                    <a style="font-size: 20px;" href='../views/logistique/inventaire/pdf_list_inventaire_all.php?use_date1=<?= $_GET['use_date1'] . '&use_date2=' . $_GET['use_date2'] ?>' class="btn btn-primary pull-left">Print in PDF</a>
+                    <a style="font-size: 20px;" href='../views/logistique/inventaire/pdf_list_inventaire_all.php?use_date1=<?= $_GET['use_date1'] . '&use_date2=' . $_GET['use_date2'] ?>' target="_blank" class="btn btn-primary pull-left">Print in PDF</a>
                     <?php
                 }
                 ?>

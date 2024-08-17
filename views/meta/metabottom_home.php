@@ -1,9 +1,36 @@
 <!-- <script type="text/javascript" src="../web/jquery/jquery-min.js"></script> -->
 <script type="text/javascript" src="../web/jquery/jquery-3.5.1.js"></script>
+
+<script type="text/javascript" src="../web/jquery/jquery-3.7.1.js"></script>
 <script type="text/javascript" src="../web/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../web/select2/dist/js/select2.full.min.js"></script>
 <script type="text/javascript" src="../web/bootstrap/js/bootstrap5.min.js"></script>
 <script type="text/javascript" src="../web/datatable/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript" src="https://cdn.datatables.net/2.1.2/js/dataTables.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/3.1.0/js/dataTables.buttons.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/3.1.0/js/buttons.dataTables.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/3.1.0/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/3.1.0/js/buttons.print.min.js"></script>
+
+<script>
+new DataTable('#listdatabyid', {
+    layout: {
+        topStart: {
+            pageLength: {
+                menu: [10, 25, 50]
+            },
+            buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+           
+        }
+    }
+});
+
+</script>
+
     <?php
         $page = '';
 

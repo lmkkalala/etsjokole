@@ -174,18 +174,20 @@ include '../models/unite/unite.php';
                     </tbody>
                     <tfoot>
                         <tr>
+                            <th></th>
                             <th style="font-weight: bold;">
                                 <span>Number : </span>
                             </th>
-                            <th><span><?= $n ?></span></th>
+                            <th>
+                                <span><?= $n ?></span>
+                            </th>
                             <th style="font-weight: bold;color: forestgreen;">
                                 <span>Total value : </span>
                             </th>
                             <th>
-                                <span><?= $cumul_value_item ?> USD </span>
+                                <span><?= $cumul_value_item ?> </span>
                             </th>
-                            <th></th>
-                            <th></th>
+                            <th>USD</th>
                             <th></th>
                             <th></th>
                             <th></th>
