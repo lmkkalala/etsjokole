@@ -14,7 +14,11 @@ include './meta/menu_logistique.php';
             <div class="row">
                 <div id="menu-gauche" class="col-lg-3">
                     <ul class="list-menu list-unstyled" style="font-size: 20px;">
+                    <?php
+                        if ($_SESSION['type'] == 'logistique') {
+                    ?>
                         <li class="list-inline-item"><span style="color: red;font-size: 20px;" class="glyphicon glyphicon-asterisk"></span><a href="/views/home.php?link=<?= sha1("logistique_recuperation_add")?>&link_up=<?= sha1("home_logistique_recuperation")?>">Nouvelle récuperation</a></li>
+                    <?php } ?>    
                         <li class="list-inline-item"><span style="color: orange;font-size: 20px;" class="glyphicon glyphicon-list"></span><a href="/views/home.php?link=<?= sha1("logistique_recuperation_liste_recuperation_all")?>&link_up=<?= sha1("home_logistique_recuperation")?>">Liste de toutes les récuperations</a></li>
                     </ul>
                 </div>

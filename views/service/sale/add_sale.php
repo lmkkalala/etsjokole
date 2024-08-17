@@ -39,29 +39,29 @@ include '../models/lineSale/LineSale.php';
             }
             ?>
             <?php
-            if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1('remplissage_error')))) {
-                ?>
+                if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1('remplissage_error')))) {
+            ?>
                 <div class="alert alert-warning">
                     <span class="glyphicon glyphicon-blackboard" style="font-size: 15px;margin-right: 5px;"></span><span>Data error</span>
                 </div>
-                <?php
-            }
-            if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1('quantite_error')))) {
-                ?>
+            <?php
+                }
+                if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1('quantite_error')))) {
+            ?>
                 <div class="alert alert-warning">
                     <span class="glyphicon glyphicon-bars" style="font-size: 15px;margin-right: 5px;"></span><span>Quantité insuffisante</span>
                 </div>
-                <?php
-            }
+            <?php
+                }
             ?>
             <?php
-            if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1('already_exist')))) {
-                ?>
+                if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1('already_exist')))) {
+            ?>
                 <div class="alert alert-warning">
                     <span class="glyphicon glyphicon-check" style="font-size: 15px;margin-right: 5px;"></span><span>Validated</span>
                 </div>
-                <?php
-            }
+            <?php
+                }
             ?>
 
             <a class="btn btn-warning p-1 mt-1 text-white" style="font-size: 20px;" href="/views/home.php?link_up=<?= sha1('home_logistique_customer'); ?>"><span class="fa fa-user fs-5 text-white"></span> Clients</a>
@@ -74,10 +74,13 @@ include '../models/lineSale/LineSale.php';
                             <?php
                                 $bdCustomer = new BdCustomer();
                                 $customers = $bdCustomer->getCustomerAllActive($_SESSION['idutilisateur']);
-                                foreach ($customers as $customer) {
+                                
+                                if (count($customer) > 0) {
+                                    foreach ($customers as $customer) {
                             ?>
                                 <option value="<?= $customer['id']; ?>"><?= $customer['identite'].' / Tél. : '.$customer['telephone'].' / Email : '.$customer['email'].' / Website : '.$customer['siteweb']; ?></option>
                             <?php
+                                    }
                                 }
                             ?>
                           </select>

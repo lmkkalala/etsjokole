@@ -5,6 +5,10 @@ session_start();
 include '../../models/connexion.php';
 
 include '../../models/crud/db.php';
+
+include '../../models/biens/biens.php';
+
+include '../../models/distribution/distribution.php';
     
 function add($table,$field,$prepared,$value){
     $DB = new db();
@@ -29,6 +33,16 @@ function securise($donnee) {
 }
 
 $formData = "String('formData')";
+
+if (isset($_GET['demandEncours'])) {
+    $DB = new db();
+    $Encours = $DB->getWhereMultipleMore(" * FROM demande LEFT JOIN distrubution ON demande.id = distrubution.demande_id "," distrubution.demande_id IS NULL "," ORDER BY demande.date DESC LIMIT 100");
+    if (count($Encours) > 0) {
+        echo json_encode(array('status'=>'success','value'=>count($Encours)));
+    }else{
+        echo json_encode(array('status'=>'fail','value'=>''));
+    }
+}
 
 if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
     $format = new NumberFormatter('de_DE',NumberFormatter::CURRENCY);
@@ -170,11 +184,42 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
             $conditionFacture = '';
         } 
         
+        // if (isset($_POST['FilterFormCaisse'])) {
+        //     $conditionCaisse = '';
+        //     $filterNom = htmlspecialchars($_POST['filterNom']);
+        //     if ($filterNom != '') {
+        //         $conditionCaisse = $conditionCaisse.'debitePar Like "%'.$filterNom.'%"';
+        //     }
+        //     $filterNomApprover = htmlspecialchars($_POST['filterNomApprover']);
+        //     if ($filterNomApprover != '') {
+        //         $conditionCaisse = $filterNom != '' ? $conditionCaisse.' and ' : '';
+        //         $conditionCaisse = $conditionCaisse.'approuverPar Like "%'.$filterNomApprover.'%"';
+        //     }
+        //     $filterNBordereau = htmlspecialchars($_POST['filterNBordereau']);
+        //     if ($filterNBordereau != '') {
+        //         $conditionCaisse = $filterNom != '' || $filterNomApprover != '' ? $conditionCaisse.' and ' : '';
+        //         $conditionCaisse = $conditionCaisse.'nBordereau = "'.$filterNBordereau.'"';
+        //     } 
+        //     $FilterBanque = htmlspecialchars($_POST['FilterBanque']);
+        //     if ($FilterBanque != '') {
+        //         $conditionCaisse = $filterNom != '' || $filterNomApprover != '' || $filterNBordereau != '' ? $conditionCaisse.' and ' : '';
+        //         $conditionCaisse = $conditionCaisse.'banque = "'.$FilterBanque.'"';
+        //     } 
+        //     $filterDate_start = htmlspecialchars($_POST['filterDate_start']); 
+        //     $filterDate_end = htmlspecialchars($_POST['filterDate_end']);
+        //     if ($filterDate_start != '' and $filterDate_end != '') {
+        //         $conditionCaisse = $filterNom != '' || $filterNomApprover != '' || $filterNBordereau != '' || $FilterBanque != '' ? $conditionCaisse.' and ' : '';
+        //         $conditionCaisse = $conditionCaisse.' date >= "'.$filterDate_start.'" and  date <= "'.$filterDate_end.'"';
+        //     }
+        // }else{
+        //     $conditionCaisse = '';
+        // }
+
         if (isset($_POST['FilterFormCaisse'])) {
             $conditionCaisse = '';
             $filterNom = htmlspecialchars($_POST['filterNom']);
             if ($filterNom != '') {
-                $conditionCaisse = $conditionCaisse.'debitePar Like "%'.$filterNom.'%"';
+                $conditionCaisse = $conditionCaisse.'debitePar Like "%'.$filterNom.'%" OR creditePar Like "%'.$filterNom.'%"';
             }
             $filterNomApprover = htmlspecialchars($_POST['filterNomApprover']);
             if ($filterNomApprover != '') {
@@ -355,8 +400,8 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
                 </select>
             </td>
             <td>
-                <button class="btn btn-primary mt-1 text-white w-100" type="submit">Modifier</button>
-                <button class="btn btn-danger mt-1 text-white w-100" type="button" onclick="deleteThis('.$listDette[$key]['id'].','.$table.')">Supprimer</button>
+                <button class="btn btn-primary mt-1 text-white w-100" type="submit"><i class="fa fa-pencil"></i></button>
+                <button class="btn btn-danger mt-1 text-white w-100" type="button" onclick="deleteThis('.$listDette[$key]['id'].','.$table.')"><i class="fa fa-trash"></i></button>
             </td>
             </tr>
         </form>';
@@ -423,8 +468,8 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
                 </td>
                 <td><input class="form-control" type="text" name="DepenseUpdateDescription_'.$listDepense[$key]['id'].'" id="DepenseUpdateDescription_'.$listDepense[$key]['id'].'" placeholder="" value="'.$listDepense[$key]['description'].'"></td>
                 <td>
-                <button class="btn btn-primary mt-1 text-white w-100" type="submit">Modifier</button>
-                <button class="btn btn-danger mt-1 text-white w-100" type="button" onclick="deleteThis('.$listDepense[$key]['id'].','.$table.')">Supprimer</button>
+                <button class="btn btn-primary mt-1 text-white w-100" type="submit"><i class="fa fa-pencil"></i></button>
+                <button class="btn btn-danger mt-1 text-white w-100" type="button" onclick="deleteThis('.$listDepense[$key]['id'].','.$table.')"><i class="fa fa-trash"></i></button>
                 </td>
             </tr>
         </form>';
@@ -445,23 +490,20 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
 
     if(htmlspecialchars($_GET['page']) == 'home_caisse'){
 
+
         if ($conditionCaisse != '') {
-            $listCaisse = $DB->getWhereMultiple('caisse','operation = "Debiter" and '.$conditionCaisse);
+            $listCaisse = $DB->getWhereMultiple('caisse','id and '.$conditionCaisse);
         }else{
-            $listCaisse = $DB->getWhere('caisse','operation','Debiter','date');
+            $listCaisse = $DB->get('caisse','date');
         }
         
         $listCaisseData = 
         '<thead>
             <tr>
-                <th class="small">DATE</th>
-                <th class="small">BANQUE</th>
-                <th class="small">N° BORDEREAU</th>
-                <th class="small">DESCRIPTION</th>
-                <th class="small">DEPOT $</th>
-                <th class="small">DEPOT FC</th>
-                <th class="small">DEPOT FRW</th>
-                <th class="small">DEBITE PAR</th>
+                <th class="small">INFO DE BASE</th>
+                <th class="small">DESCRIPTION </th>
+                <th class="small">Operation DEPOT</th>
+                <th class="small">Operation RETRAIT</th>
                 <th class="small">APPROUVE PAR</th>
                 <th class="small">PLUS</th>
             </tr>
@@ -470,115 +512,200 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
         $totalDebitDollars = 0;
         $totalDebitFc = 0;
         $totalDebitFrw = 0;
+        $totalCreditDollars = 0;
+        $totalCreditFc = 0;
+        $totalCreditFrw = 0;
         $table = "String('caisse')";
         foreach ($listCaisse as $key => $value) {
             $totalDebitDollars = $totalDebitDollars + $listCaisse[$key]['montantDeposeDollars'];
             $totalDebitFc = $totalDebitFc + $listCaisse[$key]['montantDeposeFC'];
             $totalDebitFrw = $totalDebitFrw + $listCaisse[$key]['montantDeposeFRW'];
+            $totalCreditDollars = $totalCreditDollars + $listCaisse[$key]['montantRetireDollars'];
+            $totalCreditFc = $totalCreditFc + $listCaisse[$key]['montantRetireFC'];
+            $totalCreditFrw = $totalCreditFrw + $listCaisse[$key]['montantRetireFRW'];
+
             $listCaisseData = $listCaisseData.'
             <form action="" method="post" id="CaisseUpdateForm_'.$listCaisse[$key]['id'].'">
             <tr>
-                <td><input class="form-control" type="date" name="DcaisseDate_'.$listCaisse[$key]['id'].'" id="DcaisseDate_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['date'].'" placeholder="yyyy-MM-dd"></td>
-                <td><input class="form-control" type="text" name="DcaisseBanque_'.$listCaisse[$key]['id'].'" id="DcaisseBanque_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['banque'].'"></td>
-                <td><input class="form-control" type="number" name="DcaissenBordereau_'.$listCaisse[$key]['id'].'" id="DcaissenBordereau_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['nBordereau'].'"></td>
-                <td><input class="form-control" type="text" name="DcaisseDescription_'.$listCaisse[$key]['id'].'" id="DcaisseDescription_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['description'].'"></td>
-                <td><input class="form-control" type="number" name="caisseMontantDeposeDollars_'.$listCaisse[$key]['id'].'" id="caisseMontantDeposeDollars_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['montantDeposeDollars'].'"></td>
-                <td><input class="form-control" type="number" name="caisseMontantDeposeFC_'.$listCaisse[$key]['id'].'" id="caisseMontantDeposeFC_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['montantDeposeFC'].'"></td>
-                <td><input class="form-control" type="text" name="caisseMontantDeposeFRW_'.$listCaisse[$key]['id'].'" id="caisseMontantDeposeFRW_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['montantDeposeFRW'].'"></td>
-                <td><input class="form-control" type="text" name="caisseDebitePar_'.$listCaisse[$key]['id'].'" id="caisseDebitePar_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['debitePar'].'"></td>
+                <td>
+                    <input class="form-control" type="date" name="DcaisseDate_'.$listCaisse[$key]['id'].'" id="DcaisseDate_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['date'].'" placeholder="yyyy-MM-dd">
+                    BANQUE <input class="form-control" type="text" name="DcaisseBanque_'.$listCaisse[$key]['id'].'" id="DcaisseBanque_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['banque'].'">
+                    N°BORDEREAU <input class="form-control" type="number" name="DcaissenBordereau_'.$listCaisse[$key]['id'].'" id="DcaissenBordereau_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['nBordereau'].'">
+
+                </td>
+                <td>
+                    <input class="form-control" type="text" name="DcaisseDescription_'.$listCaisse[$key]['id'].'" id="DcaisseDescription_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['description'].'">
+                </td>
+                <td>
+                    <input class="form-control" type="text" name="caisseDebitePar_'.$listCaisse[$key]['id'].'" id="caisseDebitePar_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['debitePar'].'">
+                    Dollars <input class="form-control" type="number" name="caisseMontantDeposeDollars_'.$listCaisse[$key]['id'].'" id="caisseMontantDeposeDollars_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['montantDeposeDollars'].'">
+                    Fc <input class="form-control" type="number" name="caisseMontantDeposeFC_'.$listCaisse[$key]['id'].'" id="caisseMontantDeposeFC_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['montantDeposeFC'].'">
+                    Frw <input class="form-control" type="text" name="caisseMontantDeposeFRW_'.$listCaisse[$key]['id'].'" id="caisseMontantDeposeFRW_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['montantDeposeFRW'].'">
+                </td>
+ 
+                <td>
+                    <input class="form-control" type="text" name="caisseCreditePar_'.$listCaisse[$key]['id'].'" id="caisseCreditePar_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['creditePar'].'">
+                    Dollars <input class="form-control" type="text" name="caisseMontantRetireDollars_'.$listCaisse[$key]['id'].'" id="caisseMontantRetireDollars_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['montantRetireDollars'].'">
+                    Fc <input class="form-control" type="text" name="caisseMontantRetireFC_'.$listCaisse[$key]['id'].'" id="caisseMontantRetireFC_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['montantRetireFC'].'">
+                    Frw <input class="form-control" type="text" name="caisseMontantRetireFRW_'.$listCaisse[$key]['id'].'" id="caisseMontantRetireFRW_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['montantRetireFRW'].'">
+                </td>
+
+
                 <td><input class="form-control" type="text" name="DcaisseApprouverPar_'.$listCaisse[$key]['id'].'" id="DcaisseApprouverPar_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['approuverPar'].'"></td>
                 <td>
-                    <button class="btn btn-primary mt-1 text-white w-100" onclick="updateThis('.$listCaisse[$key]['id'].','.$table.','.$formData.')" type="button">Modifier</button>
-                    <button class="btn btn-danger mt-1 text-white w-100" onclick="deleteThis('.$listCaisse[$key]['id'].','.$table.')" type="button">Supprimer</button>
+                    <button class="btn btn-primary mt-1 text-white w-100" onclick="updateThis('.$listCaisse[$key]['id'].','.$table.','.$formData.')" type="button"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-danger mt-1 text-white w-100" onclick="deleteThis('.$listCaisse[$key]['id'].','.$table.')" type="button"><i class="fa fa-trash"></i></button>
                 </td>
             </tr>
         </form>';
         }
         $listCaisseData = $listCaisseData.
         '<tr class="bg-primary text-dark">
-            <td class="fw-bolder text-dark small">TOTAL DEBIT Dollors</td>
-            <td></td>
-            <td class="fw-bolder text-dark">'.$format->formatCurrency($totalDebitDollars,'usd').'</td>
-            <td class="fw-bolder text-dark small">TOTAL DEBIT FC</td>
-            <td></td>
-            <td class="fw-bolder text-dark">'.$format->formatCurrency($totalDebitFc,'fcf').'</td>
-            <td class="fw-bolder text-dark small">TOTAL DEBIT FRW</td>
-            <td></td>
-            <td></td>
-            <td class="fw-bolder text-dark text-start">'.$format->formatCurrency($totalDebitFrw,'frw').'</td>
-        </tr></tbody>
-        ';
-
-        if ($conditionCaisseCredit != '') {
-            $listCaisseSortie = $DB->getWhereMultiple('caisse','operation = "Crediter" and '.$conditionCaisseCredit);
-        }else{
-            $listCaisseSortie = $DB->getWhere('caisse','operation','Crediter','date');
-        }
-        
-        $listCaisseDataSortie = 
-        '<thead>
-            <tr>
-            <th class="small">DATE</th>
-            <th class="small">BANQUE</th>
-            <th class="small">N° BORDEREAU</th>
-            <th class="small">DESCRIPTION</th>
-            <th class="small">RETRAIT $</th>
-            <th class="small">RETRAIT FC</th>
-            <th class="small">RETRAIT FRW</th>
-            <th class="small">CREDITE PAR</th>
-            <th class="small">APPROUVE PAR</th>
-            <th class="small">PLUS</th>
-            </tr>
-        </thead>
-        <tbody>';
-        $totalCreditDollars = 0;
-        $totalCreditFc = 0;
-        $totalCreditFrw = 0;
-        $table = "String('caisse')";
-        foreach ($listCaisseSortie as $key => $value) {
-            $totalCreditDollars = $totalCreditDollars + $listCaisseSortie[$key]['montantRetireDollars'];
-            $totalCreditFc = $totalCreditFc + $listCaisseSortie[$key]['montantRetireFC'];
-            $totalCreditFrw = $totalCreditFrw + $listCaisseSortie[$key]['montantRetireFRW'];
-            $listCaisseDataSortie = $listCaisseDataSortie.
-            '<form action="" method="post" id="CaisseUpdateForm_'.$listCaisseSortie[$key]['id'].'">
-            <tr>
-                <td><input class="form-control" type="date" name="CcaisseDate_'.$listCaisseSortie[$key]['id'].'" id="CcaisseDate_'.$listCaisseSortie[$key]['id'].'" placeholder="" value="'.$listCaisseSortie[$key]['date'].'" placeholder="yyyy-MM-dd"></td>
-                <td><input class="form-control" type="text" name="CcaisseBanque_'.$listCaisseSortie[$key]['id'].'" id="CcaisseBanque_'.$listCaisseSortie[$key]['id'].'" placeholder="" value="'.$listCaisseSortie[$key]['banque'].'"></td>
-                <td><input class="form-control" type="number" name="CcaissenBordereau_'.$listCaisseSortie[$key]['id'].'" id="CcaissenBordereau_'.$listCaisseSortie[$key]['id'].'" placeholder="" value="'.$listCaisseSortie[$key]['nBordereau'].'"></td>
-                <td><input class="form-control" type="text" name="CcaisseDescription_'.$listCaisseSortie[$key]['id'].'" id="CcaisseDescription_'.$listCaisseSortie[$key]['id'].'" placeholder="" value="'.$listCaisseSortie[$key]['description'].'"></td>
-                <td><input class="form-control" type="text" name="caisseMontantRetireDollars_'.$listCaisseSortie[$key]['id'].'" id="caisseMontantRetireDollars_'.$listCaisseSortie[$key]['id'].'" placeholder="" value="'.$listCaisseSortie[$key]['montantRetireDollars'].'"></td>
-                <td><input class="form-control" type="text" name="caisseMontantRetireFC_'.$listCaisseSortie[$key]['id'].'" id="caisseMontantRetireFC_'.$listCaisseSortie[$key]['id'].'" placeholder="" value="'.$listCaisseSortie[$key]['montantRetireFC'].'"></td>
-                <td><input class="form-control" type="text" name="caisseMontantRetireFRW_'.$listCaisseSortie[$key]['id'].'" id="caisseMontantRetireFRW_'.$listCaisseSortie[$key]['id'].'" placeholder="" value="'.$listCaisseSortie[$key]['montantRetireFRW'].'"></td>
-                <td><input class="form-control" type="text" name="caisseCreditePar_'.$listCaisseSortie[$key]['id'].'" id="caisseCreditePar_'.$listCaisseSortie[$key]['id'].'" placeholder="" value="'.$listCaisseSortie[$key]['creditePar'].'"></td>
-                <td><input class="form-control" type="text" name="CcaisseApprouverPar_'.$listCaisseSortie[$key]['id'].'" id="CcaisseApprouverPar_'.$listCaisseSortie[$key]['id'].'" placeholder="" value="'.$listCaisseSortie[$key]['approuverPar'].'"></td>
-                <td>
-                    <button class="btn btn-primary mt-1 text-white w-100" onclick="updateThis('.$listCaisseSortie[$key]['id'].','.$table.','.$formData.')" type="button">Modifier</button>
-                    <button class="btn btn-danger mt-1 text-white w-100" onclick="deleteThis('.$listCaisseSortie[$key]['id'].','.$table.')" type="button">Supprimer</button>
-                </td>
-            </tr>
-        </form>';
-        }
-
-        $listCaisseDataSortie = $listCaisseDataSortie.
-        '<tr class="bg-primary text-dark">
-            <td class="fw-bolder text-dark">TOTAL CREDIT Dollors</td>
-            <td></td>
-            <td class="fw-bolder text-dark">'.$format->formatCurrency($totalCreditDollars,'usd').'</td>
-            <td class="fw-bolder text-dark">TOTAL CREDIT FC</td>
-            <td></td>
-            <td class="fw-bolder text-dark">'.$format->formatCurrency($totalCreditFc,'fcf').'</td>
-            <td class="fw-bolder text-dark">TOTAL CREDIT FRW</td>
-            <td></td>
-            <td></td>
-            <td class="fw-bolder text-dark">'.$format->formatCurrency($totalCreditFrw,'frw').'</td>
+            <td class="fw-bolder text-dark small">TOTAL DEBIT Dollors: <br>'.$format->formatCurrency($totalDebitDollars,'usd').'</td>
+            <td class="fw-bolder text-dark small">TOTAL DEBIT Fc: <br>'.$format->formatCurrency($totalDebitFc,'fcf').'</td>
+            <td class="fw-bolder text-dark small">TOTAL DEBIT Frw: '.$format->formatCurrency($totalDebitFrw,'frw').'</td>
+            <td class="fw-bolder text-dark">TOTAL CREDIT Dollors: '.$format->formatCurrency($totalCreditDollars,'usd').'</td>
+            <td class="fw-bolder text-dark">TOTAL CREDIT Fc: '.$format->formatCurrency($totalCreditFc,'fcf').'</td>
+            <td class="fw-bolder text-dark">TOTAL CREDIT Frw: '.$format->formatCurrency($totalCreditFrw,'frw').'</td>
         </tr>
         </tbody>
         ';
 
+    // end here
+
+        // if ($conditionCaisse != '') {
+        //     $listCaisse = $DB->getWhereMultiple('caisse','operation = "Debiter" and '.$conditionCaisse);
+        // }else{
+        //     $listCaisse = $DB->getWhere('caisse','operation','Debiter','date');
+        // }
+        
+        // $listCaisseData = 
+        // '<thead>
+        //     <tr>
+        //         <th class="small">DATE</th>
+        //         <th class="small">BANQUE</th>
+        //         <th class="small">N° BORDEREAU</th>
+        //         <th class="small">DESCRIPTION</th>
+        //         <th class="small">DEPOT $</th>
+        //         <th class="small">DEPOT FC</th>
+        //         <th class="small">DEPOT FRW</th>
+        //         <th class="small">DEBITE PAR</th>
+        //         <th class="small">APPROUVE PAR</th>
+        //         <th class="small">PLUS</th>
+        //     </tr>
+        // </thead>
+        // <tbody>';
+        // $totalDebitDollars = 0;
+        // $totalDebitFc = 0;
+        // $totalDebitFrw = 0;
+        // $table = "String('caisse')";
+        // foreach ($listCaisse as $key => $value) {
+        //     $totalDebitDollars = $totalDebitDollars + $listCaisse[$key]['montantDeposeDollars'];
+        //     $totalDebitFc = $totalDebitFc + $listCaisse[$key]['montantDeposeFC'];
+        //     $totalDebitFrw = $totalDebitFrw + $listCaisse[$key]['montantDeposeFRW'];
+        //     $listCaisseData = $listCaisseData.'
+        //     <form action="" method="post" id="CaisseUpdateForm_'.$listCaisse[$key]['id'].'">
+        //     <tr>
+        //         <td><input class="form-control" type="date" name="DcaisseDate_'.$listCaisse[$key]['id'].'" id="DcaisseDate_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['date'].'" placeholder="yyyy-MM-dd"></td>
+        //         <td><input class="form-control" type="text" name="DcaisseBanque_'.$listCaisse[$key]['id'].'" id="DcaisseBanque_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['banque'].'"></td>
+        //         <td><input class="form-control" type="number" name="DcaissenBordereau_'.$listCaisse[$key]['id'].'" id="DcaissenBordereau_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['nBordereau'].'"></td>
+        //         <td><input class="form-control" type="text" name="DcaisseDescription_'.$listCaisse[$key]['id'].'" id="DcaisseDescription_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['description'].'"></td>
+        //         <td><input class="form-control" type="number" name="caisseMontantDeposeDollars_'.$listCaisse[$key]['id'].'" id="caisseMontantDeposeDollars_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['montantDeposeDollars'].'"></td>
+        //         <td><input class="form-control" type="number" name="caisseMontantDeposeFC_'.$listCaisse[$key]['id'].'" id="caisseMontantDeposeFC_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['montantDeposeFC'].'"></td>
+        //         <td><input class="form-control" type="text" name="caisseMontantDeposeFRW_'.$listCaisse[$key]['id'].'" id="caisseMontantDeposeFRW_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['montantDeposeFRW'].'"></td>
+        //         <td><input class="form-control" type="text" name="caisseDebitePar_'.$listCaisse[$key]['id'].'" id="caisseDebitePar_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['debitePar'].'"></td>
+        //         <td><input class="form-control" type="text" name="DcaisseApprouverPar_'.$listCaisse[$key]['id'].'" id="DcaisseApprouverPar_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['approuverPar'].'"></td>
+        //         <td>
+        //             <button class="btn btn-primary mt-1 text-white w-100" onclick="updateThis('.$listCaisse[$key]['id'].','.$table.','.$formData.')" type="button">Modifier</button>
+        //             <button class="btn btn-danger mt-1 text-white w-100" onclick="deleteThis('.$listCaisse[$key]['id'].','.$table.')" type="button">Supprimer</button>
+        //         </td>
+        //     </tr>
+        // </form>';
+        // }
+        // $listCaisseData = $listCaisseData.
+        // '<tr class="bg-primary text-dark">
+        //     <td class="fw-bolder text-dark small">TOTAL DEBIT Dollors</td>
+        //     <td></td>
+        //     <td class="fw-bolder text-dark">'.$format->formatCurrency($totalDebitDollars,'usd').'</td>
+        //     <td class="fw-bolder text-dark small">TOTAL DEBIT FC</td>
+        //     <td></td>
+        //     <td class="fw-bolder text-dark">'.$format->formatCurrency($totalDebitFc,'fcf').'</td>
+        //     <td class="fw-bolder text-dark small">TOTAL DEBIT FRW</td>
+        //     <td></td>
+        //     <td></td>
+        //     <td class="fw-bolder text-dark text-start">'.$format->formatCurrency($totalDebitFrw,'frw').'</td>
+        // </tr></tbody>
+        // ';
+
+        // if ($conditionCaisseCredit != '') {
+        //     $listCaisseSortie = $DB->getWhereMultiple('caisse','operation = "Crediter" and '.$conditionCaisseCredit);
+        // }else{
+        //     $listCaisseSortie = $DB->getWhere('caisse','operation','Crediter','date');
+        // }
+        $listCaisseDataSortie = "";
+        // $listCaisseDataSortie = 
+        // '<thead>
+        //     <tr>
+        //     <th class="small">DATE</th>
+        //     <th class="small">BANQUE</th>
+        //     <th class="small">N° BORDEREAU</th>
+        //     <th class="small">DESCRIPTION</th>
+        //     <th class="small">RETRAIT $</th>
+        //     <th class="small">RETRAIT FC</th>
+        //     <th class="small">RETRAIT FRW</th>
+        //     <th class="small">CREDITE PAR</th>
+        //     <th class="small">APPROUVE PAR</th>
+        //     <th class="small">PLUS</th>
+        //     </tr>
+        // </thead>
+        // <tbody>';
+        // $totalCreditDollars = 0;
+        // $totalCreditFc = 0;
+        // $totalCreditFrw = 0;
+        // $table = "String('caisse')";
+        // foreach ($listCaisseSortie as $key => $value) {
+        //     $totalCreditDollars = $totalCreditDollars + $listCaisseSortie[$key]['montantRetireDollars'];
+        //     $totalCreditFc = $totalCreditFc + $listCaisseSortie[$key]['montantRetireFC'];
+        //     $totalCreditFrw = $totalCreditFrw + $listCaisseSortie[$key]['montantRetireFRW'];
+        //     $listCaisseDataSortie = $listCaisseDataSortie.
+        //     '<form action="" method="post" id="CaisseUpdateForm_'.$listCaisseSortie[$key]['id'].'">
+        //     <tr>
+        //         <td><input class="form-control" type="date" name="CcaisseDate_'.$listCaisseSortie[$key]['id'].'" id="CcaisseDate_'.$listCaisseSortie[$key]['id'].'" placeholder="" value="'.$listCaisseSortie[$key]['date'].'" placeholder="yyyy-MM-dd"></td>
+        //         <td><input class="form-control" type="text" name="CcaisseBanque_'.$listCaisseSortie[$key]['id'].'" id="CcaisseBanque_'.$listCaisseSortie[$key]['id'].'" placeholder="" value="'.$listCaisseSortie[$key]['banque'].'"></td>
+        //         <td><input class="form-control" type="number" name="CcaissenBordereau_'.$listCaisseSortie[$key]['id'].'" id="CcaissenBordereau_'.$listCaisseSortie[$key]['id'].'" placeholder="" value="'.$listCaisseSortie[$key]['nBordereau'].'"></td>
+        //         <td><input class="form-control" type="text" name="CcaisseDescription_'.$listCaisseSortie[$key]['id'].'" id="CcaisseDescription_'.$listCaisseSortie[$key]['id'].'" placeholder="" value="'.$listCaisseSortie[$key]['description'].'"></td>
+        //         <td><input class="form-control" type="text" name="caisseMontantRetireDollars_'.$listCaisseSortie[$key]['id'].'" id="caisseMontantRetireDollars_'.$listCaisseSortie[$key]['id'].'" placeholder="" value="'.$listCaisseSortie[$key]['montantRetireDollars'].'"></td>
+        //         <td><input class="form-control" type="text" name="caisseMontantRetireFC_'.$listCaisseSortie[$key]['id'].'" id="caisseMontantRetireFC_'.$listCaisseSortie[$key]['id'].'" placeholder="" value="'.$listCaisseSortie[$key]['montantRetireFC'].'"></td>
+        //         <td><input class="form-control" type="text" name="caisseMontantRetireFRW_'.$listCaisseSortie[$key]['id'].'" id="caisseMontantRetireFRW_'.$listCaisseSortie[$key]['id'].'" placeholder="" value="'.$listCaisseSortie[$key]['montantRetireFRW'].'"></td>
+        //         <td><input class="form-control" type="text" name="caisseCreditePar_'.$listCaisseSortie[$key]['id'].'" id="caisseCreditePar_'.$listCaisseSortie[$key]['id'].'" placeholder="" value="'.$listCaisseSortie[$key]['creditePar'].'"></td>
+        //         <td><input class="form-control" type="text" name="CcaisseApprouverPar_'.$listCaisseSortie[$key]['id'].'" id="CcaisseApprouverPar_'.$listCaisseSortie[$key]['id'].'" placeholder="" value="'.$listCaisseSortie[$key]['approuverPar'].'"></td>
+        //         <td>
+        //             <button class="btn btn-primary mt-1 text-white w-100" onclick="updateThis('.$listCaisseSortie[$key]['id'].','.$table.','.$formData.')" type="button">Modifier</button>
+        //             <button class="btn btn-danger mt-1 text-white w-100" onclick="deleteThis('.$listCaisseSortie[$key]['id'].','.$table.')" type="button">Supprimer</button>
+        //         </td>
+        //     </tr>
+        // </form>';
+        // }
+
+        // $listCaisseDataSortie = $listCaisseDataSortie.
+        // '<tr class="bg-primary text-dark">
+        //     <td class="fw-bolder text-dark">TOTAL CREDIT Dollors</td>
+        //     <td></td>
+        //     <td class="fw-bolder text-dark">'.$format->formatCurrency($totalCreditDollars,'usd').'</td>
+        //     <td class="fw-bolder text-dark">TOTAL CREDIT FC</td>
+        //     <td></td>
+        //     <td class="fw-bolder text-dark">'.$format->formatCurrency($totalCreditFc,'fcf').'</td>
+        //     <td class="fw-bolder text-dark">TOTAL CREDIT FRW</td>
+        //     <td></td>
+        //     <td></td>
+        //     <td class="fw-bolder text-dark">'.$format->formatCurrency($totalCreditFrw,'frw').'</td>
+        // </tr>
+        // </tbody>
+        // ';
+
         $dollars = $totalDebitDollars - $totalCreditDollars;
         $fc = $totalDebitFc - $totalCreditFc;
         $frw = $totalDebitFrw - $totalCreditFrw;
-
 
         $listBanqueData = $DB->get('comptebanque','date');
 
@@ -594,21 +721,22 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
         <tbody>';
         $table = "String('comptebanque')";
         foreach ($listBanqueData as $key => $value) {
-        $listBanque =  $listBanque.'<form action="" method="post" id="">
-            <tr>
-                <td><input class="form-control" type="date" name="" id="" placeholder="" value="'.$listBanqueData[$key]['date'].'" placeholder="yyyy-MM-dd"></td>
-                <td>
-                <input class="form-control" type="text" name="" id="" placeholder="" value="'.$listBanqueData[$key]['banque'].'">
-                <input class="form-control mt-1" type="text" name="" id="" placeholder="" value="'.$listBanqueData[$key]['n_compte'].'">
-                </td>
-                <td><textarea class="form-control" name="" id="" >'.$listBanqueData[$key]['description'].'</textarea></td>
-                <td>
-                    <button class="btn btn-primary mt-1 text-white w-100" type="submit">Modifier</button>
-                    <button class="btn btn-danger mt-1 text-white w-100" onclick="deleteThis('.$listBanqueData[$key]['id'].','.$table.')" type="button">Supprimer</button>
-                </td>
-            </tr>
-        </form>
-        </tbody>';
+            $listBanque =  $listBanque.'
+                <form action="" method="post" id="">
+                    <tr>
+                        <td><input class="form-control" type="date" name="" id="" placeholder="" value="'.$listBanqueData[$key]['date'].'" placeholder="yyyy-MM-dd"></td>
+                        <td>
+                        <input class="form-control" type="text" name="" id="" placeholder="" value="'.$listBanqueData[$key]['banque'].'">
+                        <input class="form-control mt-1" type="text" name="" id="" placeholder="" value="'.$listBanqueData[$key]['n_compte'].'">
+                        </td>
+                        <td><textarea class="form-control" name="" id="" >'.$listBanqueData[$key]['description'].'</textarea></td>
+                        <td>
+                            <button class="btn btn-primary mt-1 text-white w-100" type="submit"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-danger mt-1 text-white w-100" onclick="deleteThis('.$listBanqueData[$key]['id'].','.$table.')" type="button"><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </form>
+            </tbody>';
         }
 
     }else{
@@ -708,7 +836,7 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
                     <input class="form-control" type="tel" name="couleurVehicule_'.$listVehicule[$key]['id'].'" id="couleurVehicule_'.$listVehicule[$key]['id'].'" value="'.$listVehicule[$key]['couleurVehicule'].'">
                 </td>
                 <td>
-                    <select class="form-control" name="genre" id="genre" readonly>
+                    <select class="form-control" name="conducteur_'.$listVehicule[$key]['id'].'" id="conducteur_'.$listVehicule[$key]['id'].'">
                         <option value="'.$conducteurID.'">'.$conducteurNames.'</option>'.$conducteurList.'
                     </select>
                 </td>
@@ -1183,10 +1311,10 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
         }
 
         if ($conditionReceptionList != '') {
-            $stockageData = $DB->getWhereMultipleMore(' *, s.id as sID, s.quantite as sQte FROM stockage s INNER JOIN attribution a ON a.id = s.attribution_id INNER JOIN biens b ON a.biens_id = b.id ',$conditionReceptionList,' ORDER BY s.date DESC ');
+            $stockageData = $DB->getWhereMultipleMore(' *, s.id as sID, s.quantite as sQte, s.date as sDate FROM stockage s INNER JOIN attribution a ON a.id = s.attribution_id INNER JOIN biens b ON a.biens_id = b.id ',$conditionReceptionList,' ORDER BY s.date DESC ');
         }else{
             $condition = ' s.date Like "%'.date('Y-m').'%" ';
-            $stockageData = $DB->getWhereMultipleMore(' *, s.id as sID, s.quantite as sQte FROM stockage s INNER JOIN attribution a ON s.attribution_id = a.id ',$condition,' ORDER BY s.date DESC ');
+            $stockageData = $DB->getWhereMultipleMore(' *, s.id as sID, s.quantite as sQte, s.date as sDate FROM stockage s INNER JOIN attribution a ON s.attribution_id = a.id ',$condition,' ORDER BY s.date DESC ');
         }
 
         if (count( $stockageData) == 0) {
@@ -1232,7 +1360,7 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
                 $Bien = $DB->getWhereMultiple('biens',' id = '.$stockageDataList['biens_id'].'');
                 $receptionPrincipalList = $receptionPrincipalList.
                     '<tr>
-                        <td>'.$stockageDataList["date"].'</td>
+                        <td>'.$stockageDataList["sDate"].'</td>
                         <td>'.$Bien[0]["designation"].'</td>
                         <td>'.$stockageDataList["sQte"].'</td>
                         <td>'.$stockageDataList["prix"].'</td>
@@ -1376,7 +1504,126 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
     }else{
         $selectedDataCourse = '';
         $selectedDataDetails = '';
-    }  
+    }
+    
+    if (htmlspecialchars($_GET['page']) == 'distributionGlobalBiens') {
+        $distributionGlobalBiens = '';;
+        $n = 1;
+        $listData = '';
+        $bdbiens = new BdBiens();
+        $biens = $bdbiens->getBiensAllDescActive();
+        $pv = 0;
+        $sv = 0;
+        $pvM = 0;
+        $pvT = 0;
+        $credit = 0;
+        $cb_service = htmlspecialchars($_POST['cb_service']);
+        if ($cb_service == '0') {
+            $condition_ = " ";
+        }else{
+            $condition_ = " affectation.mutation_id = ".$cb_service." AND";
+        }
+        foreach ($biens as $bien) {
+            $select = " *, biens.id as bid, affectation.price as aPrix, affectation.nombre as aN FROM affectation INNER JOIN distrubution ON distrubution.id = affectation.distribution_id INNER JOIN demande ON demande.id = distrubution.demande_id INNER JOIN biens ON demande.biens_id = biens.id ";
+            $condition = $condition_." biens.id = ".$bien['bId']." AND affectation.date >= '".$_POST["start_date"]."' AND affectation.date <= '".$_POST["end_date"]."' ";
+            $affectations =  $DB->getWhereMultipleMore($select,$condition,' ORDER BY affectation.date DESC ');
+            if (count($affectations) > 0) {
+                foreach ($affectations as $affectation) {
+                    $pv = $pv + ($affectation['aPrix'] * $affectation['aN']);
+                    $sv = $sv + $affectation['aN'];
+                    if ($affectation['typePaiement'] == 'CREDIT') {
+                        $credit = $credit +  ($affectation['aPrix'] * $affectation['aN']);
+                    }
+                }
+
+                $pvM = $pv/$sv;
+
+                $pvT = $pvT + $pv;
+
+                $listData = $listData.'<tr>
+                    <td>'.$n.'</td>
+                    <td>'.$bien['bId'].' / '.$bien['bDesignation'] .' /'. $bien['gDesignation'].'</td>
+                    <td>'.$sv.'</td>
+                    <td>'.$pvM.'</td>
+                    <td>'.$pv.'</td>
+                </tr>';
+                $distributionGlobalBiens = $listData;
+                $n++;
+            }
+            $pv = 0;
+            $sv = 0;
+        }
+        $distributionGlobalBiens = $distributionGlobalBiens .
+        '<tr class="bolder">
+            <td></td>
+            <td></td>
+            <td>Vente : '.$pvT.' $</td>
+            <td>Credit: '.$credit.' $</td>
+            <td>Cash : '.$pvT-$credit.' $</td>
+        </tr>';
+    }else{
+        $distributionGlobalBiens = '';
+    }
+
+    if (htmlspecialchars($_GET['page']) == 'payement_fournisseurData') {
+        $listData = '';
+        $montantTotal = 0;
+        $table = "String('payement_fournisseur')";
+        $select = " * FROM payement_fournisseur ";
+        $condition = "attribution_id = ".htmlspecialchars($_GET['modal'])."";
+        $payement_fournisseurData = '<thead>
+            <tr>
+                <th class="small">DATE</th>
+                <th class="small">Transporteur</th>
+                <th class="small">Receveur</th>
+                <th class="small">Montant</th>
+                <th class="small">Preuve</th>
+                <th class="small">Plus</th>
+            </tr>
+            </thead><tbody>';
+        $payement_fournisseur =  $DB->getWhereMultipleMore($select,$condition,' ORDER BY date DESC ');
+        $attribution_row =  $DB->getWhereMultipleMore(' * FROM attribution',' id = '.htmlspecialchars($_GET['modal']).'',' ORDER BY date DESC ');
+        if (count($attribution_row) > 0) {
+            $paT = $attribution_row[0]['quantite_minimale'] * $attribution_row[0]['prixunitaire'];
+        }else{
+            $paT = 0;
+        }
+        
+        if (count($payement_fournisseur) > 0) {
+            foreach ($payement_fournisseur as $payement_fournisseurs) {
+                if ($payement_fournisseurs['recu'] != '') {
+                    $enable_download = 'download';
+                    $recu = $_SERVER['SERVER_NAME'].'../'.$payement_fournisseurs['recu'];
+                }else{
+                    $enable_download = 'onclick="alert("Aucun fichier disponible.")"';
+                    $recu = "#"; 
+                }
+                    $montantTotal = $montantTotal + $payement_fournisseurs['montant'];
+                    $listData = $listData.'<tr>
+                    <td>'.$payement_fournisseurs['date'].'</td>
+                    <td>'.$payement_fournisseurs['transporteur'].'</td>
+                    <td>'.$payement_fournisseurs['receveur'].'</td>
+                    <td>'.$payement_fournisseurs['montant'].'</td>
+                    <td><a href="'.$recu.'" class="btn btn-info" '.$enable_download.'><i class="fa fa-download"></i></button></a></td>
+                    <td><button type="button" class="btn btn-danger" onclick="deleteThis('.$payement_fournisseurs['id'].','.$table.')" ><i class="fa fa-trash"></i></button></td>
+                </tr>';
+            }
+            $payement_fournisseurData = $payement_fournisseurData.'<br>'.$listData.'
+            <tr class="bg-info">
+                <td>MONTANT: </td>
+                <td>'.$paT.' $</td>
+                <td>DEPOT: </td>
+                <td class="text-bolder">'.$montantTotal.' $</td>
+                <td>RESTE:  </td>
+                <td>'.$paT - $montantTotal.' $</td>
+            </tr>
+            </tbody>';
+        }
+    }else{
+        $payement_fournisseurData = '';
+    }
+    
+    
 
     echo json_encode(
         array(
@@ -1407,13 +1654,17 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
                 'listReceptionPlace'=>$listReceptionData,
                 'receptionPrincipalList'=>$receptionPrincipalList,
                 'ListReceptionDataAutrePlace'=>$ListReceptionDataAutrePlace
-            )
+            ),
+            'distributionGlobalBiens'=> $distributionGlobalBiens,
+            'payement_fournisseurData' => $payement_fournisseurData
         )
     );
 }
 
 $DB = new DB();
 
+
+// This is a part of the backend of the app that is no longer used
 if(isset($_GET['Local'])){
     if(isset($_POST['validate_n_facture_btn'])){
         $validate_n_facture_btn = htmlspecialchars($_POST['selected_date']);
@@ -1769,16 +2020,18 @@ if(isset($_GET['Local'])){
             htmlspecialchars($_POST['emballageUpdate_']),
             htmlspecialchars($_POST['prixUpdate_']),
             htmlspecialchars($_POST['id'])
-        );  
+        );
 
-        $update = update(htmlspecialchars($_POST['table']) ,' article = ?,quantite = ?, emballage = ?,prix = ? ', ' id = ? ', $value);
+        $field = ' article = ?,quantite = ?, emballage = ?,prix = ? ';
+
+        $update = update(htmlspecialchars($_POST['table']) ,$field, ' id = ? ', $value);
 
         if ($update == true ) {
             echo json_encode(array('msg'=>'L\'opération a été effectuer avec success','status'=>'success'));
         }else{
             echo json_encode(array('msg'=>'Echecs d\'opération ...','status'=>'fail'));
         } 
-     }
+    }
 }
 
 function ListApprovision(){
@@ -2045,6 +2298,7 @@ function OptionDepot (){
     }
     return $option;
 }
+
 function OptionArticle (){
     $DB = new DB();
     $option = '<option value="">SELECTIONNER PRODUIT</option>';
@@ -2054,6 +2308,7 @@ function OptionArticle (){
     }
     return $option;
 }
+// Up to here
 
 /* --------------------------------------------------- CHECKING CONDITION FROM FORM TO INSERT, DELETE AND UPDATE DATA IN THE DATABASE -----------------------------------------------------*/
 
@@ -2074,25 +2329,43 @@ function OptionArticle (){
 
             $update = update(htmlspecialchars($_POST['to']) ,'status = ?', 'id = ?', [''.$val.'',''.htmlspecialchars($_POST['id']).'']);
         }else if(isset($_POST['table'])){
-            if($_POST['table'] == 'coursetransport'){
-                $data = array(
-                   htmlspecialchars($_POST['courseTransportDate_']),
-                   htmlspecialchars($_POST['courseTransportDestination_']),
-                   htmlspecialchars($_POST['courseTransportContenu_']),
-                   htmlspecialchars($_POST['courseTransportTonne_']),
-                   htmlspecialchars($_POST['prixCourse_']),
-                   htmlspecialchars($_POST['courseTransportDescription_']),
-                   htmlspecialchars($_POST['id'])
-                );
 
-                $prepared = ' date = ?, destination = ?, contenu = ?, tonne = ?, prixCourse = ?, description = ?';
-
-                $condition = ' id = ?';
-
-                $update = update(htmlspecialchars($_POST['table']) ,$prepared, $condition, $data);
-            }else{
-                $update = true; 
+            switch ($_POST['table']) {
+                case 'vehicule':
+                    $data = array(
+                        htmlspecialchars($_POST['Vdate_']),
+                        htmlspecialchars($_POST['Vplaque_']),
+                        htmlspecialchars($_POST['typeVehicule_']),
+                        htmlspecialchars($_POST['marqueVehicule_']),
+                        htmlspecialchars($_POST['couleurVehicule_']),
+                        htmlspecialchars($_POST['conducteur_']),
+                        htmlspecialchars($_POST['id'])
+                    );
+                    $prepared = ' date = ?, plaqueVehicule = ?, typeVehicule = ?, marqueVehicule = ?,couleurVehicule = ?, conducteurID = ? ';
+                    $condition = ' id = ? ';
+                    break;
+                case 'coursetransport':
+                    $data = array(
+                        htmlspecialchars($_POST['courseTransportDate_']),
+                        htmlspecialchars($_POST['courseTransportDestination_']),
+                        htmlspecialchars($_POST['courseTransportContenu_']),
+                        htmlspecialchars($_POST['courseTransportTonne_']),
+                        htmlspecialchars($_POST['prixCourse_']),
+                        htmlspecialchars($_POST['courseTransportDescription_']),
+                        htmlspecialchars($_POST['id'])
+                     );
+     
+                    $prepared = ' date = ?, destination = ?, contenu = ?, tonne = ?, prixCourse = ?, description = ?';
+                    $condition = ' id = ?';
+                    break;
+                default:
+                    $data = array();
+                    $prepared = '';
+                    $condition = '';
+                    break;
             }
+
+            $update = update(htmlspecialchars($_POST['table']) ,$prepared, $condition, $data);
             
         }
         
@@ -2179,6 +2452,35 @@ function OptionArticle (){
             echo json_encode(array('msg'=>'Le compte a été ajouté','status'=>'success','page'=>'add_banque'));
         }else{
             echo json_encode(array('msg'=>'Echecs d\'opération ...','status'=>'fail','page'=>'add_banque'));
+        }   
+    }
+
+    if (isset($_POST['save_deposit_data'])) {
+        $table = 'payement_fournisseur';
+        $field = '(attribution_id,transporteur,receveur,montant,recu,date,addedbyID)';
+        $prepared = '?,?,?,?,?,?,?';
+
+        if (!empty($_FILES['recu']['size'])) {
+            $file_new_location = '../../media/recu/';
+            $file_name = $_FILES['recu']['name'];
+            $recu = (move_uploaded_file($_FILES['recu']['tmp_name'],$file_new_location.''. $file_name) == true ) ? $file_new_location.''. $file_name: '';
+        }else{
+            $recu = '';
+        }
+        
+        $value = array(
+            securise($_POST['attribution_id']),
+            securise($_POST['transporteur']),
+            securise($_POST['reveveur']),
+            securise($_POST['montant']),
+            $recu,
+            securise($_POST['date_is']),
+            $_SESSION['idutilisateur']
+        );
+        if (add($table,$field,$prepared,$value) == true) {
+            echo json_encode(array('msg'=>'Le depot a été ajouté','status'=>'success','page'=>'save_deposit_data'));
+        }else{
+            echo json_encode(array('msg'=>'Echecs d\'opération ...','status'=>'fail','page'=>'save_deposit_data'));
         }   
     }
 

@@ -60,46 +60,44 @@ $DB = new DB();
             <br>
             <fieldset>
                 <legend>Sales list</legend>
-                <table id="listdatabyid"  class="display nowraptable table table-bordered table-responsive-lg table-striped">
+                <table class="table table-bordered table-responsive-lg table-striped">
                     <thead>
-                        <tr>
-                            <th>
-                                Numero Vente
-                            </th>
-                            <th>
-                                N°
-                            </th>
-                            <th>
-                                Date
-                            </th>
-                            <th>
-                                Ident. Client
-                            </th>
-                            <th>
-                                Produit
-                            </th>
-                            <th>
-                                Quantité
-                            </th>
-                            <th>
-                                Prix (USD)
-                            </th>
-                            <th>
-                                PA (USD)
-                            </th>
-                            <th>
-                                Valeur HT (USD)
-                            </th>
-                            <th>
-                                Valeur TVA  (USD)
-                            </th>
-                            <th>
-                                Valeur TTC (USD)
-                            </th>
-                            <th>
-                                Paiement
-                            </th>
-                        </tr>
+                        <th>
+                            Numero Vente
+                        </th>
+                        <th>
+                            N°
+                        </th>
+                        <th>
+                            Date
+                        </th>
+                        <th>
+                            Ident. Client
+                        </th>
+                        <th>
+                            Produit
+                        </th>
+                        <th>
+                            Quantité
+                        </th>
+                        <th>
+                            Prix (USD)
+                        </th>
+                        <th>
+                            PA (USD)
+                        </th>
+                        <th>
+                            Valeur HT (USD)
+                        </th>
+                        <th>
+                           Valeur TVA  (USD)
+                        </th>
+                        <th>
+                            Valeur TTC (USD)
+                        </th>
+                        <th>
+                            Paiement
+                        </th>
                     </thead>
                     <tbody>
                         <?php
@@ -150,20 +148,21 @@ $DB = new DB();
                                 if ((isset($_GET['use_typerepas'])) && (($typerepas == $_GET['use_typerepas']) || (($_GET['use_date1'] != "") && ($_GET['use_date2'] != "")))) {
                                     
                             ?>
-                            <tr style="background-color: dodgerblue; color: white; font-weight: bold;">
-                                <td><?= $typerepas ?></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                                    <tr style="background-color: dodgerblue; color: white; font-weight: bold;">
+                                        <td>
+                                            <?= $typerepas ?>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
                             <?php
                                     $pat = 0;
                                     $pvt = 0;
@@ -225,7 +224,7 @@ $DB = new DB();
                                             }
 
                                             if (isset($_GET['autres_place']) and $_GET['autres_place'] != '00') {
-                                                $autrePrix = $db->getWhereMultipleMore(' *, af.id as afID, r.id as rID FROM attribution a Inner Join stockage s ON a.id = s.attribution_id INNER JOIN receptionautreprix r ON s.id = r.stockage_id Inner join demande d ON d.biens_id = r.bien_id inner join distrubution ds ON ds.demande_id = d.id inner join affectation af ON af.distribution_id = ds.id ',' af.id = "'.$distribution['id'].'" and r.id = "'.$_GET['autres_place'].'"');
+                                                $autrePrix = $db->getWhereMultipleMore(' *, af.id as afID, r.id as rID FROM attribution a Inner Join stockage s ON a.id = s.attribution_id INNER JOIN receptionautreprix r ON s.id = r.stockage_id Inner join demande d ON d.biens_id = r.bien_id inner join distrubution ds ON ds.demande_id = d.id inner join affectation af ON af.distribution_id = ds.id ',' af.id = '.$distribution['id'].' and r.id = '.$_GET['autres_place'].'');
                                                 if (count($autrePrix) != 0) {
                                                     $pa = $autrePrix[0]['prix_reception'];
                                                 }
@@ -291,26 +290,19 @@ $DB = new DB();
                                         <td>
                                             <?= "Value HT : " . $cumul_value_typerepas . " USD" ?>
                                         </td>
-                                        <td>Value TVA :</td>
                                         <td>
-                                            <?= " " . $cumul_tva . " USD" ?>
+                                            <?= "Value TVA : " . $cumul_tva . " USD" ?>
                                         </td>
-                                        <td>Value TTC :</td>
                                         <td>
-                                            <?= " " . $cumul_value_ttc . " USD" ?>
+                                            <?= "Value TTC : " . $cumul_value_ttc . " USD" ?>
                                         </td>
-                                        <td>Value TTC CASH :</td>
                                         <td>
-                                            <?= " " . $cumul_value_ttc_cash . " USD" ?>
+                                            <?= "Value TTC CASH : " . $cumul_value_ttc_cash . " USD" ?>
                                         </td>
-                                        <td>Value TTC CREDIT :</td>
                                         <td>
-                                            <?= " " . $cumul_value_ttc_credit . " USD" ?>
+                                            <?= "Value TTC CREDIT : " . $cumul_value_ttc_credit . " USD" ?>
                                         </td>
-                                        <td> PAT :</td>
-                                        <td>
-                                            <?=" ".$pat. " USD"?>
-                                        </td>
+                                        <td><?=" PAT : ".$pat. " USD"?></td>
                                         <td>
                                             <?=" Marge : ".($pvt-$pat). " USD"?>
                                         </td>
@@ -322,42 +314,24 @@ $DB = new DB();
                         ?>
                     </tbody>
                     <tfoot>
-                        <tr>
-                            <th>
-                                <span>Nombre:</span><span><?= $n ?></span>
-                            </th>
-                            <th style="font-weight: bold; color: forestgreen;">
-                                <span> Grand Total value HT : </span>
-                            </th>
-                            <th style="font-weight: bold; color: dodgerblue;">
-                                <span><?= $cumul_value_total ?> USD</span>
-                            </th>
-                            <th style="font-weight: bold; color: forestgreen;">
-                                <span> Grand Total TVA : </span>
-                            </th>
-                            <th style="font-weight: bold; color: forestgreen;">
-                               <span><?= $cumul_tva_total ?> USD</span>
-                            </th>
-                            <th style="font-weight: bold; color: forestgreen;">
-                                <span> Grand Total value TTC : </span>
-                            </th>
-                            <th style="font-weight: bold; color: forestgreen;">
-                                <span><?= $cumul_value_ttc_total ?> USD</span>
-                            </th>
-                            <th style="font-weight: bold; color: forestgreen;">
-                                <span> Grand Total value TTC CASH : </span>
-                            </th>
-                            <th style="font-weight: bold; color: forestgreen;">
-                                <span><?= $cumul_value_ttc_total_cash ?> USD</span>
-                            </th>
-                            <th style="font-weight: bold; color: forestgreen;">
-                                <span> Grand Total value TTC CREDIT : </span>
-                            </th>
-                            <th style="font-weight: bold; color: forestgreen;">
-                                <span><?= $cumul_value_ttc_total_credit ?> USD</span>
-                            </th>
-                            <th style="font-weight: bold; color: forestgreen;"></th>
-                        </tr>
+                        <td style="">
+                            <span>Nombre:</span><span><?= $n ?></span>
+                        </td>
+                        <td style="font-weight: bold; color: dodgerblue;">
+                            <span> Grand Total value HT : </span><span><?= $cumul_value_total ?> USD</span>
+                        </td>
+                        <td style="font-weight: bold;">
+                            <span> Grand Total TVA : </span><span><?= $cumul_tva_total ?> USD</span>
+                        </td>
+                        <td style="font-weight: bold; color: forestgreen;">
+                            <span> Grand Total value TTC : </span><span><?= $cumul_value_ttc_total ?> USD</span>
+                        </td>
+                        <td style="font-weight: bold; color: forestgreen;">
+                            <span> Grand Total value TTC CASH : </span><span><?= $cumul_value_ttc_total_cash ?> USD</span>
+                        </td>
+                        <td style="font-weight: bold; color: forestgreen;">
+                            <span> Grand Total value TTC CREDIT : </span><span><?= $cumul_value_ttc_total_credit ?> USD</span>
+                        </td>
                     </tfoot>
                 </table>
             </fieldset>

@@ -23,7 +23,7 @@ include '../models/crud/db.php';
                 <form class="form-inline" method="POST" action="../contollers/reception/receptionController.php">
                     <div class="row form-group-lg">
                         <div class="col-6">
-                            <input type="date" class="form-control" name="tb_date">
+                            <input type="date" class="form-control" name="tb_date" value="<?=(isset($_GET['date'])) ? $_GET['date']: date('Y-m-d')?>">
                         </div>
                         <div class="col-6">
                             <button type="submit" class="btn btn-success mt-1" name="bt_search_by_dates_inventory_old">
@@ -45,10 +45,10 @@ include '../models/crud/db.php';
             </fieldset>
             <fieldset >
                 <?php
-                if (isset($_GET['date'])) {
-                    ?>
-                    <a style="font-size: 20px;" href='../views/service/reception/pdf_reception_inventory.php?date=<?= $_GET['date'] ?>' class="btn btn-primary pull-left">Print in PDF</a>
-                    <?php
+                    if (isset($_GET['date']) and !empty($_GET['date'])) {
+                ?>
+                    <a style="font-size: 20px;" href='../views/service/reception/pdf_reception_inventory.php?date=<?= $_GET['date'] ?>&time=old' target="_blank" class="btn btn-primary pull-left">Print in PDF</a>
+                <?php
                 }
                 ?>
 
@@ -56,32 +56,36 @@ include '../models/crud/db.php';
             <br>
             <fieldset>
                 <legend>Receipts</legend>
-                <table class="table table-bordered table-responsive-lg table-hover table-striped">
+                <table id="listdatabyid" class="table table-bordered table-responsive-lg table-hover table-striped">
                     <thead>
-                    <th>
-                        #
-                    </th>
-                    <th>
-                        Id
-                    </th>
-                    <th>
-                        Item
-                    </th>
-                    <th>
-                        Category
-                    </th>
-                    <th>
-                        Actual quantity
-                    </th>
-                    <th>
-                        UP (USD)
-                    </th>
-                    <th>
-                        Actual value (USD)
-                    </th>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                Item
+                            </th>
+                            <th>
+                                Category
+                            </th>
+                            <th>
+                                Actual quantity
+                            </th>
+                            <th>
+                                UP (USD)
+                            </th>
+                            <th>
+                                Actual value (USD)
+                            </th>
+                        </tr>
                     </thead>
                     <tbody>
-                        <?php
+                    <?php
+                    
+                    if (isset($_GET['date']) and !empty($_GET['date'])) {
                         $bienVendu = 0;
                         $n = 0;
                         $cumul_value = 0;
@@ -94,10 +98,10 @@ include '../models/crud/db.php';
                             $cumul_quantite_actuelle = 0;
                             $bienVendu = 0;
                             $trouve = FALSE;
-                            $livraisons = $bdlivraison->getLivraisonWithQuantiteByIdBiens($bien['bId']);
+                            $livraisons = $bdlivraison->getLivraisonWithQuantiteByIdBiensWhere($bien['bId'], " AND l.date < '".$_GET['date']."' ");
+                            
                             foreach ($livraisons as $livraison) {
                                 $livraison_etat = $livraison['lEtat'];
-                                //if ((isset($_GET['date'])) && (($livraison_etat == 0) && ($_GET['date']>=$livraison['lDate']))) {
                                 if ((isset($_GET['date'])) && (($livraison_etat == 0))) {
                                     if ($livraison['sId']==$_SESSION['idservice']) {
                                         $trouve = TRUE;
@@ -107,35 +111,24 @@ include '../models/crud/db.php';
 
                             if ($trouve) {
                                 $n++;
-                            ?>
-                                <tr>
-                                    <td><?= $n ?></td>
-                                    <td><?= $bien['bId'] ?></td>
-                                    <td><?= $bien['bDesignation'] ?></td>
-                                    <td><?= $bien['gDesignation'] ?></td>
-                                    <?php
-                                    $livraisons = $bdlivraison->getLivraisonWithQuantiteByIdBiens($bien['bId']);
-                                    foreach ($livraisons as $livraison) {
-                                        $livraison_etat = $livraison['lEtat'];
-                                        if ($livraison_etat == 0) {
-                                            if ($livraison['sId'] == $_SESSION['idservice']) {
-                                                if($livraison['lDate'] <= $_GET['date'] ) {
-                                                    $cumul_quantite_actuelle = $cumul_quantite_actuelle + $livraison['quantite_actuelle'];
-                                                }
-                                            }
-                                        }
 
-                                        $vente  = $db->getWhere('affectation','distribution_id',$livraison['lId']);
+                                    $livraisons = $bdlivraison->getLivraisonWithQuantiteByIdBiensWhere($bien['bId'], " AND l.date < '".$_GET['date']."' AND m.id = '".$_SESSION['idaffectation']."' ");
+                                    
+                                    foreach ($livraisons as $livraison) {
+                                        $cumul_quantite_actuelle = $cumul_quantite_actuelle + $livraison['quantite_actuelle'];
+                                        $vente  = $db->getWhereMultipleMore(" * FROM affectation "," distribution_id = '".$livraison['lId']."' AND date >= '".$_GET['date']."' AND date <= '".date('Y-m-d')."' ");
                                         if (count($vente) > 0) {
                                             foreach ($vente as $venteBien) {
-                                                if($venteBien['date'] >= $_GET['date']){ 
-                                                    $bienVendu = $bienVendu + $venteBien['nombre_restant'];
-                                                }
+                                                $bienVendu = $bienVendu + $venteBien['nombre'];
                                             }
                                         }
                                     }
 
                                     $cumul_quantite_actuelle = $cumul_quantite_actuelle + $bienVendu;
+                                    $bg="";
+                                    if ($cumul_quantite_actuelle > 0) {
+                                       $bg="bg-info text-white";
+                                    }
 
                                     $somme_prix_biens = 0;
                                     $s = 0;
@@ -145,13 +138,22 @@ include '../models/crud/db.php';
                                         $s++;
                                         $somme_prix_biens = $somme_prix_biens + $ravitaillement['prix'];
                                     }
+
+                                    $average_price = 0;
                                     
-                                    if ($s>0) {
+                                    if ($s > 0) {
                                         $average_price = ($somme_prix_biens / $s);
                                     }
                                     
-                                    ?>
-                                    <td style="color:dodgerblue; font-weight:bold;"><?= $cumul_quantite_actuelle ?></td>
+                                if($cumul_quantite_actuelle >  0){
+                        ?>
+                                <tr>
+                                    <td><?= $n ?></td>
+                                    <td><?= $bien['bId'] ?></td>
+                                    <td><?= $bien['bDesignation'] ?></td>
+                                    <td><?= $bien['gDesignation'] ?></td>
+                                    
+                                    <td class="<?=$bg?>" style="color:dodgerblue; font-weight:bold;"><?= $cumul_quantite_actuelle ?></td>
                                     <td><?= round($average_price,3) ?></td>
                                     <td>
                                         <?php
@@ -162,16 +164,25 @@ include '../models/crud/db.php';
                                 </tr>
                             <?php
                                 }
+                            }
                         }
-                        ?>
+                    }
+                    ?>
                     </tbody>
                     <tfoot>
-                    <td style="font-size: 20px;">
-                        <span>Nombre:</span><span><?= $n ?></span>
-                    </td>
-                    <td style="color: dodgerblue; font-weight: bold;">
-                        <?= "Total value : " . round($cumul_value,3) . " USD" ?>
-                    </td>
+                        <?php if (isset($_GET['date']) and !empty($_GET['date'])) { ?>
+                            <th style="font-size: 20px;">
+                                <span>Nombre:</span><span><?= $n ?></span>
+                            </th>
+                            <th style="color: dodgerblue; font-weight: bold;">
+                                <?= "Total value : " . round($cumul_value,3) . " USD" ?>
+                            </th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        <?php } ?>
                     </tfoot>
                 </table>
             </fieldset>

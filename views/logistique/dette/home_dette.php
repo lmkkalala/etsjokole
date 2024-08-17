@@ -42,11 +42,11 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-10 text-start mt-3 mb-3">
-            <h3 class="text-primary">DETTES</h3>
+            <h3 class="text-secondary">DETTES</h3>
         </div>
         
         <div class="col-md-2 col-sm-12 mt-3 mb-3 text-end">
-            <button class="btn btn-primary w-100 text-white" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">AJOUTER DETTE</button>
+            <button class="btn btn-secondary w-100 text-white" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">AJOUTER DETTE</button>
         </div>
         <div class="col-12 mt-3">
           <form action="" method="post" id="FilterForm">
@@ -94,7 +94,7 @@
                     </div>
                     <div class="col-md-2">
                     <input type="hidden" name="FilterFormDette" id="FilterFormDette">
-                      <button class="btn btn-primary w-100 text-white" type="submit"><i class="fa fa-search"></i> Rechercher</button>
+                      <button class="btn btn-secondary w-100 text-white" type="submit"><i class="fa fa-search"></i> Rechercher</button>
                     </div>
                 </div>
           </form>
@@ -119,7 +119,7 @@
 </div>
 
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="staticBackdropLabel">DETTE</h1>
@@ -201,14 +201,14 @@
           <div class="row">
             <div class="col-12 mt-2">
               <input type="hidden" name="operation_new_dette_page" id="operation_new_dette_page">
-              <button type="submit" class="btn btn-primary">ENREGISTRER</button>
+              <button type="submit" class="btn btn-secondary">ENREGISTRER</button>
             </div>
           </div>
         </form>
       </div>
-      <div class="modal-footer">
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">FERMER</button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

@@ -68,8 +68,8 @@ include '../models/unite/unite.php';
                         $distributions = $bddistribution->getDistributionAllDesc();
                         foreach ($distributions as $distribution) {
                             $affiche_bon=false;
-//                            $bdmutation=new BdAffectationService();
-//                            $affectations=$bdaffectation->getAffectationServiceByService($idservice);
+                            //$bdmutation=new BdAffectationService();
+                            //$affectations=$bdaffectation->getAffectationServiceByService($idservice);
                             $bdlivraison = new BdLivraison();
                             $livraisons = $bdlivraison->getLivraisonById($distribution['distribution_id']);
                             foreach ($livraisons as $livraison) {
@@ -89,53 +89,53 @@ include '../models/unite/unite.php';
                             }
                             if ((isset($infolivraison)) && ($distribution['nombre_restant'] == 0) && ($affiche_bon)) {
                                 $n++;
-                                ?>
-                                <tr>
-                                    <td><?= $distribution['id'] ?></td>
-                                    <td><?= $distribution['date'] ?></td>
-                                    <td><?= $infolivraison ?></td>
-                                    <td>
-                                        <?php
-                                        $paniers = explode("/", $distribution['panier']);
-                                        $code = "";
-                                        $bdunite = new BdUnite();
-                                        $unites = $bdunite->getUniteAllDesc();
-                                        foreach ($unites as $unite) {
-                                            foreach ($paniers as $pan) {
-                                                if (($pan != "") && ($pan == $unite['id']) && (1)) {
-                                                    $code = $code . " / " . $unite['code'];
-                                                }
-                                            }
-                                        }
-                                        echo $code;
-                                        ?>
-                                    </td>
-                                    <td>
-                                        <?php
-                                        $bdaffectation = new BdAffectationService();
-                                        $affectations = $bdaffectation->getAffectationServiceByIdSecond($distribution['mutation_id']);
-                                        foreach ($affectations as $affectation) {
-                                            echo $affectation['nom'] . " " . $affectation['postnom'] . " " . $affectation['prenom'];
-                                        }
-                                        ?>
-                                    </td>
-                                    <td><?= $distribution['nombre'] ?></td>
-                                    <td><?= $distribution['nombre_restant'] ?></td>
-                                    <td>
-                                        <?php
-                                        if ($distribution['nombre_restant'] != 0) {
-                                            ?>
-                                            <h4 style="color: forestgreen;">Encours</h4>
-                                            <?php
-                                        } else {
-                                            ?>
-                                            <h4 style="color: red;">récuperée</h4>
-                                            <?php
-                                        }
-                                        ?>
-                                    </td>
-                                </tr>
+                        ?>
+                        <tr>
+                            <td><?= $distribution['id'] ?></td>
+                            <td><?= $distribution['date'] ?></td>
+                            <td><?= $infolivraison ?></td>
+                            <td>
                                 <?php
+                                $paniers = explode("/", $distribution['panier']);
+                                $code = "";
+                                $bdunite = new BdUnite();
+                                $unites = $bdunite->getUniteAllDesc();
+                                foreach ($unites as $unite) {
+                                    foreach ($paniers as $pan) {
+                                        if (($pan != "") && ($pan == $unite['id']) && (1)) {
+                                            $code = $code . " / " . $unite['code'];
+                                        }
+                                    }
+                                }
+                                echo $code;
+                                ?>
+                            </td>
+                            <td>
+                                <?php
+                                $bdaffectation = new BdAffectationService();
+                                $affectations = $bdaffectation->getAffectationServiceByIdSecond($distribution['mutation_id']);
+                                foreach ($affectations as $affectation) {
+                                    echo $affectation['nom'] . " " . $affectation['postnom'] . " " . $affectation['prenom'];
+                                }
+                                ?>
+                            </td>
+                            <td><?= $distribution['nombre'] ?></td>
+                            <td><?= $distribution['nombre_restant'] ?></td>
+                            <td>
+                                <?php
+                                if ($distribution['nombre_restant'] != 0) {
+                                ?>
+                                    <h4 style="color: forestgreen;">Encours</h4>
+                                <?php
+                                } else {
+                                ?>
+                                    <h4 style="color: red;">récuperée</h4>
+                                <?php
+                                }
+                                ?>
+                            </td>
+                        </tr>
+                        <?php
                             }
                         }
                         ?>

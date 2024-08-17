@@ -6,97 +6,100 @@
  */
 include './meta/menu_logistique.php';
 ?>
-<div class="row" style="padding: 10px;">
-    <div class="col-md-12" style="background-color: whitesmoke;border-radius: 5px; height: 90vh;">
-        <div class="container-fluid">
-            <div class="row">
 <style>
-#menu-gauche {
-    border-right-style: solid;
-    border-right-color: black;
-}
-#menu-gauche ul li {
-    padding: 8px;
-}
+    #menu-gauche {
+        border-right-style: solid;
+        border-right-color: black;
+    }
+    #menu-gauche ul li {
+        padding: 8px;
+    }
 
-#menu-gauche ul li a {
-    text-decoration: none;
-}
+    #menu-gauche ul li a {
+        text-decoration: none;
+    }
 
-#menu-gauche ul li span {
-    margin-right: 5px;
-}            
-#entete1-logo a {
-    text-decoration: none;
-    color: white;
-    display: inline-block;
-}
-body {
-    margin: 0;
-}
-#entete1-button {
-    padding: 15px;
-    padding-left: 5px;
-}
+    #menu-gauche ul li span {
+        margin-right: 5px;
+    }            
+    #entete1-logo a {
+        text-decoration: none;
+        color: white;
+        display: inline-block;
+    }
+    body {
+        margin: 0;
+    }
+    #entete1-button {
+        padding: 15px;
+        padding-left: 5px;
+    }
 </style>
-<?php if (isset($_GET['msg'])) {  ?>
+<!-- <div class="row" style="padding: 10px;">
+    <div class="col-md-12" style="background-color: whitesmoke;border-radius: 5px; height: 90vh;"> -->
+        <!-- <div class="container-fluid">
+            <div class="row"> -->
 
-<div class="alert alert-success">
-    <span class="glyphicon glyphicon-ok" style="font-size: 15px;margin-right: 5px;"></span><span><?=$_GET['msg']?></span>
-</div>
+                <?php if (isset($_GET['msg'])) {  ?>
+                    <div class="alert alert-success">
+                        <span class="glyphicon glyphicon-ok" style="font-size: 15px;margin-right: 5px;"></span><span><?=$_GET['msg']?></span>
+                    </div>
+                <?php } ?>
 
-<?php } ?>
+                <h2 class="text-secondary fw-bolder"> ENTREE</h2>
 
-                <div class="col-md-12" style="height: 80vh;overflow: auto;">
-                    <h2 class="text-secondary fw-bolder"> ENTREE</h2> 
+                <!-- <div class="col-md-12" style="height: 80vh;overflow: auto;"> -->
+                     
                     <div class="row">
-                        <div class="col-md-2 mt-1">
+                        <div class="col-md-3 mt-1">
                             <a class="btn btn-secondary text-white w-100" style="font-size: 20px; padding: 30px; " href="/views/home.php?link_up=<?= sha1("home_logistique_fournisseur") ?>">
                                 <span style="font-size: 40px;" class="fa fa-user-circle-o"></span><br> Fournisseur
                             </a>
                         </div>
-                        <div class="col-md-2 mt-1">
+                        <div class="col-md-3 mt-1">
                             <a class="btn btn-secondary  w-100" style="font-size: 20px; padding: 30px;" href="/views/home.php?link_up=<?= sha1("home_logistique_attribution_biens") ?>">
                                 <span style="font-size: 40px;" class="fa fa-list-alt"></span><br> Commande
                             </a>
                         </div>
-                        <div class="col-md-2 mt-1">
+                        <div class="col-md-3 mt-1">
                             <a class="btn btn-secondary w-100" style="font-size: 20px; padding: 30px;" href="/views/home.php?link_up=<?= sha1("home_logistique_ravitaillement") ?>">
                                 <span style="font-size: 40px;" class="fa fa-download"></span><br> Réception
                             </a>
                         </div>
 
-                        <div class="col-md-2">
-                            <div class="bg-secondary m-2 p-4 border-4 rounded">
-                                <!-- <div class="d-flex justify-content-center mt-1">
-                                    <span style="font-size: 40px;" class="fa fa-list-alt text-white"></span>
-                                </div> -->
-                                <a class="btn btn-secondary w-100" style="font-size: 15px;" href="#" data-bs-toggle="modal" data-bs-target="#add_prix_reception_place"><span style="font-size: 20px;" class="fa fa-list-alt text-white"></span> Reçu Prix</a>
-                                <a class="btn btn-secondary w-100 mt-1" style="font-size: 15px;" href="#" data-bs-toggle="modal" data-bs-target="#list_prix_reception_place"><span style="font-size: 20px;" class="fa fa-list-alt text-white"></span> Autre Prix </a>
-                            </div>
-                        </div>
-
-                        <div class="col-md-2">
-                            <div class="bg-secondary m-2 p-3 border-1 rounded">
-                                <!-- <div class="d-flex justify-content-center mt-1">
-                                    <span style="font-size: 40px;" class="fa fa-list-alt text-white"></span>
-                                </div> -->
-                                <a class="btn btn-secondary w-100" style="font-size: 15px;" href="#" data-bs-toggle="modal" data-bs-target="#add_reception_place"><span style="font-size: 20px;" class="fa fa-list-alt text-white"></span> Ajout Lieu</a>
-                                <a class="btn btn-secondary w-100 mt-1" style="font-size: 15px;" href="#" data-bs-toggle="modal" data-bs-target="#list_reception_place"><span style="font-size: 20px;" class="fa fa-list-alt text-white"></span> List Lieu</a>
-                            </div>
-                        </div>
-
-                        <div class="col-md-2 mt-1">
+                        <div class="col-md-3 mt-1">
                             <a class="btn btn-secondary w-100" style="font-size: 20px; padding: 30px;" href="/views/home.php?link_up=<?= sha1("home_logistique_addsin") ?>">
                                 <span style="font-size: 40px;" class="fa fa-list"></span><br> Autres Coûts.
                             </a>
                         </div>
+
+                        <div class="col-md-3">
+                            <div class="bg-secondary m-2 p-4 border-4 rounded">
+                                <!-- <div class="d-flex justify-content-center mt-1">
+                                    <span style="font-size: 40px;" class="fa fa-list-alt text-white"></span>
+                                </div> -->
+                                <span style="font-size: 20px;" class="fa fa-list-alt text-white"></span><a class="btn btn-secondary" style="font-size: 15px;" href="#" data-bs-toggle="modal" data-bs-target="#add_prix_reception_place"> Reçu Prix</a>
+                                <span style="font-size: 20px;" class="fa fa-list-alt text-white"></span><a class="btn btn-secondary" style="font-size: 15px;" href="#" data-bs-toggle="modal" data-bs-target="#list_prix_reception_place"> Autre Prix </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="bg-secondary m-2 p-4 border-4 rounded">
+                                <!-- <div class="d-flex justify-content-center mt-1">
+                                    <span style="font-size: 40px;" class="fa fa-list-alt text-white"></span>
+                                </div> -->
+                                <span style="font-size: 20px;" class="fa fa-list-alt text-white"></span> <a class="btn btn-secondary" style="font-size: 15px;" href="#" data-bs-toggle="modal" data-bs-target="#add_reception_place"> Ajout Lieu</a>
+                                <span style="font-size: 20px;" class="fa fa-list-alt text-white"></span> <a class="btn btn-secondary" style="font-size: 15px;" href="#" data-bs-toggle="modal" data-bs-target="#list_reception_place"> List Lieu</a>
+                            </div>
+                        </div>
+
+                        
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                <!-- </div> -->
+            <!-- </div>
+        </div> -->
+    <!-- </div>
+</div> -->
 
 <div class="modal fade" id="add_reception_place" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">

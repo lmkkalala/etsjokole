@@ -8,6 +8,9 @@
 session_start();
 
 if (!isset($_SESSION['identite'])) {
+    if (!isset($reponse)) {
+        $reponse = '';
+    }
     header('Location:../index.php?reponse='.sha1($reponse));
     die;
 }
@@ -15,6 +18,13 @@ if (!isset($_SESSION['identite'])) {
 if (isset($_GET['mutationID'])) {
     header('Location:../contollers/transition/transition.php?mutationID='.$_GET['mutationID']);
     die();
+}
+
+$Maintenance = false;
+
+if ($Maintenance) {
+    die("Système en maintenance ... ");
+    return;
 }
 
 ?>
@@ -27,7 +37,7 @@ if (isset($_GET['mutationID'])) {
             Ets JOKOLE DIEU EST GRAND
         </title>
     </head>
-    <body style="margin: 0">
+    <body style="margin: 0;">
         <div class="container-fluid">
             <?php
 

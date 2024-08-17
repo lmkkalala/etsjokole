@@ -135,19 +135,20 @@ if (isset($_POST['bt_encours_self'])) {
 
 if (isset($_POST['bt_search_by_dates'])) {
 //    echo "dedans";die;
-    $date=$_POST['tb_date'];
+    $date= htmlspecialchars($_POST['tb_date']);
     header('Location:../../views/home.php?link=' . sha1("service_reception_liste_reception_all") . '&reponse=' . sha1($reponse). '&date=' . ($date) .'&link_up=' . sha1("home_service_reception"));
 }
 
 if (isset($_POST['bt_search_by_dates_inventory'])) {
 //    echo "dedans";die;
-    $date=$_POST['tb_date'];
-    header('Location:../../views/home.php?link=' . sha1("service_reception_inventory") . '&reponse=' . sha1($reponse). '&date=' . ($date) .'&link_up=' . sha1("home_service_reception"));
+    $date= htmlspecialchars($_POST['tb_date']);
+    $autres_place = htmlspecialchars($_POST['autres_place']);
+    header('Location:../../views/home.php?link=' . sha1("service_reception_inventory") . '&reponse=' . sha1($reponse). '&date=' . ($date). '&autres_place=' . ($autres_place) .'&link_up=' . sha1("home_service_reception"));
 }
 
 if (isset($_POST['bt_search_by_dates_inventory_old'])) {
     //    echo "dedans";die;
-        $date=$_POST['tb_date'];
+        $date= htmlspecialchars($_POST['tb_date']);
         header('Location:../../views/home.php?link=' . sha1("old_inventaire") . '&reponse=' . sha1($reponse). '&date=' . ($date) .'&link_up=' . sha1("home_service_reception"));
     }
 

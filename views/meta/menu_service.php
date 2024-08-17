@@ -32,6 +32,7 @@ include 'meta/menu_general.php';
                 <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="/views/home.php?link_up=<?= sha1('home_logistique_depense'); ?>"><span class="fa fa-dollar" ></span> DEPENSES</a></li>
                 <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="/views/home.php?link_up=<?= sha1('home_logistique_dette'); ?>"><span class="fa fa-dollar" ></span> DETTES</a></li>
                 <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="/views/home.php?link_up=<?= sha1('home_facture'); ?>"><span class="fa fa-pencil-square" ></span> Mes Factures</a></li>
+                <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="/views/home.php?link=<?= sha1("logistique_recuperation_liste_recuperation_all")?>&link_up=<?= sha1("home_logistique_recuperation")?>"><span class="fa fa-undo"></span>Récuperation</a></li>
                 <?php
             } elseif ($_SESSION['type'] == 'membre') {
             ?>

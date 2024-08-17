@@ -76,9 +76,11 @@ class BdPreparation {
         $reponse->closeCursor();
     }
 
-    function getPreparationAllDesc() {
+    function getPreparationAllDesc($condition = '',$orderIndice = '',$dataToSelect = '') {
         $bd = Connexion::connecter();
-        $reponse = $bd->query('SELECT * FROM preparation ORDER BY id DESC');
+        $orderIndice = ($orderIndice == '') ? 'id' : $orderIndice;
+        $dataToSelect = ($dataToSelect == '') ? '*' : $dataToSelect;
+        $reponse = $bd->query('SELECT '.$dataToSelect.' FROM preparation '.$condition.' ORDER BY '.$orderIndice.' DESC');
         return $reponse->fetchAll();
         $reponse->closeCursor();
     }

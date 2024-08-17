@@ -118,6 +118,13 @@ class BdDistribution {
         $reponse->closeCursor();
     }
 
+    function getDistributionBeetwen2DatesAllsell($date1, $date2, $distribution_id,$mutation_id) {
+        $bd = Connexion::connecter();
+        $reponse = $bd->query("SELECT * FROM affectation WHERE date>='{$date1}' AND date<='{$date2}' AND distribution_id='{$distribution_id}' AND mutation_id='{$mutation_id}' ORDER BY id DESC");
+        return $reponse->fetchAll();
+        $reponse->closeCursor();
+    }
+
     function getDistributionByTypeRepas($typerepas) {
         $bd = Connexion::connecter();
         $reponse = $bd->query("SELECT * FROM affectation WHERE typerepas='{$typerepas}' ORDER BY id DESC");

@@ -9,6 +9,9 @@ include '../models/livraison/livraison.php';
 include '../models/unite/unite.php';
 include '../models/biens/biens.php';
 include '../models/ravitaillement/ravitaillement.php';
+include '../models/crud/db.php';
+$DB = new DB();
+$pa = 0;
 ?>
 <div class="panel">
     <div class="panel panel-heading">
@@ -23,10 +26,23 @@ include '../models/ravitaillement/ravitaillement.php';
                 <legend>Recherche par date :</legend>
                 <form class="form-inline" method="POST" action="../contollers/reception/receptionController.php">
                     <div class="row form-group-lg">
-                        <div class="col-6">
-                            <input type="date" class="form-control" name="tb_date">
+                        <div class="col-4">
+                            <input type="date" class="form-control" name="tb_date" value="<?=(isset($_GET['date'])) ? $_GET['date']: date('Y-m-d') ?>">
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
+                            <select class="form-control" name="autres_place">
+                                <option value="00">Selectionner ICI</option>
+                                <option value="00" selected>Kamanyola</option>
+                                <?php
+                                    $LieuDataList = $DB->get('lieureception');
+                                    if (count($LieuDataList) != 0) {
+                                        foreach ($LieuDataList as $key => $value) {
+                                ?>
+                                <option value="<?=$value['id']?>"><?=$value['lieu']?></option>
+                                <?php } } ?>
+                            </select>
+                        </div>
+                        <div class="col-4">
                             <button type="submit" class="btn btn-success mt-1" name="bt_search_by_dates_inventory">
                                 <span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;"></span> Rechercher
                             </button>
@@ -48,7 +64,7 @@ include '../models/ravitaillement/ravitaillement.php';
                 <?php
                 if (isset($_GET['date'])) {
                     ?>
-                    <a style="font-size: 20px;" href='../views/service/reception/pdf_reception_inventory.php?date=<?= $_GET['date'] ?>' class="btn btn-primary pull-left">Print in PDF</a>
+                    <a style="font-size: 20px;" href='../views/service/reception/pdf_reception_inventory.php?date=<?= $_GET['date'] ?>' target="_blank" class="btn btn-primary pull-left">Print in PDF</a>
                     <?php
                 }
                 ?>
@@ -57,34 +73,40 @@ include '../models/ravitaillement/ravitaillement.php';
             <br>
             <fieldset>
                 <legend>Receipts</legend>
-                <table class="table table-bordered table-responsive-lg table-hover table-striped">
+                <table id="listdatabyid" class="table table-bordered table-responsive-lg table-hover table-striped">
                     <thead>
-                    <th>
-                        #
-                    </th>
-                    <th>
-                        Id
-                    </th>
-                    <th>
-                        Item
-                    </th>
-                    <th>
-                        Category
-                    </th>
-                    <th>
-                        Actual quantity
-                    </th>
-                    <th>
-                        UP (USD)
-                    </th>
-                    <th>
-                        Actual value (USD)
-                    </th>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                Item
+                            </th>
+                            <th>
+                                Category
+                            </th>
+                            <th>
+                                Actual quantity
+                            </th>
+                            <th>
+                                UP (USD)
+                            </th>
+                            <th>
+                                Actual value (USD)
+                            </th>
+                            <th>
+                                PV
+                            </th>
+                        </tr>
                     </thead>
                     <tbody>
-                        <?php
+                    <?php
                         $n = 0;
                         $cumul_value = 0;
+                        $average_price = 0;
                         $bdlivraison = new BdLivraison();
                         $bdbiens = new BdBiens();
                         $biens = $bdbiens->getBiensAll();
@@ -105,7 +127,7 @@ include '../models/ravitaillement/ravitaillement.php';
 
                             if ($trouve) {
                                 $n++;
-                                ?>
+                            ?>
                                 <tr>
                                     <td><?= $n ?></td>
                                     <td><?= $bien['bId'] ?></td>
@@ -131,32 +153,61 @@ include '../models/ravitaillement/ravitaillement.php';
                                         $somme_prix_biens = $somme_prix_biens + $ravitaillement['prix'];
                                     }
                                     
-                                    if ($s>0) {
-                                        $average_price = ($somme_prix_biens / $s);
+
+                                    if (isset($_GET['autres_place']) and $_GET['autres_place'] != '00') {
+                                        $autrePrix = $DB->getWhereMultipleMore(' * FROM receptionautreprix',' bien_id = '.$bien['bId'].'',' Limit 10');
+                                        $countRow = count($autrePrix);
+                                        if ($countRow > 0) {
+                                            foreach ($autrePrix as $key => $value) {
+                                                $pa = $pa + $autrePrix[$key]['prix_reception'];
+                                            }
+                                            $average_price = ($pa / $countRow);
+                                        }else{
+                                            if ($s>0) {
+                                                $average_price = ($somme_prix_biens / $s);
+                                            } 
+                                        }
+                                    }else{
+                                        if ($s>0) {
+                                            $average_price = ($somme_prix_biens / $s);
+                                        }
                                     }
-                                    
+
                                     ?>
                                     <td style="color:dodgerblue; font-weight:bold;"><?= $cumul_quantite_actuelle ?></td>
                                     <td><?= round($average_price,3) ?></td>
                                     <td>
-                                        <?php
+                                    <?php
                                         echo round(($cumul_quantite_actuelle * $average_price),3);
                                         $cumul_value = $cumul_value + ($cumul_quantite_actuelle * $average_price);
-                                        ?>
+                                    ?>
                                     </td>
+                                    <td><?= $bien['bPv'] ?></td>
                                 </tr>
-                                <?php
-                            }
+                            <?php
+                                $average_price = 0;
+                                $pa = 0;   
+                            } 
                         }
                         ?>
                     </tbody>
                     <tfoot>
-                    <td style="font-size: 20px;">
-                        <span>Nombre:</span><span><?= $n ?></span>
-                    </td>
-                    <td style="color: dodgerblue; font-weight: bold;">
-                        <?= "Total value : " . round($cumul_value,3) . " USD" ?>
-                    </td>
+                        <tr>
+                            <th style="font-size: 20px;">
+                                <span>Nombre:</span><span><?= $n ?></span>
+                            </th>
+                            <th style="color: dodgerblue; font-weight: bold;">
+                                Total value :
+                            </th>
+                            <th style="color: dodgerblue; font-weight: bold;">
+                                <?= " " . round($cumul_value,3) . " USD" ?>
+                            </th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
                     </tfoot>
                 </table>
             </fieldset>

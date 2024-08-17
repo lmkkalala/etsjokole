@@ -14,11 +14,11 @@ include './meta/menu_admin.php';
             <div class="row">
                 <div id="menu-gauche" class="col-lg-3">
                     <ul class="list-menu list-unstyled" style="font-size: 20px;">
-                        <li class="list-inline-item"><span style="color: red;font-size: 20px;" class="glyphicon glyphicon-asterisk"></span><a href="/views/home.php?link=<?= sha1("admin_agent_add")?>&link_up=<?= sha1("home_admin_agent")?>">New</a></li>
-                        <li class="list-inline-item"><span style="color: forestgreen;font-size: 20px;" class="glyphicon glyphicon-adjust"></span><a href="/views/home.php?link=<?= sha1("admin_agent_update_agent_all")?>&link_up=<?= sha1("home_admin_agent")?>">Update</a></li>
-                        <li class="list-inline-item"><span style="color: darkslategrey;font-size: 20px;" class="glyphicon glyphicon-check"></span><a href="/views/home.php?link=<?= sha1("admin_agent_active_agent_all")?>&link_up=<?= sha1("home_admin_agent")?>">Activation</a></li>
-                        <li class="list-inline-item"><span style="color: orange;font-size: 20px;" class="glyphicon glyphicon-list"></span><a href="/views/home.php?link=<?= sha1("admin_agent_liste_agent_all")?>&link_up=<?= sha1("home_admin_agent")?>">All agent</a></li>
-                        <li class="list-inline-item"><span style="color: blueviolet;font-size: 20px;" class="glyphicon glyphicon-copy"></span><a href="/views/home.php?link=<?= sha1("admin_agent_fiche_agent_all")?>&link_up=<?= sha1("home_admin_agent")?>">View </a></li>
+                        <li class="list-inline-item"><span style="color: red;font-size: 20px;" class="glyphicon glyphicon-asterisk"></span><a href="/views/home.php?link=<?= sha1("admin_agent_add")?>&link_up=<?= sha1("home_admin_agent")?>">New Agent</a></li><br>
+                        <li class="list-inline-item"><span style="color: forestgreen;font-size: 20px;" class="glyphicon glyphicon-adjust"></span><a href="/views/home.php?link=<?= sha1("admin_agent_update_agent_all")?>&link_up=<?= sha1("home_admin_agent")?>">Update</a></li><br>
+                        <li class="list-inline-item"><span style="color: darkslategrey;font-size: 20px;" class="glyphicon glyphicon-check"></span><a href="/views/home.php?link=<?= sha1("admin_agent_active_agent_all")?>&link_up=<?= sha1("home_admin_agent")?>">Activation</a></li><br>
+                        <li class="list-inline-item"><span style="color: orange;font-size: 20px;" class="glyphicon glyphicon-list"></span><a href="/views/home.php?link=<?= sha1("admin_agent_liste_agent_all")?>&link_up=<?= sha1("home_admin_agent")?>">All agent</a></li><br>
+                        <li class="list-inline-item"><span style="color: blueviolet;font-size: 20px;" class="glyphicon glyphicon-copy"></span><a href="/views/home.php?link=<?= sha1("admin_agent_fiche_agent_all")?>&link_up=<?= sha1("home_admin_agent")?>">View </a></li><br>
                         <li class="list-inline-item"><span style="color: tomato;font-size: 20px;" class="glyphicon glyphicon-edit"></span><a href="/views/home.php?link=<?= sha1("admin_affectation_service_fiche_affectation_service_all")?>&link_up=<?= sha1("home_admin_affectation_service")?>">Agent per affectation</a></li>
                     </ul>
                 </div>

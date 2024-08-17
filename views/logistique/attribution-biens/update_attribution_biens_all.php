@@ -99,7 +99,11 @@ $dateEnd = '';
                         <form class="form-horizontal" method="POST" action="../contollers/attribution-biens/attributionBiensController.php">
                             <div class="form-group-lg">
                                 <tr>
-                                    <td><?= $attribution['aId'] ?></td>
+                                    <td>
+                                        <?='Numero : '. $attribution['aId'] .'<br>'?>
+
+                                        <?='Num Vente : '. $attribution['numeroOrder'] ?>
+                                    </td>
                                     <td>
                                         <b>
                                             <?php

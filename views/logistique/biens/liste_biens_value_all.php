@@ -23,57 +23,49 @@ include '../models/unite/unite.php';
                 <legend>Rechercher :</legend>
                 <form class="form-inline" method="POST" action="../contollers/biens/biensController.php">
                     <div class="row form-group-lg">
-                        <div class="col-6">
-                        <select class="form-control select2" name="cb_biens">
-                            <option value="0">Choose item</option>
-                            <?php
-                            $bdbiens = new BdBiens();
-                            $biens = $bdbiens->getBiensAllDesc();
-                            foreach ($biens as $bien) {
-                                if (1) {
+                        <div class="col-md-4 mt-1">
+                            <select class="form-control select2" name="cb_biens">
+                                <option value="0">Choose item</option>
+                                <?php
+                                $bdbiens = new BdBiens();
+                                $biens = $bdbiens->getBiensAllDesc();
+                                foreach ($biens as $bien) {
                                     if (1) {
-                            ?>
-                                        <option value="<?= $bien['bId'] ?>"><?= $bien['bDesignation'] . " / Marque : " . $bien['marque'] . " / " . $bien['gDesignation'] . " / Codebarre: " . $bien['codebarre'] ?></option>
-                            <?php
+                                        if (1) {
+                                ?>
+                                            <option value="<?= $bien['bId'] ?>"><?= $bien['bDesignation'] . " / Marque : " . $bien['marque'] . " / " . $bien['gDesignation'] . " / Codebarre: " . $bien['codebarre'] ?></option>
+                                <?php
+                                        }
                                     }
                                 }
-                            }
-                            ?>
-                        </select>
+                                ?>
+                            </select>
                         </div>
-                        <div class="col-6">
-                        <button type="submit" class="btn btn-success" name="bt_search_for_all_for_value"><span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-success w-100 mt-1" name="bt_search_for_all_for_value"><span class="glyphicon glyphicon-search btn" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
+                        </div>
+                        <div class="col-md-4">
+                            <a style="font-size: 20px;" href='../views/logistique/biens/pdf_list_biens_value_all.php' target="_blank" class="btn btn-secondary w-100 mt-1">Print in PDF</a>
+                   
+                            <!-- <a style="font-size: 20px;" href='../views/logistique/biens/excel_list_biens_value_all.php' class="btn btn-success pull-right">Export to Excel</a> -->
                         </div>
                     </div>
                 </form>
             </fieldset>
-            <fieldset>
-                <?php
-                if ((1)) {
-                ?>
-                    <a style="font-size: 20px;" href='../views/logistique/biens/pdf_list_biens_value_all.php' class="btn btn-primary pull-left">Print in PDF</a>
-                    <?php
-                    ?>
-                    <a style="font-size: 20px;" href='../views/logistique/biens/excel_list_biens_value_all.php' class="btn btn-success pull-right">Export to Excel</a>
-                <?php
-                } else {
-                }
-                ?>
-
-            </fieldset>
             <br>
             <fieldset>
                 <legend>Items</legend>
-                <table class="table table-bordered table-responsive-lg table-striped">
+                <table id="listdatabyid" class="table table-bordered table-responsive-lg table-striped">
                     <thead>
+                        <tr>
                         <th>
-                            #
+                            N°
                         </th>
                         <th>
                             Category
                         </th>
                         <th>
-                            Name
+                            Name / State
                         </th>
                         <th>
                             Perissable
@@ -94,9 +86,7 @@ include '../models/unite/unite.php';
                         <th>
                             Codebarre
                         </th>
-                        <th>
-                            State
-                        </th>
+                        </tr>
                     </thead>
                     <tbody>
                         <?php
@@ -114,9 +104,26 @@ include '../models/unite/unite.php';
                             if ($bien['quantite']) {
                         ?>
                                 <tr>
-                                    <td><?= $bien['bId'] ?></td>
-                                    <td><?= $bien['gDesignation'] ?></td>
-                                    <td><?= $bien['bDesignation'] ?></td>
+                                    <td><?=$n?></td>
+                                    <td>
+                                        <?= $bien['bId'] ?> <br>
+                                        <?= $bien['gDesignation'] ?>
+                                    </td>
+                                    <td>
+                                        <?= $bien['bDesignation'] ?> 
+                                        /
+                                        <?php
+                                        if ($bien['active'] == 1) {
+                                        ?>
+                                            <h4 style="color: forestgreen;">Actif</h4>
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <h4 style="color: red;">Inactif</h4>
+                                        <?php
+                                        }
+                                        ?>
+                                    </td>
                                     <td>
                                         <b>
                                             <?php
@@ -134,7 +141,8 @@ include '../models/unite/unite.php';
                                     $somme_prix_biens = 0;
                                     $s = 0;
                                     $bdravitaillement = new BdRavitaillement();
-                                    $ravitaillements = $bdravitaillement->getRavitaillementByIdBiens($bien['bId']);
+                                    $ravitaillements = $bdravitaillement->getRavitaillementByIdBiensMore($bien['bId'],'ORDER BY s.id DESC Limit 3');
+                                    
                                     foreach ($ravitaillements as $ravitaillement) {
                                         $s++;
                                         $somme_prix_biens = $somme_prix_biens + $ravitaillement['prix'];
@@ -156,34 +164,34 @@ include '../models/unite/unite.php';
                                     
                                     <td><?= $bien['stock_critique'] ?></td>
                                     <td><?= $bien['codebarre'] ?></td>
-                                    <td>
-                                        <?php
-                                        if ($bien['active'] == 1) {
-                                        ?>
-                                            <h4 style="color: forestgreen;">Actif</h4>
-                                        <?php
-                                        } else {
-                                        ?>
-                                            <h4 style="color: red;">Inactif</h4>
-                                        <?php
-                                        }
-                                        ?>
-                                    </td>
                                 </tr>
                         <?php
-                            }
                             $n++;
+                            }
+                            
                         }
                         ?>
                     </tbody>
                     <tfoot>
-                        <td style="font-weight: bold;">
-                            <span>Number : </span><span><?= $n ?></span>
-                        </td>
-                        <td></td>
-                        <td style="font-weight: bold;color: forestgreen;">
-                            <span>Total value : </span><span><?= $cumul_value_item ?> USD </span>
-                        </td>
+                        <tr>
+                            <th></th>
+                            <th style="font-weight: bold;">
+                                <span>Number : </span>
+                            </th>
+                            <th>
+                                <span><?= $n ?></span>
+                            </th>
+                            <th style="font-weight: bold;color: forestgreen;">
+                                <span>Total value : </span>
+                            </th>
+                            <th>
+                                <span><?= $cumul_value_item ?> </span>
+                            </th>
+                            <th>USD</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
                     </tfoot>
                 </table>
             </fieldset>

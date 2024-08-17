@@ -39,10 +39,35 @@ $compteBanque = $db->getWhere('comptebanque','status','1','date');
 </style>
 <div class="container-fluid">
   <div class="row">
-        <div class="col-md-2 text-start mt-3 mb-3">
-            <h5 class="text-secondary fw-bolder mt-4">JOURNAL CAISSE</h5>
+        <div class="row">
+          <div class="col-md-6">
+              <h3 class="text-secondary fw-bolder mt-4">JOURNAL CAISSE</h3>
+          </div>
+          <div class="col-md-2 mt-3">
+              <button class="btn btn-secondary text-white w-100" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa fa-book"></i> OPERATION</button>
+          </div>
+          <div class="col-md-2 mt-3">
+              <button class="btn btn-secondary text-white w-100" type="button"  data-bs-toggle="modal" data-bs-target="#banque_list_add"><i class="fa fa-book"></i> COMPTE</button>
+          </div>
+          <div class="col-md-2 mt-3">
+              <button class="btn btn-secondary text-white w-100" type="button"  data-bs-toggle="modal" data-bs-target="#banque_list"><i class="fa fa-book"></i> LISTE COMPTE</button>
+          </div>
         </div>
-        <div class="col-md-10 mt-3">
+        
+        <div class="row mt-1">
+          <div class="col-md-4 bg-secondary text-center border-end border-bottom">
+            <h5 class="fw-bolder text-white mt-3"><span id="dollars">0</span></h5>
+          </div>
+          <div class="col-md-4 bg-secondary text-center border-end border-bottom">
+              <h5 class="fw-bolder text-white mt-3"><span id="fc">0</span></h5>
+          </div>
+          <div class="col-md-4 bg-secondary text-center">
+              <h5 class="fw-bolder text-white mt-3"><span id="frw">0</span></h5>
+          </div>
+        </div>
+        
+        <div class="row">
+        <div class="col-md-12">
           <form action="" method="post" id="FilterForm">
             <div class="row">
                 <div class="col-md-2 mt-1">
@@ -73,53 +98,32 @@ $compteBanque = $db->getWhere('comptebanque','status','1','date');
                   <input type="hidden" name="FilterFormCaisse" id="FilterFormCaisse">
                   <button class="btn btn-secondary text-white w-100" type="submit"> <i class="fa fa-search"></i> Rechercher</button>
                 </div>
-                <div class="col-md-2 mt-1">
-                    <button class="btn btn-secondary text-white w-100" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa fa-book"></i> OPERATION</button>
-                </div>
-                <div class="col-md-2 mt-1">
-                    <button class="btn btn-secondary text-white w-100" type="button"  data-bs-toggle="modal" data-bs-target="#banque_list"><i class="fa fa-book"></i> COMPTE</button>
-                </div>
-                <div class="col-md-2 mt-1">
-                    <button class="btn btn-secondary text-white w-100" type="button"  data-bs-toggle="modal" data-bs-target="#banque_list_add"><i class="fa fa-book"></i> LISTE COMPTE</button>
-                </div>
+                
             </div>
           </form>
         </div>
-        
-        <div class="row mt-2 mb-2">
-          <div class="col-md-4 bg-secondary text-start border-end border-bottom">
-            <h5 class="fw-bolder text-white mt-3"><span id="dollars">0</span></h5>
-          </div>
-          <div class="col-md-4 bg-secondary text-start border-end border-bottom">
-              <h5 class="fw-bolder text-white mt-3"><span id="fc">0</span></h5>
-          </div>
-          <div class="col-md-4 bg-secondary text-start">
-              <h5 class="fw-bolder text-white mt-3"><span id="frw">0</span></h5>
-          </div>
         </div>
-        <h3>DEBIT CAISSE</h3>
-        <div class="col-md-12 table-responsive" style="height: 500px;overflow:scroll;">
+        <!-- <h3>DEBIT CAISSE</h3> -->
+        <h3>CAISSE</h3>
+        <!-- <div class="col-md-12 table-responsive" style="height: 500px;overflow:scroll;"> -->
+        <div class="col-md-12 table-responsive">
           <table id="caisse_list_entre" class="table display" style="width:100%">
               <thead>
                   <tr>
-                      <th class="small">DATE</th>
-                      <th class="small">BANQUE</th>
-                      <th class="small">N° BORDEREAU</th>
-                      <th class="small">DESCRIPTION</th>
-                      <th class="small">DEPOT $</th>
-                      <th class="small">DEPOT FC</th>
-                      <th class="small">DEPOT FRW</th>
-                      <th class="small">DEBITE PAR</th>
-                      <th class="small">APPROUVE PAR</th>
-                      <th class="small">PLUS</th>
+                    <th class="small">INFO DE BASE</th>
+                    <th class="small">DESCRIPTION </th>
+                    <th class="small">Operation DEPOT</th>
+                    <th class="small">Operation RETRAIT</th>
+                    <th class="small">APPROUVE PAR</th>
+                    <th class="small">PLUS</th>
                   </tr>
               </thead>
               <tbody></tbody>
               <!-- <tbody id="list_caisse_entre_page"></tbody> -->
           </table>
         </div>
-        <h3>CREDIT CAISSE</h3>
-        <div class="col-md-12 col-sm-12 mt-3">
+        <!--<h3>CREDIT CAISSE</h3>
+         <div class="col-md-12 col-sm-12 mt-3">
           <form action="" method="post" id="FilterFormOther">
             <div class="row">
                 <div class="col-md-2 mt-1">
@@ -152,15 +156,17 @@ $compteBanque = $db->getWhere('comptebanque','status','1','date');
                 </div>
             </div>
           </form>
-        </div>
-        <div class="col-12 mt-3 table-responsive" style="height: 500px;overflow:scroll;">
+        </div> -->
+        <!-- <div class="col-12 mt-3 table-responsive" style="height: 500px;overflow:scroll;">
             <table id="caisse_list_sortie" class="display table" style="width:100%">
               <thead>
                 <tr>
-                  <th class="small">DATE</th>
-                  <th class="small">BANQUE</th>
-                  <th class="small">N° BORDEREAU</th>
-                  <th class="small">DESCRIPTION</th>
+                  <th class="small">
+                    DATE,
+                    BANQUE,
+                    N°BORDEREAU,
+                    DESCRIPTION
+                  </th>
                   <th class="small">RETRAIT $</th>
                   <th class="small">RETRAIT FC</th>
                   <th class="small">RETRAIT FRW</th>
@@ -169,10 +175,10 @@ $compteBanque = $db->getWhere('comptebanque','status','1','date');
                   <th class="small">PLUS</th>
                 </tr>
               </thead>
-            <tbody></tbody>
+            <tbody></tbody> -->
             <!-- <tbody id="list_caisse_sortie_page"></tbody> -->
-          </table>
-        </div>
+          <!-- </table>
+        </div> -->
     </div>
 </div>
 

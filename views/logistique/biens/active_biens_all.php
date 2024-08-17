@@ -73,42 +73,41 @@ include '../models/biens/biens.php';
                         </div>
                     </form>
                 </fieldset>
-                <table class="table table-bordered table-responsive-lg">
+                <table id="listdatabyid" class="table table-bordered table-responsive-lg mt-2">
                     <thead>
-                    <th>
-                        N°
-                    </th>
-                    <th>
-                        Category
-                    </th>
-                    <th>
-                        Name
-                    </th>
+                        <tr>
+                            <th>
+                                N°
+                            </th>
+                            <th>
+                                Category
+                            </th>
+                            <th>
+                                Name
+                            </th>
 
-                    <th>
-                        Marque
-                    </th>
-                    <th>
-                        Périssable
-                    </th>
-                    <th>
-                        Quantité
-                    </th>
-                    <th>
-                        Stock max
-                    </th>
-                    <th>
-                        Stock min
-                    </th>
-                    <th>
-                        Stock critique
-                    </th>                    
-                    <th>
-                        Etat
-                    </th>
-                    <th>
-                        Opération
-                    </th>
+                            <th>
+                                Marque
+                            </th>
+                            <th>
+                                Périssable
+                            </th>
+                            <th>
+                                Quantité
+                            </th>
+                            <th>
+                                Stock max
+                            </th>
+                            <th>
+                                Stock min
+                            </th>
+                            <th>
+                                Stock critique
+                            </th>
+                            <th>
+                                Opération / Etat
+                            </th>
+                        </tr>
                     </thead>
                     <tbody>
                         <?php
@@ -145,6 +144,26 @@ include '../models/biens/biens.php';
                                 <td><?= $bien['stock_critique'] ?></td>
                                 <td>
                                     <?php
+                                        if ($bien['active'] == 1) {
+                                    ?>
+                                        <form method="post" action="../contollers/biens/biensController.php">
+                                            <input type="hidden" name="tb_idbiens" value="<?= $bien['bId'] ?>">
+                                            <input type="hidden" name="tb_operation" value="desactive">
+                                            <button type="submit" name="bt_active" class="btn btn-danger"><span class="glyphicon glyphicon-lock" style="color: white; font-size: 15px;margin-right: 5px;"></span></button>
+                                        </form>
+                                    <?php
+                                        } else {
+                                    ?>
+                                        <form method="post" action="../contollers/biens/biensController.php">
+                                            <input type="hidden" name="tb_idbiens" value="<?= $bien['bId'] ?>">
+                                            <input type="hidden" name="tb_operation" value="active">
+                                            <button type="submit" name="bt_active" class="btn btn-success"><span class="glyphicon glyphicon-check" style="color: white; font-size: 15px;margin-right: 5px;"></span></button>
+                                        </form>
+                                    <?php
+                                        }
+                                    ?>
+
+<?php
                                     if ($bien['active'] == 1) {
                                         ?>
                                         <h4 style="color: forestgreen;">Actif</h4>
@@ -156,36 +175,24 @@ include '../models/biens/biens.php';
                                     }
                                     ?>
                                 </td>
-                                <td>
-                                    <?php
-                                    if ($bien['active'] == 1) {
-                                        ?>
-                                        <form method="post" action="../contollers/biens/biensController.php">
-                                            <input type="hidden" name="tb_idbiens" value="<?= $bien['bId'] ?>">
-                                            <input type="hidden" name="tb_operation" value="desactive">
-                                            <button type="submit" name="bt_active" class="btn btn-danger"><span class="glyphicon glyphicon-lock" style="color: white; font-size: 15px;margin-right: 5px;"></span></button>
-                                        </form>
-                                        <?php
-                                    } else {
-                                        ?>
-                                        <form method="post" action="../contollers/biens/biensController.php">
-                                            <input type="hidden" name="tb_idbiens" value="<?= $bien['bId'] ?>">
-                                            <input type="hidden" name="tb_operation" value="active">
-                                            <button type="submit" name="bt_active" class="btn btn-success"><span class="glyphicon glyphicon-check" style="color: white; font-size: 15px;margin-right: 5px;"></span></button>
-                                        </form>
-                                        <?php
-                                    }
-                                    ?>
-                                </td>
                             </tr>
                             <?php
                         }
                         ?>
                     </tbody>
                     <tfoot>
-                    <td style="font-size: 20px;">
-                        <span>Nombre:</span><span><?= $n ?></span>
-                    </td>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th style="font-size: 20px;">
+                            <span>Nombre:</span><span><?= $n ?></span>
+                        </th>
                     </tfoot>
                 </table>
             </fieldset>

@@ -4,19 +4,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+ include '../models/distribution/distribution.php';
+ include '../models/crud/db.php';
+ include '../models/livraison/livraison.php';
+include '../models/affectation-service/affectationService.php';
+include '../models/preparation/preparation.php';
+include '../models/demande/demande.php';
 ?>
 
-<legend>Sales list</legend>
-    <table class="table table-bordered table-striped table-responsive-md">
+<legend>Liste vendu a retirer par le client</legend>
+    <table class="table table-bordered table-striped table-responsive-lg">
         <thead>
         <th>
-            Info
+            Sale N°,
+            N°,
+            Date,
+            Client
         </th>
         <th>
-            Article
+            Item
         </th>
         <th>
-            Quantite
+            Quantity
         </th>
         <th>
             Price (USD)
@@ -31,38 +41,31 @@
             Value TTC (USD)
         </th>
         <th>
-            Plus
+            Retirer
+        </th>
+        <th>
+            Supprimer
         </th>
     </thead>
     <tbody>
-        <div id="sell_list_data">
+        <div>
             <?php
             $n = 0;
             if (1) {
-                $use = @$_GET['service'];//$_SESSION['idservice'];
+                $use =  $_SESSION['idaffectation'];
             } else {
                 $use = 0;
             }
             
             $bddistribution = new BdDistribution();
-            
-            if (((isset($_GET['use_date1'])) && (isset($_GET['use_date2']))) && (($_GET['use_date1'] != "") && ($_GET['use_date2'] != ""))) {
-                $distributions = $bddistribution->getDistributionBeetwen2Dates($_GET['use_date1'], $_GET['use_date2']);
-            } else {
-                $distributions = $bddistribution->getDistributionAllDesc();
-            }
-
-            if (!(isset($_GET['use_ventePOS']))) {
-                $distributions=[];
-            }
+            $db = new DB();
+            // $distributions = $bddistribution->getDistributionAllDesc();
+            $distributions = $db->getWhereMultiple('affectation','mutation_id ='.$use.' and typePaiement = "CASH_A_RETIRER"');
             
             $cumul_value = 0;
             $cumul_tva=0;
             $cumul_value_total=0;
-            
             foreach ($distributions as $distribution) {
-
-                if (($distribution['venteposId'] == $_GET['use_ventePOS'])) {
 
                     $affiche_bon = false;
 
@@ -75,7 +78,7 @@
                             $bdaffectation = new BdAffectationService();
                             $affectations = $bdaffectation->getAffectationServiceById($demande['mutation_id']);
                             foreach ($affectations as $affectation) {
-                                if ($affectation['service_id'] == $use) {
+                                if ($affectation['id'] == $use) {
                                     $affiche_bon = true;
                                 }
                             }
@@ -85,13 +88,13 @@
                     }
                     if (isset($infolivraison) && ($affiche_bon) && ($distribution['nombre_restant'] > 0)) {
                         $n++;
-                        ?>
+            ?>
                         <tr>
                             <td>
-                                N° Vente: <?= $distribution['venteposId'] ?> <br>
-                                N°: <?= $distribution['id'] ?> <br>
-                                Date: <?= $distribution['date'] ?> <br>
-                                Noms: <strong style="color: #0080c0;"><?= $distribution['identiteClient'] ?></strong>
+                                <?= $distribution['venteposId'] ?><br>
+                                <?= $distribution['id'] ?><br>
+                                <?= $distribution['date'] ?><br>
+                                <strong style="color: #0080c0;"><?= $distribution['identiteClient'] ?></strong>
                             </td>
                             <td><?= $infolivraison ?></td>
                             <td><?= $distribution['nombre_restant'] ?></td>
@@ -120,33 +123,36 @@
                                     <div class="col-md-12">
                                         <form class="form-horizontal" method="POST" action="../contollers/distribution/distributionController.php">
                                             <div class="input-group-lg">
-                                                <input class="btn btn-info text-white w-100" type="submit" name="bt_RetirerDistribution" value="Retirer Quantite">
+                                                <input type="text" class="form-control mt-1" name="tb_use_identiteClient" value="<?= $distribution['identiteClient'] ?>">
+                                                <input type="date" class="form-control mt-1" name="tb_use_date" value="<?= $distribution['date'] ?>">
+                                                <input class="btn btn-info text-white w-100 mt-1" type="submit" name="bt_RetirerDistribution" value="Retirer Quantite">
                                                 <input type="hidden" name="quantiteVendu" value="<?= $distribution['nombre_restant'] ?>">
                                                 <input type="hidden" name="typePaiement" value="<?= $distribution['typePaiement'] ?>">
                                                 <input type="hidden" name="distribution_id" value="<?= $distribution['distribution_id'] ?>">
                                                 <input type="hidden" name="tb_idaffectation" value="<?= $_SESSION['idaffectation'] ?>">
-                                                <input type="hidden" name="tb_use_identiteClient" value="<?= $_GET['use_identiteClient'] ?>">
-                                                <input type="hidden" name="tb_use_date" value="<?= $_GET['use_date'] ?>">
-                                                <input type="hidden" name="tb_use_typerepas" value="<?= $_GET['use_typerepas'] ?>">
-                                                <input type="hidden" name="tb_use_ventePOS" value="<?= $_GET['use_ventePOS'] ?>">
+                                                <input type="hidden" name="tb_use_typerepas" value="<?= 'typerepas' ?>">
+                                                <input type="hidden" name="tb_use_ventePOS" value="<?= $distribution['venteposId'] ?>">
                                                 <input type="hidden" name="row_affectationID" value="<?= $distribution['id'] ?>">
                                             </div>
                                         </form>
                                     </div>
                                     <?php } ?>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row">
                                     <div class="col-md-12 mt-2">
-                                        <form class="form-horizontal" id="delete_sell_<?= $distribution['id'] ?>" onsubmit="delete_sell(event,<?= $distribution['id'] ?>)" method="POST" action="../contollers/distribution/distributionController.php">
+                                        <form class="form-horizontal" method="POST" action="../contollers/distribution/distributionController.php">
                                             <div class="input-group-lg">
-                                                <button class="btn btn-danger w-100" type="submit"><i class="btn-dange fa fa-trash"></i></button>
-                                                <input class="btn btn-danger w-100" type="hidden" id="bt_delete_lineDistribution" name="bt_delete_lineDistribution">
-                                                <input type="hidden" id="tb_idaffectation" name="tb_idaffectation" value="<?= $_SESSION['idaffectation'] ?>">
-                                                <input type="hidden" id="tb_distributionId" name="tb_distributionId" value="<?= $distribution['id'] ?>">
-                                                <input type="hidden" id="typePaiement" name="typePaiement" value="<?= $distribution['typePaiement'] ?>">
-                                                <input type="hidden" id="tb_use_date" name="tb_use_date" value="<?= $_GET['use_date'] ?>">
-                                                <input type="hidden" id="tb_use_typerepas" name="tb_use_typerepas" value="<?= $_GET['use_typerepas'] ?>">
-                                                <input type="hidden" id="tb_use_identiteClient" name="tb_use_identiteClient" value="<?= $_GET['use_identiteClient'] ?>">
-                                                <input type="hidden" id="tb_use_ventePOS" name="tb_use_ventePOS" value="<?= $_GET['use_ventePOS'] ?>">
-                                                <input type="hidden" id="row_affectationID" name="row_affectationID" value="<?= $distribution['id'] ?>">
+                                                <input type="text" class="form-control mt-1" name="tb_use_identiteClient" value="<?= $distribution['identiteClient'] ?>">
+                                                <input type="date" class="form-control mt-1" name="tb_use_date" value="<?= $distribution['date'] ?>">
+                                                <input class="btn btn-danger w-100 mt-1" type="submit" name="bt_delete_lineDistribution" value="Delete">
+                                                <input type="hidden" name="tb_idaffectation" value="<?= $_SESSION['idaffectation'] ?>">
+                                                <input type="hidden" name="tb_distributionId" value="<?= $distribution['id'] ?>">
+                                                <input type="hidden" name="typePaiement" value="<?= $distribution['typePaiement'] ?>">
+                                                <input type="hidden" name="tb_use_typerepas" value="<?= 'typerepas' ?>">
+                                                <input type="hidden" name="tb_use_ventePOS" value="<?= $distribution['venteposId'] ?>">
+                                                <input type="hidden" name="row_affectationID" value="<?= $distribution['id'] ?>">
                                             </div>
                                         </form>
                                     </div>
@@ -156,7 +162,6 @@
                         </tr>
                         <?php
                     }
-                }
             }
             ?>
             </tbody>
@@ -174,6 +179,5 @@
                     <span> Total TTC : </span><span><?= $cumul_value_total ?> USD</span>
                 </td>
             </tfoot>
-        </div>
+    </div>
 </table>
-

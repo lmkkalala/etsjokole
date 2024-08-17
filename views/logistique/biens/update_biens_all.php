@@ -75,45 +75,38 @@ include '../models/categorie/categorie.php';
                         </div>
                     </form>
                 </fieldset>
-                <table id="update_biens_all" class="table table-bordered table-responsive-lg table-condensed">
+                <table id="" class="table table-bordered table-responsive-lg table-condensed">
                     <thead>
-                    <th>
-                        N°
-                    </th>
-                    <th>
-                        Catégorie
-                    </th>
-                    <th>
-                        Désignation
-                    </th>
-                    <th>
-                        Marque
-                    </th>
-                    <th>
-                        Gestion
-                    </th>
-                    <th>
-                        Quantité / PU
-                    </th>
-                    <th>
-                        Stock max
-                    </th>
-                    <th>
-                        Stock min
-                    </th>
-                    <th>
-                        Stock critique
-                    </th>
-                    <th>
-                        Codebarre
-                    </th>
-                    <th>
-                        Périssable
-                    </th>
-                    
-                    <th>
-                        Opération
-                    </th>
+                        <tr>
+                            <th>
+                                N°
+                            </th>
+                            <th>
+                                Catégorie, Désignation
+                            </th>
+                            <th>
+                                Marque
+                            </th>
+                            <th>
+                                Gestion
+                            </th>
+                            <th>
+                                Quantité, PU
+                            </th>
+                            <th>
+                                Stock Max,Min,Critique
+                            </th>
+                            <th>
+                                Codebarre
+                            </th>
+                            <th>
+                                Périssable
+                            </th>
+                            
+                            <th>
+                                Opération
+                            </th>
+                        </tr>
                     </thead>
                     <tbody>
                         <?php
@@ -131,8 +124,9 @@ include '../models/categorie/categorie.php';
                         <form class="form-horizontal" method="POST" action="../contollers/biens/biensController.php">
                             <div class="form-group-lg">
                                 <tr>
-                                    <td><?= $bien['bId'] ?></td>
+                                    <td><?=$bien['bId'] ?></td>
                                     <td>
+                                        
                                         <select class="form-control" name="cb_categorie">
                                             <?php
                                             $bdcategorie = new BdCategorie();
@@ -150,23 +144,25 @@ include '../models/categorie/categorie.php';
                                             }
                                             ?>
                                         </select>
+                                        <input class="form-control mt-1" type="text" name="tb_designation" value="<?= $bien['bDesignation'] ?>">
                                     </td>
-                                    <td><input class="form-control" type="text" name="tb_designation" value="<?= $bien['bDesignation'] ?>"></td>
-                                    <td><input class="form-control" type="text" name="tb_marque" value="<?= $bien['marque'] ?>"></td>
+                                    <td>
+                                        <input class="form-control" type="text" name="tb_marque" value="<?= $bien['marque'] ?>">
+                                    </td>
                                     <td>
                                         <select class="form-control" name="cb_gestion">
                                             <option value="FIFO" 
                                             <?php
-                                            if ($bien['technique_gestion'] == "FIFO") {
-                                                echo 'selected';
-                                            }
+                                                if ($bien['technique_gestion'] == "FIFO") {
+                                                    echo 'selected';
+                                                }
                                             ?>
                                                     >FIFO</option>
                                             <option value="LIFO"
                                             <?php
-                                            if ($bien['technique_gestion'] == "LIFO") {
-                                                echo 'selected';
-                                            }
+                                                if ($bien['technique_gestion'] == "LIFO") {
+                                                    echo 'selected';
+                                                }
                                             ?>
                                                     >LIFO</option>
                                         </select>
@@ -175,9 +171,11 @@ include '../models/categorie/categorie.php';
                                         <input class="form-control" type="text" name="tb_quantite" value="<?= $bien['quantite'] ?>">
                                         <input class="form-control mt-1" type="text" name="tb_prixunitaire" value="<?= $bien['prixunitaire'] ?>">
                                     </td>
-                                    <td><input class="form-control" type="text" name="tb_stockmax" value="<?= $bien['stock_max'] ?>"></td>
-                                    <td><input class="form-control" type="text" name="tb_stockmin" value="<?= $bien['stock_min'] ?>"></td>
-                                    <td><input class="form-control" type="text" name="tb_stockcritique" value="<?= $bien['stock_critique'] ?>"></td>
+                                    <td>
+                                        <input class="form-control" type="text" name="tb_stockmax" value="<?= $bien['stock_max'] ?>">
+                                        <input class="form-control mt-1" type="text" name="tb_stockmin" value="<?= $bien['stock_min'] ?>">
+                                        <input class="form-control mt-1" type="text" name="tb_stockcritique" value="<?= $bien['stock_critique'] ?>">
+                                    </td>
                                     <td><input class="form-control" type="text" name="tb_codebarre" value="<?= $bien['codebarre'] ?>"></td>
                                     <td>
                                         <?php
@@ -205,9 +203,20 @@ include '../models/categorie/categorie.php';
                     ?>
                     </tbody>
                     <tfoot>
-                    <td style="font-size: 20px;">
-                        <span>Nombre:</span><span><?= $n ?></span>
-                    </td>
+
+                       <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th style="font-size: 20px;">
+                                <span>Nombre:</span><span><?= $n ?></span>
+                            </th>
+                       </tr>
                     </tfoot>
                 </table>
             </fieldset>

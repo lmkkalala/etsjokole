@@ -64,7 +64,7 @@ include '../models/service/service.php';
                                 <td>
                                     <form method="post" action="../contollers/livraison/livraisonController.php">
                                         <input type = "hidden" name = "tb_idservice" value ="<?= $service['id'] ?>">
-                                        <button type="submit" class="btn btn-primary" name="bt_view_for_service"><span class="fa fa-angle-double-right" style="color: white; font-size: 20px;margin-right: 5px;"></span></button>
+                                        <button type="submit" class="btn btn-primary" name="bt_view_for_service"><span class="glyphicon glyphicon-file" style="color: white; font-size: 20px;margin-right: 5px;"></span></button>
                                     </form>
                                 </td>
                                 </tr>

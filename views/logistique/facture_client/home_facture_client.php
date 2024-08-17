@@ -42,7 +42,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2 text-start mt-3 mb-3">
-            <h3 class="text-primary">LES FACTURES </h3>
+            <h3 class="text-secondary">LES FACTURES </h3>
         </div>
         
         <div class="col-md-8 mt-3">
@@ -72,16 +72,16 @@
                     </div>
                     <div class="col-md-3 mt-1">
                     <input type="hidden" name="FilterFormFacture" id="FilterFormFacture">
-                      <button class="btn btn-primary w-100 text-white" type="submit"><i class="fa fa-search"></i> Rechercher</button>
+                      <button class="btn btn-secondary w-100 text-white" type="submit"><i class="fa fa-search"></i> Rechercher</button>
                     </div>
                 </div>
           </form>
         </div>
         <div class="col-md-2 col-sm-12 mt-3 mb-3">
-            <button class="btn btn-primary text-white w-100" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">NOUVELLE FACTURE</button>
+            <button class="btn btn-secondary text-white w-100" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">NOUVELLE FACTURE</button>
         </div>
         <div class="col-12 table-responsive">
-            <table id="list_facture" class="table display" style="width:100%">
+            <table id="list_facture_page" class="table display" style="width:100%">
                 <thead>
                     <tr>
                         <th>DATE</th>
@@ -135,7 +135,7 @@
           <div class="row">
             <div class="col-12">
               <label for="date">Description</label>
-                <textarea name="description" class="form-control"  id="description" cols="30" rows="10"></textarea>
+                <textarea name="description" class="form-control"  id="description" cols="30" rows="10" style="height: 50px; max-height:100px;"></textarea>
             </div>
           </div>
           <div class="row">

@@ -11,6 +11,7 @@
             <div class="col-md-6 input-group-lg">
                 <select class="form-control select2" name="cb_service">
                     <option value="0">Choisir un POS/Departement/Service</option>
+                    <option value="00">Tous Les depots</option>
                     <?php
                     $bdservice = new BdService();
                     $services = $bdservice->getServiceAllDesc();
@@ -110,8 +111,12 @@
                 if (isset($_GET['use'])) {
                     $bdservice = new BdService();
                     $services = $bdservice->getServiceById($_GET['use']);
-                    foreach ($services as $service) {
-                        echo $service['designation'];
+                    if (count($services) > 0) {
+                        foreach ($services as $service) {
+                            echo $service['designation'];
+                        }
+                    }else{
+                        echo 'Recherche Global';
                     }
                 } else {
                     echo "Aucun choix";

@@ -44,26 +44,26 @@ padding-left: 5px;
     <div class="col-md-12" style="background-color: whitesmoke;border-radius: 5px; height: 90vh;">
         <div class="container-fluid">
             <div class="row">
-                <div id="menu-gauche" class="col-lg-3">
+                <div id="menu-gauche" class="col-md-2">
                     <h3>Item</h3>
                     <ul class="list-menu list-unstyled" style="font-size: 20px;">
-                        <li class="list-inline-item"><span style="color: red;font-size: 20px;" class="glyphicon glyphicon-asterisk"></span><a href="/views/home.php?link=<?= sha1("logistique_biens_add")?>&link_up=<?= sha1("home_logistique_biens")?>">New</a></li>
-                        <li class="list-inline-item"><span style="color: forestgreen;font-size: 20px;" class="glyphicon glyphicon-adjust"></span><a href="/views/home.php?link=<?= sha1("logistique_biens_update_biens_all")?>&link_up=<?= sha1("home_logistique_biens")?>">Update</a></li>
-                        <li class="list-inline-item"><span style="color: darkslategrey;font-size: 20px;" class="glyphicon glyphicon-check"></span><a href="/views/home.php?link=<?= sha1("logistique_biens_active_biens_all")?>&link_up=<?= sha1("home_logistique_biens")?>">Activation</a></li>
-                        <li class="list-inline-item"><span style="color: orange;font-size: 20px;" class="glyphicon glyphicon-list"></span><a href="/views/home.php?link=<?= sha1("logistique_biens_liste_biens_all")?>&link_up=<?= sha1("home_logistique_biens")?>">List</a></li>
-                        <li class="list-inline-item"><span style="color: dodgerblue;font-size: 20px;" class="glyphicon glyphicon-list"></span><a href="/views/home.php?link=<?= sha1("logistique_biens_liste_biens_value_all")?>&link_up=<?= sha1("home_logistique_biens")?>">Store inventory</a></li>
-                        <li class="list-inline-item"><span style="color: tomato;font-size: 20px;" class="glyphicon glyphicon-edit"></span><a href="/views/home.php?link=<?= sha1("logistique_biens_fiche_biens_all")?>&link_up=<?= sha1("home_logistique_biens")?>">View</a></li>
+                        <li class="list-inline-item"><span style="color: red;font-size: 20px;" class="glyphicon glyphicon-asterisk"></span><a href="/views/home.php?link=<?= sha1("logistique_biens_add")?>&link_up=<?= sha1("home_logistique_biens")?>">New</a></li><br>
+                        <li class="list-inline-item"><span style="color: forestgreen;font-size: 20px;" class="glyphicon glyphicon-adjust"></span><a href="/views/home.php?link=<?= sha1("logistique_biens_update_biens_all")?>&link_up=<?= sha1("home_logistique_biens")?>">Update</a></li><br>
+                        <li class="list-inline-item"><span style="color: darkslategrey;font-size: 20px;" class="glyphicon glyphicon-check"></span><a href="/views/home.php?link=<?= sha1("logistique_biens_active_biens_all")?>&link_up=<?= sha1("home_logistique_biens")?>">Activation</a></li><br>
+                        <li class="list-inline-item"><span style="color: orange;font-size: 20px;" class="glyphicon glyphicon-list"></span><a href="/views/home.php?link=<?= sha1("logistique_biens_liste_biens_all")?>&link_up=<?= sha1("home_logistique_biens")?>">List</a></li><br>
+                        <li class="list-inline-item"><span style="color: dodgerblue;font-size: 20px;" class="glyphicon glyphicon-list"></span><a href="/views/home.php?link=<?= sha1("logistique_biens_liste_biens_value_all")?>&link_up=<?= sha1("home_logistique_biens")?>">Store inventory</a></li><br>
+                        <li class="list-inline-item"><span style="color: tomato;font-size: 20px;" class="glyphicon glyphicon-edit"></span><a href="/views/home.php?link=<?= sha1("logistique_biens_fiche_biens_all")?>&link_up=<?= sha1("home_logistique_biens")?>">View</a></li><br>
                     </ul>
                     <hr>
                     <h3>Physical inventory</h3>
                     <ul class="list-menu list-unstyled" style="font-size: 20px;">
-                        <li class="list-inline-item"><span style="color: red;font-size: 20px;" class="glyphicon glyphicon-asterisk"></span><a href="/views/home.php?link=<?= sha1("logistique_inventaire_fiche_biens_inventaire_all")?>&link_up=<?= sha1("home_logistique_biens")?>">Nouveau inventaire</a></li>
-                        <li class="list-inline-item"><span style="color: orange;font-size: 20px;" class="glyphicon glyphicon-list"></span><a href="/views/home.php?link=<?= sha1("logistique_inventaire_liste_inventaire_all")?>&link_up=<?= sha1("home_logistique_biens")?>">Liste de tous les inventaires</a></li>
-                        <li class="list-inline-item"><span style="color: darkslategray;font-size: 20px;" class="glyphicon glyphicon-list"></span><span style="color: darkslategray;font-size: 20px;" class="fa fa-gift"></span><a href="/views/home.php?link=<?= sha1("logistique_inventaire_fiche_biens_inventaire_all_fiche")?>&link_up=<?= sha1("home_logistique_biens")?>">Fiche des inventaires par biens/produit</a></li>
+                        <li class="list-inline-item"><span style="color: red;font-size: 20px;" class="glyphicon glyphicon-asterisk"></span><a href="/views/home.php?link=<?= sha1("logistique_inventaire_fiche_biens_inventaire_all")?>&link_up=<?= sha1("home_logistique_biens")?>">Nouveau inventaire</a></li><br>
+                        <li class="list-inline-item"><span style="color: orange;font-size: 20px;" class="glyphicon glyphicon-list"></span><a href="/views/home.php?link=<?= sha1("logistique_inventaire_liste_inventaire_all")?>&link_up=<?= sha1("home_logistique_biens")?>">Liste de tous les inventaires</a></li><br>
+                        <li class="list-inline-item"><span style="color: darkslategray;font-size: 20px;" class="glyphicon glyphicon-list"></span><a href="/views/home.php?link=<?= sha1("logistique_inventaire_fiche_biens_inventaire_all_fiche")?>&link_up=<?= sha1("home_logistique_biens")?>">Fiche Inventaires par Biens/produit</a></li>
                     </ul>
                 </div>
 
-                <div class="col-lg-9" style="padding: 10px;height: 80vh;overflow: auto;">
+                <div id="main_container" class="col-md-10 mb-4" style="padding: 10px;overflow: auto;">
                     
                     <?php
                     if (isset($_GET['link'])) {

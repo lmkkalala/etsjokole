@@ -51,6 +51,7 @@ if (isset($_POST['bt_connexion'])) {
                             $idaffectation = $affectation['Id'];
                             $idservice = $affectation['Sid'];
                             $agentID = $affectation['Aid'];
+                            $mSeller = $affectation['mSeller'];
                         }
                         $reponse = "succes";
                         $etat = 1;
@@ -67,6 +68,7 @@ if (isset($_POST['bt_connexion'])) {
     } else {
         $reponse = "remplissage_error";
     }
+    
     if ($etat) {
         if ($etatuser) {
             $_SESSION['identite'] = $identite;
@@ -77,6 +79,7 @@ if (isset($_POST['bt_connexion'])) {
             $_SESSION['idservice'] = $idservice;
             $_SESSION['type'] = $type;
             $_SESSION['agentID'] = $agentID;
+            $_SESSION['mSeller'] = $mSeller;
             
             if ($type == "admin") {
                 header('Location:../../views/home.php?link_up=' . sha1("home_admin_acceuil") . '&reponse=' . sha1($reponse));

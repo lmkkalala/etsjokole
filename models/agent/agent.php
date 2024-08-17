@@ -26,11 +26,11 @@ class BdAgent {
         }
     }
 
-    function updateAgent($idagent, $nom, $postnom, $prenom, $sexe, $grade, $codebar) {
+    function updateAgent($idagent, $nom, $postnom, $prenom, $sexe, $grade, $codebar,$start_time, $end_time, $daily_sell,$multi_seller_account) {
         try {
             $bd = Connexion::connecter();
-            $query = $bd->prepare("UPDATE agent SET nom=?,postnom=?,prenom=?,sexe=?,grade=?,codebar=? WHERE id=?");
-            $query->execute([$nom, $postnom, $prenom, $sexe, $grade, $codebar, $idagent]);
+            $query = $bd->prepare("UPDATE agent SET nom=?,postnom=?,prenom=?,sexe=?,grade=?,codebar=?,start_time=?,end_time = ?, daily_sell=?,multi_seller_account=? WHERE id=?");
+            $query->execute([$nom, $postnom, $prenom, $sexe, $grade, $codebar, $start_time, $end_time, $daily_sell,$multi_seller_account, $idagent]);
             $query->closeCursor();
             return TRUE;
         } catch (Exception $ex) {
@@ -38,11 +38,11 @@ class BdAgent {
         }
     }
 
-    function updateAgentWithPhoto($idagent, $nom, $postnom, $prenom, $sexe, $grade, $codebar, $urlPhoto) {
+    function updateAgentWithPhoto($idagent, $nom, $postnom, $prenom, $sexe, $grade, $codebar, $urlPhoto,$start_time, $end_time, $daily_sell,$multi_seller_account) {
         try {
             $bd = Connexion::connecter();
-            $query = $bd->prepare("UPDATE agent SET nom=?,postnom=?,prenom=?,sexe=?,grade=?,codebar=?,urlPhoto=? WHERE id=?");
-            $query->execute([$nom, $postnom, $prenom, $sexe, $grade, $codebar, $urlPhoto, $idagent]);
+            $query = $bd->prepare("UPDATE agent SET nom=?,postnom=?,prenom=?,sexe=?,grade=?,codebar=?,urlPhoto=?,start_time=?,end_time = ?,daily_sell=?,multi_seller_account=? WHERE id=?");
+            $query->execute([$nom, $postnom, $prenom, $sexe, $grade, $codebar, $urlPhoto, $start_time, $end_time, $daily_sell,$multi_seller_account, $idagent]);
             $query->closeCursor();
             return TRUE;
         } catch (Exception $ex) {

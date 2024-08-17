@@ -24,6 +24,7 @@ include './meta/menu_logistique.php';
                         <li class="list-inline-item"><span style="color: orange;font-size: 20px;" class="glyphicon glyphicon-list"></span><a href="/views/home.php?link=<?= sha1("service_distribution_liste_distribution_all")?>&link_up=<?= sha1("home_logistique_livraison")?>">Liste de toutes les ventes</a></li>
                         <li class="list-inline-item"><span style="color: forestgreen;font-size: 20px;" class="glyphicon glyphicon-list"></span><span style="color: forestgreen;font-size: 20px;" class="glyphicon glyphicon-ok-circle"></span><a href="/views/home.php?link=<?= sha1("service_distribution_liste_distribution_totale")?>&link_up=<?= sha1("home_logistique_livraison")?>">Liste des ventes récupérées</a></li>
                         <li class="list-inline-item"><span style="color: darkslategray;font-size: 20px;" class="fa fa-gift"></span><span style="color: darkslategray;font-size: 20px;" class="fa fa-file-text"></span><a href="/views/home.php?link=<?= sha1("service_distribution_fiche_biens_distribution_all")?>&link_up=<?= sha1("home_logistique_livraison")?>">Fiche des ventes par biens/produit</a></li>
+                        <li class="list-inline-item"><span style="color: darkslategray;font-size: 20px;" class="fa fa-list"></span><span style="color: darkslategray;font-size: 20px;" class="fa fa-file-text"></span><a href="/views/home.php?link=<?= sha1("demand_distribution_fiche_vente_distribution_all")?>&link_up=<?= sha1("home_logistique_livraison")?>">Demand sur vente</a></li>
                     </ul>
                 </div>
                 
@@ -45,7 +46,7 @@ include './meta/menu_logistique.php';
                         margin-right: 5px;
                     }
                 </style>
-                <div class="col-lg-9" style="padding: 10px;height: 80vh;overflow: auto;">
+                <div id="main_container" class="col-lg-9" style="padding: 10px;height: 80vh;overflow: auto;">
                     <?php
                     if (isset($_GET['link'])) {
                         if ($_GET['link']== sha1("logistique_livraison_add")) {
@@ -76,6 +77,8 @@ include './meta/menu_logistique.php';
                             include 'service/distribution/liste_distribution_totale.php';
                         } else if ($_GET['link']== sha1("service_distribution_fiche_biens_distribution_all")) {
                             include 'service/distribution/fiche_biens_distribution_all.php';
+                        }else if ($_GET['link']== sha1("demand_distribution_fiche_vente_distribution_all")) {
+                            include 'service/distribution/demand_distribution_fiche_vente_distribution_all.php';
                         } else if ($_GET['link']== sha1("service_distribution_fiche_biens_distribution_self")) {
                             include 'service/distribution/fiche_biens_distribution_self.php';
                         }

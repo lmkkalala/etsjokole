@@ -49,7 +49,7 @@ include './meta/menu_service.php';
                         margin-right: 5px;
                     }
                 </style>
-                <div class="col-md-9" style="padding: 10px;height: 80vh;overflow: auto;">
+                <div id="main_container" class="col-md-9" style="padding: 10px;height: 80vh;overflow: auto;">
                     <?php
                     if (isset($_GET['link'])) {
                         if ($_GET['link'] == sha1("service_demande_add")) {

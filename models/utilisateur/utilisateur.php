@@ -87,6 +87,13 @@ class BdUtilisateur {
         return $reponse->fetchAll();
         $reponse->closeCursor();
     }
+
+    function getUtilisateurAllDescWhere($condition) {
+        $bd = Connexion::connecter();
+        $reponse = $bd->query('SELECT * FROM utilisateur '.$condition.' ORDER BY id DESC');
+        return $reponse->fetchAll();
+        $reponse->closeCursor();
+    }
     
     function getUtilisateurAllDescActive() {
         $bd = Connexion::connecter();

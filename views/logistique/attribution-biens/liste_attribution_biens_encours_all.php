@@ -69,9 +69,7 @@ $dateEnd = '';
                     <th>
                         Date
                     </th>
-                    <th>
-                        Etat
-                    </th>
+                    
                     <th>
                         Biens/produits
                     </th>
@@ -90,44 +88,68 @@ $dateEnd = '';
                     <th>
                         Délai de livraison
                     </th>
+                    <th>
+                        Etat
+                    </th>
                     </thead>
                     <tbody>
                         <?php
-                        
+                        $qte = 0;
                         foreach ($attributions as $attribution) {
                             $n++;
+                            $stocks = $db->getWhereMultipleMore(" * FROM stockage "," attribution_id = ".$attribution['aId']."");
+                                foreach ($stocks as $key => $stock) {
+                                    $qte = $qte + $stock['quantite']; 
+                                }
+                                if ($attribution['etat']) {
+                                    $etat = 'Finalisée';
+                                    $etat_val = 0;
+                                    $btnStyle = 'info';
+                                    $icon_etat = "fa fa-check-square";
+                                } else {
+                                    $icon_etat = "fa fa-spinner";
+                                    $etat_val = 1;
+                                    $etat = 'En cours';
+                                    $btnStyle = 'danger';
+                                }
                             ?>
                             <tr>
                                 <td><?= $attribution['numeroOrder'] ?></td>
                                 <td><?= $attribution['date'] ?></td>
-                                <td>
-                                    <b>
-                                        <?php
-                                        if ($attribution['etat']) {
-                                            $etat = 'Finalisée';
-                                            $etat_val = 0;
-                                            $btnStyle = 'info';
-                                        } else {
-                                            $etat_val = 1;
-                                            $etat = 'En cours';
-                                            $btnStyle = 'danger';
-                                        }
-                                        ?>
-                                        <form action="../views/home.php?link=bc6749372a792df7e3460135262bf41aad976c1f&link_up=1f920fef6c620c4660a748aae5dd44da9e74ba9b" method="post">
-                                            <input type="hidden" name="attr_id" value="<?=$attribution['aId']?>">
-                                            <input type="hidden" name="etat" value="<?=$etat_val?>">
-                                            <button type="submit" name="changer_etat" class="btn btn-<?=$btnStyle?>"><?=$etat?></button>
-                                        </form>
-                                    </b>
-                                </td>
+                                
                                 <td><?= $attribution['bDesignation']." : ".$attribution['gDesignation'] ?></td>
                                 <td><?= $attribution['technique_gestion'] ?></td>
                                 <td><?= $attribution['fDesignation']." : ".$attribution['domaine'] ?></td>
-                                <td><?= $attribution['quantite_minimale'] ?></td>
+                                <td>
+                                    Commande: <?= $attribution['quantite_minimale'] ?><br>
+                                    Reception: <span class="fw-bolder text-success"><?= $qte ?></span><br>
+                                    Reste: <span class="fw-bolder text-info"><?= $attribution['quantite_minimale'] - $qte ?> </span><br>
+                                    Etat : <span class="text-<?=$btnStyle?>"><?=$etat?></span>
+                                </td>
                                 <td><?= $attribution['aPrixUnitaire'] ?></td>
-                                <td><?= $attribution['delai_livraison'] ?></td>
+                                <td>
+                                    <?= $attribution['delai_livraison'] ?>  Jour<?=($attribution['delai_livraison'] > 1)?"s":""?>
+                                </td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <form action="../views/home.php?link=bc6749372a792df7e3460135262bf41aad976c1f&link_up=1f920fef6c620c4660a748aae5dd44da9e74ba9b" method="post">
+                                                <input type="hidden" name="attr_id" value="<?=$attribution['aId']?>">
+                                                <input type="hidden" name="etat" value="<?=$etat_val?>">
+                                                <button type="submit" name="changer_etat" class="btn btn-<?=$btnStyle?>"><i class="<?=$icon_etat?>"></i></button>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-8">
+                                                <button type="button" name="payement_add" data-bs-toggle="modal" data-bs-target="#add_payment_form" class="btn btn-primary mt-1" data-id="<?=$attribution['aId']?>"><i class="fa fa-money"></i></button>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <button type="button" name="payement_list" data-bs-toggle="modal" data-bs-target="#list_payment_form" class="btn btn-secondary mt-1" data-id="<?=$attribution['aId']?>"><i class="fa fa-list-alt"></i></button>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
                             <?php
+                            $qte = 0 ;
                         }
                         ?>
                     </tbody>
@@ -138,6 +160,95 @@ $dateEnd = '';
                     </tfoot>
                 </table>
             </fieldset>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="add_payment_form" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">AJOUTER DEPOT</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <form action="" method="post" id="add_deposit_form">
+              <div class="row">
+                <div class="col-md-12">
+                  <label for="date" class="small fw-bolder">Date</label>
+                  <input class="form-control" type="date" name="date_is" id="date_is" placeholder="" required>
+                </div>
+                <div class="col-md-12">
+                  <label for="date" class="small fw-bolder">Transporteur</label>
+                  <input class="form-control" type="text" name="transporteur" id="transporteur" placeholder="" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label for="date" class="small fw-bolder">Receveur</label>
+                  <input class="form-control" type="text" name="reveveur" id="reveveur" placeholder="" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label for="date" class="small fw-bolder">Montant</label>
+                  <input class="form-control" type="number" step="0.0000" name="montant" id="montant" placeholder="" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label for="date" class="small fw-bolder">Bordereau</label>
+                  <input class="form-control" type="file" name="recu" id="recu">
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-md-12">
+                    <input class="form-control" type="hidden" name="attribution_id" id="attribution_id">
+                    <input class="form-control" type="hidden" name="save_deposit_data" id="save_deposit_data">
+                    <button type="submit" class="btn btn-primary w-100 mt-2">ENREGISTRER</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">FERMER</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="list_payment_form" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Liste depot argent sur commande</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table id="payement_fournisseurData" class="display table" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th class="small">DATE</th>
+                                    <th class="small">Transporteur</th>
+                                    <th class="small">Receveur</th>
+                                    <th class="small">Preuve</th>
+                                    <th class="small">Plus</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">FERMER</button> -->
+            </div>
         </div>
     </div>
 </div>

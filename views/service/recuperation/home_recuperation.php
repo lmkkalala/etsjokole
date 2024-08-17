@@ -15,7 +15,7 @@ include './meta/menu_service.php';
                 <div id="menu-gauche" class="col-lg-3">
                     <ul class="list-menu list-unstyled" style="font-size: 20px;">
                         <li class="list-inline-item"><span style="color: red;font-size: 20px;" class="glyphicon glyphicon-asterisk"></span><a href="/views/home.php?link=<?= sha1("service_recuperation_add")?>&link_up=<?= sha1("home_service_recuperation")?>">Nouvelle récuperation</a></li>
-                        <li class="list-inline-item"><span style="color: orange;font-size: 20px;" class="glyphicon glyphicon-list"></span><a href="/views/home.php?link=<?= sha1("service_recuperation_liste_recuperation_all")?>&link_up=<?= sha1("home_service_recuperation")?>">Liste de toutes les récuperatons</a></li>
+                        <li class="list-inline-item"><span style="color: orange;font-size: 20px;" class="glyphicon glyphicon-list"></span><a href="/views/home.php?link=<?= sha1("service_recuperation_liste_recuperation_all")?>&link_up=<?= sha1("home_service_recuperation")?>">Liste des récuperatons</a></li>
                         <li class="list-inline-item"><span style="color: darkslategray;font-size: 20px;" class="fa fa-gift"></span><span style="color: darkslategray;font-size: 20px;" class="fa fa-file-text"></span><a href="/views/home.php?link=<?= sha1("service_recuperation_fiche_biens_recuperation_all")?>&link_up=<?= sha1("home_service_recuperation")?>">Fiche de récuperations par biens/produit</a></li>
                         <li class="list-inline-item"><span style="color: #0069d9;font-size: 20px;" class="fa fa-user"></span><span style="color: #0069d9;font-size: 20px;" class="fa fa-file-text"></span><a href="/views/home.php?link=<?= sha1("service_recuperation_fiche_agent_recuperation_all")?>&link_up=<?= sha1("home_service_recuperation")?>">Fiche de récuperations par agent</a></li>
                     </ul>
@@ -38,7 +38,7 @@ include './meta/menu_service.php';
                         margin-right: 5px;
                     }
                 </style>
-                <div class="col-lg-9" style="padding: 10px;height: 80vh;overflow: auto;">
+                <div id="main_container" class="col-lg-9" style="padding: 10px;height: 80vh;overflow: auto;">
                     <?php
                     if (isset($_GET['link'])) {
                         if ($_GET['link']== sha1("service_recuperation_add")) {

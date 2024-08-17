@@ -9,9 +9,7 @@
 <?php
 
 require '../../../web/fpdf181/fpdf.php';
-
 include("../../../models/pdf-generator/pdfclass.php");
-
 include("../../../models/connexion.php");
 include("../../../models/biens/biens.php");
 include("../../../models/ravitaillement/ravitaillement.php");
@@ -53,7 +51,7 @@ foreach ($biens as $bien) {
         $somme_prix_biens = 0;
         $s = 0;
         $bdravitaillement = new BdRavitaillement();
-        $ravitaillements = $bdravitaillement->getRavitaillementByIdBiens($bien['bId']);
+        $ravitaillements = $bdravitaillement->getRavitaillementByIdBiensMore($bien['bId'], 'ORDER BY s.id DESC Limit 3 ');
         foreach ($ravitaillements as $ravitaillement) {
             $s++;
             $somme_prix_biens = $somme_prix_biens + $ravitaillement['prix'];

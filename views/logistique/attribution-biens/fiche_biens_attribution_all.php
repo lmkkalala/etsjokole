@@ -33,41 +33,41 @@ include '../models/biens/biens.php';
             </fieldset>
             <fieldset>
                 <legend>Liste des biens/produits</legend>
-                <table class="table table-bordered table-responsive-lg">
+                    <table class="table table-bordered table-responsive-lg">
                     <thead>
-                    <th>
-                        N°
-                    </th>
-                    <th>
-                        Catégorie
-                    </th>
-                    <th>
-                        Désignation
-                    </th>
-                    <th>
-                        Marque
-                    </th>
-                    <th>
-                        Périssable
-                    </th>
-                    <th>
-                        Quantité
-                    </th>
-                    <th>
-                        Stock max
-                    </th>
-                    <th>
-                        Stock min
-                    </th>
-                    <th>
-                        Stock critique
-                    </th>                    
-                    <th>
-                        Etat
-                    </th>                    
-                    <th>
-                        Opération
-                    </th>
+                        <th>
+                            N°
+                        </th>
+                        <th>
+                            Catégorie
+                        </th>
+                        <th>
+                            Désignation
+                        </th>
+                        <th>
+                            Marque
+                        </th>
+                        <th>
+                            Périssable
+                        </th>
+                        <th>
+                            Quantité
+                        </th>
+                        <th>
+                            Stock max
+                        </th>
+                        <th>
+                            Stock min
+                        </th>
+                        <th>
+                            Stock critique
+                        </th>                    
+                        <th>
+                            Etat
+                        </th>                    
+                        <th>
+                            Opération
+                        </th>
                     </thead>
                     <tbody>
                         <?php
@@ -105,11 +105,11 @@ include '../models/biens/biens.php';
                                     <?php
                                     if ($bien['active'] == 1) {
                                         ?>
-                                        <h4 style="color: forestgreen;">Actif</h4>
+                                            <h4 style="color: forestgreen;">Actif</h4>
                                         <?php
                                     } else {
                                         ?>
-                                        <h4 style="color: red;">Inactif</h4>
+                                            <h4 style="color: red;">Inactif</h4>
                                         <?php
                                     }
                                     ?>
