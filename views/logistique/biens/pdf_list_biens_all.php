@@ -14,6 +14,8 @@ include("../../../models/pdf-generator/pdfclass.php");
 
 include("../../../models/connexion.php");
 include("../../../models/biens/biens.php");
+
+include '../../models/ravitaillement/ravitaillement.php';
 ?>
 
 <?php
@@ -34,6 +36,7 @@ $pdf->Row(array(decode('NO'), decode('Name'), decode('Group'), decode('Perissabl
 //    $pdf->Cell(18, 7, decode($thead), 1);
 //}
 $n = 0;
+$bdravitaillement = new BdRavitaillement();
 $bdbiens = new BdBiens();
 $biens = $bdbiens->getBiensAllDesc();
 foreach ($biens as $bien) {
@@ -46,7 +49,16 @@ foreach ($biens as $bien) {
     } else {
         $v4 = 'No';
     }
-    $v7 = $bien['prixunitaire'];
+    $somme_prix_biens = 0;
+    $s = 0;
+   
+    $ravitaillements = $bdravitaillement->getRavitaillementByIdBiensMore($bien['bId'],'ORDER BY s.id DESC Limit 3');
+    
+    foreach ($ravitaillements as $ravitaillement) {
+        $s++;
+        $somme_prix_biens = $somme_prix_biens + $ravitaillement['prix'];
+    }
+    $v7 = $somme_prix_biens/$s; //$bien['prixunitaire'];
     $v9=$bien['quantite'];
     if ($bien['active'] == 1) {
 

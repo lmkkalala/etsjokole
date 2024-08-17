@@ -73,32 +73,34 @@ $pa = 0;
             <br>
             <fieldset>
                 <legend>Receipts</legend>
-                <table class="table table-bordered table-responsive-lg table-hover table-striped">
+                <table id="listdatabyid" class="table table-bordered table-responsive-lg table-hover table-striped">
                     <thead>
-                    <th>
-                        #
-                    </th>
-                    <th>
-                        Id
-                    </th>
-                    <th>
-                        Item
-                    </th>
-                    <th>
-                        Category
-                    </th>
-                    <th>
-                        Actual quantity
-                    </th>
-                    <th>
-                        UP (USD)
-                    </th>
-                    <th>
-                        Actual value (USD)
-                    </th>
-                    <th>
-                        PV
-                    </th>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                Item
+                            </th>
+                            <th>
+                                Category
+                            </th>
+                            <th>
+                                Actual quantity
+                            </th>
+                            <th>
+                                UP (USD)
+                            </th>
+                            <th>
+                                Actual value (USD)
+                            </th>
+                            <th>
+                                PV
+                            </th>
+                        </tr>
                     </thead>
                     <tbody>
                     <?php
@@ -190,12 +192,22 @@ $pa = 0;
                         ?>
                     </tbody>
                     <tfoot>
-                    <td style="font-size: 20px;">
-                        <span>Nombre:</span><span><?= $n ?></span>
-                    </td>
-                    <td style="color: dodgerblue; font-weight: bold;">
-                        <?= "Total value : " . round($cumul_value,3) . " USD" ?>
-                    </td>
+                        <tr>
+                            <th style="font-size: 20px;">
+                                <span>Nombre:</span><span><?= $n ?></span>
+                            </th>
+                            <th style="color: dodgerblue; font-weight: bold;">
+                                Total value :
+                            </th>
+                            <th style="color: dodgerblue; font-weight: bold;">
+                                <?= " " . round($cumul_value,3) . " USD" ?>
+                            </th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
                     </tfoot>
                 </table>
             </fieldset>

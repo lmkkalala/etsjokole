@@ -13,7 +13,7 @@ if (isset($_POST['FilterVenteAgent'])) {
 }
 ?>
 <form action="/views/home.php?link=31f029825f5c4ecdbe0ff06c6e40bf207c13fd2a&use=<?=$_GET['use']?>&link_up=b8fec8b66f449e4d9eeb889da36e634bacc76b62" method="post">
-    <div class="row">
+    <div class="row mb-2">
         <div class="col-md-5">
             
             <input class="form-control" type="date" name="date_start" value="<?=$date_start?>">
@@ -28,8 +28,8 @@ if (isset($_POST['FilterVenteAgent'])) {
     </div>
 </form>
 
-<table class="table table-bordered table-responsive-lg">
-    <thead>
+<table id="listdatabyid" class="table table-bordered table-responsive-lg">
+<thead>
     <th>
         N°
     </th>
@@ -132,9 +132,18 @@ if (isset($_POST['FilterVenteAgent'])) {
     ?>
 </tbody>
 <tfoot>
-<td style="font-size: 20px;">
+<tr>
+<th style="font-size: 20px;">
     <span>Nombre:</span><span><?= $n ?></span>
-</td>
+</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
 </tfoot>
 </table>
 
