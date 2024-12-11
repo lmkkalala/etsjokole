@@ -58,7 +58,7 @@ if (isset($_POST['bt_enregistrer'])) {
             }
         }
 
-        if ($agent[0]['daily_sell'] == 1 and $current_date < $date) {
+        if ($agent[0]['daily_sell'] == 0 and $current_date > $date) {
             echo json_encode(array('message'=>' Vous essayer d\'effectuer une vente à une date déjà passer, veuiller contacter l\'IT pour faire cela.','status'=>'traitement_error')); 
             return; 
         }
@@ -191,31 +191,33 @@ function panier($iddistribution){
 
     $bddistribution = new BdDistribution();
     $distributions = $bddistribution->getDistributionById($iddistribution);
-    foreach ($distributions as $distribution) {
-        $quantite_distribue = $distribution['nombre'];
-        $bdlivraison = new BdLivraison();
-        $livraisons = $bdlivraison->getLivraisonById($distribution['distribution_id']);
-        foreach ($livraisons as $livraison) {
-            $idbiens = $livraison['bId'];
-        }
-    }
-    $bdunite = new BdUnite();
-    $unites = $bdunite->getUniteByIdBiens($idbiens);
-    $panier = "";
-    foreach ($unites as $unite) {
-        if ((isset($_POST['chk_' . $unite['id']]))) {
-            $panier = $panier . "/" . $unite['id'];
-            $m++;
-        }
-    }
-    
-    if ($iddistribution != "" && $panier != "" && (($m == $quantite_distribue))) {
-        foreach ($unites as $unite) {
-            if (isset($unite['id'])) {
-                $bdunite->desactiveUniteDistribution($unite['id']);
+    if (count($distributions) > 0) {
+        foreach ($distributions as $distribution) {
+            $quantite_distribue = $distribution['nombre'];
+            $bdlivraison = new BdLivraison();
+            $livraisons = $bdlivraison->getLivraisonById($distribution['distribution_id']);
+            foreach ($livraisons as $livraison) {
+                $idbiens = $livraison['bId'];
             }
         }
-        $bddistribution->setPanier($iddistribution, $panier);
+        $bdunite = new BdUnite();
+        $unites = $bdunite->getUniteByIdBiens($idbiens);
+        $panier = "";
+        foreach ($unites as $unite) {
+            if ((isset($_POST['chk_' . $unite['id']]))) {
+                $panier = $panier . "/" . $unite['id'];
+                $m++;
+            }
+        }
+        
+        if ($iddistribution != "" && $panier != "" && (($m == $quantite_distribue))) {
+            foreach ($unites as $unite) {
+                if (isset($unite['id'])) {
+                    $bdunite->desactiveUniteDistribution($unite['id']);
+                }
+            }
+            $bddistribution->setPanier($iddistribution, $panier);
+        }
     }   
 }
 

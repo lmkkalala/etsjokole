@@ -26,22 +26,22 @@ include '../models/crud/db.php';
                         <div class="row form-group-lg">
                             <div class="col-md-3">
                                 <select class="form-control select2" name="cb_service">
-                                    <option value="0">Choisir un POS/Departement/Service</option>
+                                        <option value="0">Choisir un POS/Departement/Service</option>
                                     <?php
-                                    $bdservice = new DB();
-                                    $services = $bdservice->getWhereMultipleMore(' * , mutation.id as mID, service.id as sID FROM mutation INNER JOIN service ON service.id = mutation.service_id ',' mutation.active = 1 ',' ORDER BY mutation.id DESC ');
-                                    foreach ($services as $service) {
-                                        if (($service['sID'] == $_SESSION['idservice']) || ($_SESSION['type']=="logistique")) {
-                                            if (($service['sID'] == $_SESSION['idservice']) && ($_SESSION['type']!="logistique")) {
-                                                $selected =  ' selected ';
-                                            }else{
-                                                $selected = '';
-                                            }
+                                        $bdservice = new DB();
+                                        $services = $bdservice->getWhereMultipleMore(' * , mutation.id as mID, service.id as sID FROM mutation INNER JOIN service ON service.id = mutation.service_id INNER JOIN agent ON agent.id = mutation.agent_id ',' mutation.active = 1 ',' ORDER BY mutation.id DESC ');
+                                        foreach ($services as $service) {
+                                            if (($service['sID'] == $_SESSION['idservice']) || ($_SESSION['type']=="logistique") || ($_SESSION['grade']=="Seller")) {
+                                                if (($service['sID'] == $_SESSION['idservice']) && ($_SESSION['type']!="logistique")) {
+                                                    $selected = 'selected';
+                                                }else{
+                                                    $selected = '';
+                                                }
                                     ?>
-                                        <option <?=$selected?>  value="<?= $service['mID'] ?>"><?= $service['designation'] ?></option>
+                                        <option <?=$selected?>  value="<?= $service['mID'] ?>"><?= $service['designation']. ' / AGENT: '.$service['nom'] ?></option>
                                     <?php
+                                            }
                                         }
-                                    }
                                     ?>
                                 </select>
                             </div>

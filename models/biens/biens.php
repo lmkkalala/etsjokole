@@ -62,9 +62,9 @@ class BdBiens {
         }
     }
 
-    function getBiensAll() {
+    function getBiensAll($order = '') {
         $bd = Connexion::connecter();
-        $reponse = $bd->query('SELECT b.prixunitaire AS bPv ,b.id AS bId,b.designation AS bDesignation,b.marque,b.quantite,b.stock_max,b.stock_min,b.stock_critique,b.type_perissable,b.technique_gestion,b.active,g.id AS gID,g.designation AS gDesignation FROM biens b INNER JOIN groupebiens g ON(b.groupeBiens_id=g.id)');
+        $reponse = $bd->query('SELECT b.prixunitaire AS bPv ,b.id AS bId,b.designation AS bDesignation,b.marque,b.quantite,b.stock_max,b.stock_min,b.stock_critique,b.type_perissable,b.technique_gestion,b.active,g.id AS gID,g.designation AS gDesignation FROM biens b INNER JOIN groupebiens g ON(b.groupeBiens_id=g.id)'.$order.'' );
         return $reponse->fetchAll();
         $reponse->closeCursor();
     }

@@ -184,6 +184,7 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
             $conditionFacture = '';
         } 
         
+        // Debiter
         // if (isset($_POST['FilterFormCaisse'])) {
         //     $conditionCaisse = '';
         //     $filterNom = htmlspecialchars($_POST['filterNom']);
@@ -246,37 +247,38 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
             $conditionCaisse = '';
         }
 
-        if (isset($_POST['FilterFormCaisseCredit'])) {
-            $conditionCaisseCredit = '';
-            $filterNom = htmlspecialchars($_POST['filterNomCredit']);
+        // Crediter
+        // if (isset($_POST['FilterFormCaisseCredit'])) {
+        //     $conditionCaisseCredit = '';
+        //     $filterNom = htmlspecialchars($_POST['filterNomCredit']);
     
-            if ($filterNom != '') {
-                $conditionCaisseCredit = $conditionCaisseCredit.'creditePar Like "%'.$filterNom.'%"';
-            }
-            $filterNomApprover = htmlspecialchars($_POST['filterNomApproverCredit']);
-            if ($filterNomApprover != '') {
-                $conditionCaisseCredit = $filterNom != '' ? $conditionCaisseCredit.' and ' : '';
-                $conditionCaisseCredit = $conditionCaisseCredit.'approuverPar Like "%'.$filterNomApprover.'%"';
-            }
-            $filterNBordereau = htmlspecialchars($_POST['filterNBordereauCredit']);
-            if ($filterNBordereau != '') {
-                $conditionCaisseCredit = $filterNom != '' || $filterNomApprover != '' ? $conditionCaisseCredit.' and ' : '';
-                $conditionCaisseCredit = $conditionCaisseCredit.'nBordereau = "'.$filterNBordereau.'"';
-            } 
-            $FilterBanque = htmlspecialchars($_POST['FilterBanqueCredit']);
-            if ($FilterBanque != '') {
-                $conditionCaisseCredit = $filterNom != '' || $filterNomApprover != '' || $filterNBordereau != '' ? $conditionCaisseCredit.' and ' : '';
-                $conditionCaisseCredit = $conditionCaisseCredit.'banque = "'.$FilterBanque.'"';
-            } 
-            $filterDate_start = htmlspecialchars($_POST['filterDate_startCredit']); 
-            $filterDate_end = htmlspecialchars($_POST['filterDate_endCredit']);
-            if ($filterDate_start != '' and $filterDate_end != '') {
-                $conditionCaisseCredit = $filterNom != '' || $filterNomApprover != '' || $filterNBordereau != '' || $FilterBanque != '' ? $conditionCaisseCredit.' and ' : '';
-                $conditionCaisseCredit = $conditionCaisseCredit.' date >= "'.$filterDate_start.'" and  date <= "'.$filterDate_end.'"';
-            }
-        }else{
-            $conditionCaisseCredit = '';
-        }
+        //     if ($filterNom != '') {
+        //         $conditionCaisseCredit = $conditionCaisseCredit.'creditePar Like "%'.$filterNom.'%"';
+        //     }
+        //     $filterNomApprover = htmlspecialchars($_POST['filterNomApproverCredit']);
+        //     if ($filterNomApprover != '') {
+        //         $conditionCaisseCredit = $filterNom != '' ? $conditionCaisseCredit.' and ' : '';
+        //         $conditionCaisseCredit = $conditionCaisseCredit.'approuverPar Like "%'.$filterNomApprover.'%"';
+        //     }
+        //     $filterNBordereau = htmlspecialchars($_POST['filterNBordereauCredit']);
+        //     if ($filterNBordereau != '') {
+        //         $conditionCaisseCredit = $filterNom != '' || $filterNomApprover != '' ? $conditionCaisseCredit.' and ' : '';
+        //         $conditionCaisseCredit = $conditionCaisseCredit.'nBordereau = "'.$filterNBordereau.'"';
+        //     } 
+        //     $FilterBanque = htmlspecialchars($_POST['FilterBanqueCredit']);
+        //     if ($FilterBanque != '') {
+        //         $conditionCaisseCredit = $filterNom != '' || $filterNomApprover != '' || $filterNBordereau != '' ? $conditionCaisseCredit.' and ' : '';
+        //         $conditionCaisseCredit = $conditionCaisseCredit.'banque = "'.$FilterBanque.'"';
+        //     } 
+        //     $filterDate_start = htmlspecialchars($_POST['filterDate_startCredit']); 
+        //     $filterDate_end = htmlspecialchars($_POST['filterDate_endCredit']);
+        //     if ($filterDate_start != '' and $filterDate_end != '') {
+        //         $conditionCaisseCredit = $filterNom != '' || $filterNomApprover != '' || $filterNBordereau != '' || $FilterBanque != '' ? $conditionCaisseCredit.' and ' : '';
+        //         $conditionCaisseCredit = $conditionCaisseCredit.' date >= "'.$filterDate_start.'" and  date <= "'.$filterDate_end.'"';
+        //     }
+        // }else{
+        //     $conditionCaisseCredit = '';
+        // }
 
         if (isset($_POST['FilterFormReception'])) {
             $conditionReceptionList = '';
@@ -571,7 +573,7 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
         </tbody>
         ';
 
-    // end here
+        // end here
 
         // if ($conditionCaisse != '') {
         //     $listCaisse = $DB->getWhereMultiple('caisse','operation = "Debiter" and '.$conditionCaisse);
@@ -2356,6 +2358,27 @@ function OptionArticle (){
                      );
      
                     $prepared = ' date = ?, destination = ?, contenu = ?, tonne = ?, prixCourse = ?, description = ?';
+                    $condition = ' id = ?';
+                    break;
+                case 'caisse':
+                    $data = array(
+                        htmlspecialchars($_POST['DcaisseDate_']),
+                        htmlspecialchars($_POST['DcaisseBanque_']),
+                        htmlspecialchars($_POST['DcaissenBordereau_']),
+                        htmlspecialchars($_POST['DcaisseDescription_']),
+                        htmlspecialchars($_POST['caisseMontantDeposeDollars_']),
+                        htmlspecialchars($_POST['caisseMontantDeposeFC_']),
+                        htmlspecialchars($_POST['caisseMontantDeposeFRW_']),
+                        htmlspecialchars($_POST['caisseMontantRetireDollars_']),
+                        htmlspecialchars($_POST['caisseMontantRetireFC_']),
+                        htmlspecialchars($_POST['caisseMontantRetireFRW_']),
+                        htmlspecialchars($_POST['caisseDebitePar_']),
+                        htmlspecialchars($_POST['caisseCreditePar_']),
+                        htmlspecialchars($_POST['DcaisseApprouverPar_']),
+                        htmlspecialchars($_POST['id'])
+                        );
+        
+                $prepared = ' date = ?, banque = ?, nBordereau = ?, description = ?, montantDeposeDollars = ?, montantDeposeFC = ?, montantDeposeFRW = ?, montantRetireDollars = ?, montantRetireFC = ?, montantRetireFRW = ?, debitePar = ?, creditePar = ?, approuverPar = ? ';
                     $condition = ' id = ?';
                     break;
                 default:

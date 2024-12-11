@@ -23,12 +23,17 @@ if (isset($_POST['bt_enregistrer'])) {
     $idaffectationservice=securise($_SESSION['idaffectation']);
     $typerepas = securise($_POST['cb_typerepas']);
     if (($dateheure != "") && ($idaffectationservice!="") && ($typerepas!="0")) {
-        $bdpreparation = new BdPreparation();
-        if ($bdpreparation->addPreparation($dateheure,$idaffectationservice,$typerepas)) {
-            $error = "succes";
-        } else {
-            $error = "traitement_error";
+        if ($dateheure > date('Y-m-d')) {
+            $error = "error_date";
+        }else{
+            $bdpreparation = new BdPreparation();
+            if ($bdpreparation->addPreparation($dateheure,$idaffectationservice,$typerepas)) {
+                $error = "succes";
+            } else {
+                $error = "traitement_error";
+            }
         }
+        
     } else {
         $error = "remplissage_error";
     }

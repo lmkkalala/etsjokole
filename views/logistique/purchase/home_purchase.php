@@ -89,7 +89,7 @@ include './meta/menu_logistique.php';
                                     <span style="font-size: 40px;" class="fa fa-list-alt text-white"></span>
                                 </div> -->
                                 <span style="font-size: 20px;" class="fa fa-list-alt text-white"></span> <a class="btn btn-secondary" style="font-size: 15px;" href="#" data-bs-toggle="modal" data-bs-target="#add_reception_place"> Ajout Lieu</a>
-                                <span style="font-size: 20px;" class="fa fa-list-alt text-white"></span> <a class="btn btn-secondary" style="font-size: 15px;" href="#" data-bs-toggle="modal" data-bs-target="#list_reception_place"> List Lieu</a>
+                                <span style="font-size: 20px;" class="fa fa-list-alt text-white"></span> <a class="btn btn-secondary" style="font-size: 15px;" href="#" data-bs-toggle="modal" data-bs-target="#list_reception_place">Nos Lieux</a>
                             </div>
                         </div>
 

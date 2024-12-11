@@ -21,7 +21,7 @@ new DataTable('#listdatabyid', {
     layout: {
         topStart: {
             pageLength: {
-                menu: [10, 25, 50]
+                menu: [10, 25, 50, 100]
             },
             buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
            
@@ -339,6 +339,25 @@ new DataTable('#listdatabyid', {
     function updateThis(id,table = null, toBeDone = ''){
 
         if (table == 'caisse' && toBeDone == 'formData' ) {
+
+            var form = {
+                'DcaisseDate_': $('#DcaisseDate_'+id+'').val(),
+                'DcaisseBanque_': $('#DcaisseBanque_'+id+'').val(),
+                'DcaissenBordereau_': $('#DcaissenBordereau_'+id+'').val(),
+                'DcaisseDescription_': $('#DcaisseDescription_'+id+'').val(),
+                'caisseDebitePar_': $('#caisseDebitePar_'+id+'').val(),
+                'caisseMontantDeposeDollars_': $('#caisseMontantDeposeDollars_'+id+'').val(),
+                'caisseMontantDeposeFC_': $('#caisseMontantDeposeFC_'+id+'').val(),
+                'caisseMontantDeposeFRW_': $('#caisseMontantDeposeFRW_'+id+'').val(),
+                'caisseCreditePar_': $('#caisseCreditePar_'+id+'').val(),
+                'caisseMontantRetireDollars_': $('#caisseMontantRetireDollars_'+id+'').val(),
+                'caisseMontantRetireFC_': $('#caisseMontantRetireFC_'+id+'').val(),
+                'caisseMontantRetireFRW_': $('#caisseMontantRetireFRW_'+id+'').val(),
+                'DcaisseApprouverPar_': $('#DcaisseApprouverPar_'+id+'').val(),
+                'id':id,
+                'table':table
+            };
+            operation(form,'update',''+table+'');
             
         }else if (table == 'vehicule' && toBeDone == 'formData') {
             var form = {

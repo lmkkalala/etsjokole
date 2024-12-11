@@ -73,9 +73,9 @@ include '../models/demande/demande.php';
                                 foreach ($preparations as $preparation) {
                                     if ($preparation['active']) {
                                         if (1) {
-                                            ?>
-                                            <option value="<?= $preparation['id'] ?>"><?= $preparation['typerepas'] . " / " . $preparation['dateHeure'] ?></option>
-                                            <?php
+                                ?>
+                                        <option value="<?= $preparation['id'] ?>"><?= $preparation['typerepas'] . " / " . $preparation['dateHeure'] ?></option>
+                                <?php
                                         }
                                     }
                                 }
@@ -188,6 +188,9 @@ include '../models/demande/demande.php';
                 <th>
                     Finalisée
                 </th>
+                <th>
+                    Operation
+                </th>
                 </thead>
                 <tbody>
                     <?php
@@ -242,9 +245,16 @@ include '../models/demande/demande.php';
                     ?>
                 </tbody>
                 <tfoot>
-                <td style="font-size: 20px;">
-                    <span>Nombre:</span><span><?= $n ?></span>
-                </td>
+                    <td style="font-size: 20px;">
+                        <?= $n ?></span>
+                    </td>
+                    <td style="font-size: 20px;">
+                        <span>Nombre</span><span>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tfoot>
             </table>
         </fieldset>

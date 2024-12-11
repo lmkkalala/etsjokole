@@ -59,11 +59,17 @@ include '../models/affectation-service/affectationService.php';
                                 <select class="form-control select2" name="cb_preparation">
                                     <option value="0">Choisir une activité</option>
                                     <?php
+                                    $use_preparation = (isset($_GET['use_preparation'])) ? ' AND preparation.id = "'.$_GET['use_preparation'].'" ' : ' ';
+                                    
                                     $bdpreparation = new BdPreparation();
-                                    $preparations = $bdpreparation->getPreparationAllDesc();
+
+                                    $preparations = $bdpreparation->getPreparationAllDesc('INNER JOIN demande ON demande.preparation_id = preparation.id INNER JOIN distrubution on distrubution.demande_id = demande.id WHERE distrubution.quantite_actuelle != 0 '.$use_preparation.' ','preparation.dateHeure','preparation.id, preparation.active, preparation.mutation_id, preparation.typerepas, preparation.dateHeure');
+                                    $current_prep_id = '';
+                                    $N = 0;
                                     foreach ($preparations as $preparation) {
-                                        if ($preparation['active']) {
-                                            if (1) {
+                                        if ($preparation['active'] == 1 and $current_prep_id != $preparation['id']) {
+
+                                                $current_prep_id = $preparation['id'];
                                                 $bdaffectationservice = new BdAffectationService();
                                                 $affectationservices = $bdaffectationservice->getAffectationServiceById($preparation['mutation_id']);
                                                 foreach ($affectationservices as $affectationservice) {
@@ -73,10 +79,10 @@ include '../models/affectation-service/affectationService.php';
                                                         $designation_service = $service['designation'];
                                                     }
                                                 }
-                                                ?>
-                                                <option value="<?= $preparation['id'] ?>"><?= $preparation['typerepas'] ." / ". $designation_service." / " . $preparation['dateHeure'] ?></option>
-                                                <?php
-                                            }
+                                                $N++;
+                                    ?>
+                                                <option value="<?=$N.') '. $preparation['id'] ?>"><?= $preparation['typerepas'] ." / ". $designation_service." / " . $preparation['dateHeure'] ?></option>
+                                    <?php
                                         }
                                     }
                                     ?>
@@ -120,24 +126,24 @@ include '../models/affectation-service/affectationService.php';
                 <legend>Les livraisons</legend>
                 <table class="table table-bordered table-responsive-lg">
                     <thead>
-                    <th>
-                        N°
-                    </th>
-                    <th>
-                        Date
-                    </th>
-                    <th>
-                        Demande
-                    </th>
-                    <th>
-                        Qté restante
-                    </th>
-                    <th>
-                        Livreur
-                    </th>
-                    <th>
-                        Opération
-                    </th>
+                        <th>
+                            N°
+                        </th>
+                        <th>
+                            Date
+                        </th>
+                        <th>
+                            Demande
+                        </th>
+                        <th>
+                            Qté restante
+                        </th>
+                        <th>
+                            Livreur
+                        </th>
+                        <th>
+                            Opération
+                        </th>
                     </thead>
                     <tbody>
                         <?php
@@ -165,16 +171,24 @@ include '../models/affectation-service/affectationService.php';
                                     <td><?= $livraison['lQuantiteActuelle'] ?></td>
                                     <td><?= $livraison['lNom'] . " " . $livraison['lPostnom'] . " " . $livraison['lPrenom'] ?></td>
                                     <td>
-                                        <form class="" method="post" action="../contollers/recuperation_logistique/recuperationController.php">
-                                            <input type="text" name="tb_quantite_recupere" class="form-control" value="<?= $livraison['lQuantiteActuelle'] ?>">
-                                            <input type="hidden" name="tb_quantite_actuelle" class="form-control" value="<?= $livraison['lQuantiteActuelle'] ?>">
-                                            <input type="hidden" name="tb_idlivraison" value="<?= $livraison['lId'] ?>">
-                                            <input type="hidden" name="tb_idagent" value="<?= $livraison['agId'] ?>">
-                                            <input type="hidden" name="tb_idbien" value="<?= $livraison['bId'] ?>">
-                                            <button type="submit" class="btn btn-primary" name="bt_recuperer_low">
-                                                <span class="fa fa-recycle" style="font-size: 25px;margin-right: 5px;"></span>
-                                            </button>
+                                        
+                                        <form method="post" action="../contollers/recuperation_logistique/recuperationController.php">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <input type="text" name="tb_quantite_recupere" class="form-control" value="<?= $livraison['lQuantiteActuelle'] ?>">
+                                                    <input type="hidden" name="tb_quantite_actuelle" class="form-control" value="<?= $livraison['lQuantiteActuelle'] ?>">
+                                                    <input type="hidden" name="tb_idlivraison" value="<?= $livraison['lId'] ?>">
+                                                    <input type="hidden" name="tb_idagent" value="<?= $livraison['agId'] ?>">
+                                                    <input type="hidden" name="tb_idbien" value="<?= $livraison['bId'] ?>">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <button type="submit" class="btn btn-primary" name="bt_recuperer_low">
+                                                        <span class="fa fa-recycle" style="font-size: 25px;margin-right: 5px;"></span>
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </form>
+                                        
                                     </td>
                                 </tr>
                                 <?php
@@ -183,9 +197,9 @@ include '../models/affectation-service/affectationService.php';
                         ?>
                     </tbody>
                     <tfoot>
-                    <td style="font-size: 20px;">
-                        <span>Nombre:</span><span><?= $n ?></span>
-                    </td>
+                        <td style="font-size: 20px;">
+                            <span>Nombre:</span><span><?= $n ?></span>
+                        </td>
                     </tfoot>
                 </table>
             </fieldset>
