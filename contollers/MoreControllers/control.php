@@ -2510,7 +2510,7 @@ function OptionArticle (){
     if (isset($_POST['add_lieu_reception'])) {
         $table = 'lieureception';
         $field = '(lieu,address,ville,pays,date,addedbyID)';
-        $prepared = '?,?,?,?,?';
+        $prepared = '?,?,?,?,?,?';
         
         $value = array(
             securise($_POST['lieu']),

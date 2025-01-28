@@ -60,21 +60,23 @@ include '../models/crud/db.php';
                 <legend>Liste des biens/produits</legend>
                 <table class="table table-bordered table-responsive-lg">
                     <thead>
-                        <th>
-                            N°
-                        </th>
-                        <th>
-                            Désignation
-                        </th>
-                        <th>
-                            Quantite vendu
-                        </th>
-                        <th>
-                            Prix Moyen Vente
-                        </th>
-                        <th>
-                            Prix de vente
-                        </th>
+                        <tr>
+                            <th>
+                                N°
+                            </th>
+                            <th>
+                                Désignation
+                            </th>
+                            <th>
+                                Quantite vendu
+                            </th>
+                            <th>
+                                Prix Moyen Vente
+                            </th>
+                            <th>
+                                Prix de vente
+                            </th>
+                        </tr>
                     </thead>
                     <tbody id="VenteProduitGlobal"></tbody>
                 </table>

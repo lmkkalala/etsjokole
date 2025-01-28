@@ -124,6 +124,11 @@ if (isset($_POST['bt_view'])) {
     header('Location:../../views/home.php?link=' . sha1("logistique_attribution_biens_fiche_attribution_fournisseur_self") . '&use=' . ($reponse) . '&link_up=' . sha1("home_logistique_attribution_biens"));
 }
 
+if (isset($_POST['bt_paie'])) {
+    $reponse = $_POST['tb_idattribution'];
+    header('Location:../../views/home.php?link=' . sha1("fournisseur_command_historique_paiement") . '&use=' . ($reponse) . '&link_up=' . sha1("home_logistique_attribution_biens"));
+}
+
 if (isset($_POST['bt_view_for_biens'])) {
     $reponse = $_POST['tb_idbiens'];
     header('Location:../../views/home.php?link=' . sha1("logistique_attribution_biens_fiche_biens_attribution_self") . '&use=' . ($reponse) . '&link_up=' . sha1("home_logistique_attribution_biens"));
@@ -152,6 +157,13 @@ if (isset($_POST['bt_search_attributionbiens_by_date'])) {
     $numeroOrder = $_POST['cb_numeroOrder'];
     $idfournisseur = $_POST['tb_idfournisseur'];
     header('Location:../../views/home.php?link=' . sha1("logistique_attribution_biens_fiche_attribution_fournisseur_self") . '&use=' . ($idfournisseur). '&use_numeroOrder=' . ($numeroOrder). '&use_date1=' . ($date1). '&use_date2=' . ($date2) . '&link_up=' . sha1("home_logistique_attribution_biens"));
+}
+
+if (isset($_POST['bt_search_attributionbiens_paie_by_date'])) {
+    $date1 = $_POST['tb_date1'];
+    $date2 = $_POST['tb_date2'];
+    $idfournisseur = $_POST['tb_idfournisseur'];
+    header('Location:../../views/home.php?link=' . sha1("fournisseur_command_historique_paiement") . '&use=' . ($idfournisseur).'&use_date1=' . ($date1). '&use_date2=' . ($date2) . '&link_up=' . sha1("home_logistique_attribution_biens"));
 }
 
 ?>

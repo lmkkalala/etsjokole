@@ -78,8 +78,14 @@ include './meta/menu_logistique.php';
                                 <!-- <div class="d-flex justify-content-center mt-1">
                                     <span style="font-size: 40px;" class="fa fa-list-alt text-white"></span>
                                 </div> -->
-                                <span style="font-size: 20px;" class="fa fa-list-alt text-white"></span><a class="btn btn-secondary" style="font-size: 15px;" href="#" data-bs-toggle="modal" data-bs-target="#add_prix_reception_place"> Reçu Prix</a>
-                                <span style="font-size: 20px;" class="fa fa-list-alt text-white"></span><a class="btn btn-secondary" style="font-size: 15px;" href="#" data-bs-toggle="modal" data-bs-target="#list_prix_reception_place"> Autre Prix </a>
+                                <div class="row">
+                                    <a class="btn btn-secondary w-100" style="font-size: 15px;" href="#" data-bs-toggle="modal" data-bs-target="#add_prix_reception_place">
+                                        <span style="font-size: 20px;" class="fa fa-list-alt text-white"></span> Reçu Prix
+                                    </a>
+                                    <a class="btn btn-secondary w-100" style="font-size: 15px;" href="#" data-bs-toggle="modal" data-bs-target="#list_prix_reception_place">
+                                        <span style="font-size: 20px;" class="fa fa-list-alt text-white"></span> Autre Prix 
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -88,8 +94,14 @@ include './meta/menu_logistique.php';
                                 <!-- <div class="d-flex justify-content-center mt-1">
                                     <span style="font-size: 40px;" class="fa fa-list-alt text-white"></span>
                                 </div> -->
-                                <span style="font-size: 20px;" class="fa fa-list-alt text-white"></span> <a class="btn btn-secondary" style="font-size: 15px;" href="#" data-bs-toggle="modal" data-bs-target="#add_reception_place"> Ajout Lieu</a>
-                                <span style="font-size: 20px;" class="fa fa-list-alt text-white"></span> <a class="btn btn-secondary" style="font-size: 15px;" href="#" data-bs-toggle="modal" data-bs-target="#list_reception_place">Nos Lieux</a>
+                                <div class="row">
+                                    <a class="btn btn-secondary w-100" style="font-size: 15px;" href="#" data-bs-toggle="modal" data-bs-target="#add_reception_place">
+                                        <span style="font-size: 20px;" class="fa fa-list-alt text-white"></span> Ajout Lieu
+                                    </a>
+                                    <a class="btn btn-secondary w-100" style="font-size: 15px;" href="#" data-bs-toggle="modal" data-bs-target="#list_reception_place">
+                                        <span style="font-size: 20px;" class="fa fa-list-alt text-white"></span> Nos Lieux
+                                    </a>
+                                </div>
                             </div>
                         </div>
 

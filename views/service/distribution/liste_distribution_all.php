@@ -241,7 +241,7 @@ $DB = new DB();
                                                 <tr>
                                                     <td><?= $distribution['venteposId'] ?></td>
                                                     <td><?= $distribution['id'] ?></td>
-                                                    <td><?= $distribution['date'] ?></td>
+                                                    <td><?= $distribution['date'].' '.$distribution['time'] ?></td>
                                                     <td><strong><?= $distribution['identiteClient'] ?></strong></td>
                                                     <td><?= $infolivraison ?></td>
                                                     <td><?= $distribution['nombre_restant'] ?></td>
