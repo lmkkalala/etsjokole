@@ -10,9 +10,16 @@ include 'meta/menu_general.php';
 
 ?>
 <div class="row">
+
 <?php
 if ($_SESSION['type'] == 'logistique') {
 ?>
+    <div class="col-sm-12 d-md-none mb-3">
+        <button type="button" id="menu_show" class="btn btn-secondary w-100 mt-2"> <i class="fa fa-list fs-5"></i> MENU</button>
+        <div class="mt-2">
+            <strong><i class="fa fa-user-circle fs-5"></i> <?=$_SESSION['identite']?></strong>
+        </div>
+    </div>
     <div id="menu2-a" class="col-lg-12 col-md-12 col-sm-12">
         <ul class="nav nav-tabs nav-justified">
             <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" class="active" href="/views/home.php?link_up=<?= sha1('home_logistique_acceuil'); ?>"><span class="fa fa-home" style="margin: 10px;"></span>Accueil</a></li>
@@ -31,6 +38,7 @@ if ($_SESSION['type'] == 'logistique') {
             <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="/views/home.php?link_up=<?= sha1('home_logistique_bordereau_expedition'); ?>"><span class="fa fa-book" style="margin: 10px;"></span>Bordereau d'expedition</a></li>
             <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="/views/home.php?link_up=<?= sha1('home_facture_client'); ?>"><span class="fa fa-pencil-square" style="margin: 10px;"></span>Facture A Payer</a></li>
             <!--<li role="presentation"><a style="font-size: 15px;" href=""><span class="fa fa-dollar" style=" font-size: 30px;"></span>Vente en gros</a></li>-->
+            <li role="presentation" class=" d-md-none"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="#" onclick="logout()"><span class="fa fa-sign-out"></span> Deconnexion</a></li>
         </ul>
     </div>
 <?php

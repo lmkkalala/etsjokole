@@ -7,6 +7,11 @@
  */
 session_start();
 
+if ($_SERVER['HTTP_HOST'] == 'etsjokole.com') {
+   error_reporting(0);
+}
+
+
 if (!isset($_SESSION['identite'])) {
     if (!isset($reponse)) {
         $reponse = '';
@@ -189,7 +194,7 @@ $Maintenance = false;
                         <div class="col-md-4 text-start mt-3">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <span style="color: #fff;"><i class="fa fa-copyright mx-2" style="color: #fff; font-size: 20px;"></i> Designed by <b>Rifin Ashuza K. and <a class="text-decoration-none text-white" href="https://lucienkalala.github.io/PersonalPage"> LMK</a></b></span> 
+                                    <span style="color: #fff;"><i class="fa fa-copyright mx-2" style="color: #fff; font-size: 20px;"></i> Designed by <b>Rifin Ashuza K. and <a class="text-decoration-none text-white" href="https://lmkkalala.github.io/site"> LMK</a></b></span> 
                                 </div>
                                 <div class="col-md-12">
                                     <!-- <span class="fw-bolder mx-2" style="color: #fff;"><i class="fa fa-envelope-open fw-bolder"></i> rifinashuza.kuderha@gmail.com</span> -->

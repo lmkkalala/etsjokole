@@ -27,7 +27,7 @@ include '../models/preparation/preparation.php';
                             <input type="text" class="form-control" name="tb_search" placeholder="Mot-clé"> 
                         </div>
                         <div class="col-6">
-                            <button type="submit" class="btn btn-success" name="bt_search_for_biens"><span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> rechercher</button>
+                            <button type="submit" class="btn btn-success" name="bt_search_for_biens"><span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
                         </div>                           
                     </div>
                 </form>

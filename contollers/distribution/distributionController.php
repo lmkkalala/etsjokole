@@ -48,7 +48,7 @@ if (isset($_POST['bt_enregistrer'])) {
     $DB = new DB();
     $agent = $DB->getWhere('agent','id',$_SESSION['agentID'],'id',1);
 
-    $current_time = date('H:i');
+    $current_time = date('H:i',time()+(2*60*60));
     $current_date = date('Y-m-d');
     if (count($agent) > 0) {
         if (!empty($agent[0]['start_time']) || !empty($agent[0]['end_time'])) {
@@ -482,7 +482,7 @@ if (isset($_POST['bt_delete_lineDistribution'])) {
     $DB = new DB();
     $agent = $DB->getWhere('agent','id',$_SESSION['agentID'],'id',1);
 
-    $current_time = date('H:i');
+    $current_time = date('H:i',time()+(2*60*60));
     $current_date = date('Y-m-d');
     if (count($agent) > 0) {
         if (!empty($agent[0]['start_time']) || !empty($agent[0]['end_time'])) {

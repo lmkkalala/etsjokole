@@ -61,7 +61,7 @@ include '../models/crud/db.php';
                 <input class="form-control" type="date" name="dateEnd" id="" value="<?=$dateEnd?>">
             </div>
             <div class="col-md-3">
-                <input class="btn btn-info" type="submit" name="rechercher" id="rechercher" value="Rechercher">
+                <input class="btn btn-secondary w-100" type="submit" name="rechercher" id="rechercher" value="Rechercher">
             </div>
         </div>
     </form>
@@ -93,6 +93,9 @@ include '../models/crud/db.php';
                             <th>
                                 Effectuer Par
                             </th>
+                            <th>
+                                Description
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -114,6 +117,7 @@ include '../models/crud/db.php';
                                     <!-- <td><?= 'Sur '.$livraison['quantite_old'].' on Recuperer '.$livraison['quantite_recuperer'] ?></td> -->
                                     <td><?= $livraison['quantite_recuperer'] ?></td>
                                     <td><?= $livraison['pnom'] . " " . $livraison['ppostnom'] . " " . $livraison['pprenom'] ?></td>
+                                    <td><?= $livraison['description'] ?></td>
                                 </tr>
                                 <?php
                             //}
@@ -128,6 +132,7 @@ include '../models/crud/db.php';
                             <th style="font-size: 20px;">
                                 <span>Nombre</span>
                             </th>
+                            <th></th>
                             <th></th>
                             <th></th>
                             <th></th>

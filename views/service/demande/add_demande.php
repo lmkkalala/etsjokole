@@ -84,7 +84,7 @@ include '../models/demande/demande.php';
                         </div>                    
                         <div class="col-4 mt-3">
                             <div class="input-group-lg">
-                                <input class="btn btn-success fs-6" type="submit" name="bt_select_preparation_for_add_demande" value="Séléctionner">
+                                <input class="btn btn-success fs-6 w-100" type="submit" name="bt_select_preparation_for_add_demande" value="Séléctionner">
                             </div>
                         </div>
                     </div>
@@ -95,9 +95,9 @@ include '../models/demande/demande.php';
             <?php
             if (isset($_GET['use_preparation'])) {
                 ?>
-                <div style="margin: 15px;">
-                    <fieldset>
-                        <legend style="margin: 5px; color: dodgerblue;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 style="margin: 5px; color: dodgerblue;">
                             <?php
                             if (isset($_GET['use_preparation'])) {
                                 $bdpreparation = new BdPreparation();
@@ -109,56 +109,63 @@ include '../models/demande/demande.php';
                                 }
                             }
                             ?>
-                        </legend>
-                    </fieldset>
+                        </h4>
+                    </div>
 
                     <form class="form-horizontal" method="POST" action="../contollers/demande/demandeController.php">
-                        <table class="table table-bordered table-hover table-responsive table-striped">
+                        <div class="row">
+                        <!-- <table class="table table-bordered table-hover table-responsive table-striped">
                             <tr>
-                                <td>
-                                    <div class="input-group-lg">
-                                        <label id="selectProduct" class="control-label">Produit :</label>
-                                        <select class="form-control select2" name="cb_biens">
+                                <td> -->
+                                <div class="col-md-4 input-group-lg mt-2">
+                                        <!-- <label id="selectProduct" class="control-label">Produit :</label> -->
+                                        <select class="form-control select2 p-2" name="cb_biens">
                                             <option value="0">Choisir produit</option>
                                             <?php
-                                            $bdbiens = new BdBiens();
-                                            $biens = $bdbiens->getBiensAllDesc();
-                                            foreach ($biens as $bien) {
-                                                if ($bien['active']) {
-                                                    if ($bien['bId'] == isset($_GET['use'])) {
-                                                        ?>
-                                                        <option value="<?= $bien['bId'] ?>" selected><?= $bien['bDesignation'] . " : " . $bien['marque'] . " / " . $bien['gDesignation'] ?></option>
-                                                        <?php
-                                                    } else {
-                                                        ?>
-                                                        <option value="<?= $bien['bId'] ?>"><?= $bien['bDesignation'] . " : " . $bien['marque'] . " / " . $bien['gDesignation'] ?></option>
-                                                        <?php
+                                                $bdbiens = new BdBiens();
+                                                $biens = $bdbiens->getBiensAllDesc();
+                                                foreach ($biens as $bien) {
+                                                    if ($bien['active']) {
+                                                        if ($bien['bId'] == isset($_GET['use'])) {
+                                                            ?>
+                                                            <option value="<?= $bien['bId'] ?>" selected><?= $bien['bDesignation'] . " : " . $bien['marque'] . " / " . $bien['gDesignation'] ?></option>
+                                                            <?php
+                                                        } else {
+                                                            ?>
+                                                            <option value="<?= $bien['bId'] ?>"><?= $bien['bDesignation'] . " : " . $bien['marque'] . " / " . $bien['gDesignation'] ?></option>
+                                                            <?php
+                                                        }
                                                     }
                                                 }
-                                            }
                                             ?>
                                         </select>
                                     </div>
-                                </td>
-                                <td>
-                                    <div class="input-group-lg">
+                                <!-- </td>
+                                <td> -->
+                                    <div class="col-md-4 input-group-lg mt-2">
                                         <input class="form-control" type="date" name="tb_date">
                                     </div>
-                                </td>
-                                <td>
-                                    <div class="input-group-lg">
+                                <!-- </td>
+                                <td> -->
+                                    <div class="col-md-4 input-group-lg mt-2">
                                         <input class="form-control" type="text" name="tb_quantite" placeholder="Quantité">
                                     </div>
-                                </td>
-                                <td>
-                                    <div class="input-group-lg">
+                                <!-- </td>
+                                <td> -->
+                                    <div class="col-md-4 input-group-lg mt-2">
+                                        <textarea class="form-control" name="description" placeholder="Description"></textarea>
+                                    </div>
+                                <!-- </td>
+                                <td> -->
+                                    <div class="col-md-4 input-group-lg mt-2">
                                         <input type="hidden" name="tb_idpreparation" value="<?= $_GET['use_preparation'] ?>">
                                         <input type="hidden" name="tb_idaffectation" value="<?= $_SESSION['idaffectation'] ?>">
-                                        <input class="btn btn-success" type="submit" name="bt_enregistrer" value="Ajouter">
+                                        <input class="btn btn-success w-100" type="submit" name="bt_enregistrer" value="Ajouter">
                                     </div>
-                                </td>
+                                <!-- </td>
                             </tr>
-                        </table>
+                        </table> -->
+                        </div>
                     </form>
                 </div>
                 <?php
@@ -168,29 +175,32 @@ include '../models/demande/demande.php';
 
     </div>
 
-    <div style="margin: 10px;">
+    <div>
         <fieldset>
             <legend>Requisitions</legend>
-            <table class="table table-bordered table-responsive-lg">
+            <table class="table table-bordered table-responsive">
                 <thead>
-                <th>
-                    #
-                </th>
-                <th>
-                    Date
-                </th>
-                <th>
-                    Produit
-                </th>
-                <th>
-                    Quantité
-                </th>
-                <th>
-                    Finalisée
-                </th>
-                <th>
-                    Operation
-                </th>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        Produit
+                    </th>
+                    <th>
+                        Quantité
+                    </th>
+                    <th>
+                        Finalisée
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Operation
+                    </th>
                 </thead>
                 <tbody>
                     <?php
@@ -224,6 +234,7 @@ include '../models/demande/demande.php';
                                     }
                                     ?>
                                 </td>
+                                <td><?= $demande['dDescription'] ?></td>
                                 <td>
                                     <?php
                                     if ($demande['dEtat'] == 0) {
@@ -251,6 +262,7 @@ include '../models/demande/demande.php';
                     <td style="font-size: 20px;">
                         <span>Nombre</span><span>
                     </td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>

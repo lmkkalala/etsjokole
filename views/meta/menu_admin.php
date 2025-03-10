@@ -9,6 +9,12 @@
 include 'meta/menu_general.php';
 ?>
 <div class="row"  style="margin-top: 12%;">
+    <div class="col-sm-12 d-md-none mb-3">
+        <button type="button" id="menu_show" class="btn btn-secondary w-100 mt-2"> <i class="fa fa-list fs-5"></i> MENU</button>
+        <div class="mt-2">
+            <strong><i class="fa fa-user-circle fs-5"></i> <?=$_SESSION['identite']?></strong>
+        </div>
+    </div>
     <div id="menu2-a" class="col-lg-12">
         <ul class="nav nav-tabs nav-justified">
             <li role="presentation"><a class="btn btn shadow-none fw-bolder" href="/views/home.php?link_up=<?= sha1("home_admin_acceuil") ?>"><span class="glyphicon glyphicon-home" style="color: #0069d9; margin: 10px;"></span>Acceuil</a></li>
@@ -63,6 +69,7 @@ include 'meta/menu_general.php';
             <?php
             }
             ?>
+            <li role="presentation" class=" d-md-none"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="#" onclick="logout()"><span class="fa fa-sign-out"></span> Deconnexion</a></li>
 
             
         </ul>

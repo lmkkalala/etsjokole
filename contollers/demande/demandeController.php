@@ -23,11 +23,12 @@ if (isset($_POST['bt_enregistrer'])) {
     $idaffectation = securise($_POST['tb_idaffectation']);
     $date = securise($_POST['tb_date']);
     $quantite = securise($_POST['tb_quantite']);
+    $description = securise($_POST['description']);
     $qualiteDemandeur= securise($_SESSION['type']);
     $idpreparation= securise($_POST['tb_idpreparation']);
     if ($idbiens != 0 && $idaffectation != 0 && $date != "" && $quantite > 0 && $qualiteDemandeur != "" && $idpreparation!=0) {
         $bddemande=new BdDemande();
-        if ($bddemande->addDemande($date, $quantite,$idbiens, $idaffectation,$qualiteDemandeur,$idpreparation)) {
+        if ($bddemande->addDemande($date, $quantite,$idbiens, $idaffectation,$qualiteDemandeur,$idpreparation,$description)) {
             $error = "succes";
         } else {
             $error = "traitement_error";

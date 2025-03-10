@@ -59,7 +59,7 @@ include '../models/affectation-service/affectationService.php';
                                 <select class="form-control select2" name="cb_preparation">
                                     <option value="0">Choisir une activité</option>
                                     <?php
-                                    $use_preparation = (isset($_GET['use_preparation'])) ? ' AND preparation.id = "'.$_GET['use_preparation'].'" ' : ' ';
+                                    $use_preparation = (isset($_GET['use_preparation'])) ? ' AND preparation.id = "'.htmlspecialchars($_GET['use_preparation']).'" ' : ' ';
                                     
                                     $bdpreparation = new BdPreparation();
 
@@ -81,7 +81,7 @@ include '../models/affectation-service/affectationService.php';
                                                 }
                                                 $N++;
                                     ?>
-                                                <option value="<?=$N.') '. $preparation['id'] ?>"><?= $preparation['typerepas'] ." / ". $designation_service." / " . $preparation['dateHeure'] ?></option>
+                                                <option value="<?= $preparation['id'] ?>"><?= $preparation['typerepas'] ." / ". $designation_service." / " . $preparation['dateHeure'] ?></option>
                                     <?php
                                         }
                                     }
@@ -167,23 +167,29 @@ include '../models/affectation-service/affectationService.php';
                                 <tr>
                                     <td><?= $livraison['lId'] ?></td>
                                     <td><?= $livraison['lDate'] ?></td>
-                                    <td><?= $livraison['dId'] ?> . <?= $livraison['date'] . " / " . $livraison['bDesignation'] . " / " . $livraison['gDesignation'] . " pour " . $livraison['nom'] . " " . $livraison['postnom'] . " " . $livraison['prenom'] . " : " . $livraison['sDesignation'] . " / Qté : " . $livraison['dQuantite'] ?></td>
+                                    <td width="200"><?= $livraison['dId'] ?> . <?= $livraison['date'] . " / " . $livraison['bDesignation'] . " / " . $livraison['gDesignation'] . " pour " . $livraison['nom'] . " " . $livraison['postnom'] . " " . $livraison['prenom'] . " : " . $livraison['sDesignation'] . " / Qté : " . $livraison['dQuantite'] ?></td>
                                     <td><?= $livraison['lQuantiteActuelle'] ?></td>
                                     <td><?= $livraison['lNom'] . " " . $livraison['lPostnom'] . " " . $livraison['lPrenom'] ?></td>
                                     <td>
                                         
                                         <form method="post" action="../contollers/recuperation_logistique/recuperationController.php">
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-12">
+                                                    <textarea name="description" id="description" placeholder="Note la raison de la recuperation ..." class="form-control"></textarea>
+                                                </div>
+                                                <div class="col-md-6 mt-1">
                                                     <input type="text" name="tb_quantite_recupere" class="form-control" value="<?= $livraison['lQuantiteActuelle'] ?>">
                                                     <input type="hidden" name="tb_quantite_actuelle" class="form-control" value="<?= $livraison['lQuantiteActuelle'] ?>">
                                                     <input type="hidden" name="tb_idlivraison" value="<?= $livraison['lId'] ?>">
                                                     <input type="hidden" name="tb_idagent" value="<?= $livraison['agId'] ?>">
                                                     <input type="hidden" name="tb_idbien" value="<?= $livraison['bId'] ?>">
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <button type="submit" class="btn btn-primary" name="bt_recuperer_low">
+                                                <div class="col-md-6 mt-1">
+                                                    <button type="button" class="btn btn-primary w-100 bt_recuperer_low_validate" name="bt_recuperer_low_validate">
                                                         <span class="fa fa-recycle" style="font-size: 25px;margin-right: 5px;"></span>
+                                                    </button>
+                                                    <button type="submit" class="btn btn-primary w-100 bt_recuperer_low" name="bt_recuperer_low">
+                                                        <span class="fa fa-recycle" style="font-size: 25px;margin-right: 5px;"></span>Valider
                                                     </button>
                                                 </div>
                                             </div>

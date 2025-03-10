@@ -18,11 +18,51 @@ include '../models/preparation/preparation.php';
         <span class="fa fa-check-circle-o" style="color: forestgreen; font-size: 30px;margin-right: 5px;"></span>
         <span class="h4">Liste des demandes finalisées</span>
     </div>
+    <?php
+        $date = date('Y-m',time());
+        $n = 0;
+        $produit = (isset($_POST['produit']) and !empty($_POST['produit']))? htmlspecialchars($_POST['produit']) : '';
+        $dateStart = (isset($_POST['dateStart']) and !empty($_POST['dateStart']))? htmlspecialchars($_POST['dateStart']): '';
+        $dateEnd = (isset($_POST['dateEnd']) and !empty($_POST['dateEnd']))? htmlspecialchars($_POST['dateEnd']): '';
+
+        if (isset($_POST['dateStart']) and isset($_POST['dateEnd']) and isset($_POST['produit']) ) {
+            
+            if(!empty($dateStart) and !empty($dateEnd) and !empty($produit)){
+                $condition = ' AND b.designation LIKE "%'.htmlspecialchars($produit).'%" AND d.date >= "'.$dateStart.'" AND d.date <= "'.$dateEnd.'"';
+            }else if(empty($produit) and empty($dateStart) and empty($dateStart)){
+                $condition = 'WHERE d.date LIKE "%'.date('Y-m').'%"';
+            }else if (empty($produit)) {
+                $condition = ' AND d.date >= "'.$dateStart.'" AND d.date <= "'.$dateEnd.'"';
+            }else if (empty($dateStart)) {
+                $condition = ' AND d.date >= "'.date('Y-m-d').'" AND d.date <= "'.$dateEnd.'"';
+            }else if (empty($dateEnd)) {
+                $condition = ' AND d.date >= "'.$dateStart.'" AND d.date <= "'.date('Y-m-d').'"';
+            }
+        }else{
+            $condition = 'AND d.date LIKE "%'.date('Y').'%"';
+        }
+    ?>
+    <form action="../views/home.php?link=a8d1e2f803842632444a86582653072b3f044e62&link_up=3352d32225bbc9f830f184b95bb7008982f6ac56" method="post">
+        <div class="row mt-3 mb-3">
+            <div class="col-md-3">
+                <input class="form-control" type="text" name="produit" id="" value="<?=$produit?>">
+            </div>
+            <div class="col-md-3">
+                <input class="form-control" type="date" name="dateStart" id="" value="<?=$dateStart?>">
+            </div>
+            <div class="col-md-3">
+                <input class="form-control" type="date" name="dateEnd" id="" value="<?=$dateEnd?>">
+            </div>
+            <div class="col-md-3">
+                <input class="btn btn-secondary w-100" type="submit" name="rechercher" id="rechercher" value="Rechercher">
+            </div>
+        </div>
+    </form>
     <div class="panel panel-body">
         <div>
             <fieldset>
                 <legend>Demandes finalisées</legend>
-                <table class="table table-bordered table-responsive-lg">
+                <table id="listdatabyid" class="table table-bordered table-responsive-lg">
                     <thead>
                     <th>
                         N°
@@ -53,7 +93,7 @@ include '../models/preparation/preparation.php';
                         <?php
                         $n = 0;
                         $bddemande = new BdDemande();
-                        $demandes = $bddemande->getDemandeAllDescFinalise();
+                        $demandes = $bddemande->getDemandeAllDescFinalise($condition);
                         foreach ($demandes as $demande) {
                             if ($demande['qualiteDemandeur'] == "other") {
                                 $n++;
@@ -94,9 +134,18 @@ include '../models/preparation/preparation.php';
                         ?>
                     </tbody>
                     <tfoot>
-                    <td style="font-size: 20px;">
-                        <span>Nombre:</span><span><?= $n ?></span>
-                    </td>
+                       <tr>
+                            <td style="font-size: 20px;">
+                                <span><?= $n ?></span>
+                            </td>
+                            <td><span>Nombre:</span></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                       </tr>
                     </tfoot>
                 </table>
             </fieldset>

@@ -1,7 +1,6 @@
 <!-- <script type="text/javascript" src="../web/jquery/jquery-min.js"></script> -->
 <script type="text/javascript" src="../web/jquery/jquery-3.5.1.js"></script>
-
-<script type="text/javascript" src="../web/jquery/jquery-3.7.1.js"></script>
+<!-- <script type="text/javascript" src="../web/jquery/jquery-3.7.1.js"></script> -->
 <script type="text/javascript" src="../web/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../web/select2/dist/js/select2.full.min.js"></script>
 <script type="text/javascript" src="../web/bootstrap/js/bootstrap5.min.js"></script>
@@ -17,17 +16,33 @@
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/3.1.0/js/buttons.print.min.js"></script>
 
 <script>
-new DataTable('#listdatabyid', {
-    layout: {
-        topStart: {
-            pageLength: {
-                menu: [10, 25, 50, 100]
-            },
-            buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
-           
+    new DataTable('#listdatabyid', {
+        layout: {
+            topStart: {
+                pageLength: {
+                    menu: [10, 25, 50, 100]
+                },
+                buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+            
+            }
         }
-    }
-});
+    });
+
+    $(document).ready(function(){
+        $('.bt_recuperer_low').hide();
+    });
+
+    $('.bt_recuperer_low_validate').on('click', function(){
+        confirme = alert('Voulez-vouz effectuer cette recuperation, si oui cliquer de nouveau sur valider du produit.');
+        if(confirm){
+            $('.bt_recuperer_low_validate').hide();
+            $('.bt_recuperer_low').show();
+        }
+    });
+
+    $('#menu_show').on('click', function(){
+        $('#menu2-a').toggle();
+    });
 
 </script>
 
