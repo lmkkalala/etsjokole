@@ -109,7 +109,7 @@ $pa = 0;
                         $average_price = 0;
                         $bdlivraison = new BdLivraison();
                         $bdbiens = new BdBiens();
-                        $biens = $bdbiens->getBiensAll();
+                        $biens = $bdbiens->getBiensAll(' ORDER BY b.designation DESC ');
                         $cumul_quantite_actuelle = 0;
                         foreach ($biens as $bien) {
                             $cumul_quantite_actuelle = 0;
@@ -147,7 +147,7 @@ $pa = 0;
                                     $somme_prix_biens = 0;
                                     $s = 0;
                                     $bdravitaillement = new BdRavitaillement();
-                                    $ravitaillements = $bdravitaillement->getRavitaillementByIdBiens($bien['bId']);
+                                    $ravitaillements = $bdravitaillement->getRavitaillementByIdBiensMore($bien['bId'],'ORDER BY s.id DESC Limit 3');
                                     foreach ($ravitaillements as $ravitaillement) {
                                         $s++;
                                         $somme_prix_biens = $somme_prix_biens + $ravitaillement['prix'];
@@ -155,7 +155,7 @@ $pa = 0;
                                     
 
                                     if (isset($_GET['autres_place']) and $_GET['autres_place'] != '00') {
-                                        $autrePrix = $DB->getWhereMultipleMore(' * FROM receptionautreprix',' bien_id = '.$bien['bId'].'',' Limit 10');
+                                        $autrePrix = $DB->getWhereMultipleMore(' * FROM receptionautreprix',' bien_id = '.$bien['bId'].'',' Limit 3');
                                         $countRow = count($autrePrix);
                                         if ($countRow > 0) {
                                             foreach ($autrePrix as $key => $value) {
@@ -194,16 +194,20 @@ $pa = 0;
                     <tfoot>
                         <tr>
                             <th style="font-size: 20px;">
-                                <span>Nombre:</span><span><?= $n ?></span>
+                                <span><?= $n ?></span>
+                            </th>
+                            <th style="font-size: 20px;">
+                                <span>Nombre</span>
                             </th>
                             <th style="color: dodgerblue; font-weight: bold;">
                                 Total value :
                             </th>
                             <th style="color: dodgerblue; font-weight: bold;">
-                                <?= " " . round($cumul_value,3) . " USD" ?>
+                                <?= " " . round($cumul_value,3) . " " ?>
                             </th>
-                            <th></th>
-                            <th></th>
+                            <th style="color: dodgerblue; font-weight: bold;">
+                                <span>USD</span>
+                            </th>
                             <th></th>
                             <th></th>
                             <th></th>

@@ -153,7 +153,14 @@ if (isset($_POST['bt_recuperer_low'])) {
     $quantite_actuelle = securise($_POST['tb_quantite_actuelle']);
     $tb_idagent = securise($_POST['tb_idagent']);
     $tb_idbien = securise($_POST['tb_idbien']);
+    $description = securise($_POST['description']);
     $tb_quantite_actuelle = securise($_POST['tb_quantite_actuelle']);
+
+    if ($_SESSION['grade'] == 'Seller' or $_SESSION['grade'] == 'SELLER' or $_SESSION['grade'] == 'Depot' or $_SESSION['grade'] == 'DEPOT')  {
+        $reponse = "traitement_error";
+        header('Location:../../views/home.php?link=' . sha1("logistique_recuperation_add") . '&reponse=' . sha1($reponse) . '&link_up=' . sha1("home_logistique_recuperation"));
+        die;
+    }
 
 
     if ($idlivraison != "" && $quantite_recupere != "" && $quantite_recupere > 0) {
@@ -161,7 +168,7 @@ if (isset($_POST['bt_recuperer_low'])) {
         $bdlivraison = new BdLivraison();
         $bdrecuperation = new BdRecuperation();
         if ($quantite_recupere <= $quantite_actuelle) {
-            $bdrecuperation->addRecuperationData(date('Y-m-d',time()), $quantite_recupere,($quantite_recupere+$tb_quantite_actuelle), $idlivraison, $tb_idagent,$tb_idbien,$_SESSION['idutilisateur']);
+            $bdrecuperation->addRecuperationData(date('Y-m-d',time()), $quantite_recupere,($quantite_recupere+$tb_quantite_actuelle), $idlivraison, $tb_idagent,$tb_idbien,$_SESSION['idutilisateur'], $description);
             $bdbiens = new BdBiens();
             $livraisons = $bdlivraison->getLivraisonById($idlivraison);
             foreach ($livraisons as $livraison) {

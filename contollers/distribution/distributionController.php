@@ -48,7 +48,7 @@ if (isset($_POST['bt_enregistrer'])) {
     $DB = new DB();
     $agent = $DB->getWhere('agent','id',$_SESSION['agentID'],'id',1);
 
-    $current_time = date('H:i');
+    $current_time = date('H:i',time()+(2*60*60));
     $current_date = date('Y-m-d');
     if (count($agent) > 0) {
         if (!empty($agent[0]['start_time']) || !empty($agent[0]['end_time'])) {
@@ -58,10 +58,16 @@ if (isset($_POST['bt_enregistrer'])) {
             }
         }
 
-        if ($agent[0]['daily_sell'] == 1 and $current_date < $date) {
+        if ($agent[0]['daily_sell'] == 0 and $current_date > $date) {
             echo json_encode(array('message'=>' Vous essayer d\'effectuer une vente à une date déjà passer, veuiller contacter l\'IT pour faire cela.','status'=>'traitement_error')); 
             return; 
         }
+
+        if ($date > $current_date) {
+            echo json_encode(array('message'=>' Vous essayer d\'effectuer une vente en date de '.$date.' une date pas encore arrivee.','status'=>'traitement_error')); 
+            return; 
+        }
+        
 
     }else{
         echo json_encode(array('message'=>'Agent Inconnu.','status'=>'traitement_error')); 
@@ -80,9 +86,11 @@ if (isset($_POST['bt_enregistrer'])) {
             if ($type != 'CASH_A_RETIRER') {
                 $newquantite = $newquantite - $quantite;
             }
+
+            $time = date('H:i:s',time()+(2*60*60));
             
             $bddistribution = new BdDistribution();
-            if ($bddistribution->addDistribution($date, $quantite, $price, $idlivraison, $idaffectation, $typerepas, $identiteClient,$ventePOSId,$tva,$type)) {
+            if ($bddistribution->addDistribution($date, $quantite, $price, $idlivraison, $idaffectation, $typerepas, $identiteClient,$ventePOSId,$tva,$type,$time)) {
                 if ($bdlivraison->diminueQuantiteLivraison($idlivraison, $newquantite)) {
                     $error = "succes";
         
@@ -191,31 +199,33 @@ function panier($iddistribution){
 
     $bddistribution = new BdDistribution();
     $distributions = $bddistribution->getDistributionById($iddistribution);
-    foreach ($distributions as $distribution) {
-        $quantite_distribue = $distribution['nombre'];
-        $bdlivraison = new BdLivraison();
-        $livraisons = $bdlivraison->getLivraisonById($distribution['distribution_id']);
-        foreach ($livraisons as $livraison) {
-            $idbiens = $livraison['bId'];
-        }
-    }
-    $bdunite = new BdUnite();
-    $unites = $bdunite->getUniteByIdBiens($idbiens);
-    $panier = "";
-    foreach ($unites as $unite) {
-        if ((isset($_POST['chk_' . $unite['id']]))) {
-            $panier = $panier . "/" . $unite['id'];
-            $m++;
-        }
-    }
-    
-    if ($iddistribution != "" && $panier != "" && (($m == $quantite_distribue))) {
-        foreach ($unites as $unite) {
-            if (isset($unite['id'])) {
-                $bdunite->desactiveUniteDistribution($unite['id']);
+    if (count($distributions) > 0) {
+        foreach ($distributions as $distribution) {
+            $quantite_distribue = $distribution['nombre'];
+            $bdlivraison = new BdLivraison();
+            $livraisons = $bdlivraison->getLivraisonById($distribution['distribution_id']);
+            foreach ($livraisons as $livraison) {
+                $idbiens = $livraison['bId'];
             }
         }
-        $bddistribution->setPanier($iddistribution, $panier);
+        $bdunite = new BdUnite();
+        $unites = $bdunite->getUniteByIdBiens($idbiens);
+        $panier = "";
+        foreach ($unites as $unite) {
+            if ((isset($_POST['chk_' . $unite['id']]))) {
+                $panier = $panier . "/" . $unite['id'];
+                $m++;
+            }
+        }
+        
+        if ($iddistribution != "" && $panier != "" && (($m == $quantite_distribue))) {
+            foreach ($unites as $unite) {
+                if (isset($unite['id'])) {
+                    $bdunite->desactiveUniteDistribution($unite['id']);
+                }
+            }
+            $bddistribution->setPanier($iddistribution, $panier);
+        }
     }   
 }
 
@@ -226,6 +236,7 @@ if (isset($_POST['bt_valider_ventePOS'])) {
     $seller_name = $_SESSION['identite'];
     $typerepas = securise($_POST['tb_use_typerepas']);
     $identiteClient = securise($_POST['tb_use_identiteClient']);
+    $address_id = securise($_POST['address_id']);
 
     if ($_SESSION['idservice'] == securise($_POST['service_id'])) {
         $serviceId = $_SESSION['idservice'];
@@ -269,7 +280,7 @@ if (isset($_POST['bt_valider_ventePOS'])) {
         
     }
 
-    header('Location:../../views/home.php?link=' . sha1("service_distribution_add") .'&service='.$serviceId.'&reponse=' . sha1($error) . '&use_date=' . ($date) . '&use_typerepas=' . ($typerepas) . '&use_affectation=' . ($idaffectation) . '&use_identiteClient=' . ($identiteClient) . '&use_ventePOS=' . ($recentIdVentePOS) . '&link_up=' . sha1("home_service_distribution").'&seller_name='.$seller_name.'');
+    header('Location:../../views/home.php?link=' . sha1("service_distribution_add") .'&service='.$serviceId.'&reponse=' . sha1($error) . '&use_date=' . ($date) .'&address= '.($address_id). '&use_typerepas=' . ($typerepas) . '&use_affectation=' . ($idaffectation) . '&use_identiteClient=' . ($identiteClient) . '&use_ventePOS=' . ($recentIdVentePOS) . '&link_up=' . sha1("home_service_distribution").'&seller_name='.$seller_name.'');
     die;
 }
 
@@ -467,6 +478,29 @@ if (isset($_POST['bt_delete_lineDistribution'])) {
     $identiteClient = securise($_POST['tb_use_identiteClient']);
     $ventePOS = securise($_POST['tb_use_ventePOS']);
     $typePaiement = securise($_POST['typePaiement']);
+
+    $DB = new DB();
+    $agent = $DB->getWhere('agent','id',$_SESSION['agentID'],'id',1);
+
+    $current_time = date('H:i',time()+(2*60*60));
+    $current_date = date('Y-m-d');
+    if (count($agent) > 0) {
+        if (!empty($agent[0]['start_time']) || !empty($agent[0]['end_time'])) {
+            if ($current_time < $agent[0]['start_time'] || $current_time > $agent[0]['end_time']) {
+                echo json_encode(array('message'=>'Vous n\'etez pas autoriser a effectuer de supprimer en ce moment, contacter l\'IT pour plus d\'information','status'=>'traitement_error')); 
+                return;
+            }
+        }
+
+        if ($agent[0]['daily_sell'] == 0 and $current_date > $date) {
+            echo json_encode(array('message'=>' Vous essayer d\'effectuer une suppression à une date déjà passer, veuiller contacter l\'IT pour faire cela.','status'=>'traitement_error')); 
+            return; 
+        }
+
+    }else{
+        echo json_encode(array('message'=>'Agent Inconnu.','status'=>'traitement_error')); 
+        return;
+    }
 
     $m = 0;
     $iddistribution = securise($distributionId);

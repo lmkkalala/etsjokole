@@ -80,7 +80,7 @@ include '../models/fournisseur/fournisseur.php';
                     <?php
                     if ((isset($_GET['use_date1'])) && (isset($_GET['use_date2']))) {
                         ?>
-                        <?= "Date 1 : " . $_GET['use_date1'] . " " . " / Date 2 :" . $_GET['use_date2'] ?>
+                        <?= "Date Debut : " . $_GET['use_date1'] . " " . " / Date Fin :" . $_GET['use_date2'] ?>
                         <?php
                         if (isset($_GET['use_numeroOrder'])) {
                             ?>
@@ -98,11 +98,11 @@ include '../models/fournisseur/fournisseur.php';
             <br>
             <fieldset >
                 <?php
-                if ((isset($_GET['use_date1']))) {
-                    ?>
+                    if ((isset($_GET['use_date1']))) {
+                ?>
                     <a style="font-size: 20px;" href='../views/logistique/attribution-biens/pdf_list_attributionbiens_by_fournisseur_by_date.php?use_date1=<?= $_GET['use_date1'] . '&use_date2=' . $_GET['use_date2'] . '&use_numeroOrder=' . $_GET['use_numeroOrder'] . '&use=' . $_GET['use'] ?>' class="btn btn-primary pull-left">Print in PDF</a>
-                    <?php
-                }
+                <?php
+                    }
                 ?>
             </fieldset>
             <br>

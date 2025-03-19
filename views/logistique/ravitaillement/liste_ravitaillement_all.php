@@ -54,12 +54,7 @@ include '../models/costing/Costing.php';
                 <legend>Recherche par date :</legend>
                 <form class="form-inline" method="POST" action="../contollers/ravitaillement/ravitaillementController.php">
                     <div class="row form-group-lg">
-                        <div class="col-6 mt-1">
-                            <input type="date" class="form-control mt-2" name="tb_date1">
-                        </div>
-                        <div class="col-6 mt-1">
-                            <input type="date" class="form-control mt-2" name="tb_date2">
-                        </div>
+                        
                         <div class="col-6 mt-1">
                         <select class="form-control select2" name="cb_biens">
                             <option value="0">Choisir un item</option>
@@ -97,6 +92,12 @@ include '../models/costing/Costing.php';
                         </select>
                         </div>
                         <div class="col-6 mt-1">
+                            <input type="date" class="form-control mt-2" name="tb_date1">
+                        </div>
+                        <div class="col-6 mt-1">
+                            <input type="date" class="form-control mt-2" name="tb_date2">
+                        </div>
+                        <div class="col-6 mt-1">
                         <select class="form-control select2" name="cb_numeroOrder">
                             <option value="none">Choisir Num. Commande</option>
                             <?php
@@ -110,8 +111,9 @@ include '../models/costing/Costing.php';
                             ?>
                         </select>
                         </div>
+                        
                         <div class="col-6 mt-1">
-                            <button type="submit" class="btn btn-success" name="bt_search_by_2dates"><span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
+                            <button type="submit" class="btn btn-success w-100" name="bt_search_by_2dates"><span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
                         </div>
                     </div>
                 </form>

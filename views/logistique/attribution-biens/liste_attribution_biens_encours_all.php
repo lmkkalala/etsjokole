@@ -1,9 +1,4 @@
 <?php
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 include '../models/attribution-biens/attributionBiens.php';
 include '../models/crud/db.php';
 $dateStart = '';
@@ -20,47 +15,47 @@ $dateEnd = '';
         <span class="h4">Waiting order</span>
     </div>
     <?php
-                    $date = date('Y-m',time());
-                    $n = 0;
-                    $bdattributionbiens = new BdAttributionBiens();
-                    $attributions = $bdattributionbiens->getAttributionBiensAllDescEncours();
-                    if (isset($_POST['dateStart']) and isset($_POST['dateEnd'])) {
-                        if(!empty($_POST['dateStart']) and !empty($_POST['dateEnd'])){
-                            $dateStart = htmlspecialchars($_POST['dateStart']);
-                            $dateEnd = htmlspecialchars($_POST['dateEnd']);
-                            $attributions = $bdattributionbiens->getAttributionBiensAllDescEncours($dateStart,$dateEnd);
-                        }else{
-                            $attributions = $bdattributionbiens->getAttributionBiensAllDescEncours($date);
-                        }
-                    }else{
-                        $attributions = $bdattributionbiens->getAttributionBiensAllDescEncours();
-                    }
+        $date = date('Y-m',time());
+        $n = 0;
+        $bdattributionbiens = new BdAttributionBiens();
+        $attributions = $bdattributionbiens->getAttributionBiensAllDescEncours();
+        if (isset($_POST['dateStart']) and isset($_POST['dateEnd'])) {
+            if(!empty($_POST['dateStart']) and !empty($_POST['dateEnd'])){
+                $dateStart = htmlspecialchars($_POST['dateStart']);
+                $dateEnd = htmlspecialchars($_POST['dateEnd']);
+                $attributions = $bdattributionbiens->getAttributionBiensAllDescEncours($dateStart,$dateEnd);
+            }else{
+                $attributions = $bdattributionbiens->getAttributionBiensAllDescEncours($date);
+            }
+        }else{
+            $attributions = $bdattributionbiens->getAttributionBiensAllDescEncours();
+        }
 
-                    $db = new DB();
+        $db = new DB();
 
-                    if (isset($_POST['attr_id'])) {
-                        $etat = htmlspecialchars($_POST['etat']);
-                        $attr_id = htmlspecialchars($_POST['attr_id']);
-                        $update = $db->update('attribution','etat = ?','id = ?',[''.$etat.'',''.$attr_id.'']);
-                    }
-                ?>
-                <form action="../views/home.php?link=bc6749372a792df7e3460135262bf41aad976c1f&link_up=1f920fef6c620c4660a748aae5dd44da9e74ba9b" method="post">
-                    <div class="row">
-                        <div class="col-4">
-                            <input class="form-control" type="date" name="dateStart" id="" value="<?=$dateStart?>">
-                        </div>
-                        <div class="col-4">
-                            <input class="form-control" type="date" name="dateEnd" id="" value="<?=$dateEnd?>">
-                        </div>
-                        <div class="col-4">
-                            <input class="btn btn-info" type="submit" name="rechercher" id="rechercher" value="Rechercher">
-                        </div>
-                    </div>
-                </form>
+        if (isset($_POST['attr_id'])) {
+            $etat = htmlspecialchars($_POST['etat']);
+            $attr_id = htmlspecialchars($_POST['attr_id']);
+            $update = $db->update('attribution','etat = ?','id = ?',[''.$etat.'',''.$attr_id.'']);
+        }
+    ?>
+    <form action="../views/home.php?link=bc6749372a792df7e3460135262bf41aad976c1f&link_up=1f920fef6c620c4660a748aae5dd44da9e74ba9b" method="post">
+        <div class="row">
+            <div class="col-4">
+                <input class="form-control" type="date" name="dateStart" id="" value="<?=$dateStart?>">
+            </div>
+            <div class="col-4">
+                <input class="form-control" type="date" name="dateEnd" id="" value="<?=$dateEnd?>">
+            </div>
+            <div class="col-4">
+                <input class="btn btn-info" type="submit" name="rechercher" id="rechercher" value="Rechercher">
+            </div>
+        </div>
+    </form>
     <div class="panel panel-body">
         <div class="mt-3">
             <fieldset>
-                <legend>Biens</legend>
+                <!-- <legend>Biens</legend> -->
                 <table id="list_attribution_biens_encours_all" class="table table-bordered table-responsive-lg table-condensed">
                     <thead>
                     <th>

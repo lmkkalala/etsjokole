@@ -87,8 +87,8 @@ include '../models/agent/agent.php';
                 </fieldset>
                 <div class="container">
                     <div class="row">
-<div class="col-md-12">
-<table class="table table-bordered table-striped table-responsive-lg">
+                    <div class="col-md-12">
+                    <table class="table table-bordered table-striped table-responsive-lg">
                     <thead>
                     <th>
                         N°
@@ -104,7 +104,7 @@ include '../models/agent/agent.php';
                         Opération
                     </th>
                     <th>
-                        Sexe
+                        Genre Sexe
                     </th>
                     <th>
                         Heure de Travail
@@ -204,7 +204,7 @@ include '../models/agent/agent.php';
                                                 }
                                             ?>
                                             <span><input class = "radio-inline" type = "radio" name ="multi_seller_account" value ="1" <?=$on?> > ON </span>
-                                            <span> <input class = "radio-inline" type = "radio" name ="multi_seller_account" value ="0" <?=$off?> > OFF</span>
+                                            <span><input class = "radio-inline" type = "radio" name ="multi_seller_account" value ="0" <?=$off?> > OFF</span>
                                         </div>
                                     </td>
                                     <td>
@@ -220,11 +220,20 @@ include '../models/agent/agent.php';
                     </tbody>
                     <tfoot>
                     <td style="font-size: 20px;">
-                        <span>Nombre:</span><span><?= $n ?></span>
+                        <span><?= $n ?></span>
                     </td>
+                    <td style="font-size: 20px;">
+                        <span>Nombre:</span>
+                    </td>
+                    <td style="font-size: 20px;"></td>
+                    <td style="font-size: 20px;"></td>
+                    <td style="font-size: 20px;"></td>
+                    <td style="font-size: 20px;"></td>
+                    <td style="font-size: 20px;"></td>
+                    <td style="font-size: 20px;"></td>
                     </tfoot>
-                </table>
-</div>
+                    </table>
+                    </div>
                     </div>
                 </div>
             </fieldset>

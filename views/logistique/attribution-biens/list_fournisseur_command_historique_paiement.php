@@ -13,7 +13,7 @@ include '../models/fournisseur/fournisseur.php';
         <span class="h3">Order</span>
         <span class="glyphicon glyphicon-chevron-right" style="color: black; font-size: 30px;margin-right: 5px;"></span>
         <span class="fa fa-file-text-o" style="color: darkslategray; font-size: 30px;margin-right: 5px;"></span>
-        <span class="h4">Commande par Fournisseur / Order per supplier</span>
+        <span class="h4">Commande par Fournisseur / Paiement</span>
     </div>
     <div class="panel panel-body">
         <div>
@@ -32,7 +32,7 @@ include '../models/fournisseur/fournisseur.php';
             </fieldset>
             <fieldset>
                 <legend>Liste des fournisseurs</legend>
-                <table id="list_attribution_biens_all" class="table table-bordered table-responsive-lg table-striped">
+                <table class="table table-bordered table-responsive-lg table-striped">
                     <thead>
                         <th>
                             N°
@@ -65,8 +65,8 @@ include '../models/fournisseur/fournisseur.php';
                                 <td><?= $fournisseur['domaine'] ?></td>
                                 <td>
                                     <form method="POST" action="../contollers/attribution-biens/attributionBiensController.php">
-                                        <input type="hidden" name="tb_idattribution" value="<?= $fournisseur['id'] ?>">
-                                        <button type="submit" class="btn btn-primary" name="bt_view"><span class="glyphicon glyphicon-file" style="color: white; font-size: 15px;margin-right: 5px;"></span></button>
+                                        <input type="hidden" name="tb_idattribution" value="<?=$fournisseur['id'] ?>">
+                                        <button type="submit" class="btn btn-primary" name="bt_paie"><span class="glyphicon glyphicon-file" style="color: white; font-size: 15px;margin-right: 5px;"></span></button>
                                     </form>
                                 </td>
                             </tr>

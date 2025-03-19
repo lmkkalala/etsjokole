@@ -108,14 +108,14 @@ class BdPreparation {
     
     function getPreparationByAffectationService($idaffectationservice) {
         $bd = Connexion::connecter();
-        $reponse = $bd->query("SELECT * FROM preparation WHERE mutation_id='{$idaffectationservice}' ORDER BY id DESC");
+        $reponse = $bd->query("SELECT * FROM preparation WHERE mutation_id='{$idaffectationservice}' ORDER BY dateHeure DESC");
         return $reponse->fetchAll();
         $reponse->closeCursor();
     }
     
     function getPreparationAllDescActive() {
         $bd = Connexion::connecter();
-        $reponse = $bd->query("SELECT * FROM preparation WHERE active='1' ORDER BY id DESC");
+        $reponse = $bd->query("SELECT * FROM preparation WHERE active='1' ORDER BY dateHeure DESC");
         return $reponse->fetchAll();
         $reponse->closeCursor();
     }
