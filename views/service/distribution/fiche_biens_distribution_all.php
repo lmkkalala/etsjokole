@@ -23,14 +23,14 @@ include '../models/biens/biens.php';
                 <legend>Taper le mot-clé de la recherche :</legend>
                 <form class="form-inline" method="POST" action="../contollers/distribution/distributionController.php">
                     <div class="row form-group-lg">
-                        <div class="col-5">
-                            <input type="text" class="form-control" name="tb_search" placeholder="Mot-clé">  
+                        <div class="col-md-5 col-12 mt-2">
+                            <input type="text" class="form-control w-100" name="tb_search" placeholder="Mot-clé">  
                         </div>
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-success" name="bt_search_for_biens"><span class="glyphicon glyphicon-search" style="color: white; font-size: 15px;margin-right: 5px;"></span> Rechercher</button>
+                        <div class="col-md-4 col-12 mt-2">
+                            <button type="submit" class="btn btn-secondary w-100" name="bt_search_for_biens"><span class="glyphicon glyphicon-search" style="color: white; font-size: 15px;margin-right: 5px;"></span> Rechercher</button>
                         </div> 
-                        <div class="col-3">
-                            <a href="/views/home.php?link=<?= sha1("fiche_biens_vente")?>&link_up=<?= sha1("home_service_distribution")?>" class="btn btn-success" ><span class="glyphicon glyphicon-book" style="color: white; font-size: 15px;margin-right: 5px;"></span> Rapport Global</a>
+                        <div class="col-md-3 col-12 mt-2">
+                            <a href="/views/home.php?link=<?= sha1("fiche_biens_vente")?>&link_up=<?= sha1("home_service_distribution")?>" class="btn btn-secondary w-100" ><span class="glyphicon glyphicon-book" style="color: white; font-size: 15px;margin-right: 5px;"></span> Rapport Global</a>
                         </div>                          
                     </div>
                 </form>

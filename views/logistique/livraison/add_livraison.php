@@ -81,7 +81,7 @@ if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("quantite_error")))) {
 <div style="background-color: whitesmoke; padding: 10px;">
     <form class="form-horizontal" method="POST" action="../contollers/livraison/livraisonController.php">
         <div class="row form-group-lg">
-            <div class="col-md-6 input-group-lg">
+            <div class="col-md-6 md-2 input-group-lg">
                 <label class="control-label">Activity :</label>
                 <select class="form-control w-100 select2" name="cb_preparation">
                     <option value="0">Choisir une activité</option>
@@ -121,7 +121,7 @@ if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("quantite_error")))) {
                 </select>
             </div>    
                             
-            <div class="col-md-6">
+            <div class="col-md-6 mt-2">
                 <div class="input-group-lg">
                     <input class="btn btn-secondary w-100" type="submit" name="bt_select_preparation_for_add_livraison" value="Selectionner">
                 </div>
@@ -130,65 +130,68 @@ if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("quantite_error")))) {
     </form>
 </div>
 
-<div style="margin: 10px;">
-    <fieldset>
-        <legend style="margin: 5px; color: dodgerblue;">
-            <?php
-            if (isset($_GET['use_preparation'])) {
-                $bdpreparation = new BdPreparation();
-                $preparations = $bdpreparation->getPreparationById($_GET['use_preparation']);
-                foreach ($preparations as $preparation) {
-                    $bdaffectationservice = new BdAffectationService();
-                    $affectationservices = $bdaffectationservice->getAffectationServiceById($preparation['mutation_id']);
-                    foreach ($affectationservices as $affectationservice) {
-                        $bdservice = new BdService();
-                        $services = $bdservice->getServiceById($affectationservice['service_id']);
-                        foreach ($services as $service) {
-                            $designation_service = $service['designation'];
+    <div class="row" style="margin: 10px;">
+        <div class="col-md-12">
+            <legend style="margin: 5px; color: dodgerblue;">
+                <?php
+                if (isset($_GET['use_preparation'])) {
+                    $bdpreparation = new BdPreparation();
+                    $preparations = $bdpreparation->getPreparationById($_GET['use_preparation']);
+                    foreach ($preparations as $preparation) {
+                        $bdaffectationservice = new BdAffectationService();
+                        $affectationservices = $bdaffectationservice->getAffectationServiceById($preparation['mutation_id']);
+                        foreach ($affectationservices as $affectationservice) {
+                            $bdservice = new BdService();
+                            $services = $bdservice->getServiceById($affectationservice['service_id']);
+                            foreach ($services as $service) {
+                                $designation_service = $service['designation'];
+                            }
                         }
+                        ?>
+                        <?= $preparation['dateHeure'] . " / " . $preparation['typerepas'] . " / " . $designation_service ?>
+
+                        <?php
+                        $date_tempo = $preparation['dateHeure'];
                     }
-                    ?>
-                    <?= $preparation['dateHeure'] . " / " . $preparation['typerepas'] . " / " . $designation_service ?>
-
-                    <?php
-                    $date_tempo = $preparation['dateHeure'];
                 }
-            }
-            ?>
-        </legend>
-    </fieldset>
-</div>
+                ?>
+            </legend>
+        </div>
+    </div>
 
-<div>
-    <div style="margin: 10px;">
-        <fieldset>
-            <legend>Requisitions</legend>
-            <table class="table table-bordered table-striped table-responsive-lg">
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Requisitions</h4>
+        </div>
+        <div class="col-md-12" style="margin: 10px;">  
+            <table class="table table-bordered table-striped table-responsive">
                 <thead>
-                    <th>
-                        #
-                    </th>
-                    <th>
-                        Date
-                    </th>
-                    <th>
-                        Item
-                    </th>
-                    <th>
-                        Situation stock
-                    </th>
-                    <th>
-                        Quantity
-                    </th>
-                    <th>
-                        Livraison / Lieu Livrer
-                    </th>
-                    <th>
-                        Prix
-                    </th>
-                    <th>
-                        Statut
-                    </th>
+                    <tr>
+                        <td>
+                            #
+                        </td>
+                        <td>
+                            Date
+                        </td>
+                        <td>
+                            Item
+                        </td>
+                        <td>
+                            Situation stock
+                        </td>
+                        <td>
+                            Quantity
+                        </td>
+                        <td>
+                            Livraison / Lieu Livrer
+                        </td>
+                        <td>
+                            Prix
+                        </td>
+                        <td>
+                            Statut
+                        </td>
+                    </tr>
                 </thead>
                 <tbody>
                     <?php
@@ -258,14 +261,24 @@ if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("quantite_error")))) {
                 ?>
                 </tbody>
                 <tfoot>
-                <td style="font-weight: bold;">
-                    <span>Number :</span><span><?= $n ?></span>
-                </td>
+                    <tr>
+                        <td style="font-weight: bold;">
+                            <span><?= $n ?></span>
+                        </td>
+                        <td>
+                            <span>Number</span>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
                 </tfoot>
             </table>
-        </fieldset>
+        </div>
     </div>
-</div>
 
 </div>
 

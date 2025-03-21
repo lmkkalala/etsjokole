@@ -10,9 +10,9 @@ include 'meta/menu_general.php';
 ?>
 <div class="row">
     <div class="col-sm-12 d-md-none mb-3">
-        <button type="button" id="menu_show" class="btn btn-secondary w-100 mt-2"> <i class="fa fa-list fs-5"></i> MENU</button>
+        <button type="button" id="menu_show" class="btn btn-secondary w-100 mt-2"> <i class="fa fa-list fs-5"></i> Ets JOKOLE DIEU EST GRAND</button>
         <div class="mt-2">
-            <strong><i class="fa fa-user-circle fs-5"></i> <?=$_SESSION['identite']?></strong>
+            <strong><i class="fa fa-user-circle fs-5 mx-4"></i> <?=$_SESSION['identite']?></strong>
         </div>
     </div>
     <div id="menu2-a" class="col-md-12">

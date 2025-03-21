@@ -24,8 +24,8 @@ include '../models/crud/db.php';
                 <div class="row mt-3">
                     <form class="form-inline" method="POST" id="listVenteGlobal">
                         <div class="row form-group-lg">
-                            <div class="col-md-3">
-                                <select class="form-control select2" name="cb_service">
+                            <div class="col-md-3 mt-2">
+                                <select class="form-control w-100 select2" name="cb_service">
                                         <option value="0">Choisir un POS/Departement/Service</option>
                                     <?php
                                         $bdservice = new DB();
@@ -45,14 +45,14 @@ include '../models/crud/db.php';
                                     ?>
                                 </select>
                             </div>
-                            <div class="col-md-3">
-                                <input type="date" class="form-control" name="start_date" id="start_date" value="<?=date('Y-m-d')?>" placeholder="Mot-clé">  
+                            <div class="col-md-3 mt-2">
+                                <input type="date" class="form-control w-100" name="start_date" id="start_date" value="<?=date('Y-m-d')?>" placeholder="Mot-clé">  
                             </div>
-                            <div class="col-md-3">
-                                <input type="date" class="form-control" name="end_date" id="end_date" value="<?=date('Y-m-d')?>" placeholder="Mot-clé"> 
+                            <div class="col-md-3 mt-2">
+                                <input type="date" class="form-control w-100" name="end_date" id="end_date" value="<?=date('Y-m-d')?>" placeholder="Mot-clé"> 
                             </div> 
-                            <div class="col-md-3">
-                            <button type="submit" class="btn btn-success" name="search_data"><span class="glyphicon glyphicon-search" style="color: white; font-size: 15px;margin-right: 5px;"></span> Rechercher</button>
+                            <div class="col-md-3 mt-2">
+                            <button type="submit" class="btn btn-secondary w-100" name="search_data"><span class="glyphicon glyphicon-search" style="color: white; font-size: 15px;margin-right: 5px;"></span> Rechercher</button>
                             </div>                          
                         </div>
                     </form>

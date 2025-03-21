@@ -7,8 +7,8 @@
 include '../models/livraison/livraison.php';
 include '../models/demande/demande.php';
 include '../models/recuperation/recuperation.php';
-$dateStart = '';
-$dateEnd = '';
+$dateStart = date('m/d/Y',time());
+$dateEnd = date('m/d/Y',time());
 $produit = '';
 include '../models/crud/db.php';
 ?>
@@ -51,16 +51,16 @@ include '../models/crud/db.php';
     ?>
     <form action="../views/home.php?link=cc29d915e0aff03b7668cb8dd7aa96ff33efcb0f&link_up=4802ab2ed36a6a26e9ece959716b6af785eeb218" method="post">
         <div class="row mt-3 mb-3">
-            <div class="col-md-3">
+            <div class="col-md-3 mt-2">
                 <input class="form-control" type="text" name="produit" id="" value="<?=$produit?>">
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 mt-2">
                 <input class="form-control" type="date" name="dateStart" id="" value="<?=$dateStart?>">
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 mt-2">
                 <input class="form-control" type="date" name="dateEnd" id="" value="<?=$dateEnd?>">
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 mt-2">
                 <input class="btn btn-secondary w-100" type="submit" name="rechercher" id="rechercher" value="Rechercher">
             </div>
         </div>

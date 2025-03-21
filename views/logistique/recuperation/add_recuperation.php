@@ -21,40 +21,41 @@ include '../models/affectation-service/affectationService.php';
         <span class="h4">Nouvelle récuperation</span>
     </div>
     <div class="panel panel-body">
-        <div>
-            <?php
-            if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("succes")))) {
-            ?>
-                <div class="alert alert-success">
-                    <span class="glyphicon glyphicon-ok" style="font-size: 15px;margin-right: 5px;"></span><span>Enregistrement effectué avec succès</span>
+            <div class="row">
+                <div class="col-md-12">
+                    <?php
+                    if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("succes")))) {
+                    ?>
+                        <div class="alert alert-success">
+                            <span class="glyphicon glyphicon-ok" style="font-size: 15px;margin-right: 5px;"></span><span>Enregistrement effectué avec succès</span>
+                        </div>
+                    <?php
+                    }
+
+                    if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("traitement_error")))) {
+                    ?>
+                        <div class="alert alert-danger">
+                            <span class="glyphicon glyphicon-ban-circle" style="font-size: 15px;margin-right: 5px;"></span><span>Erreur d'enregistrement</span>
+                        </div>
+                    <?php
+                    }
+        
+                    if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("remplissage_error")))) {
+                    ?>
+                        <div class="alert alert-warning">
+                            <span class="glyphicon glyphicon-blackboard" style="font-size: 15px;margin-right: 5px;"></span><span>Erreur de remplissage, Recommencer SVP</span>
+                        </div>
+                    <?php
+                    }
+                    ?>
                 </div>
-            <?php
-            }
-            ?>
-            <?php
-            if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("traitement_error")))) {
-            ?>
-                <div class="alert alert-danger">
-                    <span class="glyphicon glyphicon-ban-circle" style="font-size: 15px;margin-right: 5px;"></span><span>Erreur d'enregistrement</span>
-                </div>
-            <?php
-            }
-            ?>
-            <?php
-            if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("remplissage_error")))) {
-            ?>
-                <div class="alert alert-warning">
-                    <span class="glyphicon glyphicon-blackboard" style="font-size: 15px;margin-right: 5px;"></span><span>Erreur de remplissage, Recommencer SVP</span>
-                </div>
-            <?php
-            }
-            ?>
-            <fieldset>
+            </div>
                 
-                <div style="background-color: whitesmoke; padding: 10px;">
+            <div class="row" style="background-color: whitesmoke; padding: 10px;">
+                <div class="col-md-12">
                     <form class="form-horizontal" method="POST" action="../contollers/recuperation_logistique/recuperationController.php">
                         <div class="row form-group-lg">
-                            <div class="col-8 input-group-lg">
+                            <div class="col-md-6 mt-2 input-group-lg">
                                 <label class="control-label">Chercher par réquisition :</label>
                                 <select class="form-control select2" name="cb_preparation">
                                     <option value="0">Choisir une activité</option>
@@ -88,128 +89,145 @@ include '../models/affectation-service/affectationService.php';
                                     ?>
                                 </select>
                             </div>                    
-                            <div class="col-4">
+                            <div class="col-md-6 mt-2">
                                 <div class="input-group-lg">
-                                    <input class="btn btn-success fs-6 mt-3" type="submit" name="bt_select_preparation_for_add_recuperation" value="Selectionner">
+                                    <input class="btn btn-secondary w-100 fs-6 mt-3" type="submit" name="bt_select_preparation_for_add_recuperation" value="Selectionner">
                                 </div>
                             </div>
                         </div>
                     </form>
-                    <fieldset>
-                        <legend style="margin: 5px; color: dodgerblue;">
-                            <?php
-                            if (isset($_GET['use_preparation'])) {
-                                $bdpreparation = new BdPreparation();
-                                $preparations = $bdpreparation->getPreparationById($_GET['use_preparation']);
-                                foreach ($preparations as $preparation) {
-                                    $bdaffectationservice = new BdAffectationService();
-                                    $affectationservices = $bdaffectationservice->getAffectationServiceById($preparation['mutation_id']);
-                                    foreach ($affectationservices as $affectationservice) {
-                                        $bdservice = new BdService();
-                                        $services = $bdservice->getServiceById($affectationservice['service_id']);
-                                        foreach ($services as $service) {
-                                            $designation_service = $service['designation'];
-                                        }
-                                    }
-                                    ?>
-                                    <?=  $designation_service . " / " . $preparation['typerepas']." / " .$preparation['dateHeure'] ?>
-    
-                                    <?php
-                                    
-                                }
-                            }
-                            ?>
-                        </legend>
-                    </fieldset>
                 </div>
-                
-                <legend>Les livraisons</legend>
-                <table class="table table-bordered table-responsive-lg">
-                    <thead>
-                        <th>
-                            N°
-                        </th>
-                        <th>
-                            Date
-                        </th>
-                        <th>
-                            Demande
-                        </th>
-                        <th>
-                            Qté restante
-                        </th>
-                        <th>
-                            Livreur
-                        </th>
-                        <th>
-                            Opération
-                        </th>
-                    </thead>
-                    <tbody>
+            
+                <div class="col-md-12">
+                    <legend style="margin: 5px; color: dodgerblue;">
                         <?php
-                        if (isset($_GET['response'])) {
-                            echo $_GET['response'];
-                        }
-                        
-                        $n = 0;
-                        $bdlivraison = new BdLivraison();
                         if (isset($_GET['use_preparation'])) {
-                            $livraisons = $bdlivraison->getLivraisonByPreparationId($_GET['use_preparation']);
-                        } else {
-                            $livraisons = [];
-                        }
-                        
-                        foreach ($livraisons as $livraison) {
-//                            if (($livraison['lQuantite'] == $livraison['lQuantiteActuelle']) && ($livraison['lEtat']==0)) {
-                            if (($livraison['lQuantiteActuelle']>0) && (1)) {
-                                $n++;
+                            $bdpreparation = new BdPreparation();
+                            $preparations = $bdpreparation->getPreparationById($_GET['use_preparation']);
+                            foreach ($preparations as $preparation) {
+                                $bdaffectationservice = new BdAffectationService();
+                                $affectationservices = $bdaffectationservice->getAffectationServiceById($preparation['mutation_id']);
+                                foreach ($affectationservices as $affectationservice) {
+                                    $bdservice = new BdService();
+                                    $services = $bdservice->getServiceById($affectationservice['service_id']);
+                                    foreach ($services as $service) {
+                                        $designation_service = $service['designation'];
+                                    }
+                                }
                                 ?>
-                                <tr>
-                                    <td><?= $livraison['lId'] ?></td>
-                                    <td><?= $livraison['lDate'] ?></td>
-                                    <td width="200"><?= $livraison['dId'] ?> . <?= $livraison['date'] . " / " . $livraison['bDesignation'] . " / " . $livraison['gDesignation'] . " pour " . $livraison['nom'] . " " . $livraison['postnom'] . " " . $livraison['prenom'] . " : " . $livraison['sDesignation'] . " / Qté : " . $livraison['dQuantite'] ?></td>
-                                    <td><?= $livraison['lQuantiteActuelle'] ?></td>
-                                    <td><?= $livraison['lNom'] . " " . $livraison['lPostnom'] . " " . $livraison['lPrenom'] ?></td>
-                                    <td>
-                                        
-                                        <form method="post" action="../contollers/recuperation_logistique/recuperationController.php">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <textarea name="description" id="description" placeholder="Note la raison de la recuperation ..." class="form-control"></textarea>
-                                                </div>
-                                                <div class="col-md-6 mt-1">
-                                                    <input type="text" name="tb_quantite_recupere" class="form-control" value="<?= $livraison['lQuantiteActuelle'] ?>">
-                                                    <input type="hidden" name="tb_quantite_actuelle" class="form-control" value="<?= $livraison['lQuantiteActuelle'] ?>">
-                                                    <input type="hidden" name="tb_idlivraison" value="<?= $livraison['lId'] ?>">
-                                                    <input type="hidden" name="tb_idagent" value="<?= $livraison['agId'] ?>">
-                                                    <input type="hidden" name="tb_idbien" value="<?= $livraison['bId'] ?>">
-                                                </div>
-                                                <div class="col-md-6 mt-1">
-                                                    <button type="button" class="btn btn-primary w-100 bt_recuperer_low_validate" name="bt_recuperer_low_validate">
-                                                        <span class="fa fa-recycle" style="font-size: 25px;margin-right: 5px;"></span>
-                                                    </button>
-                                                    <button type="submit" class="btn btn-primary w-100 bt_recuperer_low" name="bt_recuperer_low">
-                                                        <span class="fa fa-recycle" style="font-size: 25px;margin-right: 5px;"></span>Valider
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        
-                                    </td>
-                                </tr>
+                                <?=  $designation_service . " / " . $preparation['typerepas']." / " .$preparation['dateHeure'] ?>
+
                                 <?php
+                                
                             }
                         }
                         ?>
-                    </tbody>
-                    <tfoot>
-                        <td style="font-size: 20px;">
-                            <span>Nombre:</span><span><?= $n ?></span>
-                        </td>
-                    </tfoot>
-                </table>
-            </fieldset>
-        </div>
+                    </legend>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Les livraisons</h4>
+                </div>
+                <div class="col-md-12">
+                    <table class="table table-bordered table-responsive">
+                        <thead>
+                            <tr>
+                                <td>
+                                    N°
+                                </td>
+                                <td>
+                                    Date
+                                </td>
+                                <td>
+                                    Demande
+                                </td>
+                                <td>
+                                    Qté restante
+                                </td>
+                                <td>
+                                    Livreur
+                                </td>
+                                <td>
+                                    Opération
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            if (isset($_GET['response'])) {
+                                echo $_GET['response'];
+                            }
+                            
+                            $n = 0;
+                            $bdlivraison = new BdLivraison();
+                            if (isset($_GET['use_preparation'])) {
+                                $livraisons = $bdlivraison->getLivraisonByPreparationId($_GET['use_preparation']);
+                            } else {
+                                $livraisons = [];
+                            }
+                            
+                            foreach ($livraisons as $livraison) {
+                                //if (($livraison['lQuantite'] == $livraison['lQuantiteActuelle']) && ($livraison['lEtat']==0)) {
+                                if (($livraison['lQuantiteActuelle']>0) && (1)) {
+                                    $n++;
+                                    ?>
+                                    <tr>
+                                        <td><?= $livraison['lId'] ?></td>
+                                        <td><?= $livraison['lDate'] ?></td>
+                                        <td widtd="200"><?= $livraison['dId'] ?> . <?= $livraison['date'] . " / " . $livraison['bDesignation'] . " / " . $livraison['gDesignation'] . " pour " . $livraison['nom'] . " " . $livraison['postnom'] . " " . $livraison['prenom'] . " : " . $livraison['sDesignation'] . " / Qté : " . $livraison['dQuantite'] ?></td>
+                                        <td><?= $livraison['lQuantiteActuelle'] ?></td>
+                                        <td><?= $livraison['lNom'] . " " . $livraison['lPostnom'] . " " . $livraison['lPrenom'] ?></td>
+                                        <td>
+                                            
+                                            <form method="post" action="../contollers/recuperation_logistique/recuperationController.php">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <textarea name="description" id="description" placeholder="Note la raison de la recuperation ..." class="form-control"></textarea>
+                                                    </div>
+                                                    <div class="col-md-6 mt-1">
+                                                        <input type="text" name="tb_quantite_recupere" class="form-control" value="<?= $livraison['lQuantiteActuelle'] ?>">
+                                                        <input type="hidden" name="tb_quantite_actuelle" class="form-control" value="<?= $livraison['lQuantiteActuelle'] ?>">
+                                                        <input type="hidden" name="tb_idlivraison" value="<?= $livraison['lId'] ?>">
+                                                        <input type="hidden" name="tb_idagent" value="<?= $livraison['agId'] ?>">
+                                                        <input type="hidden" name="tb_idbien" value="<?= $livraison['bId'] ?>">
+                                                    </div>
+                                                    <div class="col-md-6 mt-1">
+                                                        <button type="button" class="btn btn-primary w-100 bt_recuperer_low_validate" name="bt_recuperer_low_validate" id="bt_recuperer_low_validate_<?= $livraison['lId'] ?>">
+                                                            <span class="fa fa-recycle" style="font-size: 25px;margin-right: 5px;"></span>
+                                                        </button>
+                                                        <button type="submit" class="btn btn-primary w-100 bt_recuperer_low" name="bt_recuperer_low" id="bt_recuperer_low_<?= $livraison['lId'] ?>">
+                                                            <span class="fa fa-recycle" style="font-size: 25px;margin-right: 5px;"></span>Valider
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                            }
+                            ?>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td style="font-size: 20px;">
+                                    <span><?= $n ?></span>
+                                </td>
+                                <td>
+                                    <span>Nombre</span>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
 
     </div>
 </div>

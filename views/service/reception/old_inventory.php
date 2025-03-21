@@ -18,15 +18,16 @@ include '../models/crud/db.php';
         <span class="h4">Anciens Inventaires</span>
     </div>
     <div class="panel panel-body">
-        <div><fieldset>
+        <div>
+            <fieldset>
                 <legend>Recherche par date :</legend>
                 <form class="form-inline" method="POST" action="../contollers/reception/receptionController.php">
                     <div class="row form-group-lg">
-                        <div class="col-6">
-                            <input type="date" class="form-control" name="tb_date" value="<?=(isset($_GET['date'])) ? $_GET['date']: date('Y-m-d')?>">
+                        <div class="col-md-6 col-12 mt-2">
+                            <input type="date" class="form-control w-100" name="tb_date" value="<?=(isset($_GET['date'])) ? $_GET['date']: date('Y-m-d')?>">
                         </div>
-                        <div class="col-6">
-                            <button type="submit" class="btn btn-success mt-1" name="bt_search_by_dates_inventory_old">
+                        <div class="col-md-6 col-12 mt-2">
+                            <button type="submit" class="btn btn-secondary w-100" name="bt_search_by_dates_inventory_old">
                                 <span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;"></span> Rechercher
                             </button>
                         </div>

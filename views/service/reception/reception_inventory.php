@@ -26,11 +26,11 @@ $pa = 0;
                 <legend>Recherche par date :</legend>
                 <form class="form-inline" method="POST" action="../contollers/reception/receptionController.php">
                     <div class="row form-group-lg">
-                        <div class="col-4">
-                            <input type="date" class="form-control" name="tb_date" value="<?=(isset($_GET['date'])) ? $_GET['date']: date('Y-m-d') ?>">
+                        <div class="col-md-4 col-12 mt-2">
+                            <input type="date" class="form-control w-100" name="tb_date" value="<?=(isset($_GET['date'])) ? $_GET['date']: date('Y-m-d') ?>">
                         </div>
-                        <div class="col-4">
-                            <select class="form-control" name="autres_place">
+                        <div class="col-md-4 col-12 mt-2">
+                            <select class="form-control w-100" name="autres_place">
                                 <option value="00">Selectionner ICI</option>
                                 <option value="00" selected>Kamanyola</option>
                                 <?php
@@ -42,8 +42,8 @@ $pa = 0;
                                 <?php } } ?>
                             </select>
                         </div>
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-success mt-1" name="bt_search_by_dates_inventory">
+                        <div class="col-md-4 col-12 mt-2">
+                            <button type="submit" class="btn btn-secondary w-100" name="bt_search_by_dates_inventory">
                                 <span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;"></span> Rechercher
                             </button>
                         </div>

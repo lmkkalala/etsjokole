@@ -23,8 +23,8 @@ include '../models/unite/unite.php';
                 <legend>Rechercher :</legend>
                 <form class="form-inline" method="POST" action="../contollers/biens/biensController.php">
                     <div class="row form-group-lg">
-                        <div class="col-md-4 mt-1">
-                            <select class="form-control select2" name="cb_biens">
+                        <div class="col-md-4 col-12 mt-1">
+                            <select class="form-control w-100 select2" name="cb_biens">
                                 <option value="0">Choose item</option>
                                 <?php
                                 $bdbiens = new BdBiens();
@@ -41,10 +41,10 @@ include '../models/unite/unite.php';
                                 ?>
                             </select>
                         </div>
-                        <div class="col-md-4">
-                            <button type="submit" class="btn btn-success w-100 mt-1" name="bt_search_for_all_for_value"><span class="glyphicon glyphicon-search btn" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
+                        <div class="col-md-4 col-12 mt-2">
+                            <button type="submit" class="btn btn-secondary w-100 mt-1" name="bt_search_for_all_for_value"><span class="glyphicon glyphicon-search btn" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 col-12 mt-2">
                             <a style="font-size: 20px;" href='../views/logistique/biens/pdf_list_biens_value_all.php' target="_blank" class="btn btn-secondary w-100 mt-1">Print in PDF</a>
                    
                             <!-- <a style="font-size: 20px;" href='../views/logistique/biens/excel_list_biens_value_all.php' class="btn btn-success pull-right">Export to Excel</a> -->
@@ -58,37 +58,37 @@ include '../models/unite/unite.php';
                 <table id="listdatabyid" class="table table-bordered table-responsive-lg table-striped">
                     <thead>
                         <tr>
-                        <th>
-                            N°
-                        </th>
-                        <th>
-                            Category
-                        </th>
-                        <th>
-                            Name / State
-                        </th>
-                        <th>
-                            Perissable
-                        </th>
-                        <th>
-                            Quantity
-                        </th>
-                        <th>
-                            Average UP (USD)
-                        </th>
-                        <th>
-                            Value (USD)
-                        </th>
-                        
-                        <th>
-                            Crisis level
-                        </th>
-                        <th>
-                            Codebarre
-                        </th>
-                        <th>
-                            PV
-                        </th>
+                            <th>
+                                N°
+                            </th>
+                            <th>
+                                Category
+                            </th>
+                            <th>
+                                Name / State
+                            </th>
+                            <th>
+                                Perissable
+                            </th>
+                            <th>
+                                Quantity
+                            </th>
+                            <th>
+                                Average UP (USD)
+                            </th>
+                            <th>
+                                Value (USD)
+                            </th>
+                            
+                            <th>
+                                Crisis level
+                            </th>
+                            <th>
+                                Codebarre
+                            </th>
+                            <th>
+                                PV
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -167,7 +167,7 @@ include '../models/unite/unite.php';
                                     
                                     <td><?= $bien['stock_critique'] ?></td>
                                     <td><?= $bien['codebarre'] ?></td>
-                                    <td><td><?= $bien['prixunitaire'] ?></td></td>
+                                    <td><?= $bien['prixunitaire'] ?></td>
                                 </tr>
                         <?php
                             $n++;

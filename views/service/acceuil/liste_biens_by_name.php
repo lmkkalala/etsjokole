@@ -64,9 +64,18 @@
             ?>
         </tbody>
         <tfoot>
-        <td style="font-size: 20px;">
-            <span>Nombre:</span><span><?= $n ?></span>
-        </td>
+            <tr>
+                <td style="font-size: 20px;">
+                    <span><?= $n ?></span>
+                </td>
+                <td>
+                    <span>Nombre:</span>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
         </tfoot>
     </table>
 </fieldset>

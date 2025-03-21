@@ -20,11 +20,11 @@ include '../models/biens/biens.php';
                 <legend>Commandez un bien/produit : </legend>
                 <form class="form-horizontal" method="POST" action="../contollers/acceuil-service/acceuilServiceController.php">
                     <div class="row form-group-lg">
-                        <div class="col-10 mt-2 input-group-lg">
-                            <input style="text-align: center;" class="form-control" type="text" name="tb_search">
+                        <div class="col-md-8 col-12 mt-2 input-group-lg">
+                            <input style="text-align: center;" class="form-control w-100" type="text" name="tb_search">
                         </div>
-                        <div class="col-2">
-                            <button type="submit" class="btn btn-primary text-white center-block" name="bt_search" style="color: white;font-size: 20px;margin-top: 10px;"><span class="fa fa-search"></span> Rechercher</button>
+                        <div class="col-md-4 col-12 mt-2">
+                            <button type="submit" class="btn btn-secondary w-100 text-white center-block" name="bt_search" style="color: white;font-size: 20px;"><span class="fa fa-search"></span> Rechercher</button>
                         </div>
                     </div>
                 </form>
