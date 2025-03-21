@@ -18,8 +18,8 @@ include '../models/unite/unite.php';
         <span class="h4">Store inventory</span>
     </div>
     <div class="panel panel-body">
-        <div>
-            <fieldset>
+        <div class="row">
+            <div class="col-md-12">
                 <legend>Rechercher :</legend>
                 <form class="form-inline" method="POST" action="../contollers/biens/biensController.php">
                     <div class="row form-group-lg">
@@ -46,16 +46,17 @@ include '../models/unite/unite.php';
                         </div>
                         <div class="col-md-4 col-12 mt-2">
                             <a style="font-size: 20px;" href='../views/logistique/biens/pdf_list_biens_value_all.php' target="_blank" class="btn btn-secondary w-100 mt-1">Print in PDF</a>
-                   
+                
                             <!-- <a style="font-size: 20px;" href='../views/logistique/biens/excel_list_biens_value_all.php' class="btn btn-success pull-right">Export to Excel</a> -->
                         </div>
                     </div>
                 </form>
-            </fieldset>
-            <br>
-            <fieldset>
-                <legend>Items</legend>
-                <table id="listdatabyid" class="table table-bordered table-responsive-lg table-striped">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 overflow-auto">
+                <h4>Items</h4>
+                <table id="listdatabyid" class="table table-bordered table-responsive table-striped">
                     <thead>
                         <tr>
                             <th>
@@ -199,7 +200,7 @@ include '../models/unite/unite.php';
                         </tr>
                     </tfoot>
                 </table>
-            </fieldset>
+            </div>
         </div>
     </div>
 </div>

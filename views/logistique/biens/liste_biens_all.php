@@ -15,13 +15,13 @@ include '../models/biens/biens.php';
         <span class="h4">List</span>
     </div>
     <div class="panel panel-body">
-        <div>
-            <fieldset>
+        <div class="row">
+            <div class="col-md-12">
                 <legend>Rechercher :</legend>
                 <form class="form-inline" method="POST" action="../contollers/biens/biensController.php">
                     <div class="row form-group-lg">
-                        <div class="col-6">
-                            <select class="form-control select2" name="cb_biens">
+                        <div class="col-md-6 col-12 mt-2">
+                            <select class="form-control w-100 select2" name="cb_biens">
                                 <option value="0">Choisir un produit</option>
                                 <?php
                                 $bdbiens = new BdBiens();
@@ -38,60 +38,58 @@ include '../models/biens/biens.php';
                                 ?>
                             </select>
                         </div>
-                        <div class="col-6">
-                            <button type="submit" class="btn btn-success" name="bt_search_for_all"><span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
+                        <div class="col-md-6 col-12 mt-2">
+                            <button type="submit" class="btn btn-secondary w-100" name="bt_search_for_all"><span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
                         </div>
                     </div>
                 </form>
-            </fieldset>
-            <fieldset >
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-12">
                 <?php
                 if ((1)) {
-                    ?>
+                ?>
                     <a style="font-size: 20px;" href='../views/logistique/biens/pdf_list_biens_all.php' class="btn btn-primary pull-left">Print in PDF</a>
-                    <?php
-                    ?>
                     <a style="font-size: 20px;" href='../views/logistique/biens/excel_list_biens_all.php' class="btn btn-success pull-right">Export to Excel</a>
-                    <?php
-                } else {
-                    
+                <?php
                 }
                 ?>
-
-            </fieldset>
-            <br>
-            <fieldset>
-                <legend>Les biens/produits</legend>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 overflow-auto">
+                <h4>Les biens/produits</h4>
                 <table id="list_biens_all" class="table table-bordered table-responsive-lg table-striped">
                     <thead>
-                    <th>
-                        #
-                    </th>
-                    <th>
-                        Category
-                    </th>
-                    <th>
-                        Name
-                    </th>
-                    <th>
-                        Perissable
-                    </th>
-                    <th>
-                        Quantity
-                    </th>
-                    <th>
-                        Unit price
-                    </th>
+                        <th>
+                            #
+                        </th>
+                        <th>
+                            Category
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Perissable
+                        </th>
+                        <th>
+                            Quantity
+                        </th>
+                        <th>
+                            Unit price
+                        </th>
 
-                    <th>
-                        Crisis level
-                    </th>
-                    <th>
-                        Codebarre
-                    </th>  
-                    <th>
-                        Status
-                    </th>
+                        <th>
+                            Crisis level
+                        </th>
+                        <th>
+                            Codebarre
+                        </th>  
+                        <th>
+                            Status
+                        </th>
                     </thead>
                     <tbody>
                         <?php
@@ -158,7 +156,7 @@ include '../models/biens/biens.php';
                     </td>
                     </tfoot>
                 </table>
-            </fieldset>
+            </div>
         </div>
     </div>
 </div>

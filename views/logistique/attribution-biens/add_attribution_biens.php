@@ -16,48 +16,51 @@ include '../models/attribution-biens/attributionBiens.php';
         <span class="h3">Commande</span>
         <span class="glyphicon glyphicon-chevron-right" style="color: black; font-size: 30px;margin-right: 5px;"></span>
         <span class="glyphicon glyphicon-asterisk" style="color: red; font-size: 30px;margin-right: 5px;"></span>
-        <span class="h4">Ajout</span><a style="font-size: 20px;" href='../views/home.php?link=<?= sha1("logistique_attribution_biens_add") . '&link_up=' . sha1("home_logistique_attribution_biens") ?>' class="btn btn-info pull-right"><span class="fa fa-refresh"></span></a>
+        <span class="h4">Ajout</span>
+        <a style="font-size: 20px;" href='../views/home.php?link=<?= sha1("logistique_attribution_biens_add") . '&link_up=' . sha1("home_logistique_attribution_biens") ?>' class="btn btn-info pull-right"><span class="fa fa-refresh"></span></a>
     </div>
     <div class="panel panel-body">
         <div>
             <?php
             if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("succes")))) {
-                ?>
+            ?>
                 <div class="alert alert-success">
                     <span class="glyphicon glyphicon-ok" style="font-size: 15px;margin-right: 5px;"></span><span>Enregistrement effectué avec succès</span>
                 </div>
-                <?php
-            }
-            ?>
             <?php
-            if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("traitement_error")))) {
-                ?>
+                }
+                if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("traitement_error")))) {
+            ?>
                 <div class="alert alert-danger">
                     <span class="glyphicon glyphicon-ban-circle" style="font-size: 15px;margin-right: 5px;"></span><span>Erreur d'enregistrement</span>
                 </div>
-                <?php
-            }
-            ?>
             <?php
-            if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("remplissage_error")))) {
-                ?>
+                }
+                if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("remplissage_error")))) {
+            ?>
                 <div class="alert alert-warning">
                     <span class="glyphicon glyphicon-blackboard" style="font-size: 15px;margin-right: 5px;"></span><span>Erreur de remplissage, Recommencer SVP</span>
                 </div>
-                <?php
-            }
+            <?php
+                }
             ?>
-            <fieldset>
-                <a style="font-size: 20px;" href='../views/home.php?link=<?= sha1("logistique_biens_add") . '&link_up=' . sha1("home_logistique_biens") ?>' class="btn btn-danger pull-right">New item</a>
-                <a style="font-size: 20px;" href='../views/home.php?link=<?= sha1("logistique_fournisseur_add") . '&link_up=' . sha1("home_logistique_fournisseur") ?>' class="btn btn-warning pull-left">New supplier</a>
-            </fieldset>
+            <div class="row">
+                <div class="col-md-3">
+                    <a style="font-size: 20px;" href='../views/home.php?link=<?= sha1("logistique_biens_add") . '&link_up=' . sha1("home_logistique_biens") ?>' class="btn btn-danger mt-2 w-100">New item</a>
+                </div>
+                <div class="col-md-3">
+                    <a style="font-size: 20px;" href='../views/home.php?link=<?= sha1("logistique_fournisseur_add") . '&link_up=' . sha1("home_logistique_fournisseur") ?>' class="btn btn-warning mt-2 w-100">New supplier</a>
+                </div>
+            </div>
             <br>
+        </div>
+        <div>
             <div style="background-color: whitesmoke; padding: 10px;">
                 <form class="form-horizontal" method="POST" action="../contollers/attribution-biens/attributionBiensController.php">
                     <div class="row form-group-lg">
-                        <div class="col-8 input-group-lg">
+                        <div class="col-md-6 col-12 mt-2 input-group-lg">
                             <label class="control-label">Fournisseur :</label>
-                            <select class="form-control select2" name="cb_fournisseur">
+                            <select class="form-control w-100 select2" name="cb_fournisseur">
                                 <option value="0">Choisir un fournisseur</option>
                                 <?php
                                 $bdfournisseur = new BdFournisseur();
@@ -74,17 +77,17 @@ include '../models/attribution-biens/attributionBiens.php';
                                 ?>
                             </select>
                         </div>                    
-                        <div class="col-4">
+                        <div class="col-md-6 col-12 mt-2">
                             <div class="input-group-lg">
-                                <button class="btn btn-success" type="submit" name="bt_select_fournisseur_for_add_attribution_biens" value="">Selectionner</button>
+                                <button class="btn btn-secondary w-100" type="submit" name="bt_select_fournisseur_for_add_attribution_biens" value="">Selectionner</button>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
 
-            <div style="margin: 10px;">
-                <fieldset>
+            <div class="row" style="margin: 10px;">
+                <div class="col-md-12 overflow-auto">
                     <legend style="margin: 5px; color: dodgerblue;">
                         <?php
                         if (isset($_GET['use_fournisseur'])) {
@@ -98,156 +101,153 @@ include '../models/attribution-biens/attributionBiens.php';
                         }
                         ?>
                     </legend>
-                    <div style="color: red;">
-                        
+                    <div class="mb-3" style="color: red;">
                         <?php
-                        
-                        $recentNumeroOrder="";
-                        $bdattributionbiens = new BdAttributionBiens();
-                        $attributions = $bdattributionbiens->lastRow();
-                        if (count($attributions) > 0) {
-                            // var_dump($attributions);
-                            // return;
-                            $recentNumeroOrder=$attributions[0]['numeroOrder'];
-                        }
+                            $recentNumeroOrder="";
+                            $bdattributionbiens = new BdAttributionBiens();
+                            $attributions = $bdattributionbiens->lastRow();
+                            if (count($attributions) > 0) {
+                                // var_dump($attributions);
+                                // return;
+                                $recentNumeroOrder=$attributions[0]['numeroOrder'];
+                            }
 
-                        // $attributions = $bdattributionbiens->getMaxAttributionBiensDistinctNumeroOrder();
-                        // foreach ($attributions as $attribution) {
-                        //      $recentNumeroOrder = $attribution['numero_orderMax'];
-                        // }
-                        
-                        //$attributions = $bdattributionbiens->getMaxDateAttributionBiensDistinctNumeroOrder();
-                        
-                        // $maxIdOrder=0;
-                        // foreach ($attributions as $attribution) {
+                            // $attributions = $bdattributionbiens->getMaxAttributionBiensDistinctNumeroOrder();
+                            // foreach ($attributions as $attribution) {
+                            //      $recentNumeroOrder = $attribution['numero_orderMax'];
+                            // }
                             
-                            //echo $attribution['lastDate'];
+                            //$attributions = $bdattributionbiens->getMaxDateAttributionBiensDistinctNumeroOrder();
                             
-                        //     $recentNumeroOrder=explode("/",$attribution['numero_orderFetchDate'])[0];
-                             
-                            //  echo $recentNumeroOrder;
-                            //  echo "\n";
-                             
-                        //      if ($recentNumeroOrder>=$maxIdOrder) {
-                        //          $maxIdOrder=$recentNumeroOrder;
-                        //      }
-                             
-                        // }
-                        
-                        //$maxRecentNumeroOrder=$maxIdOrder;
-                        
-                        // echo $maxRecentNumeroOrder;
-                        
-                        /* $_GET['use_numeroOrder'] */
+                            // $maxIdOrder=0;
+                            // foreach ($attributions as $attribution) {
+                                
+                                //echo $attribution['lastDate'];
+                                
+                            //     $recentNumeroOrder=explode("/",$attribution['numero_orderFetchDate'])[0];
+                                
+                                //  echo $recentNumeroOrder;
+                                //  echo "\n";
+                                
+                            //      if ($recentNumeroOrder>=$maxIdOrder) {
+                            //          $maxIdOrder=$recentNumeroOrder;
+                            //      }
+                                
+                            // }
+                            
+                            //$maxRecentNumeroOrder=$maxIdOrder;
+                            
+                            // echo $maxRecentNumeroOrder;
+                            
+                            /* $_GET['use_numeroOrder'] */
                         ?>
                         <p><?= "Numero recent: ".$recentNumeroOrder ?></p>
                         <label class="control-label">Numero Commande</label>
-                        <?php
-                            if (isset($_GET['use_numeroOrder'])) {
-                        ?>
+                        <?php if (isset($_GET['use_numeroOrder'])) { ?>
                             <input type="text" name="tb_numero_order_up" class="form-control-sm" id="numero_order_up" placeholder="Numero" value="<?= ($_GET['use_numeroOrder']) ?>">
-                        <?php
-                            } else {
-                        ?>
+                        <?php } else { ?>
                             <input type="text" name="tb_numero_order_up" class="form-control-sm" id="numero_order_up" placeholder="Muméro" value="<?=$recentNumeroOrder+1?>">
-                        <?php
-                        }
-                        ?>
-                        
-
+                        <?php } ?>
                     </div>
-
-                </fieldset>
+                </div>
             </div>
 
-            <div>
-                <form class="form-horizontal" method="POST" action="../contollers/attribution-biens/attributionBiensController.php">
-                    <table class="table table-bordered table-hover table-responsive">
-                        <tr>
-                            <td>
-                                <div class="input-group-lg">
-                                    <label id="selectProduct" class="control-label">Bien/produit :</label>
-                                    <select class="form-control select2" name="cb_biens">
-                                        <option value="0">Choisir un biens/produit</option>
-                                        <?php
-                                        $bdbiens = new BdBiens();
-                                        $biens = $bdbiens->getBiensAllDesc();
-                                        foreach ($biens as $bien) {
-                                            if ($bien['active']) {
-                                                if ($bien['bId'] == isset($_GET['use'])) {
-                                                    ?>
-                                                    <option value="<?= $bien['bId'] ?>" selected><?= $bien['bDesignation'] . " : " . $bien['marque'] . " / " . $bien['gDesignation'] ?></option>
-                                                    <?php
-                                                } else {
-                                                    ?>
-                                                    <option value="<?= $bien['bId'] ?>"><?= $bien['bDesignation'] . " : " . $bien['marque'] . " / " . $bien['gDesignation'] ?></option>
-                                                    <?php
+            <div class="row mt-2">
+                <div class="col-md-12 overflow-auto">
+                    <form class="form-horizontal" method="POST" action="../contollers/attribution-biens/attributionBiensController.php">
+                        <table class="table table-bordered table-hover table-responsive">
+                            <tr>
+                                <td>
+                                    <div class="input-group-lg">
+                                        <label id="selectProduct" class="control-label">Bien/produit :</label>
+                                        <select class="form-control select2" name="cb_biens">
+                                            <option value="0">Choisir un biens/produit</option>
+                                            <?php
+                                            $bdbiens = new BdBiens();
+                                            $biens = $bdbiens->getBiensAllDesc();
+                                            foreach ($biens as $bien) {
+                                                if ($bien['active']) {
+                                                    if ($bien['bId'] == isset($_GET['use'])) {
+                                                        ?>
+                                                        <option value="<?= $bien['bId'] ?>" selected><?= $bien['bDesignation'] . " : " . $bien['marque'] . " / " . $bien['gDesignation'] ?></option>
+                                                        <?php
+                                                    } else {
+                                                        ?>
+                                                        <option value="<?= $bien['bId'] ?>"><?= $bien['bDesignation'] . " : " . $bien['marque'] . " / " . $bien['gDesignation'] ?></option>
+                                                        <?php
+                                                    }
                                                 }
                                             }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group-lg">
+                                        <?php
+                                        if (isset($_GET['use_dateRecent'])) {
+                                            ?>
+                                            <input class="form-control" type="date" name="tb_date" value="<?= $_GET['use_dateRecent'] ?>">
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <input class="form-control" type="date" name="tb_date">
+                                            <?php
                                         }
                                         ?>
-                                    </select>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="input-group-lg">
-                                    <?php
-                                    if (isset($_GET['use_dateRecent'])) {
-                                        ?>
-                                        <input class="form-control" type="date" name="tb_date" value="<?= $_GET['use_dateRecent'] ?>">
-                                        <?php
-                                    } else {
-                                        ?>
-                                        <input class="form-control" type="date" name="tb_date">
-                                        <?php
-                                    }
-                                    ?>
 
-                                </div>
-                            </td>
-                            <td>
-                                <div class="input-group-lg">
-                                    <input class="form-control" type="text" name="tb_quantite" placeholder="Quantité">
-                                </div>
-                            </td>
-                            <td>
-                                <div class="input-group-lg">
-                                    <input class="form-control" type="text" name="tb_prixorder" placeholder="PU commande">
-                                </div>
-                            </td>
-                            <td>
-                                <div class="input-group-lg">
-                                    <?php
-                                    if (isset($_GET['use_numeroOrder'])) {
-                                        ?>
-                                        <input type="hidden" name="tb_numero_order_down" class="form-control-sm" id="numero_order_down" value="<?= $_GET['use_numeroOrder'] ?>">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="input-group-lg">
+                                        <input class="form-control" type="text" name="tb_quantite" placeholder="Quantité">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group-lg">
+                                        <input class="form-control" type="text" name="tb_prixorder" placeholder="PU commande">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="input-group-lg">
                                         <?php
-                                    } else {
+                                        if (isset($_GET['use_numeroOrder'])) {
+                                            ?>
+                                            <input type="hidden" name="tb_numero_order_down" class="form-control-sm" id="numero_order_down" value="<?= $_GET['use_numeroOrder'] ?>">
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <input type="hidden" name="tb_numero_order_down" class="form-control-sm" id="numero_order_down" value="<?=$recentNumeroOrder+1?>">
+                                            <?php
+                                        }
+
+                                        $fournisseurId=0;
+                                        if (isset($_GET['use_fournisseur'])) {
+                                            $fournisseurId=$_GET['use_fournisseur'];
+                                        }
+
                                         ?>
-                                        <input type="hidden" name="tb_numero_order_down" class="form-control-sm" id="numero_order_down" value="<?=$recentNumeroOrder+1?>">
-                                        <?php
-                                    }
 
-                                    $fournisseurId=0;
-                                    if (isset($_GET['use_fournisseur'])) {
-                                        $fournisseurId=$_GET['use_fournisseur'];
-                                    }
-
-                                    ?>
-
-                                    <input type="hidden" name="tb_idfournisseur" value="<?= $fournisseurId ?>">
-                                    <input class="btn btn-success" type="submit" name="bt_enregistrer" value="Ajouter">
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </form>
+                                        <input type="hidden" name="tb_idfournisseur" value="<?= $fournisseurId ?>">
+                                        <input class="btn btn-secondary w-100" type="submit" name="bt_enregistrer" value="Ajouter">
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
             </div>
         </div>
 
-        <div style="margin: 10px;">
-            <fieldset>
-                <legend>Les commandes</legend>
+        <div class="row" style="margin: 10px;">
+            <div class="col-md-12">
+                <h4>Les commandes</h4>
+            </div>
+            <div class="col-md-12 overflow-auto">
                 <table id="listdatabyid" class="table table-bordered table-responsive-lg table-striped">
                     <thead>
                         <tr>
@@ -370,7 +370,7 @@ include '../models/attribution-biens/attributionBiens.php';
                         </tr>
                     </tfoot>
                 </table>
-            </fieldset>
+            </div>
         </div>
     </div>
 </div>

@@ -7,8 +7,8 @@
 include '../models/livraison/livraison.php';
 include '../models/demande/demande.php';
 include '../models/recuperation/recuperation.php';
-$dateStart = date('m/d/Y',time());
-$dateEnd = date('m/d/Y',time());
+$dateStart = date('Y-m-d',time());
+$dateEnd = date('Y-m-d',time());
 $produit = '';
 include '../models/crud/db.php';
 ?>
@@ -66,9 +66,9 @@ include '../models/crud/db.php';
         </div>
     </form>
     <div class="panel panel-body">
-        <div>
-            <fieldset>
-                <legend>Les Recuperations</legend>
+        <div class="row">
+            <div class="col-md-12 overflow-auto">
+                <h4>Les Recuperations</h4>
                 <table id="listdatabyid" class="table table-bordered table-responsive-lg">
                     <thead>
                         <tr>
@@ -141,7 +141,7 @@ include '../models/crud/db.php';
                         </tr>
                     </tfoot>
                 </table>
-            </fieldset>
+            </div>
         </div>
     </div>
 </div>

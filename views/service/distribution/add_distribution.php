@@ -231,8 +231,8 @@ $DB = new DB();
                     <table class="table table-bordered table-striped table-hover">
                         <tr>
                             <td>
-                                <label id="selectProduct" class="control-label">Produit : </label>
-                                <select class="form-control select2" name="cb_livraison" id="cb_livraison">
+                                <label id="selectProduct" class="control-label mt-4">Produit : </label>
+                                <select class="form-control mt-4 select2" name="cb_livraison" id="cb_livraison">
                                     <option value="0">Choisir le produit : </option>
                                     <?php
                                     if (isset($_GET['service'])) {  
@@ -267,8 +267,8 @@ $DB = new DB();
                                 <input class="form-control" type="text" name="tb_price" id="tb_price" placeholder="Unit price (USD)" required>
                             </td>
                             <td>
-                                <label class="control-label">Type :</label>
-                                <select class="form-control select2" name="cb_type" id="cb_type">
+                                <label class="control-label mt-4">Type :</label>
+                                <select class="form-control mt-4 select2" name="cb_type" id="cb_type">
                                     <option value="CASH" selected >CASH</option>
                                     <option value="CREDIT">CREDIT</option>
                                     <option value="CASH_A_RETIRER">CASH ET A RETIRER</option>
@@ -294,7 +294,7 @@ $DB = new DB();
                                 <input type="hidden" name="tb_use_identiteClient" id="tb_use_identiteClient" value="<?= @$_GET['use_identiteClient'] ?>" required>
                                 <input type="hidden" name="tb_use_ventePOS" id="tb_use_ventePOS" value="<?= @$_GET['use_ventePOS'] ?>" required>
                                 <input class="btn btn-success mt-4" type="hidden" name="bt_enregistrer" id="bt_enregistrer" value="Enregister">
-                                <button class="btn btn-success mt-4" type="submit" >Enregister</button>
+                                <button class="btn btn-secondary w-100 mt-4" type="submit" >Enregister</button>
                             </td>
                         </tr>
                     </table>
@@ -307,7 +307,7 @@ $DB = new DB();
                 </fieldset>
                 
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12 overflow-auto">
                         <?php
                             if ((isset($_GET['use_date'])) && (($_GET['use_date'] != "") && ($_GET['use_typerepas'] != "0") && ($_GET['use_affectation'] != ""))) {
                                 include 'liste_distribution_hot.php';
