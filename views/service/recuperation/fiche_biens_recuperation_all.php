@@ -17,18 +17,29 @@ include '../models/biens/biens.php';
         <span class="h4">Fiche de récuperations par biens/produit</span>
     </div>
     <div class="panel panel-body">
-        <div>
-            <fieldset>
-                <legend>Taper le mot-clé de la recherche :</legend>
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Taper le mot-clé de la recherche :</h4>
                 <form class="form-inline" method="POST" action="../contollers/recuperation/recuperationController.php">
                     <div class="form-group-lg">
-                        <button type="submit" class="btn btn-success" name="bt_search_for_biens"><span class="glyphicon glyphicon-search" style="color: white; font-size: 30px;margin-right: 5px;"></span></button>
-                        <input type="text" class="form-control" name="tb_search" placeholder="Mot-clé">                            
+                        <div class="row">
+                            <div class="col-md-6 col-12 mt-2">
+                                <input type="text" class="form-control w-100" name="tb_search" placeholder="Mot-clé"> 
+                            </div>
+                            <div class="col-md-6 col-12 mt-2">
+                            <button type="submit" class="btn btn-secondary w-100" name="bt_search_for_biens">
+                                <span class="glyphicon glyphicon-search" style="color: white;"></span>
+                                <span style="color: white;">Recherche</span>
+                            </button>
+                            </div>
+                        </div>                          
                     </div>
                 </form>
-            </fieldset>
-            <fieldset>
-                <legend>Liste des biens/produits</legend>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Liste des biens/produits</h4>
                 <table class="table table-bordered table-responsive-lg">
                     <thead>
                     <th>
@@ -90,12 +101,19 @@ include '../models/biens/biens.php';
                         ?>
                     </tbody>
                     <tfoot>
-                    <td style="font-size: 20px;">
-                        <span>Nombre:</span><span><?= $n ?></span>
-                    </td>
+                        <td style="font-size: 20px;">
+                            <span><?= $n ?></span>
+                        </td>
+                        <td>
+                        <span>Nombre:</span>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tfoot>
                 </table>
-            </fieldset>
+            </div>
         </div>
     </div>
 </div>

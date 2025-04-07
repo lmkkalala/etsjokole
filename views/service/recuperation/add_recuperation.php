@@ -56,7 +56,9 @@ include '../models/distribution/distribution.php';
                 <?php
             }
             ?>
+        </div>
 
+        <div>
             <form class="form-horizontal" method="POST" action="../contollers/recuperation/recuperationController.php">
                 <div class="form-group-lg">
                     <div class="input-group-lg">
@@ -68,28 +70,28 @@ include '../models/distribution/distribution.php';
                         <select class="form-control select2" name="cb_distribution">
                             <option value="0">Choisir une livraison à utiliser : </option>
                             <?php
-                            $bddistribution = new BdDistribution();
-                            $distributions = $bddistribution->getDistributionDescQuantitePositive();
-                            foreach ($distributions as $distribution) {
-                                $bdlivraison = new BdLivraison();
-                                $livraisons = $bdlivraison->getLivraisonById($distribution['distribution_id']);
-                                foreach ($livraisons as $livraison) {
-                                    $idaffectation_online = $livraison['dIdmutation'];
-                                    $infolivraison = $livraison['lDate'] . " " . $livraison['bDesignation'] . " : " . $livraison['marque'] . " / " . $livraison['gDesignation'] . " / quantité initiale : " . $livraison['lQuantite'] . " / quantité actuelle : " . $livraison['quantite_actuelle'];
-                                }
-                                if ($idaffectation_online == $_SESSION['idaffectation']) {
-                                    $bdaffectation = new BdAffectationService();
-                                    $affectations = $bdaffectation->getAffectationServiceByIdSecond($distribution['mutation_id']);
-                                    foreach ($affectations as $affectation) {
-                                        $info_preneur = $affectation['nom'] . " " . $affectation['postnom'] . " " . $affectation['prenom'];
-                                    }
-                                    if (1) {
-                                        ?>
-                                        <option value="<?= $distribution['id'] ?>"><?= $livraison['lDate'] . " " . $livraison['bDesignation'] . " / " . $livraison['gDesignation'] . " pour " . $info_preneur . " / quantité total : " . $distribution['nombre'] . " / quantité non récuperée : " . $distribution['nombre_restant'] ?></option>
-                                        <?php
-                                    }
-                                }
-                            }
+                                // $bddistribution = new BdDistribution();
+                                // $distributions = $bddistribution->getDistributionDescQuantitePositive();
+                                // foreach ($distributions as $distribution) {
+                                //     $bdlivraison = new BdLivraison();
+                                //     $livraisons = $bdlivraison->getLivraisonById($distribution['distribution_id']);
+                                //     foreach ($livraisons as $livraison) {
+                                //         $idaffectation_online = $livraison['dIdmutation'];
+                                //         $infolivraison = $livraison['lDate'] . " " . $livraison['bDesignation'] . " : " . $livraison['marque'] . " / " . $livraison['gDesignation'] . " / quantité initiale : " . $livraison['lQuantite'] . " / quantité actuelle : " . $livraison['quantite_actuelle'];
+                                //     }
+                                //     if ($idaffectation_online == $_SESSION['idaffectation']) {
+                                //         $bdaffectation = new BdAffectationService();
+                                //         $affectations = $bdaffectation->getAffectationServiceByIdSecond($distribution['mutation_id']);
+                                //         foreach ($affectations as $affectation) {
+                                //             $info_preneur = $affectation['nom'] . " " . $affectation['postnom'] . " " . $affectation['prenom'];
+                                //         }
+                                //     if (1) {
+                            ?>
+                            <!-- <option value="<?= $distribution['id'] ?>"><?= $livraison['lDate'] . " " . $livraison['bDesignation'] . " / " . $livraison['gDesignation'] . " pour " . $info_preneur . " / quantité total : " . $distribution['nombre'] . " / quantité non récuperée : " . $distribution['nombre_restant'] ?></option> -->
+                            <?php
+                                //         }
+                                //     }
+                                // }
                             ?>
                         </select>
                     </div>
@@ -97,14 +99,11 @@ include '../models/distribution/distribution.php';
                         <label class="control-label">Quantity :</label>
                         <input class="form-control" type="number" name="tb_quantite" placeholder="Quantité">
                     </div>
-                    <fieldset>
-                        <legend></legend>
-                        <div class="input-group-lg">
-                            <input type="hidden" name="tb_idaffectation" value="<?= $_SESSION['idaffectation'] ?>">
-                            <input class="btn btn-success" type="submit" name="bt_enregistrer" value="Enregistrer">
-                            <input class="btn btn-danger" type="reset" value="Initialiser">
-                        </div>
-                    </fieldset>
+                    <div class="input-group-lg">
+                        <input type="hidden" name="tb_idaffectation" value="<?= $_SESSION['idaffectation'] ?>">
+                        <input class="btn btn-success" type="submit" name="bt_enregistrer" value="Enregistrer">
+                        <input class="btn btn-danger" type="reset" value="Initialiser">
+                    </div>
                 </div>
             </form>
         </div>

@@ -51,6 +51,8 @@ include '../models/affectation-service/affectationService.php';
                 <?php
             }
             ?>
+        </div>
+        <div>
             <form class="form-horizontal" method="POST" action="../contollers/recuperation/recuperationController.php">
                 <fieldset>
                     <div class="form-group-lg">
@@ -62,7 +64,7 @@ include '../models/affectation-service/affectationService.php';
                                 $bdrecuperation = new BdRecuperation();
                                 $bddistribution = new BdDistribution();
                                 $recuperations = $bdrecuperation->getRecuperationMax();
-				$quantite_choosen_recuperation_service=0;
+				                $quantite_choosen_recuperation_service=0;
                                 foreach ($recuperations as $recuperation) {
                                     $idrecuperation = $recuperation['Id'];
                                 }

@@ -18,44 +18,55 @@ include '../models/affectation-service/affectationService.php';
         <span class="h4">Fiche de récuperations par agent</span>
     </div>
     <div class="panel panel-body">
-        <div>
-            <fieldset>
-                <legend>Taper l'identité de l'agent :</legend>
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Taper l'identité de l'agent :</h4>
                 <form class="form-inline" method="POST" action="../contollers/recuperation/recuperationController.php">
                     <div class="form-group-lg">
-                        <button type="submit" class="btn btn-success" name="bt_search_for_agent"><span class="glyphicon glyphicon-search" style="color: white; font-size: 30px;margin-right: 5px;"></span></button>
-                        <input type="text" class="form-control" name="tb_search" placeholder="Mot-clé">                            
+                        <div class="row">
+                            <div class="col-md-6 col-12 mt-2">
+                                <input type="text" class="form-control w-100" name="tb_search" placeholder="Mot-clé"> 
+                            </div>
+                            <div class="col-md-6 col-12 mt-2">
+                                <button type="submit" class="btn btn-secondary w-100" name="bt_search_for_agent">
+                                    <span class="glyphicon glyphicon-search" style="color: white;"></span> 
+                                    <span style="color: white;">Recherche</span>
+                                </button>
+                            </div>
+                        </div>                      
                     </div>
                 </form>
-            </fieldset>
-            <fieldset>
-                <legend>Liste des agents</legend>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Liste des agents</h4>
                 <table class="table table-bordered table-responsive-lg">
                     <thead>
-                    <th>
-                        N°
-                    </th>
-                    <th>
-                        Nom
-                    </th>
-                    <th>
-                        Postnom
-                    </th>
-                    <th>
-                        Prénom
-                    </th>
-                    <th>
-                        Sexe
-                    </th>
-                    <th>
-                        Grade
-                    </th>
-                    <th>
-                        Etat
-                    </th>
-                    <th>
-                        Opération
-                    </th>
+                        <th>
+                            N°
+                        </th>
+                        <th>
+                            Nom
+                        </th>
+                        <th>
+                            Postnom
+                        </th>
+                        <th>
+                            Prénom
+                        </th>
+                        <th>
+                            Sexe
+                        </th>
+                        <th>
+                            Grade
+                        </th>
+                        <th>
+                            Etat
+                        </th>
+                        <th>
+                            Opération
+                        </th>
                     </thead>
                     <tbody>
                         <?php
@@ -110,12 +121,21 @@ include '../models/affectation-service/affectationService.php';
                         ?>
                     </tbody>
                     <tfoot>
-                    <td style="font-size: 20px;">
-                        <span>Nombre:</span><span><?= $n ?></span>
-                    </td>
+                        <tr>
+                        <td style="font-size: 20px;">
+                            <span><?= $n ?></span>
+                        </td>
+                        <td><span>Nombre:</span></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        </tr>
                     </tfoot>
                 </table>
-            </fieldset>
+            </div>
         </div>
     </div>
 </div>

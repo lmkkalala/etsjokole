@@ -95,40 +95,44 @@ include '../models/unite/unite.php';
                                         </td>
                                         <td>
                                             <?php
-                                            $bdaffectation = new BdAffectationService();
-                                            $affectations = $bdaffectation->getAffectationServiceByIdSecond($distribution['mutation_id']);
-                                            foreach ($affectations as $affectation) {
-                                                echo $affectation['nom'] . " " . $affectation['postnom'] . " " . $affectation['prenom'];
-                                            }
+                                                $bdaffectation = new BdAffectationService();
+                                                $affectations = $bdaffectation->getAffectationServiceByIdSecond($distribution['mutation_id']);
+                                                foreach ($affectations as $affectation) {
+                                                    echo $affectation['nom'] . " " . $affectation['postnom'] . " " . $affectation['prenom'];
+                                                }
                                             ?>
                                         </td>
                                         <td><?= $recuperation['quantite'] ?></td>
                                         <td><?= $distribution['nombre'] ?></td>
                                         <td><?= $distribution['nombre_restant'] ?></td>
                                         <td>
-                                            <?php
-                                            if ($distribution['nombre_restant'] == 0) {
-                                                ?>
+                                            <?php if ($distribution['nombre_restant'] == 0) { ?>
                                                 <h4 style="color: forestgreen;">Totale</h4>
-                                                <?php
-                                            } else {
-                                                ?>
+                                            <?php } else { ?>
                                                 <h4 style="color: red;">Partielle</h4>
-                                                <?php
-                                            }
-                                            ?>
+                                            <?php } ?>
                                         </td>
                                     </tr>
-                                    <?php
+                        <?php
+                                    }
                                 }
                             }
-                        }
                         ?>
                     </tbody>
                     <tfoot>
-                    <td style="font-size: 20px;">
-                        <span>Nombre:</span><span><?= $n ?></span>
-                    </td>
+                            <tr>
+                                <td style="font-size: 20px;">
+                                    <span><?= $n ?></span>
+                                </td>
+                                <td><span>Nombre:</span></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
                     </tfoot>
                 </table>
             </fieldset>

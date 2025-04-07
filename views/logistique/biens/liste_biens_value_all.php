@@ -80,13 +80,12 @@ include '../models/unite/unite.php';
                             <th>
                                 Value (USD)
                             </th>
-                            
-                            <th>
+                            <!-- <th>
                                 Crisis level
                             </th>
                             <th>
                                 Codebarre
-                            </th>
+                            </th> -->
                             <th>
                                 PV
                             </th>
@@ -110,7 +109,7 @@ include '../models/unite/unite.php';
                                 <tr>
                                     <td><?=$n?></td>
                                     <td>
-                                        <?= $bien['bId'] ?> <br>
+                                        <!-- <?= $bien['bId'] ?> <br> -->
                                         <?= $bien['gDesignation'] ?>
                                     </td>
                                     <td>
@@ -166,8 +165,8 @@ include '../models/unite/unite.php';
                                         ?>
                                     </td>
                                     
-                                    <td><?= $bien['stock_critique'] ?></td>
-                                    <td><?= $bien['codebarre'] ?></td>
+                                    <!-- <td><?= $bien['stock_critique'] ?></td>
+                                    <td><?= $bien['codebarre'] ?></td> -->
                                     <td><?= $bien['prixunitaire'] ?></td>
                                 </tr>
                         <?php
@@ -194,8 +193,8 @@ include '../models/unite/unite.php';
                             </th>
                             <th>USD</th>
                             <th></th>
-                            <th></th>
-                            <th></th>
+                            <!-- <th></th>
+                            <th></th> -->
                             <th></th>
                         </tr>
                     </tfoot>
