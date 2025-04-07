@@ -14,13 +14,13 @@ include '../models/agent/agent.php';
         <span class="h4">List</span>
     </div>
     <div class="panel panel-body">
-        <div>
-            <fieldset>
-                <legend>Search :</legend>
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Search :</h4>
                 <form class="form-inline" method="POST" action="../contollers/agent/agentController.php">
                     <div class="row form-group-lg">
-                        <div class="col-md-8">
-                            <select class="form-control select2" name="cb_agent">
+                        <div class="col-md-6 col-12 mt-2">
+                            <select class="form-control w-100 select2" name="cb_agent">
                                 <option value="0">Choose a agent</option>
                                 <?php
                                 $bdagent = new BdAgent();
@@ -37,18 +37,22 @@ include '../models/agent/agent.php';
                                 ?>
                             </select>
                         </div>
-                        <div class="col-md-4">
-                            <button type="submit" class="btn btn-success" name="bt_search_for_all"><span class="glyphicon glyphicon-search"></span> Rechercher</button>
+                        <div class="col-md-6 col-12 mt-2">
+                            <button type="submit" class="btn btn-secondary w-100" name="bt_search_for_all"><span class="glyphicon glyphicon-search"></span> Rechercher</button>
                         </div>
                     </div>
                 </form>
-            </fieldset>
-            <fieldset>
-                <legend>List</legend>
+            </div>
+            <div class="row">
+                <h4>List</h4>
+                <div class="col-md-12 overflow-auto">
                 <table class="table table-bordered table-striped table-responsive-lg">
                     <thead>
                     <th>
                         N°
+                    </th>
+                    <th>
+                        Photo
                     </th>
                     <th>
                         Nom
@@ -68,9 +72,7 @@ include '../models/agent/agent.php';
                     <th>
                         Etat
                     </th>
-                    <th>
-                        Photo
-                    </th>
+                    
                     </thead>
                     <tbody>
                         <?php
@@ -87,6 +89,9 @@ include '../models/agent/agent.php';
                             ?>
                             <tr>
                                 <td><?= $agent['id'] ?></td>
+                                <td>
+                                    <img src="../media/pictures-agent/<?= $agent['urlPhoto'] ?>" alt="No picture" height="80px" width="80px">
+                                </td>
                                 <td><?= $agent['nom'] ?></td>
                                 <td><?= $agent['postnom'] ?></td>
                                 <td><?= $agent['prenom'] ?></td>
@@ -105,9 +110,7 @@ include '../models/agent/agent.php';
                                     }
                                     ?>
                                 </td>
-                                <td>
-                                    <img src="../media/pictures-agent/<?= $agent['urlPhoto'] ?>" alt="No picture" height="100px" width="100px">
-                                </td>
+                                
                             </tr>
                             <?php
                         }
@@ -115,11 +118,19 @@ include '../models/agent/agent.php';
                     </tbody>
                     <tfoot>
                     <td style="font-size: 20px;">
-                        <span>Nombre:</span><span><?= $n ?></span>
+                        <span><?= $n ?></span>
                     </td>
+                    <td><span>Nombre:</span></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     </tfoot>
                 </table>
-            </fieldset>
+                </div>
+            </div>
         </div>
     </div>
 </div>

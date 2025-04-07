@@ -15,16 +15,16 @@ include '../models/agent/agent.php';
         <span class="h4">Update</span>
     </div>
     <div class="panel panel-body">
-        <div>
-            <fieldset>
-                <legend>List</legend>
+        <div class="row">
+            <div class="col-md-12">
+                <h4>List</h4>
                 <?php
                 if ((isset($_GET['reponse']) && ($_GET['reponse'] == "succes"))) {
                     ?>
                     <div class="alert alert-success">
                         <span class="glyphicon glyphicon-ok" style="font-size: 15px;margin-right: 5px;"></span><span>Modification effectué avec succès</span>
                     </div>
-                    <?php
+                <?php
                 }
                 ?>
                 <?php
@@ -33,7 +33,7 @@ include '../models/agent/agent.php';
                     <div class="alert alert-danger">
                         <span class="glyphicon glyphicon-ban-circle" style="font-size: 15px;margin-right: 5px;"></span><span>Erreur de traitment</span>
                     </div>
-                    <?php
+                <?php
                 }
                 ?>
                 <?php
@@ -42,7 +42,7 @@ include '../models/agent/agent.php';
                     <div class="alert alert-warning">
                         <span class="glyphicon glyphicon-blackboard" style="font-size: 15px;margin-right: 5px;"></span><span>Erreur de remplissage, Recommencer SVP</span>
                     </div>
-                    <?php
+                <?php
                 }
                 ?>
                 <?php
@@ -51,15 +51,15 @@ include '../models/agent/agent.php';
                     <div class="alert alert-warning">
                         <span class="glyphicon glyphicon-blackboard" style="font-size: 15px;margin-right: 5px;"></span><span>Format error, Recommencer SVP</span>
                     </div>
-                    <?php
+                <?php
                 }
                 ?>
-                <fieldset>
-                    <legend>Search :</legend>
+                <div class="row">
+                    <h4>Search :</h4>
                     <form class="form-inline" method="POST" action="../contollers/agent/agentController.php">
                         <div class="row form-group-lg">
-                            <div class="col-md-8">
-                                <select class="form-control select2" name="cb_agent">
+                            <div class="col-md-6 col-12 mt-2">
+                                <select class="form-control w-100 select2" name="cb_agent">
                                     <option value="0">Choisisser un agent</option>
                                     <?php
                                     $bdagent = new BdAgent();
@@ -76,18 +76,15 @@ include '../models/agent/agent.php';
                                     ?>
                                 </select>
                             </div>
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-success" name="bt_search_for_update"><span class="glyphicon glyphicon-search"></span> Rechercher</button>
+                            <div class="col-md-6 col-12 mt-2">
+                                <button type="submit" class="btn btn-secondary w-100" name="bt_search_for_update"><span class="glyphicon glyphicon-search"></span> Rechercher</button>
                             </div>
                         </div>
                     </form>
-                </fieldset>
-                <fieldset>
-                    <legend></legend>
-                </fieldset>
+                </div>
                 <div class="container">
-                    <div class="row">
-                    <div class="col-md-12">
+                    <div class="row mt-2">
+                    <div class="col-md-12 overflow-auto">
                     <table class="table table-bordered table-striped table-responsive-lg">
                     <thead>
                     <th>
@@ -236,7 +233,7 @@ include '../models/agent/agent.php';
                     </div>
                     </div>
                 </div>
-            </fieldset>
+            </div>
         </div>
     </div>
 </div>

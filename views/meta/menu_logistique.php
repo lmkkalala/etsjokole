@@ -38,7 +38,7 @@ if ($_SESSION['type'] == 'logistique') {
             <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="/views/home.php?link_up=<?= sha1('home_logistique_bordereau_expedition'); ?>"><span class="fa fa-book" style="margin: 10px;"></span>Bordereau d'expedition</a></li>
             <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="/views/home.php?link_up=<?= sha1('home_facture_client'); ?>"><span class="fa fa-pencil-square" style="margin: 10px;"></span>Facture A Payer</a></li>
             <!--<li role="presentation"><a style="font-size: 15px;" href=""><span class="fa fa-dollar" style=" font-size: 30px;"></span>Vente en gros</a></li>-->
-            <li role="presentation" class=" d-md-none"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="#" onclick="logout()"><span class="fa fa-sign-out"></span> Deconnexion</a></li>
+            <li role="presentation" class=" d-md-none"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="#" onclick="logout()"><span class="fa fa-sign-out" style="margin: 10px;"></span> Deconnexion</a></li>
         </ul>
     </div>
 <?php
@@ -51,7 +51,7 @@ if ($_SESSION['type'] == 'logistique') {
     </div>
 </div>
 <div class="col-md-4">
-    <a class="btn shadow-none text-dark fw-bolder" style="font-size: 15px;" class="active" href="/views/home.php?link_up=<?= sha1('home_service_acceuil');?>"><span><i class="fa fa-backward"></i> TRAVAILLEUR</span></a>
+    <a class="btn shadow-none text-dark fw-bolder" style="font-size: 15px;" class="active" href="/views/home.php?link_up=<?= sha1('home_service_acceuil');?>"><span><i class="fa fa-backward" style="margin: 10px;"></i> TRAVAILLEUR</span></a>
 </div>
 <?php
 }
