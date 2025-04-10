@@ -61,9 +61,9 @@ $dateEnd = '';
         </div>
     </form>
     <div class="panel panel-body">
-        <div>
-            <fieldset>
-                <legend>Orders</legend>
+        <div class="row">
+            <div class="col-md-12 overflow-auto">
+                <h4>Orders</h4>
                 <table id="list_attribution_biens_all" class="table table-bordered table-responsive-lg table-condensed">
                     <thead>
                     <th>
@@ -156,7 +156,7 @@ $dateEnd = '';
                     </td>
                     </tfoot>
                 </table>
-            </fieldset>
+            </div>
         </div>
     </div>
 </div>

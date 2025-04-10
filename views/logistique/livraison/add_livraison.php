@@ -159,11 +159,11 @@ if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("quantite_error")))) {
         </div>
     </div>
 
-    <div class="row">
+    <div class="row mt-2">
         <div class="col-md-12">
             <h4>Requisitions</h4>
         </div>
-        <div class="col-md-12" style="margin: 10px;">  
+        <div class="col-md-12 overflow-auto">  
             <table class="table table-bordered table-striped table-responsive">
                 <thead>
                     <tr>

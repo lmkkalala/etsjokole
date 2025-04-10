@@ -58,9 +58,9 @@ include '../models/demande/demande.php';
             <div style="background-color: whitesmoke; padding: 10px;">
                 <form class="form-horizontal" method="POST" action="../contollers/demande/demandeController.php">
                     <div class="row form-group-lg">
-                        <div class="col-8 input-group-lg">
+                        <div class="col-md-6 col-12 mt-2 input-group-lg">
                             <label class="control-label">Activité :</label>
-                            <select class="form-control select2" name="cb_preparation">
+                            <select class="form-control w-100 select2" name="cb_preparation">
                                 <option value="0">Choisir activité</option>
                                 <?php
                                 $bdpreparation = new BdPreparation();
@@ -82,9 +82,9 @@ include '../models/demande/demande.php';
                                 ?>
                             </select>
                         </div>                    
-                        <div class="col-4 mt-3">
+                        <div class="col-md-6 col-12 mt-2">
                             <div class="input-group-lg">
-                                <input class="btn btn-success fs-6 w-100" type="submit" name="bt_select_preparation_for_add_demande" value="Séléctionner">
+                                <input class="btn btn-secondary fs-6 w-100" type="submit" name="bt_select_preparation_for_add_demande" value="Séléctionner">
                             </div>
                         </div>
                     </div>
@@ -175,9 +175,9 @@ include '../models/demande/demande.php';
 
     </div>
 
-    <div>
-        <fieldset>
-            <legend>Requisitions</legend>
+    <div class="row mt-2">
+        <div class="col-md-12 overflow-auto">
+            <h4>Requisitions</h4>
             <table class="table table-bordered table-responsive">
                 <thead>
                     <th>
@@ -269,7 +269,7 @@ include '../models/demande/demande.php';
                     <td></td>
                 </tfoot>
             </table>
-        </fieldset>
+        </div>
     </div>
 
 </div>

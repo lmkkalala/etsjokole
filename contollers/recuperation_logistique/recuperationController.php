@@ -209,8 +209,6 @@ if (isset($_POST['bt_recuperer_low'])) {
                         if ($bdlivraison->updateLivraisonQuantiteActuelle($idlivraison, ($quantite_actuelle - $quantite_recupere))) {
                             $reponse = "succes";
                         }
-
-
                     } else {
                         $reponse = "traitement_error";
                     }

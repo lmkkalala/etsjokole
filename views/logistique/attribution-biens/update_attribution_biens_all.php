@@ -20,9 +20,9 @@ $dateEnd = '';
         <span class="h4">Update</span>
     </div>
     <div class="panel panel-body">
-        <div>
-            <fieldset>
-                <legend>Orders</legend>
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Orders</h4>
                 <?php
                 if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("succes")))) {
                     ?>
@@ -79,6 +79,8 @@ $dateEnd = '';
                         </div>
                     </div>
                 </form>
+            </div>
+            <div class="col-md-12">
                 <table id="list_update_command_logistique" class="table table-bordered table-responsive-lg table-condensed">
                     <thead>
                         <th style="width: 10px;">N°</th>
@@ -177,12 +179,19 @@ $dateEnd = '';
                     ?>
                     </tbody>
                     <tfoot>
-                    <td style="font-size: 20px;">
-                        <span>Nombre:</span><span><?= $n ?></span>
-                    </td>
+                        <td style="font-size: 20px;">
+                            <span><?= $n ?></span>
+                        </td>
+                        <td><span>Nombre:</span></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tfoot>
                 </table>
-            </fieldset>
+            </div>
         </div>
     </div>
 </div>
