@@ -22,7 +22,7 @@ include '../models/biens/biens.php';
                 $bdbiens = new BdBiens();
                 $biens = $bdbiens->getBiensById($_GET['use']);
                 foreach ($biens as $bien) {
-                    ?>
+                ?>
                     <table class="table table-bordered table-responsive-lg table-striped">
                         <tr>
                             <td><b>N°</b></td>

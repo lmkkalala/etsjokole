@@ -90,6 +90,13 @@ class BdBiens {
         $reponse->closeCursor();
     }
 
+    function getBiensByIdName($idbiens) {
+        $bd = Connexion::connecter();
+        $reponse = $bd->query("SELECT b.prixunitaire AS bPv, b.id AS bId,b.prixunitaire,b.designation AS bDesignation,b.codebarre,b.marque,b.quantite,b.stock_max,b.stock_min,b.stock_critique,b.type_perissable,b.technique_gestion,b.active,g.id AS gID,g.designation AS gDesignation FROM biens b INNER JOIN groupebiens g ON(b.groupeBiens_id=g.id) WHERE b.designation LIKE '%{$idbiens}%'");
+        return $reponse->fetchAll();
+        $reponse->closeCursor();
+    }
+
     function getAgentAllDescActive() {
         $bd = Connexion::connecter();
         $reponse = $bd->query("SELECT * FROM agent WHERE active='1' ORDER BY id DESC");

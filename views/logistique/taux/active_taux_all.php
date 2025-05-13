@@ -72,7 +72,7 @@ include '../models/taux/taux.php';
                             $n++;
                             ?>
                             <tr>
-                                <td><?= $tau['id'] ?></td>
+                                <td><?= $n ?></td>
                                 <td><?= $tau['datetaux'] ?></td>
                                 <td><?= $tau['value'] ?></td>
                                 <td>
@@ -115,9 +115,13 @@ include '../models/taux/taux.php';
                         ?>
                     </tbody>
                     <tfoot>
-                    <td style="font-size: 20px;">
-                        <span>Number:</span><span><?= $n ?></span>
-                    </td>
+                        <td style="font-size: 20px;">
+                            <span><?= $n ?></span>
+                        </td>
+                        <td><span>Number:</span></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tfoot>
                 </table>
             </fieldset>

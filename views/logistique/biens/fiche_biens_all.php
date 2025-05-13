@@ -20,11 +20,11 @@ include '../models/biens/biens.php';
                 <legend>Taper le mot-clé de la recherche :</legend>
                 <form class="form-inline" method="POST" action="../contollers/biens/biensController.php">
                     <div class="row form-group-lg">
-                        <div class="col-6">
+                        <div class="col-md-8 col-12">
                         <input type="text" class="form-control" name="tb_search" placeholder="Mot-clé">  
                         </div>
-                        <div class="col-6">
-                        <button type="submit" class="btn btn-success" name="bt_search"><span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
+                        <div class="col-md-4 col-12">
+                        <button type="submit" class="btn btn-secondary w-100" name="bt_search"><span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
                         </div>
                                                   
                     </div>
@@ -125,9 +125,21 @@ include '../models/biens/biens.php';
                         ?>
                     </tbody>
                     <tfoot>
-                    <td style="font-size: 20px;">
-                        <span>Nombre:</span><span><?= $n ?></span>
-                    </td>
+                        <tr>
+                            <td style="font-size: 20px;">
+                            <span><?= $n ?></span>
+                            </td>
+                            <td><span>Nombre:</span></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
                     </tfoot>
                 </table>
             </fieldset>

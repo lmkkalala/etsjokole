@@ -12,7 +12,7 @@ include './meta/menu_logistique.php';
     <div class="col-md-12" style="background-color: whitesmoke;border-radius: 5px; height: 90vh;">
         <div class="container-fluid">
             <div class="row">
-                <div id="menu-gauche" class="col-lg-3">
+                <div id="menu-gauche" class="col-md-2">
                     <ul class="list-menu list-unstyled" style="font-size: 20px;">
                         <li class="list-inline-item">
                             <span style="color: red;font-size: 20px;" class="fa fa-asterisk"></span>
@@ -42,7 +42,7 @@ include './meta/menu_logistique.php';
                         margin-right: 5px;
                     }
                 </style>
-                <div class="col-lg-9" style="padding: 10px;height: 80vh;overflow: auto;">
+                <div class="col-md-10" style="padding: 10px;height: 80vh;overflow: auto;">
                     <?php
                     if (isset($_GET['link'])) {
                         if ($_GET['link'] == sha1('logistique_customer_liste_all')) {

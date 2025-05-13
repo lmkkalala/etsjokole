@@ -45,21 +45,21 @@ padding-left: 5px;
         <div class="container-fluid">
             <div class="row">
                 <div id="menu-gauche" class="col-md-2">
-                    <h3>Item</h3>
+                    <h3>Produit</h3>
                     <ul class="list-menu list-unstyled" style="font-size: 20px;">
-                        <li class="list-inline-item"><span style="color: red;font-size: 20px;" class="glyphicon glyphicon-asterisk"></span><a href="/views/home.php?link=<?= sha1("logistique_biens_add")?>&link_up=<?= sha1("home_logistique_biens")?>">New</a></li><br>
+                        <li class="list-inline-item"><span style="color: red;font-size: 20px;" class="glyphicon glyphicon-asterisk"></span><a href="/views/home.php?link=<?= sha1("logistique_biens_add")?>&link_up=<?= sha1("home_logistique_biens")?>">Nouveau</a></li><br>
                         <li class="list-inline-item"><span style="color: forestgreen;font-size: 20px;" class="glyphicon glyphicon-adjust"></span><a href="/views/home.php?link=<?= sha1("logistique_biens_update_biens_all")?>&link_up=<?= sha1("home_logistique_biens")?>">Update</a></li><br>
                         <li class="list-inline-item"><span style="color: darkslategrey;font-size: 20px;" class="glyphicon glyphicon-check"></span><a href="/views/home.php?link=<?= sha1("logistique_biens_active_biens_all")?>&link_up=<?= sha1("home_logistique_biens")?>">Activation</a></li><br>
-                        <li class="list-inline-item"><span style="color: orange;font-size: 20px;" class="glyphicon glyphicon-list"></span><a href="/views/home.php?link=<?= sha1("logistique_biens_liste_biens_all")?>&link_up=<?= sha1("home_logistique_biens")?>">List</a></li><br>
+                        <li class="list-inline-item"><span style="color: orange;font-size: 20px;" class="glyphicon glyphicon-list"></span><a href="/views/home.php?link=<?= sha1("logistique_biens_liste_biens_all")?>&link_up=<?= sha1("home_logistique_biens")?>">Liste</a></li><br>
                         <li class="list-inline-item"><span style="color: dodgerblue;font-size: 20px;" class="glyphicon glyphicon-list"></span><a href="/views/home.php?link=<?= sha1("logistique_biens_liste_biens_value_all")?>&link_up=<?= sha1("home_logistique_biens")?>">Store</a></li><br>
                         <li class="list-inline-item"><span style="color: tomato;font-size: 20px;" class="glyphicon glyphicon-edit"></span><a href="/views/home.php?link=<?= sha1("logistique_biens_fiche_biens_all")?>&link_up=<?= sha1("home_logistique_biens")?>">View</a></li><br>
                     </ul>
                     <hr>
-                    <h3>Physical inventory</h3>
+                    <h3>Inventaire Physique</h3>
                     <ul class="list-menu list-unstyled" style="font-size: 20px;">
-                        <li class="list-inline-item"><span style="color: red;font-size: 20px;" class="glyphicon glyphicon-asterisk"></span><a href="/views/home.php?link=<?= sha1("logistique_inventaire_fiche_biens_inventaire_all")?>&link_up=<?= sha1("home_logistique_biens")?>">Nouveau inventaire</a></li><br>
-                        <li class="list-inline-item"><span style="color: orange;font-size: 20px;" class="glyphicon glyphicon-list"></span><a href="/views/home.php?link=<?= sha1("logistique_inventaire_liste_inventaire_all")?>&link_up=<?= sha1("home_logistique_biens")?>">Liste de tous les inventaires</a></li><br>
-                        <li class="list-inline-item"><span style="color: darkslategray;font-size: 20px;" class="glyphicon glyphicon-list"></span><a href="/views/home.php?link=<?= sha1("logistique_inventaire_fiche_biens_inventaire_all_fiche")?>&link_up=<?= sha1("home_logistique_biens")?>">Fiche Inventaires par Biens/produit</a></li>
+                        <li class="list-inline-item"><span style="color: red;font-size: 20px;" class="glyphicon glyphicon-asterisk"></span><a href="/views/home.php?link=<?= sha1("logistique_inventaire_fiche_biens_inventaire_all")?>&link_up=<?= sha1("home_logistique_biens")?>">Nouveau</a></li><br>
+                        <li class="list-inline-item"><span style="color: orange;font-size: 20px;" class="glyphicon glyphicon-list"></span><a href="/views/home.php?link=<?= sha1("logistique_inventaire_liste_inventaire_all")?>&link_up=<?= sha1("home_logistique_biens")?>">Liste</a></li><br>
+                        <li class="list-inline-item"><span style="color: darkslategray;font-size: 20px;" class="glyphicon glyphicon-list"></span><a href="/views/home.php?link=<?= sha1("logistique_inventaire_fiche_biens_inventaire_all_fiche")?>&link_up=<?= sha1("home_logistique_biens")?>">Par Bien/Produit</a></li>
                     </ul>
                 </div>
 

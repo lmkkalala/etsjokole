@@ -15,7 +15,7 @@
         <span class="h4">Nouveau</span>
     </div>
     <div class="panel panel-body">
-        <div>
+        <div class="row">
             <?php
             if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1('succes')))) {
                 ?>
@@ -43,6 +43,8 @@
                 <?php
             }
             ?>
+        </div>
+        <div class="row">
             <form class="form-horizontal" method="POST" action="../contollers/customer/customerController.php">
                 <div class="form-group-lg">
                     <div class="input-group-lg">
@@ -62,13 +64,14 @@
                         <input class="form-control" type="text" name="tb_website">
                         <input class="form-control" type="hidden" name="tb_addedbyID" value="<?=$_SESSION['idutilisateur']?>">
                     </div>
-                    <fieldset>
-                        <legend></legend>
-                        <div class="input-group-lg">
-                            <input class="btn btn-success" type="submit" name="bt_enregistrer" value="Save">
-                            <input class="btn btn-danger" type="reset" value="Cancel">
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <input class="btn btn-success w-100" type="submit" name="bt_enregistrer" value="Save">
                         </div>
-                    </fieldset>
+                        <div class="col-md-6">
+                            <input class="btn btn-danger w-100" type="reset" value="Cancel">
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

@@ -20,41 +20,34 @@ include '../models/biens/biens.php';
                 <legend>Rechercher :</legend>
                 <form class="form-inline" method="POST" action="../contollers/biens/biensController.php">
                     <div class="row form-group-lg">
-                        <div class="col-md-6 col-12 mt-2">
-                            <select class="form-control w-100 select2" name="cb_biens">
+                        <div class="col-md-4 col-12 mt-2">
+                            <input type="text" class="form-control" name="cb_biens">
+                            <!-- <select class="form-control w-100 select2" name="cb_biens">
                                 <option value="0">Choisir un produit</option>
                                 <?php
-                                $bdbiens = new BdBiens();
-                                $biens = $bdbiens->getBiensAllDesc();
-                                foreach ($biens as $bien) {
-                                    if (1) {
+                                    $bdbiens = new BdBiens();
+                                    $biens = $bdbiens->getBiensAllDesc();
+                                    foreach ($biens as $bien) {
                                         if (1) {
-                                            ?>
-                                            <option value="<?= $bien['bId'] ?>"><?= $bien['bDesignation'] . " / Marque : " . $bien['marque'] . " / " . $bien['gDesignation'] . " / Codebarre: " . $bien['codebarre'] ?></option>
-                                            <?php
+                                            if (1) {
+                                ?>
+                                    <option value="<?= $bien['bId'] ?>"><?= $bien['bDesignation'] . " / Marque : " . $bien['marque'] . " / " . $bien['gDesignation'] . " / Codebarre: " . $bien['codebarre'] ?></option>
+                                <?php
+                                            }
                                         }
                                     }
-                                }
                                 ?>
-                            </select>
+                            </select> -->
                         </div>
-                        <div class="col-md-6 col-12 mt-2">
+                        <div class="col-md-4 col-12 mt-2">
                             <button type="submit" class="btn btn-secondary w-100" name="bt_search_for_all"><span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
+                        </div>
+                        <div class="col-md-4">
+                            <a style="font-size: 20px;" href='../views/logistique/biens/pdf_list_biens_all.php' class="btn btn-primary pull-left">Print in PDF</a>
+                            <a style="font-size: 20px;" href='../views/logistique/biens/excel_list_biens_all.php' class="btn btn-success pull-right">Export to Excel</a>
                         </div>
                     </div>
                 </form>
-            </div>
-        </div>
-        <div class="row mt-2">
-            <div class="col-md-12">
-                <?php
-                if ((1)) {
-                ?>
-                    <a style="font-size: 20px;" href='../views/logistique/biens/pdf_list_biens_all.php' class="btn btn-primary pull-left">Print in PDF</a>
-                    <a style="font-size: 20px;" href='../views/logistique/biens/excel_list_biens_all.php' class="btn btn-success pull-right">Export to Excel</a>
-                <?php
-                }
-                ?>
             </div>
         </div>
         <div class="row">
@@ -96,8 +89,8 @@ include '../models/biens/biens.php';
                         $n = 0;
                         $bdbiens = new BdBiens();
                         if ((isset($_GET['use_biens'])) && ($_GET['use_biens'] != 0)) {
-
-                            $biens = $bdbiens->getBiensById($_GET['use_biens']);
+                            // $biens = $bdbiens->getBiensById($_GET['use_biens']);
+                            $biens = $bdbiens->getBiensByIdName($_GET['use_biens']);
                         } else {
                             $biens = $bdbiens->getBiensAllDesc();
                         }

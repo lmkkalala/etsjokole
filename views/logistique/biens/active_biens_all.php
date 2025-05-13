@@ -20,37 +20,36 @@ include '../models/biens/biens.php';
                 <legend>List</legend>
                 <?php
                 if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("succes")))) {
-                    ?>
+                ?>
                     <div class="alert alert-success">
                         <span class="glyphicon glyphicon-ok" style="font-size: 15px;margin-right: 5px;"></span><span>Opération effectuée avec succès</span>
                     </div>
-                    <?php
-                }
-                ?>
                 <?php
+                }
+                
                 if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("traitement_error") ))) {
-                    ?>
+                ?>
                     <div class="alert alert-danger">
                         <span class="glyphicon glyphicon-ban-circle" style="font-size: 15px;margin-right: 5px;"></span><span>Erreur d'activation</span>
                     </div>
-                    <?php
-                }
-                ?>
                 <?php
+                }
+                
                 if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("remplissage_error")))) {
-                    ?>
+                ?>
                     <div class="alert alert-warning">
                         <span class="glyphicon glyphicon-blackboard" style="font-size: 15px;margin-right: 5px;"></span><span>Erreur de remplissage, Recommencer SVP</span>
                     </div>
-                    <?php
+                <?php
                 }
                 ?>
                 <fieldset>
                     <legend>Rechercher :</legend>
                     <form class="form-inline" method="POST" action="../contollers/biens/biensController.php">
-                        <div class="row form-group-lg">
-                            <div class="col-6">
-                            <select class="form-control select2" name="cb_biens">
+                        <div class="row form-group-lg mb-3">
+                            <div class="col-md-8 col-12">
+                            <input type="text" class="form-control" name="cb_biens">
+                            <!-- <select class="form-control select2" name="cb_biens">
                                 <option value="0">Choisir un produit</option>
                                 <?php
                                 $bdbiens = new BdBiens();
@@ -58,17 +57,17 @@ include '../models/biens/biens.php';
                                 foreach ($biens as $bien) {
                                     if (1) {
                                         if (1) {
-                                            ?>
-                                            <option value="<?= $bien['bId'] ?>"><?= $bien['bDesignation'] . " / Marque : " . $bien['marque'] . " / " . $bien['gDesignation'] . " / Codebarre: " . $bien['codebarre'] ?></option>
-                                            <?php
+                                ?>
+                                    <option value="<?= $bien['bId'] ?>"><?= $bien['bDesignation'] . " / Marque : " . $bien['marque'] . " / " . $bien['gDesignation'] . " / Codebarre: " . $bien['codebarre'] ?></option>
+                                <?php
                                         }
                                     }
                                 }
                                 ?>
-                            </select>
+                            </select> -->
                             </div>
-                            <div class="col-6">
-                            <button type="submit" class="btn btn-success" name="bt_search_for_active"><span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
+                            <div class="col-md-4 col-12">
+                            <button type="submit" class="btn btn-secondary w-100" name="bt_search_for_active"><span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
                             </div>
                         </div>
                     </form>
@@ -114,7 +113,8 @@ include '../models/biens/biens.php';
                         $n = 0;
                         $bdbiens = new BdBiens();
                         if ((isset($_GET['use_biens'])) && ($_GET['use_biens']!=0)) {
-                            $biens = $bdbiens->getBiensById($_GET['use_biens']);
+                            // $biens = $bdbiens->getBiensById($_GET['use_biens']);
+                            $biens = $bdbiens->getBiensByIdName($_GET['use_biens']);
                         } else {
                             $biens = $bdbiens->getBiensAllDesc();
                         }
