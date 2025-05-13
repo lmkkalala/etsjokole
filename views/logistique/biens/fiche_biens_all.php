@@ -16,133 +16,135 @@ include '../models/biens/biens.php';
     </div>
     <div class="panel panel-body">
         <div>
-            <fieldset>
-                <legend>Taper le mot-clé de la recherche :</legend>
+            <div class="row">
+                <h4>Taper le mot-clé de la recherche :</h4>
                 <form class="form-inline" method="POST" action="../contollers/biens/biensController.php">
                     <div class="row form-group-lg">
-                        <div class="col-md-8 col-12">
+                        <div class="col-md-8 col-12 mt-2">
                         <input type="text" class="form-control" name="tb_search" placeholder="Mot-clé">  
                         </div>
-                        <div class="col-md-4 col-12">
-                        <button type="submit" class="btn btn-secondary w-100" name="bt_search"><span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
+                        <div class="col-md-4 col-12 mt-2">
+                            <button type="submit" class="btn btn-secondary w-100" name="bt_search"><span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
                         </div>
                                                   
                     </div>
                 </form>
-            </fieldset>
-            <fieldset>
-                <legend>Liste des biens/produits</legend>
-                <table class="table table-bordered table-responsive-lg">
-                    <thead>
-                    <th>
-                        N°
-                    </th>
-                    <th>
-                        Catégorie
-                    </th>
-                    <th>
-                        Désignation
-                    </th>
-                    <th>
-                        Marque
-                    </th>
-                    <th>
-                        Périssable
-                    </th>
-                    <th>
-                        Quantité
-                    </th>
-                    <th>
-                        Stock max
-                    </th>
-                    <th>
-                        Stock min
-                    </th>
-                    <th>
-                        Stock critique
-                    </th>                    
-                    <th>
-                        Etat
-                    </th>                    
-                    <th>
-                        Opération
-                    </th>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $n = 0;
-                        $bdbiens = new BdBiens();
-                        if ((isset($_GET['use']))) {
-                            $biens=$bdbiens->getBiensByName($_GET['use']);
-                        } else {
-                            $biens = $bdbiens->getBiensAllDesc();
-                        }
-                        foreach ($biens as $bien) {
-                            $n++;
-                            ?>
-                            <tr>
-                                <td><?= $bien['bId'] ?></td>
-                                <td><?= $bien['gDesignation'] ?></td>
-                                <td><?= $bien['bDesignation'] ?></td>
-                                <td><?= $bien['marque'] ?></td>
-                                <td>
-                                    <b>
+            </div>
+            <div class="row">
+                <div class="col-md-12 overflow-auto">
+                    <h4>Liste des biens/produits</h4>
+                    <table class="table table-bordered table-responsive-lg">
+                        <thead>
+                        <th>
+                            N°
+                        </th>
+                        <th>
+                            Catégorie
+                        </th>
+                        <th>
+                            Désignation
+                        </th>
+                        <th>
+                            Marque
+                        </th>
+                        <th>
+                            Périssable
+                        </th>
+                        <th>
+                            Quantité
+                        </th>
+                        <th>
+                            Stock max
+                        </th>
+                        <th>
+                            Stock min
+                        </th>
+                        <th>
+                            Stock critique
+                        </th>                    
+                        <th>
+                            Etat
+                        </th>                    
+                        <th>
+                            Opération
+                        </th>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $n = 0;
+                            $bdbiens = new BdBiens();
+                            if ((isset($_GET['use']))) {
+                                $biens=$bdbiens->getBiensByName($_GET['use']);
+                            } else {
+                                $biens = $bdbiens->getBiensAllDesc();
+                            }
+                            foreach ($biens as $bien) {
+                                $n++;
+                                ?>
+                                <tr>
+                                    <td><?= $bien['bId'] ?></td>
+                                    <td><?= $bien['gDesignation'] ?></td>
+                                    <td><?= $bien['bDesignation'] ?></td>
+                                    <td><?= $bien['marque'] ?></td>
+                                    <td>
+                                        <b>
+                                            <?php
+                                            if ($bien['type_perissable']) {
+                                                echo 'Oui';
+                                            } else {
+                                                echo 'Non';
+                                            }
+                                            ?>
+                                        </b>
+                                    </td>
+                                    <td><?= $bien['quantite'] ?></td>
+                                    <td><?= $bien['stock_max'] ?></td>
+                                    <td><?= $bien['stock_min'] ?></td>
+                                    <td><?= $bien['stock_critique'] ?></td>
+                                    <td>
                                         <?php
-                                        if ($bien['type_perissable']) {
-                                            echo 'Oui';
+                                        if ($bien['active'] == 1) {
+                                            ?>
+                                            <h4 style="color: forestgreen;">Actif</h4>
+                                            <?php
                                         } else {
-                                            echo 'Non';
+                                            ?>
+                                            <h4 style="color: red;">Inactif</h4>
+                                            <?php
                                         }
                                         ?>
-                                    </b>
+                                    </td>
+                                    <td>
+                                        <form method="POST" action="../contollers/biens/biensController.php">
+                                            <input type="hidden" name="tb_idbiens" value="<?= $bien['bId'] ?>">
+                                            <button type="submit" class="btn btn-primary" name="bt_view"><span class="glyphicon glyphicon-file" style="color: white; font-size: 15px;margin-right: 5px;"></span></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <?php
+                            }
+                            ?>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td style="font-size: 20px;">
+                                <span><?= $n ?></span>
                                 </td>
-                                <td><?= $bien['quantite'] ?></td>
-                                <td><?= $bien['stock_max'] ?></td>
-                                <td><?= $bien['stock_min'] ?></td>
-                                <td><?= $bien['stock_critique'] ?></td>
-                                <td>
-                                    <?php
-                                    if ($bien['active'] == 1) {
-                                        ?>
-                                        <h4 style="color: forestgreen;">Actif</h4>
-                                        <?php
-                                    } else {
-                                        ?>
-                                        <h4 style="color: red;">Inactif</h4>
-                                        <?php
-                                    }
-                                    ?>
-                                </td>
-                                <td>
-                                    <form method="POST" action="../contollers/biens/biensController.php">
-                                        <input type="hidden" name="tb_idbiens" value="<?= $bien['bId'] ?>">
-                                        <button type="submit" class="btn btn-primary" name="bt_view"><span class="glyphicon glyphicon-file" style="color: white; font-size: 15px;margin-right: 5px;"></span></button>
-                                    </form>
-                                </td>
+                                <td><span>Nombre:</span></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
-                            <?php
-                        }
-                        ?>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td style="font-size: 20px;">
-                            <span><?= $n ?></span>
-                            </td>
-                            <td><span>Nombre:</span></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </fieldset>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>

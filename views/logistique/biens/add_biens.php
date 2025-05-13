@@ -55,62 +55,62 @@ include '../models/categorie/categorie.php';
 
             <div class="row">
                 <div class="col-md-12">
-                <form class="form-horizontal" method="POST" action="../contollers/biens/biensController.php">
-                <div class="form-group-lg">
-                    <div class="input-group-lg">
-                        <label class="control-label">Catégorie :</label>
-                        <select class="form-control select2" name="cb_categorie">
-                            <option value="0">Choisir une catégorie</option>
-                            <?php
-                            $bdcategorie = new BdCategorie();
-                            $categories = $bdcategorie->getCategorieAllDesc();
-                            foreach ($categories as $categorie) {
-                                if ($categorie['active']) {
+                    <form class="form-horizontal" method="POST" action="../contollers/biens/biensController.php">
+                        <div class="form-group-lg">
+                            <div class="input-group-lg">
+                                <label class="control-label">Catégorie :</label>
+                                <select class="form-control select2" name="cb_categorie">
+                                    <option value="0">Choisir une catégorie</option>
+                                    <?php
+                                    $bdcategorie = new BdCategorie();
+                                    $categories = $bdcategorie->getCategorieAllDesc();
+                                    foreach ($categories as $categorie) {
+                                        if ($categorie['active']) {
+                                            ?>
+                                    <option value="<?= $categorie['id'] ?>"><?= $categorie['designation'] ?></option>
+                                    <?php
+                                        }
+                                    }
                                     ?>
-                            <option value="<?= $categorie['id'] ?>"><?= $categorie['designation'] ?></option>
-                            <?php
-                                }
-                            }
-                            ?>
-                        </select>
-                    </div>
-                    <div class="input-group-lg">
-                        <label class="control-label">Ce produit est-il Perissable ? :</label> <br>
-                        <div class="mx-4">
-                            <input class="radio-inline" type="radio" name="rb_typeperissable" value="1">Yes
-                            <input class="radio-inline" type="radio" name="rb_typeperissable" value="0" checked>No
+                                </select>
+                            </div>
+                            <div class="input-group-lg">
+                                <label class="control-label">Ce produit est-il Perissable ? :</label> <br>
+                                <div class="mx-4">
+                                    <input class="radio-inline" type="radio" name="rb_typeperissable" value="1">Yes
+                                    <input class="radio-inline" type="radio" name="rb_typeperissable" value="0" checked>No
+                                </div>
+                            </div>
+                            <div class="input-group-lg">
+                                <label class="control-label">Name :</label>
+                                <input class="form-control" type="text" name="tb_designation" placeholder="Désignation">
+                            </div>
+                            <div class="input-group-lg">
+                                <label class="control-label">Unit price :</label>
+                                <input class="form-control" type="text" name="tb_prixunitaire" placeholder="Prix unitaire">
+                            </div>
+                            <div class="input-group-lg">
+                                <label class="control-label">Quantity :</label>
+                                <input class="form-control" type="text" name="tb_quantite" placeholder="Quantité">
+                            </div>
+                            <div class="input-group-lg">
+                                <label class="control-label">Crisis level :</label>
+                                <input class="form-control" type="text" name="tb_stockcritique" placeholder="Niveau du Stock critique">
+                            </div>
+                            <div class="input-group-lg">
+                                <label class="control-label">Codebarre :</label>
+                                <input class="form-control" type="text" name="tb_codebarre" placeholder="Scanner codebarre">
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6 col-12 mt-2">
+                                    <input class="btn btn-success w-100" type="submit" name="bt_enregistrer" value="Enregistrer">
+                                </div>
+                                <div class="col-md-6 col-12 mt-2">
+                                    <input class="btn btn-danger w-100" type="reset" value="Initialiser">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="input-group-lg">
-                        <label class="control-label">Name :</label>
-                        <input class="form-control" type="text" name="tb_designation" placeholder="Désignation">
-                    </div>
-                    <div class="input-group-lg">
-                        <label class="control-label">Unit price :</label>
-                        <input class="form-control" type="text" name="tb_prixunitaire" placeholder="Prix unitaire">
-                    </div>
-                    <div class="input-group-lg">
-                        <label class="control-label">Quantity :</label>
-                        <input class="form-control" type="text" name="tb_quantite" placeholder="Quantité">
-                    </div>
-                    <div class="input-group-lg">
-                        <label class="control-label">Crisis level :</label>
-                        <input class="form-control" type="text" name="tb_stockcritique" placeholder="Niveau du Stock critique">
-                    </div>
-                    <div class="input-group-lg">
-                        <label class="control-label">Codebarre :</label>
-                        <input class="form-control" type="text" name="tb_codebarre" placeholder="Scanner codebarre">
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-md-6 col-12">
-                            <input class="btn btn-success w-100" type="submit" name="bt_enregistrer" value="Enregistrer">
-                        </div>
-                        <div class="col-md-6 col-12">
-                            <input class="btn btn-danger w-100" type="reset" value="Initialiser">
-                        </div>
-                    </div>
-                </div>
-            </form>
+                    </form>
                 </div>
             </div>
         </div>

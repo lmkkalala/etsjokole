@@ -41,51 +41,53 @@ $dateEnd = '';
     ?>
     <form action="../views/home.php?link=bc6749372a792df7e3460135262bf41aad976c1f&link_up=1f920fef6c620c4660a748aae5dd44da9e74ba9b" method="post">
         <div class="row">
-            <div class="col-4">
-                <input class="form-control" type="date" name="dateStart" id="" value="<?=$dateStart?>">
+            <div class="col-md-4 col-12 mt-2">
+                <input class="form-control w-100" type="date" name="dateStart" id="" value="<?=$dateStart?>">
             </div>
-            <div class="col-4">
-                <input class="form-control" type="date" name="dateEnd" id="" value="<?=$dateEnd?>">
+            <div class="col-md-4 col-12 mt-2">
+                <input class="form-control w-100" type="date" name="dateEnd" id="" value="<?=$dateEnd?>">
             </div>
-            <div class="col-4">
-                <input class="btn btn-info" type="submit" name="rechercher" id="rechercher" value="Rechercher">
+            <div class="col-md-4 col-12 mt-2">
+                <input class="btn btn-secondary w-100" type="submit" name="rechercher" id="rechercher" value="Rechercher">
             </div>
         </div>
     </form>
     <div class="panel panel-body">
-        <div class="mt-3">
-            <fieldset>
+        <div class="row mt-3">
+            <div class="col-md-12 overflow-auto">
                 <!-- <legend>Biens</legend> -->
                 <table id="list_attribution_biens_encours_all" class="table table-bordered table-responsive-lg table-condensed">
                     <thead>
-                    <th>
-                        N°
-                    </th>
-                    <th>
-                        Date
-                    </th>
-                    
-                    <th>
-                        Biens/produits
-                    </th>
-                    <th>
-                        Gestion
-                    </th>
-                    <th>
-                        Fournisseur
-                    </th>
-                    <th>
-                        Quantité
-                    </th>
-                    <th>
-                        PAU
-                    </th>
-                    <th>
-                        Délai de livraison
-                    </th>
-                    <th>
-                        Etat
-                    </th>
+                        <tr>
+                        <th>
+                            N°
+                        </th>
+                        <th>
+                            Date
+                        </th>
+                        
+                        <th>
+                            Biens/produits
+                        </th>
+                        <th>
+                            Gestion
+                        </th>
+                        <th>
+                            Fournisseur
+                        </th>
+                        <th>
+                            Quantité
+                        </th>
+                        <th>
+                            PAU
+                        </th>
+                        <th>
+                            Délai de livraison
+                        </th>
+                        <th>
+                            Etat
+                        </th>
+                        </tr>
                     </thead>
                     <tbody>
                         <?php
@@ -149,12 +151,22 @@ $dateEnd = '';
                         ?>
                     </tbody>
                     <tfoot>
-                    <td style="font-size: 20px;">
-                        <span>Nombre:</span><span><?= $n ?></span>
-                    </td>
+                        <tr>
+                        <td style="font-size: 20px;">
+                            <span><?= $n ?></span>
+                        </td>
+                        <td><span>Nombre:</span></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        </tr>
                     </tfoot>
                 </table>
-            </fieldset>
+            </div>
         </div>
     </div>
 </div>

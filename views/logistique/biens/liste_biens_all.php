@@ -17,10 +17,10 @@ include '../models/biens/biens.php';
     <div class="panel panel-body">
         <div class="row">
             <div class="col-md-12">
-                <legend>Rechercher :</legend>
+                <h4>Rechercher :</h4>
                 <form class="form-inline" method="POST" action="../contollers/biens/biensController.php">
                     <div class="row form-group-lg">
-                        <div class="col-md-4 col-12 mt-2">
+                        <div class="col-md-8 col-12 mt-2">
                             <input type="text" class="form-control" name="cb_biens">
                             <!-- <select class="form-control w-100 select2" name="cb_biens">
                                 <option value="0">Choisir un produit</option>
@@ -42,14 +42,19 @@ include '../models/biens/biens.php';
                         <div class="col-md-4 col-12 mt-2">
                             <button type="submit" class="btn btn-secondary w-100" name="bt_search_for_all"><span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
                         </div>
-                        <div class="col-md-4">
-                            <a style="font-size: 20px;" href='../views/logistique/biens/pdf_list_biens_all.php' class="btn btn-primary pull-left">Print in PDF</a>
-                            <a style="font-size: 20px;" href='../views/logistique/biens/excel_list_biens_all.php' class="btn btn-success pull-right">Export to Excel</a>
-                        </div>
                     </div>
                 </form>
             </div>
+            
         </div>
+        <div class="row mt-2">
+                <div class="col-md-6 col-12 mt-1">
+                    <a style="font-size: 20px;" href='../views/logistique/biens/pdf_list_biens_all.php' class="btn btn-primary w-100">Print in PDF</a>
+                </div>
+                <div class="col-md-6 col-12 mt-1">
+                    <a style="font-size: 20px;" href='../views/logistique/biens/excel_list_biens_all.php' class="btn btn-success w-100">Export to Excel</a>
+                </div>       
+            </div>
         <div class="row">
             <div class="col-md-12 overflow-auto">
                 <h4>Les biens/produits</h4>
@@ -144,9 +149,19 @@ include '../models/biens/biens.php';
                         ?>
                     </tbody>
                     <tfoot>
-                    <td style="font-size: 20px;">
-                        <span>Number : </span><span><?= $n ?></span>
-                    </td>
+                        <tr>
+                            <td style="font-size: 20px;">
+                                <span><?= $n ?></span>
+                            </td>
+                            <td><span>Number : </span></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
                     </tfoot>
                 </table>
             </div>

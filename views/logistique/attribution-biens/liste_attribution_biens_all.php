@@ -46,17 +46,17 @@ $dateEnd = '';
     ?>
     <form action="../views/home.php?link=863075c3acf4eaf686d1c35afb50038d25af9367&link_up=1f920fef6c620c4660a748aae5dd44da9e74ba9b" method="post">
         <div class="row mt-3">
-            <div class="col-3">
-                <input class="form-control" type="text" name="produit" id="" placeholder="...">
+            <div class="col-md-3 col-12 mt-1">
+                <input class="form-control w-100" type="text" name="produit" id="" placeholder="...">
             </div>
-            <div class="col-3">
-                <input class="form-control" type="date" name="dateStart" id="" value="<?=$dateStart?>">
+            <div class="col-md-3 col-12 mt-1">
+                <input class="form-control w-100" type="date" name="dateStart" id="" value="<?=$dateStart?>">
             </div>
-            <div class="col-3">
-                <input class="form-control" type="date" name="dateEnd" id="" value="<?=$dateEnd?>">
+            <div class="col-md-3 col-12 mt-1">
+                <input class="form-control w-100" type="date" name="dateEnd" id="" value="<?=$dateEnd?>">
             </div>
-            <div class="col-3">
-                <input class="btn btn-info" type="submit" name="rechercher" id="rechercher" value="Rechercher">
+            <div class="col-md-3 col-12 mt-1">
+                <input class="btn btn-secondary w-100" type="submit" name="rechercher" id="rechercher" value="Rechercher">
             </div>
         </div>
     </form>
@@ -151,9 +151,19 @@ $dateEnd = '';
                         ?>
                     </tbody>
                     <tfoot>
-                    <td style="font-size: 20px;">
-                        <span>Nombre:</span><span><?= $n ?></span>
-                    </td>
+                        <tr>
+                            <td style="font-size: 20px;">
+                                <span><?= $n ?></span>
+                            </td>
+                            <td><span>Nombre:</span></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
                     </tfoot>
                 </table>
             </div>
