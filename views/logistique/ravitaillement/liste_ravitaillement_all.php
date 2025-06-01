@@ -56,40 +56,40 @@ include '../models/costing/Costing.php';
                     <div class="row form-group-lg">
                         
                         <div class="col-6 mt-1">
-                        <select class="form-control select2" name="cb_biens">
-                            <option value="0">Choisir un item</option>
-                            <?php
-                            $bdbiens = new BdBiens();
-                            $biens = $bdbiens->getBiensAllDesc();
-                            foreach ($biens as $bien) {
-                                if (1) {
+                            <select class="form-control select2" name="cb_biens">
+                                <option value="0">Choisir un item</option>
+                                <?php
+                                $bdbiens = new BdBiens();
+                                $biens = $bdbiens->getBiensAllDesc();
+                                foreach ($biens as $bien) {
                                     if (1) {
-                            ?>
-                                        <option value="<?= $bien['bId'] ?>"><?= $bien['bDesignation'] . " / Marque : " . $bien['marque'] . " / " . $bien['gDesignation'] ?></option>
-                            <?php
+                                        if (1) {
+                                ?>
+                                            <option value="<?= $bien['bId'] ?>"><?= $bien['bDesignation'] . " / Marque : " . $bien['marque'] . " / " . $bien['gDesignation'] ?></option>
+                                <?php
+                                        }
                                     }
                                 }
-                            }
-                            ?>
-                        </select>
+                                ?>
+                            </select>
                         </div>
                         <div class="col-6 mt-1">
-                        <select class="form-control select2" name="cb_fournisseur">
-                            <option value="0">Choisir un fourn.</option>
-                            <?php
-                            $bdfournisseur = new BdFournisseur();
-                            $fournisseurs = $bdfournisseur->getFournisseurAllDesc();
-                            foreach ($fournisseurs as $fournisseur) {
-                                if ($fournisseur['active']) {
-                                    if (1) {
-                            ?>
-                                        <option value="<?= $fournisseur['id'] ?>"><?= $fournisseur['designation'] ?></option>
-                            <?php
+                            <select class="form-control select2" name="cb_fournisseur">
+                                <option value="0">Choisir un fourn.</option>
+                                <?php
+                                $bdfournisseur = new BdFournisseur();
+                                $fournisseurs = $bdfournisseur->getFournisseurAllDesc();
+                                foreach ($fournisseurs as $fournisseur) {
+                                    if ($fournisseur['active']) {
+                                        if (1) {
+                                ?>
+                                            <option value="<?= $fournisseur['id'] ?>"><?= $fournisseur['designation'] ?></option>
+                                <?php
+                                        }
                                     }
                                 }
-                            }
-                            ?>
-                        </select>
+                                ?>
+                            </select>
                         </div>
                         <div class="col-6 mt-1">
                             <input type="date" class="form-control mt-2" name="tb_date1">
@@ -163,8 +163,6 @@ include '../models/costing/Costing.php';
                 ?>
                     <a style="font-size: 20px;" href='../views/logistique/ravitaillement/pdf_ravitaillement_open_simple.php?use_date1=<?= $_GET['use_date1'] . '&use_date2=' . $_GET['use_date2'] . '&use_biens=' . $_GET['use_biens'] . '&use_numeroOrder=' . $_GET['use_numeroOrder'] . '&use_fournisseur=' . $_GET['use_fournisseur'] ?>' class="btn btn-primary pull-left">Print in PDF</a>
                     <a style="font-size: 20px; margin-left: 10px;" href='../views/logistique/ravitaillement/excel_list_ravitaillement_all.php?use_date1=<?= $_GET['use_date1'] . '&use_date2=' . $_GET['use_date2'] . '&use_biens=' . $_GET['use_biens'] . '&use_numeroOrder=' . $_GET['use_numeroOrder'] . '&use_fournisseur=' . $_GET['use_fournisseur'] ?>' class="btn btn-success pull-left">Export in Excel</a>
-                    <?php ?>
-
                     <a style="font-size: 20px; margin-left: 10px;" href='../views/logistique/ravitaillement/excel_list_ravitaillement_all_summary.php?use_date1=<?= $_GET['use_date1'] . '&use_date2=' . $_GET['use_date2'] . '&use_biens=' . $_GET['use_biens'] . '&use_numeroOrder=' . $_GET['use_numeroOrder'] . '&use_fournisseur=' . $_GET['use_fournisseur'] ?>' class="btn btn-success pull-right">Export in Excel</a>
                     <a style="font-size: 20px;" href='../views/logistique/ravitaillement/pdf_ravitaillement_open_simple_summary.php?use_date1=<?= $_GET['use_date1'] . '&use_date2=' . $_GET['use_date2'] . '&use_biens=' . $_GET['use_biens'] . '&use_numeroOrder=' . $_GET['use_numeroOrder'] . '&use_fournisseur=' . $_GET['use_fournisseur'] ?>' class="btn btn-primary pull-right">Print Summary</a>
                 <?php
@@ -177,7 +175,7 @@ include '../models/costing/Costing.php';
             <fieldset>
                 <legend>Entrées</legend>
                 <?php
-                if (isset($_GET['use_date1'])) {
+                // if (isset($_GET['use_date1'])) {
                 ?>
                     <table class="table table-bordered table-responsive-lg table-striped table-hover">
                         <thead>
@@ -236,7 +234,7 @@ include '../models/costing/Costing.php';
                                 if ((isset($_GET['use_date1'])) && ($_GET['use_date1'] != "")) {
                                     $ravitaillements = $bdravitaillement->getRavitaillementBetween2Dates($_GET['use_date1'], $_GET['use_date2']);
                                 } else {
-                                    $ravitaillements = $bdravitaillement->getRavitaillementAllDesc();
+                                    $ravitaillements = $bdravitaillement->getRavitaillementAllDesc('WHERE S.date LIKE "%'.date('Y').'%"');
                                 }
                             }
 
@@ -269,6 +267,7 @@ include '../models/costing/Costing.php';
                             foreach ($fournisseurs as $fournisseur) {
                             ?>
                                 <tr style="background-color: whitesmoke;">
+                                    <td style="color: forestgreen; font-weight: bold;"> Article: </td>
                                     <td style="color: forestgreen; font-weight: bold;"><?= $fournisseur['designation'] ?></td>
                                     <td></td>
                                     <td></td>
@@ -295,40 +294,51 @@ include '../models/costing/Costing.php';
                                             <td>
                                                 <strong><?= $ravitaillement['id'] ?></strong>
                                                 <hr>
-                                                <form class="form-horizontal" method="post" action="../contollers/ravitaillement/ravitaillementController.php">
-                                                    <input type="hidden" name="tb_date1" value="<?= $_GET['use_date1'] ?>">
-                                                    <input type="hidden" name="tb_date2" value="<?= $_GET['use_date2'] ?>">
-                                                    <input type="hidden" name="tb_quantite" value="<?= $ravitaillement['quantite'] ?>">
-                                                    <input type="hidden" name="tb_idfournisseur" value="<?= $_GET['use_fournisseur'] ?>">
-                                                    <input type="hidden" name="tb_idbiens" value="<?= $_GET['use_biens'] ?>">
-                                                    <input type="hidden" name="tb_idravitaillement" value="<?= $ravitaillement['id'] ?>">
-                                                    <button style="margin-left: 5px;" type="submit" class="btn btn-danger" name="bt_delete_ravitaillement"><span class="fa fa-times"></span>Delete</button>
-                                                </form>
-                                                <form class="form-horizontal" method="post" action="../contollers/ravitaillement/ravitaillementController.php">
-                                                    <input type="hidden" name="tb_idravitaillement" value="<?= $ravitaillement['id'] ?>">
-                                                    <button style="margin-left: 5px;" type="submit" class="btn btn-success" name="bt_for_costing"><span class="fa fa-list"></span> Cost add-ins</button>
-                                                </form>
+                                                <div class="row">
+                                                    <div class="col-md-12 mt-2">
+                                                        <form class="form-horizontal" method="post" action="../contollers/ravitaillement/ravitaillementController.php">
+                                                            <input type="hidden" name="tb_date1" value="<?= $_GET['use_date1'] ?>">
+                                                            <input type="hidden" name="tb_date2" value="<?= $_GET['use_date2'] ?>">
+                                                            <input type="hidden" name="tb_quantite" value="<?= $ravitaillement['quantite'] ?>">
+                                                            <input type="hidden" name="tb_idfournisseur" value="<?= $_GET['use_fournisseur'] ?>">
+                                                            <input type="hidden" name="tb_idbiens" value="<?= $_GET['use_biens'] ?>">
+                                                            <input type="hidden" name="tb_idravitaillement" value="<?= $ravitaillement['id'] ?>">
+                                                            <button type="submit" class="btn btn-danger w-100" name="bt_delete_ravitaillement"><span class="fa fa-trash"></span></button>
+                                                        </form>
+                                                    </div>
+                                                </div>
                                             </td>
                                             <td>
-                                                <form class="form-horizontal" method="post" action="../contollers/ravitaillement/ravitaillementController.php">
-
-                                                    <input type="hidden" name="tb_date1" value="<?= $_GET['use_date1'] ?>">
-                                                    <input type="hidden" name="tb_date2" value="<?= $_GET['use_date2'] ?>">
-                                                    <input type="hidden" name="tb_idfournisseur" value="<?= $_GET['use_fournisseur'] ?>">
-                                                    <input type="hidden" name="tb_idbiens" value="<?= $_GET['use_biens'] ?>">
-                                                    <input type="hidden" name="tb_idravitaillement" value="<?= $ravitaillement['id'] ?>">
-                                                    <table>
-                                                        <tr>
-                                                            Actual date : <?= $ravitaillement['date'] ?> 
-                                                            <td>
-                                                                <input type="date" class="form-control" name="tb_newdate" value=" <?= $ravitaillement['date'] ?>">
-                                                            </td>
-                                                            <td>
-                                                                <button style="margin-left: 5px;" type="submit" class="btn btn-primary" name="bt_update_date"><span class="fa fa-pencil"></span></button>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </form>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <form class="form-horizontal" method="post" action="../contollers/ravitaillement/ravitaillementController.php">
+                                                            <input type="hidden" name="tb_date1" value="<?= $_GET['use_date1'] ?>">
+                                                            <input type="hidden" name="tb_date2" value="<?= $_GET['use_date2'] ?>">
+                                                            <input type="hidden" name="tb_idfournisseur" value="<?= $_GET['use_fournisseur'] ?>">
+                                                            <input type="hidden" name="tb_idbiens" value="<?= $_GET['use_biens'] ?>">
+                                                            <input type="hidden" name="tb_idravitaillement" value="<?= $ravitaillement['id'] ?>">
+                                                            <table>
+                                                                <tr>
+                                                                    Actual date : <?= $ravitaillement['date'] ?> 
+                                                                    <td>
+                                                                        <input type="date" class="form-control" name="tb_newdate" value=" <?= $ravitaillement['date'] ?>">
+                                                                    </td>
+                                                                    <td>
+                                                                        <button type="submit" class="btn btn-primary" name="bt_update_date"><span class="fa fa-pencil"></span></button>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </form>
+                                                    </div>
+                                                    
+                                                    <div class="col-md-10 mt-2">
+                                                        <form class="form-horizontal" method="post" action="../contollers/ravitaillement/ravitaillementController.php">
+                                                            <input type="hidden" name="tb_idravitaillement" value="<?= $ravitaillement['id'] ?>">
+                                                            <button type="submit" class="btn btn-success w-100" name="bt_for_costing"><span class="fa fa-list"></span> Cost add-ins</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
                                             </td>
                                             <td>
                                                 <?php
@@ -344,7 +354,6 @@ include '../models/costing/Costing.php';
                                                 ?>
                                             </td>
                                             <td><?= $ravitaillement['quantite'] ?></td>
-
                                             <?php
                                             $bdunite = new BdUnite();
                                             $unites = $bdunite->getUniteByName("-" . $id_attributionbiens . "-");
@@ -368,7 +377,7 @@ include '../models/costing/Costing.php';
 
                                             <td style="color:blue;font-size: 20px;font-weight: bold;">
                                                 <?php
-                                                //                                      $chaine_part_ravitaillement;
+                                                // $chaine_part_ravitaillement;
                                                 $items_ravitaillement = explode('-', $chaine_part_ravitaillement_sortie);
                                                 $n_same_ravitaillement = 0;
                                                 $cumule_prix = 0;
@@ -475,6 +484,13 @@ include '../models/costing/Costing.php';
                                     <td style="color: orange; font-weight: bold;">Total + TVA : <?= ($cumul_total_fournisseur + $cumul_TVA_fournisseur) ?> USD </td>
                                     <td style="color: #b7005b; font-weight: bold;">Value costing : <?= ($cumul_costing_fournisseur) ?> USD </td>
                                     <td style="color: forestgreen; font-weight: bold;">Grand total : <?= (($cumul_total_fournisseur + $cumul_TVA_fournisseur)+($cumul_costing_fournisseur)) ?> USD </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                             <?php
                                 $cumul_total_all = $cumul_total_all + $cumul_total_fournisseur;
@@ -485,7 +501,7 @@ include '../models/costing/Costing.php';
                         </tbody>
                         <tfoot>
                             <td style="font-size: 20px;">
-                                <span>Nombre:</span><span><?= $n ?></span>
+                                <!-- <span>Nombre:</span><span><?= $n ?></span> -->
                             </td>
                             <td style=" color: dodgerblue; font-weight: bold;">
                                 <span>Grand total valeur sortie : </span><span><?= $cumul_total_sortie . " USD" ?></span>
@@ -508,10 +524,14 @@ include '../models/costing/Costing.php';
                             <td style="color: forestgreen; font-weight: bold;">
                                 <span>Grand Total : </span><span><?= (($cumul_total_all + $cumul_TVA_all)+($cumul_costing_all)) . " USD" ?></span>
                             </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tfoot>
                     </table>
                 <?php
-                }
+                // }
                 ?>
 
             </fieldset>

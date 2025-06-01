@@ -402,7 +402,7 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
                 </select>
             </td>
             <td>
-                <button class="btn btn-primary mt-1 text-white w-100" type="submit"><i class="fa fa-pencil"></i></button>
+                <button class="btn btn-secondary mt-1 text-white w-100" type="submit"><i class="fa fa-pencil"></i></button>
                 <button class="btn btn-danger mt-1 text-white w-100" type="button" onclick="deleteThis('.$listDette[$key]['id'].','.$table.')"><i class="fa fa-trash"></i></button>
             </td>
             </tr>
@@ -411,11 +411,11 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
         $listDetteData = $listDetteData.
         '<tr>
         <td class="fw-bolder">MONTANT DETTE</td>
-        <td class="h3 fw-bolder bg-primary text-white p-2">'.$format->formatCurrency($detteTotal,'usd').'</td>
+        <td class="h3 fw-bolder bg-secondary text-white p-2">'.$format->formatCurrency($detteTotal,'usd').'</td>
         <td class="fw-bolder">MONTANT REMBOURSER</td>
-        <td class="h3 fw-bolder bg-primary text-white p-2">'.$format->formatCurrency($rembourserTotal,'usd').'</td>
+        <td class="h3 fw-bolder bg-secondary text-white p-2">'.$format->formatCurrency($rembourserTotal,'usd').'</td>
         <td class="fw-bolder">RESTE A PAYER</td>
-        <td class="h3 fw-bolder bg-primary text-white p-2">'.$format->formatCurrency($detteTotal-$rembourserTotal,'usd').'</td>
+        <td class="h3 fw-bolder bg-secondary text-white p-2">'.$format->formatCurrency($detteTotal-$rembourserTotal,'usd').'</td>
         </tr>
         </tbody>';
     }else{
@@ -470,7 +470,7 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
                 </td>
                 <td><input class="form-control" type="text" name="DepenseUpdateDescription_'.$listDepense[$key]['id'].'" id="DepenseUpdateDescription_'.$listDepense[$key]['id'].'" placeholder="" value="'.$listDepense[$key]['description'].'"></td>
                 <td>
-                <button class="btn btn-primary mt-1 text-white w-100" type="submit"><i class="fa fa-pencil"></i></button>
+                <button class="btn btn-secondary mt-1 text-white w-100" type="submit"><i class="fa fa-pencil"></i></button>
                 <button class="btn btn-danger mt-1 text-white w-100" type="button" onclick="deleteThis('.$listDepense[$key]['id'].','.$table.')"><i class="fa fa-trash"></i></button>
                 </td>
             </tr>
@@ -482,7 +482,7 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
         <td></td>
         <td></td>
         <td></td>
-        <td class="h4 fw-bolder bg-primary text-white p-2">'.$format->formatCurrency($depenseTotal,'usd').'</td>
+        <td class="h4 fw-bolder bg-secondary text-white p-2">'.$format->formatCurrency($depenseTotal,'usd').'</td>
         </tr>
         </tbody>';
 
@@ -555,14 +555,14 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
 
                 <td><input class="form-control" type="text" name="DcaisseApprouverPar_'.$listCaisse[$key]['id'].'" id="DcaisseApprouverPar_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['approuverPar'].'"></td>
                 <td>
-                    <button class="btn btn-primary mt-1 text-white w-100" onclick="updateThis('.$listCaisse[$key]['id'].','.$table.','.$formData.')" type="button"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-secondary mt-1 text-white w-100" onclick="updateThis('.$listCaisse[$key]['id'].','.$table.','.$formData.')" type="button"><i class="fa fa-pencil"></i></button>
                     <button class="btn btn-danger mt-1 text-white w-100" onclick="deleteThis('.$listCaisse[$key]['id'].','.$table.')" type="button"><i class="fa fa-trash"></i></button>
                 </td>
             </tr>
         </form>';
         }
         $listCaisseData = $listCaisseData.
-        '<tr class="bg-primary text-dark">
+        '<tr class="bg-secondary text-dark">
             <td class="fw-bolder text-dark small">TOTAL DEBIT Dollors: <br>'.$format->formatCurrency($totalDebitDollars,'usd').'</td>
             <td class="fw-bolder text-dark small">TOTAL DEBIT Fc: <br>'.$format->formatCurrency($totalDebitFc,'fcf').'</td>
             <td class="fw-bolder text-dark small">TOTAL DEBIT Frw: '.$format->formatCurrency($totalDebitFrw,'frw').'</td>
@@ -618,14 +618,14 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
         //         <td><input class="form-control" type="text" name="caisseDebitePar_'.$listCaisse[$key]['id'].'" id="caisseDebitePar_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['debitePar'].'"></td>
         //         <td><input class="form-control" type="text" name="DcaisseApprouverPar_'.$listCaisse[$key]['id'].'" id="DcaisseApprouverPar_'.$listCaisse[$key]['id'].'" placeholder="" value="'.$listCaisse[$key]['approuverPar'].'"></td>
         //         <td>
-        //             <button class="btn btn-primary mt-1 text-white w-100" onclick="updateThis('.$listCaisse[$key]['id'].','.$table.','.$formData.')" type="button">Modifier</button>
+        //             <button class="btn btn-secondary mt-1 text-white w-100" onclick="updateThis('.$listCaisse[$key]['id'].','.$table.','.$formData.')" type="button">Modifier</button>
         //             <button class="btn btn-danger mt-1 text-white w-100" onclick="deleteThis('.$listCaisse[$key]['id'].','.$table.')" type="button">Supprimer</button>
         //         </td>
         //     </tr>
         // </form>';
         // }
         // $listCaisseData = $listCaisseData.
-        // '<tr class="bg-primary text-dark">
+        // '<tr class="bg-secondary text-dark">
         //     <td class="fw-bolder text-dark small">TOTAL DEBIT Dollors</td>
         //     <td></td>
         //     <td class="fw-bolder text-dark">'.$format->formatCurrency($totalDebitDollars,'usd').'</td>
@@ -644,7 +644,9 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
         // }else{
         //     $listCaisseSortie = $DB->getWhere('caisse','operation','Crediter','date');
         // }
+
         $listCaisseDataSortie = "";
+
         // $listCaisseDataSortie = 
         // '<thead>
         //     <tr>
@@ -682,7 +684,7 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
         //         <td><input class="form-control" type="text" name="caisseCreditePar_'.$listCaisseSortie[$key]['id'].'" id="caisseCreditePar_'.$listCaisseSortie[$key]['id'].'" placeholder="" value="'.$listCaisseSortie[$key]['creditePar'].'"></td>
         //         <td><input class="form-control" type="text" name="CcaisseApprouverPar_'.$listCaisseSortie[$key]['id'].'" id="CcaisseApprouverPar_'.$listCaisseSortie[$key]['id'].'" placeholder="" value="'.$listCaisseSortie[$key]['approuverPar'].'"></td>
         //         <td>
-        //             <button class="btn btn-primary mt-1 text-white w-100" onclick="updateThis('.$listCaisseSortie[$key]['id'].','.$table.','.$formData.')" type="button">Modifier</button>
+        //             <button class="btn btn-secondary mt-1 text-white w-100" onclick="updateThis('.$listCaisseSortie[$key]['id'].','.$table.','.$formData.')" type="button">Modifier</button>
         //             <button class="btn btn-danger mt-1 text-white w-100" onclick="deleteThis('.$listCaisseSortie[$key]['id'].','.$table.')" type="button">Supprimer</button>
         //         </td>
         //     </tr>
@@ -690,7 +692,7 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
         // }
 
         // $listCaisseDataSortie = $listCaisseDataSortie.
-        // '<tr class="bg-primary text-dark">
+        // '<tr class="bg-secondary text-dark">
         //     <td class="fw-bolder text-dark">TOTAL CREDIT Dollors</td>
         //     <td></td>
         //     <td class="fw-bolder text-dark">'.$format->formatCurrency($totalCreditDollars,'usd').'</td>
@@ -733,7 +735,7 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
                         </td>
                         <td><textarea class="form-control" name="" id="" >'.$listBanqueData[$key]['description'].'</textarea></td>
                         <td>
-                            <button class="btn btn-primary mt-1 text-white w-100" type="submit"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-secondary mt-1 text-white w-100" type="submit"><i class="fa fa-pencil"></i></button>
                             <button class="btn btn-danger mt-1 text-white w-100" onclick="deleteThis('.$listBanqueData[$key]['id'].','.$table.')" type="button"><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
@@ -843,7 +845,7 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
                     </select>
                 </td>
                 <td>
-                    <button type="submit" class="btn btn-primary" onclick="updateThis('.$listVehicule[$key]['id'].','.$table.','.$formData.')"><i class="fa fa-pencil"></i></button>
+                    <button type="submit" class="btn btn-secondary" onclick="updateThis('.$listVehicule[$key]['id'].','.$table.','.$formData.')"><i class="fa fa-pencil"></i></button>
                     <button type="submit" class="btn btn-'.$btnStyle.'" onclick="updateThis('.$listVehicule[$key]['id'].','.$table.')"><i class="fa fa-eye"></i></button>
                 </td>
             </tr>
@@ -883,7 +885,7 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
                     <input class="form-control" type="text" name="type_depense_destination_update_'.$typeDepense[$key]['id'].'" id="type_depense_destination_update_'.$typeDepense[$key]['id'].'" value="'.$typeDepense[$key]['destination'].'">
                 </td>
                 <td>
-                    <button type="submit" class="btn btn-primary" onclick="updateThis('.$typeDepense[$key]['id'].','.$table.','.$formData.')"><i class="fa fa-pencil"></i></button>
+                    <button type="submit" class="btn btn-secondary" onclick="updateThis('.$typeDepense[$key]['id'].','.$table.','.$formData.')"><i class="fa fa-pencil"></i></button>
                     <button type="submit" class="btn btn-'.$btnStyle.'" onclick="updateThis('.$typeDepense[$key]['id'].','.$table.')"><i class="fa fa-eye"></i></button>
                 </td>
             </tr>
@@ -938,7 +940,7 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
                 $style = 'text-white bg-danger';
             }else{
                 $status = "Payer";
-                $style = 'text-white bg-primary';
+                $style = 'text-white bg-secondary';
             }
 
             if ($_SESSION['type'] == 'logistique') {
@@ -946,7 +948,7 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
                 <button type="submit" class="btn '.$style.'" onclick="updateThis('.$factureDataList[$key]['id'].','.$table.')"><i class="fa fa-check"></i></button>
                 <button type="submit" class="btn btn-danger" onclick="deleteThis('.$factureDataList[$key]['id'].','.$table.')"><i class="fa fa-trash"></i></button>';
             }else{
-                $action = '<button type="submit" class="btn btn-primary"><i class="fa fa-dollar"></i></button>';
+                $action = '<button type="submit" class="btn btn-secondary"><i class="fa fa-dollar"></i></button>';
             }
         $factureData = $factureData.
         '<form action="" method="post" id="">
@@ -1029,7 +1031,7 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
                     <input class="form-control" type="text" name="depense_transport_montant'.$depensetransport[$key]['id'].'" id="depense_transport_montant'.$depensetransport[$key]['id'].'" value="'.$depensetransport[$key]['montant'].'">
                     </td>
                     <td>
-                        <button type="submit" class="btn btn-primary" onclick="deleteThis('.$depensetransport[$key]['id'].','.$table.','.'formData'.')"><i class="fa fa-pencil"></i></button>
+                        <button type="submit" class="btn btn-secondary" onclick="deleteThis('.$depensetransport[$key]['id'].','.$table.','.'formData'.')"><i class="fa fa-pencil"></i></button>
                         <button type="submit" class="btn btn-danger"  onclick="deleteThis('.$depensetransport[$key]['id'].','.$table.')"><i class="fa fa-trash"></i></button>
                     </td>
                 </tr>
@@ -1138,10 +1140,10 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
                         <input class="form-control" type="text" name="" id=""  value="'.($typeCourse[$key]['prixCourse'] - $calcul).'" readonly>
                     </td>
                     <td>
-                        <button class="btn btn-primary mt-1 text-white w-100" type="button" data-bs-toggle="modal" data-bs-target="#add_depense" data-id="'.$typeCourse[$key]['id'].'">
+                        <button class="btn btn-secondary mt-1 text-white w-100" type="button" data-bs-toggle="modal" data-bs-target="#add_depense" data-id="'.$typeCourse[$key]['id'].'">
                             <i class="fa fa-money"></i>
                         </button>
-                        <button class="btn btn-primary mt-1 text-white w-100" type="submit" onclick="updateThis('.$typeCourse[$key]['id'].','.$table.','.$formData.')"><i class="fa fa-pencil"></i> </button>
+                        <button class="btn btn-secondary mt-1 text-white w-100" type="submit" onclick="updateThis('.$typeCourse[$key]['id'].','.$table.','.$formData.')"><i class="fa fa-pencil"></i> </button>
                         <button class="btn btn-danger mt-1 text-white w-100" type="button" onclick="deleteThis('.$typeCourse[$key]['id'].','.$table.')"><i class="fa fa-trash"></i></button>
                     </td>
                 </tr>
@@ -1152,7 +1154,7 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
         }
 
         $typeCourseData = $typeCourseData.
-        '<tr class="bg-primary text-dark">
+        '<tr class="bg-secondary text-dark">
             <td></td>
             <td>TONNAGE : </td>
             <td>'.$tonnageTotal.'</td>
@@ -1234,7 +1236,7 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
                     
                         
                         <td>
-                        <button class="btn btn-primary mt-1 text-white w-100" type="button" name="bordereau_form_update" onclick="updateThis('.$listBordereau[$key]['id'].')" ><i class="fa fa-pencil"></i></button>
+                        <button class="btn btn-secondary mt-1 text-white w-100" type="button" name="bordereau_form_update" onclick="updateThis('.$listBordereau[$key]['id'].')" ><i class="fa fa-pencil"></i></button>
                             <button class="btn btn-danger mt-1 text-white w-100" type="button" onclick="deleteThis('.$listBordereau[$key]['id'].','.$table.')" ><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
@@ -1299,7 +1301,7 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
                         <input class="form-control" type="text" name="" id="" placeholder="" value="'.$listReception[$key]['pays'].'">
                         </td>
                         <td>
-                            <button class="btn btn-primary mt-1 text-white" type="submit"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-secondary mt-1 text-white" type="submit"><i class="fa fa-pencil"></i></button>
                             <button type="button" class="btn btn-'.$btnStyle.' mt-1" onclick="updateThis('.$listReception[$key]['id'].','.$table.')"><i class="fa fa-eye"></i></button>
                         </td>
                     </tr>
@@ -1527,7 +1529,7 @@ if(isset($_GET['code']) and $_GET['code'] == sha1('loadDataList')){
         }
         foreach ($biens as $bien) {
             $select = " *, biens.id as bid, affectation.price as aPrix, affectation.nombre as aN FROM affectation INNER JOIN distrubution ON distrubution.id = affectation.distribution_id INNER JOIN demande ON demande.id = distrubution.demande_id INNER JOIN biens ON demande.biens_id = biens.id ";
-            $condition = $condition_." biens.id = ".$bien['bId']." AND affectation.date >= '".$_POST["start_date"]."' AND affectation.date <= '".$_POST["end_date"]."' ";
+            $condition = $condition_." biens.id = ".$bien['bId']." AND affectation.date >= '".htmlspecialchars($_POST["start_date"])."' AND affectation.date <= '".htmlspecialchars($_POST["end_date"])."' ";
             $affectations =  $DB->getWhereMultipleMore($select,$condition,' ORDER BY affectation.date DESC ');
             if (count($affectations) > 0) {
                 foreach ($affectations as $affectation) {

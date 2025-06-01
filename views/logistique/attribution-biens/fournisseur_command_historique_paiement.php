@@ -115,22 +115,24 @@ if (isset($_GET['use_numeroOrder'])) {
                                 <td><?=$attribution['aPU']?></td>
                                 <td><?=$prixTotal?> $</td>
                                 <td>
-                                    <?php
-                                        if (!empty(count($paiements))) {
-                                    ?>
-                                        <p>
-                                            <?php
-                                                foreach ($paiements as $key => $paiement) {
-                                                    $Total_paiement = $Total_paiement + $paiement['montant'];
-                                            ?>
-                                                <span><?='Date: '.$paiement['date'].', <br> Porteur: '.$paiement['transporteur'].', <br> Receveur: '.$paiement['receveur'].', <br> Monatant: '.$paiement['montant'].'$'?></span><hr>
-                                            <?php
-                                                }
-                                            ?>
-                                        </p>
-                                    <?php
-                                        }
-                                    ?>
+                                    <div <?=(!empty(count($paiements))) ? 'style="height: 200px;overflow:auto;"':''?>>
+                                        <?php
+                                            if (!empty(count($paiements))) {
+                                        ?>
+                                            <p>
+                                                <?php
+                                                    foreach ($paiements as $key => $paiement) {
+                                                        $Total_paiement = $Total_paiement + $paiement['montant'];
+                                                ?>
+                                                    <span><?='Date: '.$paiement['date'].', <br> Porteur: '.$paiement['transporteur'].', <br> Receveur: '.$paiement['receveur'].', <br> Monatant: '.$paiement['montant'].'$'?></span><hr>
+                                                <?php
+                                                    }
+                                                ?>
+                                            </p>
+                                        <?php
+                                            }
+                                        ?>
+                                    </div>
                                 </td>
                             </tr>
                             <?php

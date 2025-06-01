@@ -123,10 +123,10 @@ class BdRavitaillement
         $reponse->closeCursor();
     }
 
-    function getRavitaillementAllDesc()
+    function getRavitaillementAllDesc($where = '')
     {
         $bd = Connexion::connecter();
-        $reponse = $bd->query('SELECT S.*,AB.fournisseur_id FROM stockage S INNER JOIN attribution AB ON(S.attribution_id=AB.id) ORDER BY S.id DESC');
+        $reponse = $bd->query('SELECT S.*,AB.fournisseur_id FROM stockage S INNER JOIN attribution AB ON(S.attribution_id=AB.id) '.$where.' ORDER BY S.id DESC');
         return $reponse->fetchAll();
         $reponse->closeCursor();
     }

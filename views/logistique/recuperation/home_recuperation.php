@@ -17,7 +17,11 @@
 }
 </style>
 <?php
-include './meta/menu_logistique.php';
+    if ($_SESSION['type'] == 'logistique') {
+        include './meta/menu_logistique.php';
+    }else{
+        include './meta/menu_service.php';
+    }
 ?>
 <div class="row" style="padding: 10px;">
     <div class="col-md-12" style="background-color: whitesmoke;border-radius: 5px; height: 90vh;">

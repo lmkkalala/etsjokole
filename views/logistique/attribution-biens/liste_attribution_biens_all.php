@@ -155,7 +155,7 @@ $dateEnd = '';
                             <td style="font-size: 20px;">
                                 <span><?= $n ?></span>
                             </td>
-                            <td><span>Nombre:</span></td>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>

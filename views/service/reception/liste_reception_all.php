@@ -24,11 +24,11 @@ include '../models/ravitaillement/ravitaillement.php';
                 <legend>Search by date :</legend>
                 <form class="form-inline" method="POST" action="../contollers/reception/receptionController.php">
                     <div class="row form-group-lg">
-                        <div class="col-6">
+                        <div class="col-md-6 col-12 mt-2">
                             <input type="date" class="form-control" name="tb_date">
                         </div>
-                        <div class="col-6">
-                            <button type="submit" class="btn btn-success mt-1" name="bt_search_by_dates">
+                        <div class="col-md-6 col-12 mt-2">
+                            <button type="submit" class="btn btn-secondary w-100 mt-1" name="bt_search_by_dates">
                                 <span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;"></span> Rechercher
                             </button>
                         </div>
@@ -108,11 +108,18 @@ include '../models/ravitaillement/ravitaillement.php';
                     </tbody>
                     <tfoot>
                         <td style="font-size: 15px;">
-                            <span>Nombre:</span><span><?= $n ?></span>
+                            <span><?= $n ?></span>
                         </td>
                         <td style="font-weight: 700; color: #00aa00;">
-                            Total : <?= $cumul_value ?>
+                            Total : 
                         </td>
+                        <td style="font-weight: 700; color: #00aa00;">
+                            <?= $cumul_value ?>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tfoot>
                 </table>
             </fieldset>

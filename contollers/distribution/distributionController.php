@@ -470,6 +470,8 @@ if (isset($_POST['bt_RetirerDistribution'])) {
 }
 
 if (isset($_POST['bt_delete_lineDistribution'])) {
+
+    $delete = false;
     
     $distributionId=securise($_POST['tb_distributionId']);
     $idaffectation = securise($_POST['tb_idaffectation']);
@@ -502,6 +504,8 @@ if (isset($_POST['bt_delete_lineDistribution'])) {
         return;
     }
 
+    $venteData = array();
+
     $m = 0;
     $iddistribution = securise($distributionId);
     $bddistribution = new BdDistribution();
@@ -510,6 +514,24 @@ if (isset($_POST['bt_delete_lineDistribution'])) {
     foreach ($distributions as $distribution) {
         $quantite_distribue = $distribution['nombre'];
         $panierDistribution=$distribution['panier'];
+        $selling_time = time();
+
+        $venteData = array(
+            date('Y-m-d',$selling_time),
+            date('H:m:s',$selling_time),
+            $distribution['nombre'],
+            $distribution['price'],
+            $distribution['id'],
+            $distribution['venteposId'],
+            $distribution['identiteClient'],
+            ($distribution['distribution_id'] == null) ? '': $distribution['distribution_id'],
+            ($distribution['mutation_id'] == null) ? '': $distribution['mutation_id'],
+            ($distribution['preparation_id'] == null) ? '': $distribution['preparation_id'],
+            $distribution['date'],
+            $distribution['time'],
+            $_SESSION['identite']
+        );
+
         $livraisons = $bdlivraison->getLivraisonById($distribution['distribution_id']);
         foreach ($livraisons as $livraison) {
             $idbiens = $livraison['bId'];
@@ -517,7 +539,6 @@ if (isset($_POST['bt_delete_lineDistribution'])) {
             
         }
     }
-    
     
     $bdunite = new BdUnite();
     $unites = $bdunite->getUniteByIdBiens($idbiens);
@@ -542,7 +563,13 @@ if (isset($_POST['bt_delete_lineDistribution'])) {
                 
                 if ($bddistribution->setPanier($iddistribution, "")) {
                     if ($bddistribution->deleteDistribution($iddistribution)) {
+                        $table = 'annulation_vente';
+                        $field = '(date_annulation,time_annulation,nombre,price,vente_id,venteposId,identiteClient,distribution_id,mutation_id,preparation_id,date_vente,time_vente,added_by)';
+                        $prepared = '?,?,?,?,?,?,?,?,?,?,?,?,?';
+                        $execute = $DB->insert($table,$field,$prepared,$venteData);
+                        $delete = ($execute == true) ? true : false;
                         $reponse = "succes";
+                        
                     }else{
                         $reponse = "traitement_error";
                     }
@@ -560,8 +587,13 @@ if (isset($_POST['bt_delete_lineDistribution'])) {
 
     if (isset($_GET['backCall'])) {
         if ($reponse == 'succes') {
-            echo json_encode(array('message'=>'Vente supprimer avec success.','status'=>$reponse)); 
-            return;
+            if ($delete == true) {
+                echo json_encode(array('message'=>'Vente supprimer avec success.','status'=>$reponse)); 
+                return;
+            }else{
+                echo json_encode(array('message'=>'Vente supprimer avec success, mais pas enregistrer dans l\'historique des suppressions','status'=>$reponse)); 
+                return;
+            }
         }else{
             echo json_encode(array('message'=>"Echec d' execution.",'status'=>$reponse)); 
             return;

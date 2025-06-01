@@ -1,43 +1,47 @@
 
 <?php
-    include '../models/agent/agent.php';
+  include '../models/agent/agent.php';
     
+  if ($_SESSION['type'] == 'logistique') {
     include './meta/menu_logistique.php';
+  }else{
+    include './meta/menu_service.php';
+  }
 
     $db = new BdAgent();
     $allAgent = $db->getAgentAll();
 ?>
 <style>
-        #menu-gauche {
-            border-right-style: solid;
-            border-right-color: black;
-        }
+      #menu-gauche {
+          border-right-style: solid;
+          border-right-color: black;
+      }
 
-        #menu-gauche ul li {
-            padding: 8px;
-        }
+      #menu-gauche ul li {
+          padding: 8px;
+      }
 
-        #menu-gauche ul li a {
-            text-decoration: none;
-        }
+      #menu-gauche ul li a {
+          text-decoration: none;
+      }
 
-        #menu-gauche ul li span {
-            margin-right: 5px;
-        }
-        #entete1-logo a {
-            text-decoration: none;
-            color: white;
-            display: inline-block;
-        }
+      #menu-gauche ul li span {
+          margin-right: 5px;
+      }
+      #entete1-logo a {
+          text-decoration: none;
+          color: white;
+          display: inline-block;
+      }
 
-        body {
-            margin: 0;
-        }
+      body {
+          margin: 0;
+      }
 
-        #entete1-button {
-            padding: 15px;
-            padding-left: 5px;
-        }
+      #entete1-button {
+          padding: 15px;
+          padding-left: 5px;
+      }
 </style>
 <div class="container-fluid">
     <div class="row">
@@ -45,13 +49,13 @@
             <h3 class="text-secondary">DETTES</h3>
         </div>
         
-        <div class="col-md-2 col-sm-12 mt-3 mb-3 text-end">
+        <div class="col-md-2 col-sm-12 mt-2 mb-2 text-end">
             <button class="btn btn-secondary w-100 text-white" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">AJOUTER DETTE</button>
         </div>
         <div class="col-12 mt-3">
           <form action="" method="post" id="FilterForm">
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-2 col-12 mt-1">
                         <select class="form-control" name="Agent" id="Agent">
                         <option value="">Selectionner Agent</option>
                           <?php
@@ -67,7 +71,7 @@
                           ?>
                       </select>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 col-12 mt-1">
                         <select class="form-control" name="Raison" id="Raison">
                             <option value="">Selectionner Raison</option>
                             <option value="Dette argent">Dette argent</option>
@@ -78,7 +82,7 @@
                             <option value="Aucun">Aucun</option>
                       </select>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 col-12 mt-1">
                         <select class="form-control" name="Operation" id="Operation">
                         <option value="">Selectionner Operation</option>
                           <option value="Dette">Dette</option>
@@ -86,13 +90,13 @@
                       </select>
                     </div>
                     
-                    <div class="col-md-2">
+                    <div class="col-md-2 col-12 mt-1">
                       <input class="form-control" type="date" name="filterDate_start" id="filterDate_start">
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 col-12 mt-1">
                       <input class="form-control" type="date" name="filterDate_end" id="filterDate_end">
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 col-12 mt-1">
                     <input type="hidden" name="FilterFormDette" id="FilterFormDette">
                       <button class="btn btn-secondary w-100 text-white" type="submit"><i class="fa fa-search"></i> Rechercher</button>
                     </div>

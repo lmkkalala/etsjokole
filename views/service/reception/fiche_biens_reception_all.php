@@ -23,12 +23,12 @@ include '../models/unite/unite.php';
                 <legend>Taper le mot-clé de la recherche :</legend>
                 <form class="form-inline" method="POST" action="../contollers/reception/receptionController.php">
                     <div class="row form-group-lg">
-                        <div class="col-6">
+                        <div class="col-md-6 col-12 mt-2">
                         <input type="text" class="form-control" name="tb_search" placeholder="Mot-clé">
                         </div>
                         
-                        <div class="col-6">
-                        <button type="submit" class="btn btn-success mt-1" name="bt_search_for_biens">
+                        <div class="col-md-6 col-12 mt-2">
+                        <button type="submit" class="btn btn-secondary w-100 mt-1" name="bt_search_for_biens">
                             <span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;"></span> Rechercher
                         </button>
                         </div>
@@ -91,7 +91,7 @@ include '../models/unite/unite.php';
                                     <form method="POST" action="../contollers/reception/receptionController.php">
                                         <input type="hidden" name="tb_idbiens" value="<?= $bien['bId'] ?>">
                                         <button type="submit" class="btn btn-primary" name="bt_view_for_biens">
-                                            <span class="glyphicon glyphicon-file" style="color: white; font-size: 15px;margin-right: 5px;"></span> voir
+                                            <span class="glyphicon glyphicon-file" style="color: white; font-size: 15px;margin-right: 5px;"></span>
                                         </button>
                                     </form>
                                 </td>
@@ -101,9 +101,13 @@ include '../models/unite/unite.php';
                         ?>
                     </tbody>
                     <tfoot>
-                    <td style="font-size: 20px;">
-                        <span>Nombre:</span><span><?= $n ?></span>
-                    </td>
+                        <td style="font-size: 20px;">
+                            <span><?= $n ?></span>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tfoot>
                 </table>
             </fieldset>

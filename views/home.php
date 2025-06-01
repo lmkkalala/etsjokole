@@ -7,7 +7,9 @@
  */
 session_start();
 
-if ($_SERVER['HTTP_HOST'] == 'etsjokole.com') {
+$pro = true;
+
+if ($_SERVER['HTTP_HOST'] == 'etsjokole.com' || $pro) {
    error_reporting(0);
 }
 
@@ -81,6 +83,8 @@ $Maintenance = false;
                         include 'service/distribution/home_distribution.php';
                     } elseif ($_GET['link_up'] == sha1('home_service_recuperation')) {
                         include 'service/recuperation/home_recuperation.php';
+                    }elseif ($_GET['link_up'] == sha1('home_service_annulation')) {
+                        include 'service/annulation/home_annulation.php';
                     } elseif ($_GET['link_up'] == sha1('home_logistique_acceuil')) {
                         include 'logistique/acceuil/home_acceuil.php';
                     } elseif ($_GET['link_up'] == sha1('home_logistique_recuperation')) {

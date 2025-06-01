@@ -1,41 +1,45 @@
 <?php
-include './meta/menu_logistique.php';
-include '../models/crud/db.php';
-$db = new DB();
-$listDriver = $db->getWhere('agent','active','1','id');
+  if ($_SESSION['type'] == 'logistique') {
+    include './meta/menu_logistique.php';
+  }else{
+    include './meta/menu_service.php';
+  }
+  include '../models/crud/db.php';
+  $db = new DB();
+  $listDriver = $db->getWhere('agent','active','1','id');
 ?>
 <style>
-#menu-gauche {
-    border-right-style: solid;
-    border-right-color: black;
-}
+  #menu-gauche {
+      border-right-style: solid;
+      border-right-color: black;
+  }
 
-#menu-gauche ul li {
-    padding: 8px;
-}
+  #menu-gauche ul li {
+      padding: 8px;
+  }
 
-#menu-gauche ul li a {
-    text-decoration: none;
-}
+  #menu-gauche ul li a {
+      text-decoration: none;
+  }
 
-#menu-gauche ul li span {
-    margin-right: 5px;
-}
-#entete1-logo a {
-text-decoration: none;
-color: white;
-display: inline-block;
-}
+  #menu-gauche ul li span {
+      margin-right: 5px;
+  }
+  #entete1-logo a {
+  text-decoration: none;
+  color: white;
+  display: inline-block;
+  }
 
-body {
-margin: 0;
-}
+  body {
+  margin: 0;
+  }
 
-#entete1-button {
-padding: 15px;
-padding-left: 5px;
-}
-                </style>
+  #entete1-button {
+  padding: 15px;
+  padding-left: 5px;
+  }
+</style>
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-10 col-sm-12 mt-3 mb-3">

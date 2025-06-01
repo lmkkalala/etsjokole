@@ -22,11 +22,11 @@ include '../models/biens/biens.php';
                 <h4>Taper le mot-clé de la recherche :</h4>
                 <form class="form-inline" method="POST" action="../contollers/attribution-biens/attributionBiensController.php">
                     <div class="row form-group-lg">
-                        <div class="col-md-8 col-12 mt-1">
+                        <div class="col-md-6 col-12 mt-2">
                             <input type="text" class="form-control" name="tb_search" placeholder="Mot-clé"> 
                         </div>
-                        <div class="col-md-4 col-12 mt-1">
-                            <button type="submit" class="btn btn-secondary w-100" name="bt_search_for_biens"><span class="glyphicon glyphicon-search" style="color: white; font-size: 15px;margin-right: 5px;"></span> Rechercher</button>
+                        <div class="col-md-6 col-12 mt-2">
+                            <button type="submit" class="btn btn-secondary w-100" name="bt_search_for_biens"><span class="glyphicon glyphicon-search"></span> Rechercher</button>
                         </div>                           
                     </div>
                 </form>

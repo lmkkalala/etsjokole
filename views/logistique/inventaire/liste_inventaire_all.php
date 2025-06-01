@@ -50,14 +50,14 @@ include '../models/ravitaillement/ravitaillement.php';
                 <legend>Search by date : </legend>
                 <form class="form-inline" method="POST" action="../contollers/inventaire/inventaireController.php">
                     <div class="row form-group-lg">
-                        <div class="col-4">
+                        <div class="col-md-4 col-12 mt-2">
                         <input type="date" class="form-control" name="tb_date1" placeholder="First date">
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4 col-12 mt-2">
                         <input type="date" class="form-control" name="tb_date2" placeholder="Second date">
                         </div>
-                        <div class="col-4">
-                        <button type="submit" class="btn btn-success" name="bt_search_by_date"><span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
+                        <div class="col-md-4 col-12 mt-2">
+                        <button type="submit" class="btn btn-secondary w-100" name="bt_search_by_date"><span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
                         </div>
                     </div>
                 </form>
@@ -73,18 +73,16 @@ include '../models/ravitaillement/ravitaillement.php';
             </fieldset>
             <fieldset>
                 <?php
-                if ((isset($_GET['use_date1']))) {
-                    ?>
-                    <a style="font-size: 20px;" href='../views/logistique/inventaire/pdf_list_inventaire_all.php?use_date1=<?= $_GET['use_date1'] . '&use_date2=' . $_GET['use_date2'] ?>' target="_blank" class="btn btn-primary pull-left">Print in PDF</a>
-                    <?php
-                }
+                    if ((isset($_GET['use_date1']))) {
+                        ?>
+                        <a style="font-size: 20px;" href='../views/logistique/inventaire/pdf_list_inventaire_all.php?use_date1=<?= $_GET['use_date1'] . '&use_date2=' . $_GET['use_date2'] ?>' target="_blank" class="btn btn-primary pull-left">Print in PDF</a>
+                        <?php
+                    }
                 ?>
-
             </fieldset>
             <br>
             <div class="row">
-                <!-- <legend>Physic Inventory</legend> -->
-                <div class="col-md-12">
+                <div class="col-md-12 overflow-auto">
                     <table class="table table-bordered table-responsive-lg table-striped">
                         <thead>
                             <th>
@@ -198,11 +196,25 @@ include '../models/ravitaillement/ravitaillement.php';
                         </tbody>
                         <tfoot>
                             <td>
-                                <span>Nombre:</span><span><?= $n ?></span>
+                                <span><?= $n ?></span>
+                            </td>
+                            <td>
+                                <span>Nombre:</span>
                             </td>
                             <td style="font-weight: bold; color: orange;">
-                                <p><?= "Total variance value : " . $cumul_value_ecart . " USD" ?></p>
+                                <p><?= "Total : " ?></p>
                             </td>
+                            <td style="font-weight: bold; color: orange;">
+                                <p><?= $cumul_value_ecart  ?></p>
+                            </td>
+                            <td style="font-weight: bold; color: orange;">
+                                <p><?= " USD" ?></p>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tfoot>
                     </table>
                 </div>

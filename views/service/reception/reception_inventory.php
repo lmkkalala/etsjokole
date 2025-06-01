@@ -27,7 +27,7 @@ $pa = 0;
                 <form class="form-inline" method="POST" action="../contollers/reception/receptionController.php">
                     <div class="row form-group-lg">
                         <div class="col-md-4 col-12 mt-2">
-                            <input type="date" class="form-control w-100" name="tb_date" value="<?=(isset($_GET['date'])) ? $_GET['date']: date('Y-m-d') ?>">
+                            <input type="date" class="form-control w-100" name="tb_date" value="<?=(isset($_GET['date'])) ? $_GET['date']: date('Y-m-d') ?>" readonly>
                         </div>
                         <div class="col-md-4 col-12 mt-2">
                             <select class="form-control w-100" name="autres_place">

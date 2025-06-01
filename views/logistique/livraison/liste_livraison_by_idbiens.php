@@ -16,7 +16,13 @@ $db = new DB();
         </th>
         
         <th>
-            Quantité
+            Quantité Livré
+        </th>
+         <th>
+            Recuperation
+        </th>
+        <th>
+            Reste Reception
         </th>
         <th>
             Livreur
@@ -41,7 +47,9 @@ $db = new DB();
                 <td><?= $livraison['lDate'] ?></td>
                 <td><?= $livraison['dId'] ?> . <?= $livraison['date'] . " / " . $livraison['bDesignation'] . " / " . $livraison['gDesignation'] . " pour " . $livraison['nom'] . " " . $livraison['postnom'] . " " . $livraison['prenom'] . " : " . $livraison['sDesignation'] . " / quantité : " . $livraison['dQuantite'] ?></td>
                 
-                <td><?= 'Quantite Livré: '.$livraison['lQuantite'].' Recuperation: '. $numberRecup.' Reception: '.$livraison['dQuantite'] - $numberRecup ?></td>
+                <td><?= $livraison['lQuantite'] ?></td>
+                <td><?= $numberRecup ?></td>
+                <td><?= $livraison['dQuantite'] - $numberRecup ?></td>
                 <td><?= $livraison['lNom'] . " " . $livraison['lPostnom'] . " " . $livraison['lPrenom'] ?></td>
             </tr>
             <?php
@@ -51,7 +59,9 @@ $db = new DB();
     <tfoot>
         <tr>
             <td><span><?= $n ?></span></td>
-            <td><span>Nombre:</span></td>
+            <td></td>
+            <td></td>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>

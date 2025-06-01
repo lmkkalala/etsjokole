@@ -48,15 +48,15 @@ $DB = new DB();
     <!-- <div class="panel panel-body"> -->
         <div class="row">
             <div class="col-md-12">
-                <fieldset>
+                <h4>
                     <?php if ((isset($_GET['use_date1']))) { ?>
                         <a style="font-size: 20px;" href='../views/service/distribution/pdf_list_distribution.php?use_date1=<?= $_GET['use_date1'] . '&use_date2=' . $_GET['use_date2'] . '&use_service=' . $_GET['use'] . '&use_typerepas=' . $_GET['use_typerepas'] . '&use_identiteClient=' . $_GET['use_identiteClient'] ?>' class="btn btn-primary pull-left">Print in PDF</a> 
                     <?php } ?>
-                </fieldset>
+                </h4>
             </div>
-            <div class="col-md-12">
-                <fieldset>
-                    <legend>Sales list</legend>
+            <div>
+                <h4>Sales list</h4>
+                <div class="col-md-12 overflow-auto">
                     <table id="listdatabyid"  class="display nowraptable table table-bordered table-responsive-lg table-striped">
                         <thead>
                             <tr>
@@ -357,7 +357,7 @@ $DB = new DB();
                             </tr>
                         </tfoot>
                     </table>
-                </fieldset>
+                </div>
             </div>
         </div>
     <!-- </div> -->

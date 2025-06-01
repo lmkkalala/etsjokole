@@ -8,7 +8,7 @@
 <div class="row" style="margin: 20px;">
     <form  method="post" action="../contollers/distribution/distributionController.php">
         <div class="row">
-            <div class="col-md-6 mt-2 input-group-lg">
+            <div class="col-md-6 col-12 mt-2 input-group-lg">
                 <select class="form-control w-100 select2" name="cb_service">
                     <option value="0">Choisir un POS/Departement/Service</option>
                     <option value="00">Tous Les depots</option>
@@ -31,7 +31,7 @@
                     ?>
                 </select>
             </div>
-            <div class="col-md-6 mt-2">
+            <div class="col-md-6 col-12 mt-2">
                 <select class="form-control select2" name="cb_identiteClient">
                     <option value="none">Choisir le client</option>
                     <?php
@@ -47,15 +47,15 @@
                     ?>
                 </select>
             </div>
-            <div class="col-md-6 mt-2">
+            <div class="col-md-6 col-12 mt-2">
                 <label class="control-label">Starting date : </label>
                 <input type="date" class="form-control" name="tb_date1">
             </div>
-            <div class="col-md-6 mt-2">
+            <div class="col-md-6 col-12 mt-2">
                 <label class="control-label">Ending date :</label>
                 <input type="date" class="form-control" name="tb_date2">
             </div>
-            <div class="col-md-6 mt-2">
+            <div class="col-md-6 col-12 mt-2">
                 <label class="control-label">Type :</label>
                 <select class="form-control select2" name="cb_typerepas">
                     <option value="0">Choose a type</option>
@@ -73,7 +73,7 @@
                 </select>
                 <input type="hidden" name="tb_link" value="<?= $link ?>">
             </div>
-            <div class="col-md-6 mt-2">
+            <div class="col-md-6 col-12 mt-2">
                 <label class="control-label">Lieu De Vente :</label>
                 <select class="form-control select2" name="autres_place">
                     <option value="">Selectionner ICI</option>
@@ -87,7 +87,7 @@
                     <?php } } ?>
                 </select>
             </div>
-            <div class="col-md-6 mt-2">
+            <div class="col-md-6 col-12 mt-2">
                 <?php
                 if (isset($_GET['use2'])) {
                 ?>
@@ -99,7 +99,7 @@
                 <?php
                 }
                 ?>
-                <input class="btn btn-primary mt-3" type="submit" name="bt_search_by_service" value="Choisir">
+                <input class="btn btn-secondary w-100 mt-3" type="submit" name="bt_search_by_service" value="Choisir">
             </div>
         </div>
     </form>
