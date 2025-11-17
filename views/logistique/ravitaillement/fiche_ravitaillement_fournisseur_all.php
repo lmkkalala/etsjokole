@@ -21,12 +21,12 @@ include '../models/fournisseur/fournisseur.php';
                 <legend>Taper le mot-clé de la recherche :</legend>
                 <form class="form-inline" method="POST" action="../contollers/ravitaillement/ravitaillementController.php">
                     <div class="row form-group-lg">
-                        <div class="col-6">
+                        <div class="col-md-6 col-12">
                         <input type="text" class="form-control" name="tb_search" placeholder="Mot-clé">  
                         </div>
                         
-                        <div class="col-6">
-                        <button type="submit" class="btn btn-success" name="bt_search"><span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
+                        <div class="col-md-6 col-12">
+                        <button type="submit" class="btn btn-secondary w-100" name="bt_search"><span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
                         </div>                          
                     </div>
                 </form>
@@ -76,9 +76,12 @@ include '../models/fournisseur/fournisseur.php';
                         ?>
                     </tbody>
                     <tfoot>
-                    <td style="font-size: 20px;">
-                        <span>Nombre:</span><span><?= $n ?></span>
-                    </td>
+                        <td>
+                            <span><?= $n ?></span>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tfoot>
                 </table>
             </fieldset>

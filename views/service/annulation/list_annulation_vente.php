@@ -58,10 +58,10 @@ $serviceName = '';
                             </select>
                         </div>
                         <div class="col-md-3 mt-2">
-                            <input type="date" class="form-control w-100" name="start_date" id="start_date" value="<?=date('Y-m-d')?>" placeholder="Mot-clé">  
+                            <input type="date" class="form-control w-100" name="start_date" id="start_date" value="<?=(isset(($_POST["start_date"])) and !empty(($_POST["start_date"]))) ? $_POST["start_date"] : date('Y-m-d')?>" placeholder="Mot-clé">  
                         </div>
                         <div class="col-md-3 mt-2">
-                            <input type="date" class="form-control w-100" name="end_date" id="end_date" value="<?=date('Y-m-d')?>" placeholder="Mot-clé"> 
+                            <input type="date" class="form-control w-100" name="end_date" id="end_date" value="<?=(isset(($_POST["end_date"])) and !empty(($_POST["end_date"]))) ? $_POST["start_date"] : date('Y-m-d')?>" placeholder="Mot-clé"> 
                         </div> 
                         <div class="col-md-3 mt-2">
                         <button type="submit" class="btn btn-secondary w-100" name="search_data"><span class="glyphicon glyphicon-search" style="color: white; font-size: 15px;margin-right: 5px;"></span> Rechercher</button>

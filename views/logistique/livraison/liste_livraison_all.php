@@ -55,13 +55,13 @@ include '../models/biens/biens.php';
                 <form class="form-inline" method="POST" action="../contollers/livraison/livraisonController.php">
                     <div class="row form-group-lg">
                         
-                        <div class="col-4">
-                        <input type="date" class="form-control" name="tb_date1" placeholder="First date">
+                        <div class="col-md-4 col-12 mt-1">
+                            <input type="date" class="form-control" name="tb_date1" placeholder="First date">
                         </div>
-                        <div class="col-4">
-                        <input type="date" class="form-control" name="tb_date2" placeholder="Second date">
+                        <div class="col-md-4 col-12 mt-1">
+                            <input type="date" class="form-control" name="tb_date2" placeholder="Second date">
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4 col-12 mt-1">
                         <select class="form-control select2" name="cb_service">
                             <option value="0">Choisir un service</option>
                             <?php
@@ -79,7 +79,7 @@ include '../models/biens/biens.php';
                             ?>
                         </select>
                         </div>
-                        <div class="col-4 mt-1">
+                        <div class="col-md-4 col-12 mt-1">
                         <select class="form-control select2" name="cb_biens">
                             <option value="0">Chopse item</option>
                             <?php
@@ -97,7 +97,7 @@ include '../models/biens/biens.php';
                             ?>
                         </select>
                         </div>
-                        <div class="col-4 mt-1">
+                        <div class="col-md-4 col-12 mt-1">
                         <select class="form-control select2" name="cb_typerepas">
                             <option value="0">Choose activity</option>
                             <option value="Input">Input</option>
@@ -118,7 +118,7 @@ include '../models/biens/biens.php';
                             <option value="PRO">PRO</option>
                         </select>
                         </div>
-                        <div class="col-4 mt-1">
+                        <div class="col-md-4 col-12 mt-1">
                             <button type="submit" class="btn btn-success w-100" name="bt_search_by_date_by_service"><span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
                         </div>
                     </div>
@@ -180,12 +180,6 @@ include '../models/biens/biens.php';
                     ?>
                 </legend>
             </fieldset>
-            <fieldset >
-
-                <legend>
-
-                </legend>
-            </fieldset>
             <br>
             <fieldset >
                 <?php
@@ -224,6 +218,9 @@ include '../models/biens/biens.php';
                     </th>
                     <th>
                         Resp.
+                    </th>
+                    <th>
+                        Opt.
                     </th>
                     </thead>
                     <tbody>
@@ -296,6 +293,7 @@ include '../models/biens/biens.php';
                                 <td></td>
                                 <td></td>
                                 <td></td>
+                                <td></td>
                             </tr>
                             <?php
                             $cumul_value_typerepas = 0;
@@ -322,12 +320,15 @@ include '../models/biens/biens.php';
                                                 <input type="hidden" name="tb_idbiens" value="<?= $_GET['use_biens'] ?>">
                                                 <input type="hidden" name="tb_idservice" value="<?= $_GET['use_service'] ?>">
                                                 <input type="hidden" name="tb_idlivraison" value="<?= $livraison['lId'] ?>">
-                                                <table>
-                                                    <tr>
-                                                        <td><input type="date" class="form-control" name="tb_newdate" value="<?= $livraison['lDate'] ?>"></td>
-                                                        <td><button style="margin-left: 5px;" type="submit" class="btn btn-primary" name="bt_update_date"><span class="fa fa-pencil"></span></button></td>
-                                                    </tr>
-                                                </table> 
+                                                <div class="row">
+                                                    <div class="col-12 mt-1">
+                                                        <input type="date" class="form-control" name="tb_newdate" value="<?= $livraison['lDate'] ?>">
+                                                    </div>
+                                                    <div class="col-12 mt-1">
+                                                        <button type="submit" class="btn btn-primary w-100" name="bt_update_date"><span class="fa fa-pencil"></span></button>
+                                                    </div>
+                                                    </div>
+                                                </div> 
                                             </form>
                                         </td>
                                         <td><?= $livraison['dId'] ?> . <?= $livraison['date'] . " / " . $livraison['bDesignation'] . " / " . $livraison['gDesignation'] . " pour " . $livraison['nom'] . " " . $livraison['postnom'] . " " . $livraison['prenom'] . " : " . $livraison['sDesignation'] . " / quantité : " . $livraison['dQuantite'] ?></td>
@@ -389,6 +390,7 @@ include '../models/biens/biens.php';
                                 <td></td>
                                 <td></td>
                                 <td></td>
+                                <td></td>
                             </tr>
                             <?php
                         }
@@ -396,15 +398,21 @@ include '../models/biens/biens.php';
                         ?>
                     </tbody>
                     <tfoot>
-                    <td style="font-size: 20px;">
-                        <span>Nber:</span><span><?= $n ?></span>
-                    </td>
-                    <td style="font-size: 20px; font-weight: bold; color: forestgreen;">
-                        <span>Quantité : </span><span><?= $cumulQuantite  ?></span>
-                    </td>
-                    <td style="font-size: 20px; font-weight: bold; color: red;">
-                        <span>Grand total : </span><span><?= $cumul_total_value . " USD" ?></span>
-                    </td>
+                        <td style="font-size: 20px;">
+                            <span>Nber:</span><span><?= $n ?></span>
+                        </td>
+                        <td style="font-size: 20px; font-weight: bold; color: forestgreen;">
+                            <span>Quantité : </span><span><?= $cumulQuantite  ?></span>
+                        </td>
+                        <td style="font-size: 20px; font-weight: bold; color: red;">
+                            <span>Grand total : </span><span><?= $cumul_total_value . " USD" ?></span>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tfoot>
                 </table>
             </fieldset>

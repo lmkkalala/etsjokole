@@ -39,9 +39,7 @@ if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("succes")))) {
     </div>
 <?php
 }
-?>
 
-<?php
 if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("succes_excepiton")))) {
 ?>
     <div class="alert alert-success">
@@ -49,9 +47,7 @@ if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("succes_excepiton"))))
     </div>
 <?php
 }
-?>
 
-<?php
 if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("traitement_error")))) {
     ?>
     <div class="alert alert-danger">
@@ -59,8 +55,7 @@ if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("traitement_error"))))
     </div>
     <?php
 }
-?>
-<?php
+
 if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("remplissage_error")))) {
     ?>
     <div class="alert alert-warning">
@@ -68,8 +63,7 @@ if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("remplissage_error")))
     </div>
     <?php
 }
-?>
-<?php
+
 if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("quantite_error")))) {
     ?>
     <div class="alert alert-danger">
@@ -125,7 +119,7 @@ if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("quantite_error")))) {
                 <div class="input-group-lg">
                     <input class="btn btn-secondary w-100" type="submit" name="bt_select_preparation_for_add_livraison" value="Selectionner">
                 </div>
-                </div>
+            </div>
         </div>
     </form>
 </div>

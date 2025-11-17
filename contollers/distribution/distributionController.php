@@ -17,6 +17,8 @@ include '../../models/crud/db.php';
 ?>
 <?php
 
+$add_this_to_time = time()+(2*60*60);
+
 function securise($donnee)
 {
     $donnee = trim($donnee);
@@ -87,7 +89,7 @@ if (isset($_POST['bt_enregistrer'])) {
                 $newquantite = $newquantite - $quantite;
             }
 
-            $time = date('H:i:s',time()+(2*60*60));
+            $time = date('H:i:s',$add_this_to_time);
             
             $bddistribution = new BdDistribution();
             if ($bddistribution->addDistribution($date, $quantite, $price, $idlivraison, $idaffectation, $typerepas, $identiteClient,$ventePOSId,$tva,$type,$time)) {
@@ -484,7 +486,7 @@ if (isset($_POST['bt_delete_lineDistribution'])) {
     $DB = new DB();
     $agent = $DB->getWhere('agent','id',$_SESSION['agentID'],'id',1);
 
-    $current_time = date('H:i',time()+(2*60*60));
+    $current_time = date('H:i',$add_this_to_time);
     $current_date = date('Y-m-d');
     if (count($agent) > 0) {
         if (!empty($agent[0]['start_time']) || !empty($agent[0]['end_time'])) {
@@ -514,7 +516,7 @@ if (isset($_POST['bt_delete_lineDistribution'])) {
     foreach ($distributions as $distribution) {
         $quantite_distribue = $distribution['nombre'];
         $panierDistribution=$distribution['panier'];
-        $selling_time = time();
+        $selling_time = time()+(2*60*60);
 
         $venteData = array(
             date('Y-m-d',$selling_time),
@@ -595,7 +597,7 @@ if (isset($_POST['bt_delete_lineDistribution'])) {
                 return;
             }
         }else{
-            echo json_encode(array('message'=>"Echec d' execution.",'status'=>$reponse)); 
+            echo json_encode(array('message'=>"Echec d'execution.",'status'=>$reponse)); 
             return;
         }
     }else{

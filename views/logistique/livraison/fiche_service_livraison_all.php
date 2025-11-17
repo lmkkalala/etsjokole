@@ -43,8 +43,6 @@ include '../models/service/service.php';
                             $services = $bdservice->getServiceAllDesc();
                             foreach ($services as $service) {
                                 if ($service['active']) {
-
-
                                     $n++;
                                     ?>
                                     <tr>
@@ -64,7 +62,7 @@ include '../models/service/service.php';
                                 <td>
                                     <form method="post" action="../contollers/livraison/livraisonController.php">
                                         <input type = "hidden" name = "tb_idservice" value ="<?= $service['id'] ?>">
-                                        <button type="submit" class="btn btn-primary" name="bt_view_for_service"><span class="glyphicon glyphicon-file" style="color: white; font-size: 20px;margin-right: 5px;"></span></button>
+                                        <button type="submit" class="btn btn-primary" name="bt_view_for_service"><span class="glyphicon glyphicon-file" style="color: white; font-size: 20px;"></span></button>
                                     </form>
                                 </td>
                                 </tr>
@@ -74,9 +72,12 @@ include '../models/service/service.php';
                         ?>
                         </tbody>
                         <tfoot>
-                        <td style="font-size: 20px;">
-                            <span>Nombre:</span><span><?= $n ?></span>
-                        </td>
+                            <td style="font-size: 20px;">
+                                <span><?= $n ?></span>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tfoot>
                     </table>
                 </fieldset>

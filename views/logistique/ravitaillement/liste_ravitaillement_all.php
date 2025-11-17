@@ -29,17 +29,23 @@ include '../models/costing/Costing.php';
         </div>
     <?php
     }
-    ?>
-    <?php
+    
     if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("succes_deleted")))) {
     ?>
         <div class="alert alert-success">
-            <span class="glyphicon glyphicon-ok" style="font-size: 15px;margin-right: 5px;"></span><span>Success edited</span>
+            <span class="glyphicon glyphicon-ok" style="font-size: 15px;margin-right: 5px;"></span><span>Success deleted</span>
         </div>
     <?php
     }
+    
+    if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("succes_deleted_unit_error")))) {
     ?>
+        <div class="alert alert-success">
+            <span class="glyphicon glyphicon-ok" style="font-size: 15px;margin-right: 5px;"></span><span>Success deleted with unit error</span>
+        </div>
     <?php
+    }
+
     if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("traitement_error")))) {
     ?>
         <div class="alert alert-danger">
@@ -48,6 +54,7 @@ include '../models/costing/Costing.php';
     <?php
     }
     ?>
+
     <div class="panel panel-body">
         <div>
             <fieldset>
@@ -65,7 +72,7 @@ include '../models/costing/Costing.php';
                                     if (1) {
                                         if (1) {
                                 ?>
-                                            <option value="<?= $bien['bId'] ?>"><?= $bien['bDesignation'] . " / Marque : " . $bien['marque'] . " / " . $bien['gDesignation'] ?></option>
+                                    <option value="<?= $bien['bId'] ?>"><?= $bien['bDesignation'] . " / Marque : " . $bien['marque'] . " / " . $bien['gDesignation'] ?></option>
                                 <?php
                                         }
                                     }
@@ -161,8 +168,8 @@ include '../models/costing/Costing.php';
                 <?php
                 if ((isset($_GET['use_date1']))) {
                 ?>
-                    <a style="font-size: 20px;" href='../views/logistique/ravitaillement/pdf_ravitaillement_open_simple.php?use_date1=<?= $_GET['use_date1'] . '&use_date2=' . $_GET['use_date2'] . '&use_biens=' . $_GET['use_biens'] . '&use_numeroOrder=' . $_GET['use_numeroOrder'] . '&use_fournisseur=' . $_GET['use_fournisseur'] ?>' class="btn btn-primary pull-left">Print in PDF</a>
-                    <a style="font-size: 20px; margin-left: 10px;" href='../views/logistique/ravitaillement/excel_list_ravitaillement_all.php?use_date1=<?= $_GET['use_date1'] . '&use_date2=' . $_GET['use_date2'] . '&use_biens=' . $_GET['use_biens'] . '&use_numeroOrder=' . $_GET['use_numeroOrder'] . '&use_fournisseur=' . $_GET['use_fournisseur'] ?>' class="btn btn-success pull-left">Export in Excel</a>
+                    <!-- <a style="font-size: 20px;" href='../views/logistique/ravitaillement/pdf_ravitaillement_open_simple.php?use_date1=<?= $_GET['use_date1'] . '&use_date2=' . $_GET['use_date2'] . '&use_biens=' . $_GET['use_biens'] . '&use_numeroOrder=' . $_GET['use_numeroOrder'] . '&use_fournisseur=' . $_GET['use_fournisseur'] ?>' class="btn btn-primary pull-left">Print in PDF</a>
+                    <a style="font-size: 20px; margin-left: 10px;" href='../views/logistique/ravitaillement/excel_list_ravitaillement_all.php?use_date1=<?= $_GET['use_date1'] . '&use_date2=' . $_GET['use_date2'] . '&use_biens=' . $_GET['use_biens'] . '&use_numeroOrder=' . $_GET['use_numeroOrder'] . '&use_fournisseur=' . $_GET['use_fournisseur'] ?>' class="btn btn-success pull-left">Export in Excel</a> -->
                     <a style="font-size: 20px; margin-left: 10px;" href='../views/logistique/ravitaillement/excel_list_ravitaillement_all_summary.php?use_date1=<?= $_GET['use_date1'] . '&use_date2=' . $_GET['use_date2'] . '&use_biens=' . $_GET['use_biens'] . '&use_numeroOrder=' . $_GET['use_numeroOrder'] . '&use_fournisseur=' . $_GET['use_fournisseur'] ?>' class="btn btn-success pull-right">Export in Excel</a>
                     <a style="font-size: 20px;" href='../views/logistique/ravitaillement/pdf_ravitaillement_open_simple_summary.php?use_date1=<?= $_GET['use_date1'] . '&use_date2=' . $_GET['use_date2'] . '&use_biens=' . $_GET['use_biens'] . '&use_numeroOrder=' . $_GET['use_numeroOrder'] . '&use_fournisseur=' . $_GET['use_fournisseur'] ?>' class="btn btn-primary pull-right">Print Summary</a>
                 <?php
@@ -175,7 +182,7 @@ include '../models/costing/Costing.php';
             <fieldset>
                 <legend>Entrées</legend>
                 <?php
-                // if (isset($_GET['use_date1'])) {
+                if (isset($_GET['use_date1'])) {
                 ?>
                     <table class="table table-bordered table-responsive-lg table-striped table-hover">
                         <thead>
@@ -267,7 +274,7 @@ include '../models/costing/Costing.php';
                             foreach ($fournisseurs as $fournisseur) {
                             ?>
                                 <tr style="background-color: whitesmoke;">
-                                    <td style="color: forestgreen; font-weight: bold;"> Article: </td>
+                                    <td style="color: forestgreen; font-weight: bold;"> Fournisseur: </td>
                                     <td style="color: forestgreen; font-weight: bold;"><?= $fournisseur['designation'] ?></td>
                                     <td></td>
                                     <td></td>
@@ -318,21 +325,19 @@ include '../models/costing/Costing.php';
                                                             <input type="hidden" name="tb_idfournisseur" value="<?= $_GET['use_fournisseur'] ?>">
                                                             <input type="hidden" name="tb_idbiens" value="<?= $_GET['use_biens'] ?>">
                                                             <input type="hidden" name="tb_idravitaillement" value="<?= $ravitaillement['id'] ?>">
-                                                            <table>
-                                                                <tr>
-                                                                    Actual date : <?= $ravitaillement['date'] ?> 
-                                                                    <td>
-                                                                        <input type="date" class="form-control" name="tb_newdate" value=" <?= $ravitaillement['date'] ?>">
-                                                                    </td>
-                                                                    <td>
-                                                                        <button type="submit" class="btn btn-primary" name="bt_update_date"><span class="fa fa-pencil"></span></button>
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
+                                                            <div class="row">
+                                                                <span>Actual date : <?= $ravitaillement['date'] ?> </span>
+                                                                <div class="col-12">
+                                                                    <input type="date" class="form-control w-100 mt-1" name="tb_newdate" value=" <?= $ravitaillement['date'] ?>">
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <button type="submit" class="btn btn-primary w-100 mt-1" name="bt_update_date"><span class="fa fa-pencil"></span></button>
+                                                                </div>
+                                                            </div>
                                                         </form>
                                                     </div>
                                                     
-                                                    <div class="col-md-10 mt-2">
+                                                    <div class="col-md-12 mt-2">
                                                         <form class="form-horizontal" method="post" action="../contollers/ravitaillement/ravitaillementController.php">
                                                             <input type="hidden" name="tb_idravitaillement" value="<?= $ravitaillement['id'] ?>">
                                                             <button type="submit" class="btn btn-success w-100" name="bt_for_costing"><span class="fa fa-list"></span> Cost add-ins</button>
@@ -531,7 +536,7 @@ include '../models/costing/Costing.php';
                         </tfoot>
                     </table>
                 <?php
-                // }
+                }
                 ?>
 
             </fieldset>

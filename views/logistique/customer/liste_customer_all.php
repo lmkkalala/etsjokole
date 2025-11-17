@@ -53,9 +53,9 @@ if (isset($_GET['reponse']) and !empty($_GET['reponse']) and $_GET['reponse'] ==
                         <th>
                             Modifier
                         </th>
-                        <th>
+                        <!-- <th>
                             Sit.
-                        </th>
+                        </th> -->
                         <th>
                             Status
                         </th>
@@ -87,18 +87,19 @@ if (isset($_GET['reponse']) and !empty($_GET['reponse']) and $_GET['reponse'] ==
                                         </button>
                                     </td>
                                 </form>
-                                <td>
+                                <!-- <td>
                                     <?php
                                     if ($customer['active'] == 1) {
-                                        ?>
+                                    ?>
                                         <h4 style="color: forestgreen;">Enabled</h4>
                                     <?php
                                     } else {
-                                        ?>
+                                    ?>
                                         <h4 style="color: red;">Disabled</h4>
                                     <?php
-                                    } ?>
-                                </td>
+                                    } 
+                                    ?>
+                                </td> -->
                                 <td>
                                     <form method="post" action="../contollers/customer/customerController.php">
                                         <input type="hidden" name="tb_customerId" value="<?= $customer['id']; ?>">
@@ -137,8 +138,15 @@ if (isset($_GET['reponse']) and !empty($_GET['reponse']) and $_GET['reponse'] ==
                     </tbody>
                     <tfoot>
                         <td style="font-size: 20px;">
-                            <span>Number:</span><span><?= $n; ?></span>
+                            <span><?= $n; ?></span>
                         </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tfoot>
                 </table>
             </fieldset>

@@ -139,6 +139,15 @@ foreach ($biens as $bien) {
                 }
                 $cumul_quantite_actuelle = $cumul_quantite_actuelle + $bienVendu;
                 $bienVendu = 0;
+            }else{
+               foreach ($livraisons as $livraison) {
+                    $livraison_etat = $livraison['lEtat'];
+                    if ($livraison_etat == 0) {
+                        if ($livraison['sId']==$_SESSION['idservice']) {
+                            $cumul_quantite_actuelle = $cumul_quantite_actuelle + $livraison['quantite_actuelle'];
+                        }
+                    }
+                } 
             }
         
             $somme_prix_biens = 0;
@@ -168,9 +177,6 @@ foreach ($biens as $bien) {
         
         $pdf->Row(array(decode($v1), decode($v2), decode($v3), decode($v4), decode($v5), decode($v6), decode($v7), decode($v8)));
     }
-    
-    
-
 }
 
 $pdf->Row(array(decode("Nber : " . $n), decode(""), decode(""), decode(""), decode(""), decode(""), decode(""), decode("Total value : " . $cumul_value . " USD")));

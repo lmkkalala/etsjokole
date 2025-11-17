@@ -217,10 +217,8 @@ include '../models/agent/agent.php';
                     </tbody>
                     <tfoot>
                     <td style="font-size: 20px;">
-                        <span><?= $n ?></span>
                     </td>
                     <td style="font-size: 20px;">
-                        <span>Nombre:</span>
                     </td>
                     <td style="font-size: 20px;"></td>
                     <td style="font-size: 20px;"></td>

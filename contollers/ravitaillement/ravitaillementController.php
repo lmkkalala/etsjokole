@@ -201,7 +201,7 @@ if (isset($_POST['bt_delete_ravitaillement'])) {
     $idfournisseur = $_POST['tb_idfournisseur'];
     $idravitaillement = $_POST['tb_idravitaillement'];
 
-//    echo $idlivraison; die;
+    //echo $idlivraison; die;
 
     $id_attributionbiens = "";
     if ($idravitaillement != "") {
@@ -226,24 +226,26 @@ if (isset($_POST['bt_delete_ravitaillement'])) {
 
         if ($newquantite >= 0) {
             if ($bdravitaillement->deleteRavitaillement($idravitaillement)) {
-//            echo "dedans"; die;
+                // echo "dedans"; die;
                 if ($bdbiens->diminueQuantiteBiens($idbiens, $newquantite)) {
-                    $reponse = "succes_deleted";
+                    if ($bdunite->deleteUniteByName($id_attributionbiens)) {
+                        $reponse = "succes_deleted";
+                    }else{
+                       $reponse = "succes_deleted_unit_error"; 
+                    }
                 } else {
                     $reponse = "traitement_error";
-                }
-
-
-                if ($bdunite->deleteUniteByName($id_attributionbiens)) {
-                    $reponse = "succes_deleted";
                 }
             } else {
                 $reponse = "traitement_error";
             }
+        }else{
+          $reponse = "traitement_error";  
         }
     } else {
         $reponse = "remplissage_error";
     }
+
     header('Location:../../views/home.php?link=' . sha1("logistique_ravitaillement_liste_ravitaillement_all") . '&link_up=' . sha1("home_logistique_ravitaillement") . '&reponse=' . sha1($reponse));
     die;
 }

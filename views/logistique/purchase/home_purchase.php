@@ -116,8 +116,8 @@ include './meta/menu_logistique.php';
 <div class="modal fade" id="add_reception_place" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">AJOUTER RECEPTION</h1>
+      <div class="modal-header bg-secondary">
+        <h1 class="modal-title text-white fs-5" id="staticBackdropLabel">AJOUTER RECEPTION</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -155,8 +155,8 @@ include './meta/menu_logistique.php';
 <div class="modal fade" id="list_reception_place" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Lieu de Reception</h1>
+      <div class="modal-header bg-secondary">
+        <h1 class="modal-title text-white fs-5" id="staticBackdropLabel">Lieu de Reception</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -183,8 +183,8 @@ include './meta/menu_logistique.php';
 <div class="modal fade"  id="add_prix_reception_place" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-scrollable">
     <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">PRIX DE RECETION PRINCIPALE</h1>
+      <div class="modal-header bg-secondary">
+        <h1 class="modal-title text-white fs-5" id="staticBackdropLabel">PRIX DE RECETION PRINCIPALE</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -192,22 +192,22 @@ include './meta/menu_logistique.php';
             <div class="col-md-12">
                 <form action="#" method="post" id="FilterForm">
                     <div class="row">
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-3 col-12 mt-1">
                             <label for="">Article</label>
                             <input type="text" id="article" name="article" class="form-control">
                         </div>
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-3 col-12 mt-1">
                             <label for="">Date Debut</label>
                             <input type="date" id="filterDate_start" name="filterDate_start" class="form-control">
                         </div>
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-3 col-12 mt-1">
                             <label for="">Date Fin</label>
                             <input type="date" id="filterDate_end" name="filterDate_end" class="form-control">
                         </div>
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-3 col-12 mt-1">
                             <label for=""></label>
                             <input type="hidden" id="FilterFormReception" name="FilterFormReception">
-                            <button type="submit" name="" class="form-control bg-secondary text-white">Enregistrer</button>
+                            <button type="submit" name="" class="form-control bg-secondary w-100 text-white">Enregistrer</button>
                         </div>
                     </div>
                 </form>
@@ -243,8 +243,8 @@ include './meta/menu_logistique.php';
 <div class="modal fade"  id="list_prix_reception_place" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-scrollable">
     <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">PRIX DE RECETION</h1>
+      <div class="modal-header bg-secondary">
+        <h1 class="modal-title text-white fs-5" id="staticBackdropLabel">PRIX DE RECETION</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -252,22 +252,22 @@ include './meta/menu_logistique.php';
             <div class="col-md-12">
                 <form action="#" method="post" id="FilterFormOther">
                     <div class="row">
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-3 col-12 mt-1">
                             <label for="">Article</label>
                             <input type="text" id="articlePlace" name="articlePlace" class="form-control">
                         </div>
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-3 col-12 mt-1">
                             <label for="">Date Debut</label>
                             <input type="date" id="filterDate_startPlace" name="filterDate_startPlace" class="form-control">
                         </div>
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-3 col-12 mt-1">
                             <label for="">Date Fin</label>
                             <input type="date" id="filterDate_endPlace" name="filterDate_endPlace" class="form-control">
                         </div>
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-3 col-12 mt-1">
                             <label for=""></label>
                             <input type="hidden" id="FilterFormReceptionPlace" name="FilterFormReceptionPlace">
-                            <button type="submit" name="" class="form-control bg-secondary text-white">Enregistrer</button>
+                            <button type="submit" name="" class="form-control bg-secondary w-100 text-white">Enregistrer</button>
                         </div>
                     </div>
                 </form>

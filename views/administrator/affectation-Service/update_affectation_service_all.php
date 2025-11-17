@@ -32,20 +32,20 @@ include '../models/fonction/fonction.php';
                 ?>
                 <?php
                 if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("traitement_error")))) {
-                    ?>
+                ?>
                     <div class="alert alert-danger">
                         <span class="glyphicon glyphicon-ban-circle" style="font-size: 15px;margin-right: 5px;"></span><span>Erreur de traitment</span>
                     </div>
-                    <?php
+                <?php
                 }
                 ?>
                 <?php
                 if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("remplissage_error")))) {
-                    ?>
+                ?>
                     <div class="alert alert-warning">
                         <span class="glyphicon glyphicon-blackboard" style="font-size: 15px;margin-right: 5px;"></span><span>Erreur de remplissage, Recommencer SVP</span>
                     </div>
-                    <?php
+                <?php
                 }
                 ?>
                 <table class="table table-bordered table-striped table-responsive-lg">
@@ -70,13 +70,13 @@ include '../models/fonction/fonction.php';
                     </th>
                     </thead>
                     <tbody>
-                        <?php
+                    <?php
                         $n = 0;
                         $bdaffectation = new BdAffectationService();
                         $affectations = $bdaffectation->getAffectationServiceAllDesc();
                         foreach ($affectations as $affectation) {
                             $n++;
-                            ?>
+                    ?>
                         <form class="form-horizontal" method="POST" action="../contollers/affectation-service/affectationServiceController.php">
                             <div class="form-group-lg">
                                 <tr>
@@ -157,14 +157,17 @@ include '../models/fonction/fonction.php';
                                 </tr>
                             </div>
                         </form>
-                        <?php
+                    <?php
                     }
                     ?>
                     </tbody>
                     <tfoot>
-                    <td style="font-size: 20px;">
-                        <span>Nombre:</span><span><?= $n ?></span>
-                    </td>
+                        <td style="font-size: 20px;"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tfoot>
                 </table>
             </fieldset>

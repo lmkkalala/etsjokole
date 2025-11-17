@@ -119,8 +119,13 @@ include '../models/affectation-service/affectationService.php';
                     </tbody>
                     <tfoot>
                     <td style="font-size: 20px;">
-                        <span>Nombre:</span><span><?= $n ?></span>
+                        
                     </td>
+                    <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tfoot>
                 </table>
             </fieldset>

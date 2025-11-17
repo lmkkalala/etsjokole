@@ -42,18 +42,18 @@
 
             <form class="form-horizontal" method="POST" action="../contollers/service/serviceController.php">
                 <div class="row form-group-lg">
-                    <div class="col-md-12">
+                    <div class="col-md-12 col-12 mt-2">
                         <div class="input-group-lg">
-                            <label class="control-label">Name :</label>
+                            <!-- <label class="control-label">Name :</label> -->
                             <input class="form-control w-100" type="text" name="tb_designation" placeholder="Name">
                         </div>
                     </div>
-                    <div class="col-md-6 mt-2">
+                    <div class="col-md-12 col-12 mt-2">
                         <div class="input-group-lg">
                             <input class="btn btn-success w-100" type="submit" name="bt_enregistrer" value="Enregistrer">
                         </div>
                     </div>
-                    <div class="col-md-6 mt-2">
+                    <div class="col-md-12 col-12 mt-2">
                         <div class="input-group-lg">
                             <input class="btn btn-danger w-100" type="reset" value="Reset">
                         </div>

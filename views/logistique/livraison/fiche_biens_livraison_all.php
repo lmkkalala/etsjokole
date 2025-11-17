@@ -123,7 +123,7 @@ include '../models/biens/biens.php';
                                     <td>
                                         <form method="POST" action="../contollers/livraison/livraisonController.php">
                                             <input type="hidden" name="tb_idbiens" value="<?= $bien['bId'] ?>">
-                                            <button type="submit" class="btn btn-primary" name="bt_view_for_biens"><span class="glyphicon glyphicon-file" style="color: white; font-size: 15px;margin-right: 5px;"></span></button>
+                                            <button type="submit" class="btn btn-primary" name="bt_view_for_biens"><span class="glyphicon glyphicon-file" style="color: white; font-size: 15px;"></span></button>
                                         </form>
                                     </td>
                                 </tr>

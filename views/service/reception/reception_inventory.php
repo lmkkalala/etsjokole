@@ -26,10 +26,11 @@ $pa = 0;
                 <legend>Recherche par date :</legend>
                 <form class="form-inline" method="POST" action="../contollers/reception/receptionController.php">
                     <div class="row form-group-lg">
-                        <div class="col-md-4 col-12 mt-2">
-                            <input type="date" class="form-control w-100" name="tb_date" value="<?=(isset($_GET['date'])) ? $_GET['date']: date('Y-m-d') ?>" readonly>
+                        <div class="col-md-3 col-12 mt-2">
+                            <input type="date" class="form-control w-100" value="<?=(isset($_GET['date'])) ? $_GET['date']: date('Y-m-d') ?>" readonly>
+                            <input type="hidden" class="form-control w-100" name="tb_date" value="<?=(isset($_GET['date'])) ? $_GET['date']: date('Y-m-d') ?>">
                         </div>
-                        <div class="col-md-4 col-12 mt-2">
+                        <div class="col-md-3 col-12 mt-2">
                             <select class="form-control w-100" name="autres_place">
                                 <option value="00">Selectionner ICI</option>
                                 <option value="00" selected>Kamanyola</option>
@@ -42,12 +43,20 @@ $pa = 0;
                                 <?php } } ?>
                             </select>
                         </div>
-                        <div class="col-md-4 col-12 mt-2">
+                        <div class="col-md-3 col-12 mt-2">
                             <button type="submit" class="btn btn-secondary w-100" name="bt_search_by_dates_inventory">
                                 <span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;"></span> Rechercher
                             </button>
                         </div>
-
+                        <div class="col-md-3 col-12 mt-2">
+                            <?php
+                                if (isset($_GET['date'])) {
+                            ?>
+                                <a href='../views/service/reception/pdf_reception_inventory.php?date=<?= $_GET['date'] ?>' target="_blank" class="btn btn-secondary w-100">Print in PDF</a>
+                            <?php
+                                }
+                            ?>
+                        </div>
                     </div>
                 </form>
             </fieldset>
@@ -60,16 +69,7 @@ $pa = 0;
                     ?>
                 </h3>
             </fieldset>
-            <fieldset >
-                <?php
-                if (isset($_GET['date'])) {
-                    ?>
-                    <a style="font-size: 20px;" href='../views/service/reception/pdf_reception_inventory.php?date=<?= $_GET['date'] ?>' target="_blank" class="btn btn-primary pull-left">Print in PDF</a>
-                    <?php
-                }
-                ?>
-
-            </fieldset>
+            
             <br>
             <fieldset>
                 <legend>Receipts</legend>
@@ -147,7 +147,7 @@ $pa = 0;
                                     $somme_prix_biens = 0;
                                     $s = 0;
                                     $bdravitaillement = new BdRavitaillement();
-                                    $ravitaillements = $bdravitaillement->getRavitaillementByIdBiensMore($bien['bId'],'ORDER BY s.id DESC Limit 3');
+                                    $ravitaillements = $bdravitaillement->getRavitaillementByIdBiensMore($bien['bId'],'ORDER BY s.id DESC Limit 1');
                                     foreach ($ravitaillements as $ravitaillement) {
                                         $s++;
                                         $somme_prix_biens = $somme_prix_biens + $ravitaillement['prix'];
@@ -155,7 +155,7 @@ $pa = 0;
                                     
 
                                     if (isset($_GET['autres_place']) and $_GET['autres_place'] != '00') {
-                                        $autrePrix = $DB->getWhereMultipleMore(' * FROM receptionautreprix',' bien_id = '.$bien['bId'].'',' Limit 3');
+                                        $autrePrix = $DB->getWhereMultipleMore(' * FROM receptionautreprix',' bien_id = '.$bien['bId'].'',' Limit 1');
                                         $countRow = count($autrePrix);
                                         if ($countRow > 0) {
                                             foreach ($autrePrix as $key => $value) {

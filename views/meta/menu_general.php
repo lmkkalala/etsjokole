@@ -49,7 +49,7 @@ include '../models/entreprise/entreprise.php';
             <div class="row text-white"> 
                 <div class="col-md-8 pt-1">
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-md-5">
                             <span class="fa fa-unlock" style="font-size: 20px;"></span>
                             <span class="h6">
                                 <?php
@@ -77,9 +77,9 @@ include '../models/entreprise/entreprise.php';
                             <!-- <span class="glyphicon glyphicon-chevron-right" style="color: forestgreen; font-size: 10px;margin-top: 10px;"></span> -->
                             <!-- <span class="fa fa-user" style="font-size: 20px;"></span> -->
                         </div>
-                        <div class="col-8">
+                        <div class="col-md-7">
                             <?php
-                                if ($type != "personnel" and $type != "membre" and $type != "other") {
+                                if ($type != "personnel" and $type != "membre" and $type != "other" and $type == "administration") {
                             ?>
                             <span class="mx-4">
                                 <a class="btn" href="/views/home.php?link=<?= sha1("logistique_demande_liste_demande_encours")?>&link_up=<?= sha1("home_logistique_demande")?>">

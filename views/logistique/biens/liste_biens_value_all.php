@@ -144,7 +144,7 @@ include '../models/unite/unite.php';
                                     $somme_prix_biens = 0;
                                     $s = 0;
                                     $bdravitaillement = new BdRavitaillement();
-                                    $ravitaillements = $bdravitaillement->getRavitaillementByIdBiensMore($bien['bId'],'ORDER BY s.id DESC Limit 3');
+                                    $ravitaillements = $bdravitaillement->getRavitaillementByIdBiensMore($bien['bId'],'ORDER BY s.id DESC Limit 1');
                                     
                                     foreach ($ravitaillements as $ravitaillement) {
                                         $s++;

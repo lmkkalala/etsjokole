@@ -44,13 +44,13 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2 text-start mt-3 mb-3">
-            <h3 class="text-primary">LES FACTURES </h3>
+            <h3 class="text-secondary">LES FACTURES </h3>
         </div>
     
-        <div class="col-md-8 mt-3">
+        <div class="col-md-10 mt-3">
           <form action="" method="post" id="FilterForm">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-12 mt-2">
                         <select class="form-control" name="Agent" id="Agent">
                         <option value="">Selectionner Agent</option>
                           <?php
@@ -66,21 +66,21 @@
                           ?>
                       </select>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-12 mt-2">
                       <input class="form-control" type="date" name="filterDate_start" id="filterDate_start">
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-12 mt-2">
                       <input class="form-control" type="date" name="filterDate_end" id="filterDate_end">
                     </div>
-                    <div class="col-md-3">
-                    <input type="hidden" name="FilterFormFacture" id="FilterFormFacture">
-                      <button class="btn btn-primary w-100 text-white" type="submit"><i class="fa fa-search"></i> Rechercher</button>
+                    <div class="col-md-3 col-12 mt-2">
+                      <input type="hidden" name="FilterFormFacture" id="FilterFormFacture">
+                      <button class="btn btn-secondary w-100 text-white" type="submit"><i class="fa fa-search"></i> Rechercher</button>
                     </div>
                 </div>
           </form>
         </div>
         <div class="col-md-2 col-sm-12 mt-3 mb-3 text-end">
-            <button class="btn btn-primary w-100 text-white" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">PAYER FACTURE</button>
+            <button class="btn btn-secondary w-100 text-white" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">PAYER FACTURE</button>
         </div>
         <div class="col-12">
             <table id="dette_list" class="display" style="width:100%">

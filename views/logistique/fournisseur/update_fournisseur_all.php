@@ -48,36 +48,36 @@ include '../models/fournisseur/fournisseur.php';
                 ?>
                 <table id="list_fournisseur_update" class="table table-bordered table-responsive-lg">
                     <thead>
-                    <th>
-                        N°
-                    </th>
-                    <th>
-                        Désignation
-                    </th>
-                    <th>
-                        Domaine
-                    </th>
-                    <th>
-                        Adresse
-                    </th>
-                    <th>
-                        Ville
-                    </th>
-                    <th>
-                        Province
-                    </th>
-                    <th>
-                        Pays
-                    </th>
-                    <th>
-                        Tel.
-                    </th>
-                    <th>
-                        Email
-                    </th>
-                    <th>
-                        Opération
-                    </th>
+                        <th>
+                            N°
+                        </th>
+                        <th>
+                            Désignation
+                        </th>
+                        <th>
+                            Domaine
+                        </th>
+                        <th>
+                            Adresse
+                        </th>
+                        <th>
+                            Ville
+                        </th>
+                        <th>
+                            Province
+                        </th>
+                        <th>
+                            Pays
+                        </th>
+                        <th>
+                            Tel.
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            Opération
+                        </th>
                     </thead>
                     <tbody>
                         <?php
@@ -104,14 +104,24 @@ include '../models/fournisseur/fournisseur.php';
                                 </tr>
                             </div>
                         </form>
-                        <?php
+                    <?php
                     }
                     ?>
                     </tbody>
                     <tfoot>
-                    <td style="font-size: 20px;">
-                        <span>Nombre:</span><span><?= $n ?></span>
-                    </td>
+                        <td style="font-size: 20px;">
+                            <span><?= $n ?></span>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        
                     </tfoot>
                 </table>
             </fieldset>

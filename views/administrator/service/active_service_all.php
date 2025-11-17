@@ -110,9 +110,10 @@ include '../models/service/service.php';
                         ?>
                     </tbody>
                     <tfoot>
-                    <td style="font-size: 20px;">
-                        <span>Number : </span><span><?= $n ?></span>
-                    </td>
+                        <td style="font-size: 20px;"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tfoot>
                 </table>
             </fieldset>

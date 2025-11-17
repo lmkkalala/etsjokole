@@ -21,7 +21,7 @@ $dateEnd = '';
     </div>
     <div class="panel panel-body">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 mb-3">
                 <h4>Orders</h4>
                 <?php
                 if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("succes")))) {
@@ -68,14 +68,14 @@ $dateEnd = '';
                 ?>
                 <form action="../views/home.php?link=c70b0a92cc831c4da9cc276d3c52b00cc6c2eee1&link_up=1f920fef6c620c4660a748aae5dd44da9e74ba9b" method="post">
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-md-4 col-12">
                             <input class="form-control" type="date" name="dateStart" id="" value="<?=$dateStart?>">
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4 col-12">
                             <input class="form-control" type="date" name="dateEnd" id="" value="<?=$dateEnd?>">
                         </div>
-                        <div class="col-4">
-                            <input class="btn btn-info" type="submit" name="rechercher" id="rechercher" value="Rechercher">
+                        <div class="col-md-4 col-12">
+                            <input class="btn btn-secondary w-100" type="submit" name="rechercher" id="rechercher" value="Rechercher">
                         </div>
                     </div>
                 </form>
@@ -119,7 +119,7 @@ $dateEnd = '';
                                     </td>
                                     <td><input class="form-control" style="width: 100px;" type="date" name="tb_date" value="<?= $attribution['date'] ?>"></td>
                                     <td>
-                                        <select class="form-control" name="cb_biens">
+                                        <select class="form-control select2" name="cb_biens">
                                             <?php
                                             $bdbiens = new BdBiens();
                                             $biens = $bdbiens->getBiensAllDesc();
