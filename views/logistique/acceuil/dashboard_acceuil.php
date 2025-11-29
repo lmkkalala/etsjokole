@@ -5,6 +5,7 @@
  * and open the template in the editor.
  */
 include '../models/agent/agent.php';
+include '../models/crud/db.php';
 include '../models/service/service.php';
 include '../models/affectation-service/affectationService.php';
 include '../models/utilisateur/utilisateur.php';
@@ -145,6 +146,7 @@ include '../models/utilisateur/utilisateur.php';
     </div>
     <div class="row">
     <?php
+        $db = new DB();
         $n = 0;
         $lien = '';
         $reponse = '';
@@ -176,13 +178,30 @@ include '../models/utilisateur/utilisateur.php';
 
            if($utilisateur['type'] == 'other'){
             $n = $n + 1;
+            $mutations = $db->getWhereMultipleMore(' * FROM mutation ', 'id = '.$utilisateur['mutation_id'].' AND active = 1', ' ORDER BY id ASC');
+            foreach($mutations as $mutation){
+                $agent_id = $mutation['agent_id'];
+                $agent = $db->getWhereMultipleMore(' * FROM agent ', 'id = '.$agent_id.' AND active = 1', ' ORDER BY id ASC');
+                    if (count($agent) > 0) {
+                    $grade = $agent[0]['grade'];
+                        if ($grade == "Depot" or $grade == "depot" ) {            
     ?>
-        <div class="col-sm-12 col-md-3">
-            <a class="btn btn mt-2 w-100 bg-mine-dash text-uppercase" href="<?=$lien?>"  rel="noopener noreferrer"> <i class="fa fa-shop"></i> <?=$utilisateur['nomUtilisateur']?></a>
-        </div>
+    <div class="col-sm-12 col-md-3">
+        <a class="btn btn mt-2 w-100 bg-mine-dash text-uppercase" href="<?=$lien?>"  rel="noopener noreferrer"> <i class="fa fa-shop"></i> <?=$utilisateur['nomUtilisateur']?></a>
+    </div>
     <?php
+                        }else if($grade == "Seller" or $grade == "Seller"){
+    ?>
+    <div class="col-sm-12 col-md-3">
+        <a class="btn btn mt-2 w-100 bg-mine-dash text-uppercase" href="<?=$lien?>"  rel="noopener noreferrer"> <i class="fa fa-money"></i> <?=$utilisateur['nomUtilisateur']?></a>
+    </div>
+    <?php                        
+
+                        }
+                    }
+                }
            }
-    }
+        }
     ?>
     </div>
 </div>

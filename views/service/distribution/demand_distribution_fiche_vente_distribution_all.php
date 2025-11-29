@@ -49,9 +49,6 @@ $DB = new DB();
                 if ((isset($_GET['use_date1']))) {
                 ?>
                     <a style="font-size: 20px;" href='../views/service/distribution/pdf_list_distribution.php?use_date1=<?= $_GET['use_date1'] . '&use_date2=' . $_GET['use_date2'] . '&use_service=' . $_GET['use'] . '&use_typerepas=' . $_GET['use_typerepas'] . '&use_identiteClient=' . $_GET['use_identiteClient'] ?>' class="btn btn-primary pull-left">Print in PDF</a>
-                    <?php
-                    ?>
-                    
                 <?php
                 }
                 ?>

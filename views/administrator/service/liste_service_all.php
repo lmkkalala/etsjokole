@@ -74,10 +74,8 @@ include '../models/service/service.php';
                         ?>
                     </tbody>
                     <tfoot>
-                    <td style="font-size: 20px;">
-                        
-                    </td>
-                    <td></td>
+                    <td style="font-size: 20px;"></td>
+                        <td></td>
                         <td></td>
                         <td></td>
                     </tfoot>

@@ -46,30 +46,30 @@ include '../models/agent/agent.php';
                 ?>
                 <table class="table table-bordered table-striped table-responsive-lg">
                     <thead>
-                    <th>
-                        N°
-                    </th>
-                    <th>
-                        Nom
-                    </th>
-                    <th>
-                        Postnom
-                    </th>
-                    <th>
-                        Prénom
-                    </th>
-                    <th>
-                        Sexe
-                    </th>
-                    <th>
-                        Grade
-                    </th>
-                    <th>
-                        Etat
-                    </th>
-                    <th>
-                        Opération
-                    </th>
+                        <th>
+                            N°
+                        </th>
+                        <th>
+                            Nom
+                        </th>
+                        <th>
+                            Postnom
+                        </th>
+                        <th>
+                            Prénom
+                        </th>
+                        <th>
+                            Sexe
+                        </th>
+                        <th>
+                            Grade
+                        </th>
+                        <th>
+                            Etat
+                        </th>
+                        <th>
+                            Opération
+                        </th>
                     </thead>
                     <tbody>
                         <?php
@@ -78,7 +78,7 @@ include '../models/agent/agent.php';
                         $agents = $bdagent->getAgentAllDesc();
                         foreach ($agents as $agent) {
                             $n++;
-                            ?>
+                        ?>
                             <tr>
                                 <td><?= $agent['id'] ?></td>
                                 <td><?= $agent['nom'] ?></td>
@@ -126,7 +126,7 @@ include '../models/agent/agent.php';
                         ?>
                     </tbody>
                     <tfoot>
-                        <td style="font-size: 20px;"></td>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>

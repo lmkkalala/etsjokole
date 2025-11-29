@@ -513,6 +513,7 @@ if (isset($_POST['bt_delete_lineDistribution'])) {
     $bddistribution = new BdDistribution();
     $bdlivraison = new BdLivraison();
     $distributions = $bddistribution->getDistributionById($iddistribution);
+    $time_sold = '';
     foreach ($distributions as $distribution) {
         $quantite_distribue = $distribution['nombre'];
         $panierDistribution=$distribution['panier'];
@@ -520,7 +521,7 @@ if (isset($_POST['bt_delete_lineDistribution'])) {
 
         $venteData = array(
             date('Y-m-d',$selling_time),
-            date('H:m:s',$selling_time),
+            date('H:i',$selling_time),
             $distribution['nombre'],
             $distribution['price'],
             $distribution['id'],
@@ -534,12 +535,27 @@ if (isset($_POST['bt_delete_lineDistribution'])) {
             $_SESSION['identite']
         );
 
+        $time_sold = $distribution['time'];
+        $date_sold = $distribution['date'];
+
         $livraisons = $bdlivraison->getLivraisonById($distribution['distribution_id']);
         foreach ($livraisons as $livraison) {
             $idbiens = $livraison['bId'];
             $quantiteActuelleLiv = $livraison['quantite_actuelle'];
             
         }
+    }
+
+    $today_time = strtotime(" 1970-01-01 ".date('H:i:s',$selling_time)." ");
+    $old_time = strtotime(" 1970-01-01 ".$time_sold." ");
+    $time_diff = floor(($today_time - $old_time)%3600)/60;
+
+    // echo date('Y-m-d')." - ".$date_sold ." - ".$_SESSION['grade']." - ".$time_diff;
+    // return;
+
+    if (date("Y-m-d") != $date_sold and $time_diff >= 120 and $_SESSION['grade'] == 'Seller') {
+        echo json_encode(array('message'=>' Vous avez depasser le temps de suppression d\'un facture contact l\'IT ou un administrateur pour cette operation.','status'=>'traitement_error')); 
+        return;
     }
     
     $bdunite = new BdUnite();
@@ -623,7 +639,7 @@ if (isset($_POST['bt_search_by_service'])) {
     $autres_place = securise($_POST['autres_place']);
 
     if ($_SESSION['type'] == "logistique") {
-        header('Location:../../views/home.php?link=' . sha1($link) . '&use=' . ($motcle) . '&use2=' . ($motcle2) . '&use_date1=' . ($date1) . '&use_date2=' . ($date2) . '&use_typerepas=' . ($typerepas) . '&use_identiteClient=' . ($identiteClient) . '&link_up=' . sha1("home_logistique_livraison") .'& autres_place='.$autres_place);
+        header('Location:../../views/home.php?link=' . sha1($link) . '&use=' . ($motcle) . '&use2=' . ($motcle2) . '&use_date1=' . ($date1) . '&use_date2=' . ($date2) . '&use_typerepas=' . ($typerepas) . '&use_identiteClient=' . ($identiteClient) . '&link_up=' . sha1("home_service_distribution") .'& autres_place='.$autres_place);
     } else {
         header('Location:../../views/home.php?link=' . sha1($link) . '&use=' . ($motcle) . '&use2=' . ($motcle2) . '&use_date1=' . ($date1) . '&use_date2=' . ($date2) . '&use_typerepas=' . ($typerepas) . '&use_identiteClient=' . ($identiteClient) . '&link_up=' . sha1("home_service_distribution") .'& autres_place='.$autres_place);
     }

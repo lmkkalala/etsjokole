@@ -67,7 +67,7 @@ if (isset($_POST['bt_enregistrer'])) {
 
     $idpreparation = securise($_POST['tb_idpreparation']);
 
-//    echo $date; die;
+    // echo $date; die;
 
     if ($iddemande != 0 && $idaffectation != 0 && $date != "" && floatval($quantite) > 0 && $idpreparation != 0) {
 
@@ -81,13 +81,13 @@ if (isset($_POST['bt_enregistrer'])) {
 
         $demandes = $bddemande->getDemandeById($iddemande);
 
-//        echo $iddemande; die;
+        // echo $iddemande; die;
 
         foreach ($demandes as $demande) {
 
             $idbiens = $demande['bId'];
 
-//            echo $demande['dQuantite']; die;
+            //echo $demande['dQuantite']; die;
 
             $demande_quantite = $demande['dQuantite'];
 
@@ -95,7 +95,7 @@ if (isset($_POST['bt_enregistrer'])) {
 
         }
 
-//        echo $newquantite; die;
+        //echo $newquantite; die;
 
         if (($quantite <= $demande_quantite) && ($quantite_actuel_biens > 0)) {
 

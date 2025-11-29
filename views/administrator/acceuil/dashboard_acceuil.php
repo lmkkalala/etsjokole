@@ -210,6 +210,7 @@ include '../models/utilisateur/utilisateur.php';
                                             <td style="color: orange">
                                                 <b>
                                                     <?php
+                                                    $n = 0;
                                                     $affectations=$bdaffectation->getAffectationServiceAllDescDesactive();
                                                     foreach ($affectations as $affectation) {
                                                         $n++;

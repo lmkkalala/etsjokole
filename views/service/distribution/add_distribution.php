@@ -252,6 +252,13 @@ $DB = new DB();
                                             }
                                         }
                                     }
+
+                                    $readonly = '';
+
+                                    if ($_SESSION['PEdit'] == 0) {
+                                         $readonly = 'readonly';
+                                    }
+
                                     ?>
                                 </select>
                             </td>
@@ -264,7 +271,7 @@ $DB = new DB();
                         <tr>
                             <td>
                                 <label class="control-label">PU vente :</label>
-                                <input class="form-control" type="text" name="tb_price" id="tb_price" placeholder="Unit price (USD)" required>
+                                <input class="form-control" type="text" name="tb_price" id="tb_price" placeholder="Unit price (USD)" <?=$readonly?> required>
                             </td>
                             <td>
                                 <label class="control-label mt-4">Type :</label>

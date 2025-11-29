@@ -74,9 +74,7 @@ include '../models/utilisateur/utilisateur.php';
                         ?>
                     </tbody>
                     <tfoot>
-                        <td style="font-size: 20px;">
-                            
-                        </td>
+                        <td style="font-size: 20px;"></td>
                         <td></td>
                         <td></td>
                         <td></td>

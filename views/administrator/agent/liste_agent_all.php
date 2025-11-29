@@ -117,7 +117,7 @@ include '../models/agent/agent.php';
                         ?>
                     </tbody>
                     <tfoot>
-                    <td style="font-size: 20px;"></td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>

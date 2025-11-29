@@ -49,11 +49,11 @@
             </div>
             <div class="col-md-6 col-12 mt-2">
                 <label class="control-label">Starting date : </label>
-                <input type="date" class="form-control" name="tb_date1">
+                <input type="date" class="form-control" name="tb_date1" value="<?=isset($_GET['use_date1']) ? $_GET['use_date1'] : ''?>">
             </div>
             <div class="col-md-6 col-12 mt-2">
                 <label class="control-label">Ending date :</label>
-                <input type="date" class="form-control" name="tb_date2">
+                <input type="date" class="form-control" name="tb_date2" value="<?=isset($_GET['use_date2']) ? $_GET['use_date2'] : ''?>">
             </div>
             <div class="col-md-6 col-12 mt-2">
                 <label class="control-label">Type :</label>

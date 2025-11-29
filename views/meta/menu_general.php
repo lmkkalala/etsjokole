@@ -79,7 +79,7 @@ include '../models/entreprise/entreprise.php';
                         </div>
                         <div class="col-md-7">
                             <?php
-                                if ($type != "personnel" and $type != "membre" and $type != "other" and $type == "administration") {
+                                if ($type != "personnel" and $type != "membre" and $type != "other" and $type == "administration" or $type == "admin" or $type == "logistique") {
                             ?>
                             <span class="mx-4">
                                 <a class="btn" href="/views/home.php?link=<?= sha1("logistique_demande_liste_demande_encours")?>&link_up=<?= sha1("home_logistique_demande")?>">

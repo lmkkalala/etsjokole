@@ -19,23 +19,28 @@ function securise($donnee) {
 }
 
 if (isset($_POST['bt_enregistrer'])) {
-    $idbiens = securise($_POST['cb_biens']);
-    $idaffectation = securise($_POST['tb_idaffectation']);
-    $date = securise($_POST['tb_date']);
-    $quantite = securise($_POST['tb_quantite']);
-    $description = securise($_POST['description']);
-    $qualiteDemandeur= securise($_SESSION['type']);
-    $idpreparation= securise($_POST['tb_idpreparation']);
-    if ($idbiens != 0 && $idaffectation != 0 && $date != "" && $quantite > 0 && $qualiteDemandeur != "" && $idpreparation!=0) {
-        $bddemande=new BdDemande();
-        if ($bddemande->addDemande($date, $quantite,$idbiens, $idaffectation,$qualiteDemandeur,$idpreparation,$description)) {
-            $error = "succes";
+    if ($_SESSION['grade']=="Seller" or $_SESSION['grade']=="seller") {
+        $error = "traitement_error";
+    }else{
+        $idbiens = securise($_POST['cb_biens']);
+        $idaffectation = securise($_POST['tb_idaffectation']);
+        $date = securise($_POST['tb_date']);
+        $quantite = securise($_POST['tb_quantite']);
+        $description = securise($_POST['description']);
+        $qualiteDemandeur= securise($_SESSION['type']);
+        $idpreparation= securise($_POST['tb_idpreparation']);
+        if ($idbiens != 0 && $idaffectation != 0 && $date != "" && $quantite > 0 && $qualiteDemandeur != "" && $idpreparation!=0) {
+            $bddemande=new BdDemande();
+            if ($bddemande->addDemande($date, $quantite,$idbiens, $idaffectation,$qualiteDemandeur,$idpreparation,$description)) {
+                $error = "succes";
+            } else {
+                $error = "traitement_error";
+            }
         } else {
-            $error = "traitement_error";
+            $error = "remplissage_error";
         }
-    } else {
-        $error = "remplissage_error";
     }
+    
     header('Location:../../views/home.php?link=' . sha1("service_demande_add") .  '&use_preparation=' . ($idpreparation).'&reponse=' . sha1($error) . '&link_up=' . sha1("home_service_demande")."#selectProduct");
     die;
     
