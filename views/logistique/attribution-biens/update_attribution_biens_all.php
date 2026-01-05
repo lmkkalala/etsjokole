@@ -7,8 +7,8 @@
 include '../models/attribution-biens/attributionBiens.php';
 include '../models/biens/biens.php';
 include '../models/fournisseur/fournisseur.php';
-$dateStart = '';
-$dateEnd = '';
+$dateStart = date('mm/dd/yyyy',time());
+$dateEnd = date('mm/dd/yyyy',time());
 ?>
 <div class="panel">
     <div class="panel panel-heading">
@@ -69,13 +69,13 @@ $dateEnd = '';
                 <form action="../views/home.php?link=c70b0a92cc831c4da9cc276d3c52b00cc6c2eee1&link_up=1f920fef6c620c4660a748aae5dd44da9e74ba9b" method="post">
                     <div class="row">
                         <div class="col-md-4 col-12">
-                            <input class="form-control" type="date" name="dateStart" id="" value="<?=$dateStart?>">
+                            <input class="form-control mt-2" type="date" name="dateStart" id="" value="<?=$dateStart?>">
                         </div>
                         <div class="col-md-4 col-12">
-                            <input class="form-control" type="date" name="dateEnd" id="" value="<?=$dateEnd?>">
+                            <input class="form-control mt-2" type="date" name="dateEnd" id="" value="<?=$dateEnd?>">
                         </div>
                         <div class="col-md-4 col-12">
-                            <input class="btn btn-secondary w-100" type="submit" name="rechercher" id="rechercher" value="Rechercher">
+                            <input class="btn btn-secondary mt-2 w-100" type="submit" name="rechercher" id="rechercher" value="Rechercher">
                         </div>
                     </div>
                 </form>

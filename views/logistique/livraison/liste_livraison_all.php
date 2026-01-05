@@ -342,7 +342,7 @@ include '../models/biens/biens.php';
                                             ?>
                                         </td>
                                         <?php
-//                                      $chaine_part_ravitaillement;
+                                        //$chaine_part_ravitaillement;
                                         $somme_prix_biens = 0;
                                         $s = 0;
                                         $bdravitaillement = new BdRavitaillement();

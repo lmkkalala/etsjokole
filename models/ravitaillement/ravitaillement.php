@@ -131,6 +131,14 @@ class BdRavitaillement
         $reponse->closeCursor();
     }
 
+    function getRavitaillementAllData($where = '')
+    {
+        $bd = Connexion::connecter();
+        $reponse = $bd->query('SELECT S.*,S.date as Sdate, S.id as Sid, S.quantite as Squatite, S.prix as Sprix, B.designation as Bdesignation,F.designation as Fdesignation, AB.quantite_minimale as Qmin, AB.prixunitaire as ABprix FROM stockage S '.$where.' ORDER BY S.id DESC');
+        return $reponse->fetchAll();
+        $reponse->closeCursor();
+    }
+
     function getRavitaillementAllDescSummary()
     {
         $bd = Connexion::connecter();
