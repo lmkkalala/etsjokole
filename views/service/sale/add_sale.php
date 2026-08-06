@@ -121,58 +121,58 @@ if ($info_customer != '') {
 ?>
 <form class="form-horizontal" method="POST" action="../contollers/sale/saleController.php">
     <table class="table">
-            <tr>
-                <td>
-                <div class="form-group-lg">
-                    <div class="input-group-lg">
-                        <label class="control-label">Numero Vente :</label>
-                        <?php
-                        $bdSale = new BdSale();
-                        $recentId = 0;
-                        $sales = $bdSale->getSaleRecent();
-                        foreach ($sales as $sale) {
-                        $recentId = $sale['recentId'];
-                        }
+    <tr>
+        <td>
+<div class="form-group-lg">
+    <div class="input-group-lg">
+        <label class="control-label">Numero Vente :</label>
+        <?php
+        $bdSale = new BdSale();
+        $recentId = 0;
+        $sales = $bdSale->getSaleRecent();
+        foreach ($sales as $sale) {
+        $recentId = $sale['recentId'];
+        }
 
-                        if (!(isset($_GET['use_sale']))) {
-                        $saleId = ($recentId + 1); ?>
-                        <input type="text" class="form-control" name="tb_saleId" value="<?= $saleId; ?>">
-                        <div class="input-group-lg">
-                            <label class="control-label">Date :</label>
-                            <input type="date" class="form-control" name="tb_date" value="<?=date('Y-m-d')?>">
+        if (!(isset($_GET['use_sale']))) {
+        $saleId = ($recentId + 1); ?>
+        <input type="text" class="form-control" name="tb_saleId" value="<?= $saleId; ?>">
+        <div class="input-group-lg">
+            <label class="control-label">Date :</label>
+            <input type="date" class="form-control" name="tb_date" value="<?=date('Y-m-d')?>">
+        </div>
+        <?php
+        } else {
+        $saleId = $_GET['use_sale']; ?>
+        <p><strong><?= $saleId; ?></strong></p>
+        <?php
+        } ?>    
+        <input type="hidden" name="tb_customerId" value="<?= $_GET['use_customer']; ?>">
+        
+    </div>
+</div>
+                    </td>
+                    <td>
+                        <div style="margin: 10px;" class="form-group-sm">
+                            <?php
+                            if (!(isset($_GET['use_sale']))) {
+                                ?>
+                            <div>
+                                <input class="btn btn-primary" type="submit" name="bt_valider_sale" value="Valider">
+                            </div>
+                            <?php
+                            } else {
+                            ?>
+                            <input class="btn btn-danger" type="submit" name="bt_reset_sale" value="Réinitialiser">
+                            <a style="font-size: 20px;" href='../views/service/sale/pdf_facture.php?use_sale=<?= $_GET['use_sale']?>' class="btn btn-primary pull-right">Imprimer facture</a>
+                            <?php
+                            } 
+                            ?> 
                         </div>
-                        <?php
-                        } else {
-                        $saleId = $_GET['use_sale']; ?>
-                        <p><strong><?= $saleId; ?></strong></p>
-                        <?php
-                        } ?>    
-                        <input type="hidden" name="tb_customerId" value="<?= $_GET['use_customer']; ?>">
-                        
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div style="margin: 10px;" class="form-group-sm">
-                    <?php
-                    if (!(isset($_GET['use_sale']))) {
-                        ?>
-                    <div>
-                        <input class="btn btn-primary" type="submit" name="bt_valider_sale" value="Valider">
-                    </div>
-                    <?php
-                    } else {
-                    ?>
-                    <input class="btn btn-danger" type="submit" name="bt_reset_sale" value="Réinitialiser">
-                    <a style="font-size: 20px;" href='../views/service/sale/pdf_facture.php?use_sale=<?= $_GET['use_sale']?>' class="btn btn-primary pull-right">Imprimer facture</a>
-                    <?php
-                    } 
-                    ?> 
-                </div>
-            </td>
-        </tr>
-    </table>
-</form>
+                    </td>
+                </tr>
+            </table>
+    </form>
 <?php
 }
 ?>
@@ -180,7 +180,7 @@ if ($info_customer != '') {
 
 <hr>
 <?php
-    if (isset($_GET['use_sale'])) {
+if (isset($_GET['use_sale'])) {
 ?>
 <form class="form-horizontal" method="POST" action="../contollers/sale/saleController.php">
 <div>
@@ -211,7 +211,7 @@ if ($info_customer != '') {
     <?php
         } 
     }
-    ?>                                       
+ ?>                                       
     </select>
     </div>
 </td>

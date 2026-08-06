@@ -33,14 +33,14 @@ include './meta/menu_service.php';
                 <div class="col-lg-12" style="padding: 10px;height: 80vh;overflow: auto;">
                     <h5 class="text-secondary fw-bolder">LES OPERATIONS</h5>
                     <div class="row">
-                        <div class="col-md-4 mt-1">
-                            <a class="btn btn-secondary text-white" style="font-size: 20px; padding: 60px; " href="/views/home.php?link_up=<?= sha1("home_service_demande") ?>"><span style="font-size: 50px; margin: 10px;" class="fa fa-list"></span>Réquisition</a>
+                        <div class="col-md-3 mt-1">
+                            <a class="btn btn-secondary text-white" style="font-size: 20px; padding: 60px; " href="/views/home.php?link_up=<?= sha1("home_service_demande") ?>"><span style="font-size: 70px; margin: 20px;" class="fa fa-list"></span>Réquisition</a>
                         </div>
-                        <div class="col-md-4 mt-1">
-                            <a class="btn btn-secondary text-white" style="font-size: 20px; padding: 60px;" href="/views/home.php?link_up=<?= sha1("home_service_preparation") ?>"><span style="font-size: 50px; margin: 10px;" class="fa fa-calculator"></span>Activité</a>
+                        <div class="col-md-3 mt-1">
+                            <a class="btn btn-secondary text-white" style="font-size: 20px; padding: 60px;" href="/views/home.php?link_up=<?= sha1("home_service_preparation") ?>"><span style="font-size: 70px; margin: 20px;" class="fa fa-calculator"></span>Activité</a>
                         </div>
-                        <div class="col-md-4 mt-1">
-                            <a class="btn btn-secondary text-white" style="font-size: 20px; padding: 60px;" href="/views/home.php?link_up=<?= sha1("home_service_reception") ?>"><span style="font-size: 50px; margin: 10px;" class="fa fa-download"></span>Entrée</a>
+                        <div class="col-md-3 mt-1">
+                            <a class="btn btn-secondary text-white" style="font-size: 20px; padding: 60px;" href="/views/home.php?link_up=<?= sha1("home_service_reception") ?>"><span style="font-size: 70px; margin: 20px;" class="fa fa-download"></span>Entrée</a>
                         </div>
                     </div>
                 </div>

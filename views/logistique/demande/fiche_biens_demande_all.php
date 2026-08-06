@@ -23,39 +23,37 @@ include '../models/preparation/preparation.php';
                 <legend>Taper le mot-clé de la recherche :</legend>
                 <form class="form-inline" method="POST" action="../contollers/demande/demandeController.php">
                     <div class="row form-group-lg">
-                        <div class="col-md-8">
-                            <input type="text" class="form-control" name="tb_search" placeholder="Mot-clé">  
+                        <div class="col">
+                        <input type="text" class="form-control" name="tb_search" placeholder="Mot-clé">  
                         </div>
-                        <div class="col-md-4">
-                        <button type="submit" class="btn btn-success w-100" name="bt_search_for_biens_logistique">
-                            <span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher
-                        </button>
+                        <div class="col-6">
+                        <button type="submit" class="btn btn-success" name="bt_search_for_biens_logistique"><span class="glyphicon glyphicon-search" style="color: white; font-size: 30px;margin-right: 5px;"></span></button>
                         </div>                          
                     </div>
                 </form>
             </fieldset>
             <fieldset>
                 <legend>Liste des biens/produits</legend>
-                <table id="listdatabyid" class="table table-bordered table-responsive-lg">
+                <table class="table table-bordered table-responsive-lg">
                     <thead>
-                        <th>
-                            N°
-                        </th>
-                        <th>
-                            Catégorie
-                        </th>
-                        <th>
-                            Désignation
-                        </th>
-                        <th>
-                            Marque
-                        </th>
-                        <th>
-                            Périssable
-                        </th>
-                        <th>
-                            Opération
-                        </th>
+                    <th>
+                        N°
+                    </th>
+                    <th>
+                        Catégorie
+                    </th>
+                    <th>
+                        Désignation
+                    </th>
+                    <th>
+                        Marque
+                    </th>
+                    <th>
+                        Périssable
+                    </th>
+                    <th>
+                        Opération
+                    </th>
                     </thead>
                     <tbody>
                         <?php
@@ -97,16 +95,9 @@ include '../models/preparation/preparation.php';
                         ?>
                     </tbody>
                     <tfoot>
-                        <tr>
-                            <td style="font-size: 20px;">
-                                <span><?= $n ?></span>
-                            </td>
-                            <td><span>Nombre:</span></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                    <td style="font-size: 20px;">
+                        <span>Nombre:</span><span><?= $n ?></span>
+                    </td>
                     </tfoot>
                 </table>
             </fieldset>

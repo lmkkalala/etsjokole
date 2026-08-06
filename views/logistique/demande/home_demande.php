@@ -8,29 +8,11 @@
 <?php
 include './meta/menu_logistique.php';
 ?>
-<style>
-#menu-gauche {
-    border-right-style: solid;
-    border-right-color: black;
-}
-
-#menu-gauche ul li {
-    padding: 8px;
-}
-
-#menu-gauche ul li a {
-    text-decoration: none;
-}
-
-#menu-gauche ul li span {
-    margin-right: 5px;
-}
-</style>
 <div class="row" style="padding: 10px;">
     <div class="col-md-12" style="background-color: whitesmoke;border-radius: 5px; height: 90vh;">
         <div class="container-fluid">
             <div class="row">
-                <div id="menu-gauche" class="col-md-2 col-lg-2">
+                <div id="menu-gauche" class="col-lg-3">
                     <ul class="list-menu list-unstyled" style="font-size: 20px;">
                         <li class="list-inline-item"><span style="color: orange;font-size: 20px;" class="glyphicon glyphicon-list"></span><a href="/views/home.php?link=<?= sha1("logistique_demande_liste_demande_all")?>&link_up=<?= sha1("home_logistique_demande")?>">Liste de toutes les commandes</a></li>
                         <li class="list-inline-item"><span style="color: red;font-size: 20px;" class="glyphicon glyphicon-list"></span><span style="color: red;font-size: 20px;" class="glyphicon glyphicon-time"></span><a href="/views/home.php?link=<?= sha1("logistique_demande_liste_demande_encours")?>&link_up=<?= sha1("home_logistique_demande")?>">Liste des demandes encours</a></li>
@@ -39,8 +21,25 @@ include './meta/menu_logistique.php';
                         <li class="list-inline-item"><span style="color: #0069d9;font-size: 20px;" class="glyphicon glyphicon-file"></span><a href="/views/home.php?link=<?= sha1("logistique_demande_fiche_service_demande_all")?>&link_up=<?= sha1("home_logistique_demande")?>">Fiche de demandes par service</a></li>
                     </ul>
                 </div>
-                
-                <div id="main_container" class="col-md-10 col-lg-10 mb-5" style="padding: 10px;overflow: auto;">
+                <style>
+                    #menu-gauche {
+                        border-right-style: solid;
+                        border-right-color: black;
+                    }
+
+                    #menu-gauche ul li {
+                        padding: 8px;
+                    }
+
+                    #menu-gauche ul li a {
+                        text-decoration: none;
+                    }
+
+                    #menu-gauche ul li span {
+                        margin-right: 5px;
+                    }
+                </style>
+                <div class="col-lg-9" style="padding: 10px;height: 80vh;overflow: auto;">
                     <?php
                     if (isset($_GET['link'])) {
                         if ($_GET['link']== sha1("logistique_demande_liste_demande_all")) {

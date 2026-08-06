@@ -27,11 +27,11 @@ class BdRecuperation {
         }
     }
 
-    function addRecuperationData($date, $quantite,$old_quantite, $iddistribution, $idagent,$bienid,$addbyid, $description = '') {
+    function addRecuperationData($date, $quantite,$old_quantite, $iddistribution, $idagent,$bienid,$addbyid) {
         try {
             $bd = Connexion::connecter();
-            $query = $bd->prepare("INSERT INTO recuperation(date,quantite_recuperer,description,quantite_old,agent_id,bien_id,command_id,addedbyID) VALUES(?,?,?,?,?,?,?,?)");
-            $query->execute([$date, $quantite,$description,$old_quantite, $idagent,$bienid,$iddistribution,$addbyid]);
+            $query = $bd->prepare("INSERT INTO recuperation(date,quantite_recuperer,quantite_old,agent_id,bien_id,command_id,addedbyID) VALUES(?,?,?,?,?,?,?)");
+            $query->execute([$date, $quantite,$old_quantite, $idagent,$bienid,$iddistribution,$addbyid]);
             $query->closeCursor();
             return TRUE;
         } catch (Exception $ex) {

@@ -65,7 +65,7 @@ include '../models/preparation/preparation.php';
                                 <td>
                                     <form method="post" action="../contollers/demande/demandeController.php">
                                         <input type = "hidden" name = "tb_idservice" value ="<?= $service['id'] ?>">
-                                        <button type="submit" class="btn btn-primary" name="bt_view_for_service"><span class="glyphicon glyphicon-file" style="color: white; font-size: 15px;margin-right: 5px;"></span></button>
+                                        <button type="submit" class="btn btn-primary" name="bt_view_for_service"><span class="fa fa-angle-double-right" style="color: white; font-size: 20px;margin-right: 5px;"></span></button>
                                     </form>
                                 </td>
                                 </tr>
@@ -75,14 +75,9 @@ include '../models/preparation/preparation.php';
                         ?>
                         </tbody>
                         <tfoot>
-                            <tr>
-                                <td style="font-size: 20px;">
-                                <span><?= $n ?></span>
-                                </td>
-                                <td> <span>Nombre:</span></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                        <td style="font-size: 20px;">
+                            <span>Nombre:</span><span><?= $n ?></span>
+                        </td>
                         </tfoot>
                     </table>
                 </fieldset>

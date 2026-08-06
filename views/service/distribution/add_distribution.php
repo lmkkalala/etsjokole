@@ -11,8 +11,6 @@ include '../models/distribution/distribution.php';
 include '../models/demande/demande.php';
 include '../models/ventePOS/VentePOS.php';
 include '../models/service/service.php';
-include '../models/crud/db.php';
-$DB = new DB();
 ?>
 <div class="panel">
     <div class="panel panel-heading">
@@ -127,7 +125,7 @@ $DB = new DB();
                             if (isset($_SESSION['mSeller'])) {
                                 if ($_SESSION['mSeller'] == 1) {
                         ?>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label class="control-label">Choisir Depot :</label>
                             <select class="form-control select2" name="service_id">
                                 <option value="<?=$_SESSION['idservice']?>" selected><?=(isset($_GET['seller_name'])? $_GET['seller_name']:'Choisir un POS/Departement/Service')?></option>
@@ -142,7 +140,6 @@ $DB = new DB();
                                 ?>
                             </select>
                         </div>
-                        
                         <?php
                                 }else{
                         ?>
@@ -154,27 +151,12 @@ $DB = new DB();
                             <input type="hidden" name="service_id" value="<?=$_SESSION['idservice']?>">
                         <?php
                             }
-                            $selected = isset($_GET['address']) ? 'selected' : '';
-                            $lieu = isset($_GET['address']) ? htmlentities($_GET['address']) : 'Kamanyola';
                         ?>
-                        <div class="col-md-4">
-                            <label class="control-label">Address Depot :</label>
-                            <select class="form-control select2" name="address_id">
-                                <option value="Kamanyola" <?=$selected?> ><?=$lieu?></option>
-                                <?php
-                                    $LieuDataList = $DB->get('lieureception');
-                                    if (count($LieuDataList) != 0) {
-                                        foreach ($LieuDataList as $key => $value) {
-                                ?>
-                                <option value="<?=$value['lieu']?>"><?=$value['lieu']?></option>
-                                <?php } } ?>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label class="control-label">Date :</label>
                             <input class="form-control" type="date" name="tb_use_date" value="<?= $date ?>" required>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <?php
                                 $recentIdVentePOS=0;
                                 $bdVentePOS=new BdVentePOS();
@@ -187,24 +169,24 @@ $DB = new DB();
                                 }
                                 
                             ?>
-                            <label class="control-label">Numéro vente : </label>
+                            <label class="control-label">Numéro vente</label>
                             <input type="text" class="form-control" name="tb_venteposId" value="<?= ($displayedVentePOSId) ?>">
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label class="control-label">Identité client :</label>
                             <input class="form-control" type="text" name="tb_use_identiteClient" value="<?= @$_GET['use_identiteClient'] ?>" required>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <!-- <input type="hidden" name="tb_use_date" value="<?= $date ?>"> -->
                             <input type="hidden" name="tb_idaffectation" value="<?= @$_SESSION['idaffectation'] ?>">
                             <input type="hidden" name="tb_use_typerepas" value="<?= $typeRepat ?>">
                             <input class="btn btn-primary w-100 mt-4" type="submit" name="bt_valider_ventePOS" value="Valider">
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-4">
                             <?php
-                                if (isset($_GET['use_ventePOS']) and isset($_GET['seller_name']) and isset($_GET['address'])) {
+                                if (isset($_GET['use_ventePOS']) and isset($_GET['seller_name'])) {
                             ?>  
-                                <a style="font-size: 15px;" href='../views/service/distribution/pdf_facture.php?use_ventePOS=<?= $_GET['use_ventePOS']?>&use_identiteClient=<?= $_GET['use_identiteClient'] ?>&seller=<?=htmlspecialchars($_GET['seller_name'])?>&service=<?=htmlspecialchars($_GET['service'])?>&address=<?=htmlspecialchars($_GET['address'])?>' target="_blank" class="btn btn-info text-white pull-left mt-4 w-100">Imprimer facture</a>
+                                <a style="font-size: 15px;" href='../views/service/distribution/pdf_facture.php?use_ventePOS=<?= $_GET['use_ventePOS']?>&use_identiteClient=<?= $_GET['use_identiteClient'] ?>&seller=<?=htmlspecialchars($_GET['seller_name'])?>&service=<?=htmlspecialchars($_GET['service'])?>' target="_blank" class="btn btn-info text-white pull-left mt-4">Imprimer facture</a>
                             <?php
                                 }
                             ?>

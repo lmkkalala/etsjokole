@@ -17,41 +17,31 @@
     <div class="panel panel-body">
         <div>
             <?php
-                if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("succes")))) {
-            ?>
+            if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("succes")))) {
+                ?>
                 <div class="alert alert-success">
                     <span class="glyphicon glyphicon-ok" style="font-size: 15px;margin-right: 5px;"></span><span>Enregistrement effectué avec succès</span>
                 </div>
-            <?php
-                }
+                <?php
+            }
             ?>
             <?php
-                if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("traitement_error")))) {
-            ?>
+            if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("traitement_error")))) {
+                ?>
                 <div class="alert alert-danger">
                     <span class="glyphicon glyphicon-ban-circle" style="font-size: 15px;margin-right: 5px;"></span><span>Erreur d'enregistrement</span>
                 </div>
-            <?php
-                }
+                <?php
+            }
             ?>
             <?php
-                if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("remplissage_error")))) {
-            ?>
+            if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("remplissage_error")))) {
+                ?>
                 <div class="alert alert-warning">
                     <span class="glyphicon glyphicon-blackboard" style="font-size: 15px;margin-right: 5px;"></span><span>Erreur de remplissage, Recommencer SVP</span>
                 </div>
-            <?php
-                }
-            ?>
-
-            <?php
-                if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("error_date")))) {
-            ?>
-                <div class="alert alert-warning">
-                    <span class="glyphicon glyphicon-blackboard" style="font-size: 15px;margin-right: 5px;"></span><span>Erreur de remplissage, Vous avez entre une date qui n'est pas encore arriver.</span>
-                </div>
-            <?php
-                }
+                <?php
+            }
             ?>
 
             <form class="form-horizontal" method="POST" action="../contollers/preparation/preparationController.php">

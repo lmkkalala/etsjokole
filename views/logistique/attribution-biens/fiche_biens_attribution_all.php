@@ -33,7 +33,7 @@ include '../models/biens/biens.php';
             </fieldset>
             <fieldset>
                 <legend>Liste des biens/produits</legend>
-                    <table id="listdatabyid" class="table table-bordered table-responsive-lg">
+                    <table class="table table-bordered table-responsive-lg">
                     <thead>
                         <th>
                             N°
@@ -126,21 +126,9 @@ include '../models/biens/biens.php';
                         ?>
                     </tbody>
                     <tfoot>
-                        <td style="font-size: 20px;">
-                            <span><?= $n ?></span>
-                        </td>
-                        <td style="font-size: 20px;">
-                            <span>Nombre:</span><span>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                    <td style="font-size: 20px;">
+                        <span>Nombre:</span><span><?= $n ?></span>
+                    </td>
                     </tfoot>
                 </table>
             </fieldset>

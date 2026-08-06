@@ -14,15 +14,11 @@ class BdDistribution {
         
     }
 
-    function addDistribution($date, $quantite, $price, $idlivraison, $idaffectation, $typerepas,$identiteClient,$ventePOSId,$tva,$type, $time = '' ) {
+    function addDistribution($date, $quantite, $price, $idlivraison, $idaffectation, $typerepas,$identiteClient,$ventePOSId,$tva,$type) {
         try {
-            if ($time == '') {
-                $time = date('H:i:s',time()+(2*60*60));
-            }
-            
             $bd = Connexion::connecter();
-            $query = $bd->prepare("INSERT INTO affectation(date, time, nombre,nombre_restant,price,distribution_id,mutation_id,typerepas,identiteClient,venteposId,tva,typePaiement) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
-            $query->execute([$date, $time, $quantite, $quantite, $price, $idlivraison, $idaffectation, $typerepas,$identiteClient,$ventePOSId,$tva,$type]);
+            $query = $bd->prepare("INSERT INTO affectation(date,nombre,nombre_restant,price,distribution_id,mutation_id,typerepas,identiteClient,venteposId,tva,typePaiement) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+            $query->execute([$date, $quantite, $quantite, $price, $idlivraison, $idaffectation, $typerepas,$identiteClient,$ventePOSId,$tva,$type]);
             $query->closeCursor();
             return TRUE;
         } catch (Exception $ex) {
@@ -80,9 +76,9 @@ class BdDistribution {
         $reponse->closeCursor();
     }
 
-    function getDistributionAllDesc($condition = '') {
+    function getDistributionAllDesc() {
         $bd = Connexion::connecter();
-        $reponse = $bd->query('SELECT * FROM affectation '.$condition.' ORDER BY id DESC');
+        $reponse = $bd->query('SELECT * FROM affectation ORDER BY id DESC');
         return $reponse->fetchAll();
         $reponse->closeCursor();
     }
