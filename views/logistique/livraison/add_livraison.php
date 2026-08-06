@@ -33,24 +33,13 @@ $optionReceptionCommand = "";
 <div>
 <?php
 if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("succes")))) {
-?>
+    ?>
     <div class="alert alert-success">
         <span class="glyphicon glyphicon-ok" style="font-size: 15px;margin-right: 5px;"></span><span>Enregistrement effectué avec succès</span>
     </div>
 <?php
 }
 ?>
-
-<?php
-if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("succes_excepiton")))) {
-?>
-    <div class="alert alert-success">
-        <span class="glyphicon glyphicon-ok" style="font-size: 15px;margin-right: 5px;"></span><span>Enregistrement effectué avec succès, avec exception.</span>
-    </div>
-<?php
-}
-?>
-
 <?php
 if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("traitement_error")))) {
     ?>
@@ -203,7 +192,7 @@ if ((isset($_GET['reponse']) && ($_GET['reponse'] == sha1("quantite_error")))) {
                     foreach ($demandes as $demande) {
                         if (1) {
                             $n++;
-                            $optionReceptions = $DB->getWhereMultipleMore(" *,stockage.id AS Sid, stockage.quantite AS Sq, stockage.date AS Sdate , stockage.prix AS Sprix  FROM stockage INNER JOIN attribution ON stockage.attribution_id = attribution.id INNER JOIN biens ON attribution.biens_id = biens.id "," biens.id = ".$demande['bId']."  ", " ORDER BY stockage.date DESC ");
+                        $optionReceptions = $DB->getWhereMultipleMore(" *,stockage.id AS Sid, stockage.quantite AS Sq, stockage.date AS Sdate , stockage.prix AS Sprix  FROM stockage INNER JOIN attribution ON stockage.attribution_id = attribution.id INNER JOIN biens ON attribution.biens_id = biens.id "," biens.id = ".$demande['bId']."  ", " ORDER BY stockage.date DESC ");
                         foreach ($optionReceptions as $key => $optionReception) {
                             $optionReceptionCommand = $optionReceptionCommand."<option value='".$optionReception['Sid']."' class='form-control'> Date: ".$optionReception['Sdate']." / Qte: ".$optionReception['Sq']." / Prix reception: ".$optionReception['Sprix']."</option>";
                         }

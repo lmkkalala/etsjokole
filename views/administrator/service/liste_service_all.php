@@ -20,19 +20,19 @@ include '../models/service/service.php';
                 <legend>Liste</legend>
                 <table class="table table-bordered table-striped table-responsive-lg">
                     <thead>
-                        <th>
-                            N°
-                        </th>
-                        <th>
-                            Name
-                        </th>
-                        
-                        <th>
-                            Entreprise (Institution)
-                        </th>
-                        <th>
-                            State
-                        </th>
+                    <th>
+                        N°
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    
+                    <th>
+                        Entreprise (Institution)
+                    </th>
+                    <th>
+                        State
+                    </th>
                     </thead>
                     <tbody>
                         <?php

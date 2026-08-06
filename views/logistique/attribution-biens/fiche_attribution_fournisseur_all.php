@@ -32,33 +32,33 @@ include '../models/fournisseur/fournisseur.php';
             </fieldset>
             <fieldset>
                 <legend>Liste des fournisseurs</legend>
-                <table id="list_attribution_biens_all" class="table table-bordered table-responsive-lg table-striped">
+                <table class="table table-bordered table-responsive-lg table-striped">
                     <thead>
-                        <th>
-                            N°
-                        </th>
-                        <th>
-                            Désignation
-                        </th>
-                        <th>
-                            Domaine
-                        </th>        
-                        <th>
-                            Opération
-                        </th>
+                    <th>
+                        N°
+                    </th>
+                    <th>
+                        Désignation
+                    </th>
+                    <th>
+                        Domaine
+                    </th>        
+                    <th>
+                        Opération
+                    </th>
                     </thead>
                     <tbody>
                         <?php
-                            $n = 0;
-                            $bdfournisseur=new BdFournisseur();
-                            if ((isset($_GET['use']))) {
-                                $fournisseurs=$bdfournisseur->getFournisseurByName($_GET['use']);
-                            } else {
-                                $fournisseurs=$bdfournisseur->getFournisseurAllDesc();
-                            }
-                            foreach ($fournisseurs as $fournisseur) {
+                        $n = 0;
+                        $bdfournisseur=new BdFournisseur();
+                        if ((isset($_GET['use']))) {
+                            $fournisseurs=$bdfournisseur->getFournisseurByName($_GET['use']);
+                        } else {
+                            $fournisseurs=$bdfournisseur->getFournisseurAllDesc();
+                        }
+                        foreach ($fournisseurs as $fournisseur) {
                             $n++;
-                        ?>
+                            ?>
                             <tr>
                                 <td><?= $fournisseur['id'] ?></td>
                                 <td><?= $fournisseur['designation'] ?></td>
@@ -70,19 +70,14 @@ include '../models/fournisseur/fournisseur.php';
                                     </form>
                                 </td>
                             </tr>
-                        <?php
-                            }
+                            <?php
+                        }
                         ?>
                     </tbody>
                     <tfoot>
-                        <td style="font-size: 20px;">
-                            <span><?= $n ?></span>
-                        </td>
-                        <td style="font-size: 20px;">
-                            <span>Nombre</span>
-                        </td>
-                        <td></td>
-                        <td></td>
+                    <td style="font-size: 20px;">
+                        <span>Nombre:</span><span><?= $n ?></span>
+                    </td>
                     </tfoot>
                 </table>
             </fieldset>

@@ -97,11 +97,6 @@ include '../models/entreprise/entreprise.php';
                         <div class="row mb-1">
                             <div class="row mb-1">
                             <div class="row d-flex justify-content-end">
-                                <div class="col-md-10">
-                                    <span class="text-white">
-                                        <span class="fa fa-clock"> </span> <span><?=date('Y-m-d H:i:s',time()+(2*60*60))?></span>
-                                    </span>
-                                </div>
                                 <div class="col-md-2">
                                     <span class="mx-4">
                                         <button type="button" class="btn btn bg-white text-dark-moderated" id="toggle_menu_F" style="color: #000e1f;">

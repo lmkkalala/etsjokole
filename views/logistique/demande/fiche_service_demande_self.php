@@ -49,9 +49,9 @@ include '../models/preparation/preparation.php';
                 </form>
                 <?php
                 if ((isset($_GET['reponse'])) && ($_GET['reponse'] == sha1("get_encours_self_logistique_service"))) {
-                ?>
+                    ?>
                     <h4>Les demandes encours</h4>
-                <?php
+                    <?php
                     include 'liste_demande_by_idservice_encours.php';
                 } else {
                     include 'liste_demande_by_idservice.php';

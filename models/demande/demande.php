@@ -15,11 +15,11 @@ class BdDemande {
         set_time_limit(0);  
     }
 
-    function addDemande($date, $quantite, $idbiens, $idaffectation,$qualiteDemandeur,$idpreparation, $description = '') {
+    function addDemande($date, $quantite, $idbiens, $idaffectation,$qualiteDemandeur,$idpreparation) {
         try {
             $bd = Connexion::connecter();
-            $query = $bd->prepare("INSERT INTO demande(date,quantite,biens_id,mutation_id,qualiteDemandeur,preparation_id,description) VALUES(?,?,?,?,?,?,?)");
-            $query->execute([$date, $quantite, $idbiens, $idaffectation,$qualiteDemandeur,$idpreparation,$description]);
+            $query = $bd->prepare("INSERT INTO demande(date,quantite,biens_id,mutation_id,qualiteDemandeur,preparation_id) VALUES(?,?,?,?,?,?)");
+            $query->execute([$date, $quantite, $idbiens, $idaffectation,$qualiteDemandeur,$idpreparation]);
             $query->closeCursor();
             return TRUE;
         } catch (Exception $ex) {
@@ -156,16 +156,16 @@ class BdDemande {
         $reponse->closeCursor();
     }
     
-    function getDemandeAllDesc($condition = '') {
+    function getDemandeAllDesc() {
         $bd = Connexion::connecter();
-        $reponse = $bd->query("SELECT d.preparation_id,ag.id AS agId,ag.nom,ag.postnom,ag.prenom,s.id AS sId,s.designation AS sDesignation,d.id AS dId,d.date,d.quantite AS dQuantite,d.etat AS dEtat,d.mutation_id,d.qualiteDemandeur,b.id AS bId,b.designation AS bDesignation,b.marque,b.technique_gestion,b.quantite,b.stock_max,b.stock_min,b.stock_critique,b.type_perissable,b.active,b.prixunitaire,g.id AS gID,g.designation AS gDesignation FROM biens b INNER JOIN (demande d INNER JOIN (mutation m INNER JOIN agent ag ON(m.agent_id=ag.id) INNER JOIN service s ON(m.service_id=s.id)) ON(d.mutation_id=m.id)) ON(b.id=d.biens_id) INNER JOIN groupebiens g ON(b.groupeBiens_id=g.id) $condition ORDER BY d.id DESC");
+        $reponse = $bd->query("SELECT d.preparation_id,ag.id AS agId,ag.nom,ag.postnom,ag.prenom,s.id AS sId,s.designation AS sDesignation,d.id AS dId,d.date,d.quantite AS dQuantite,d.etat AS dEtat,d.mutation_id,d.qualiteDemandeur,b.id AS bId,b.designation AS bDesignation,b.marque,b.technique_gestion,b.quantite,b.stock_max,b.stock_min,b.stock_critique,b.type_perissable,b.active,b.prixunitaire,g.id AS gID,g.designation AS gDesignation FROM biens b INNER JOIN (demande d INNER JOIN (mutation m INNER JOIN agent ag ON(m.agent_id=ag.id) INNER JOIN service s ON(m.service_id=s.id)) ON(d.mutation_id=m.id)) ON(b.id=d.biens_id) INNER JOIN groupebiens g ON(b.groupeBiens_id=g.id) ORDER BY d.id DESC");
         return $reponse->fetchAll();
         $reponse->closeCursor();
     }
     
-    function getDemandeAllDescFinalise($condition = '') {
+    function getDemandeAllDescFinalise() {
         $bd = Connexion::connecter();
-        $reponse = $bd->query("SELECT d.preparation_id,ag.id AS agId,ag.nom,ag.postnom,ag.prenom,s.id AS sId,s.designation AS sDesignation,d.id AS dId,d.date,d.quantite AS dQuantite,d.etat AS dEtat,d.mutation_id,d.qualiteDemandeur,b.id AS bId,b.designation AS bDesignation,b.marque,b.technique_gestion,b.quantite,b.stock_max,b.stock_min,b.stock_critique,b.type_perissable,b.active,b.prixunitaire,g.id AS gID,g.designation AS gDesignation FROM biens b INNER JOIN (demande d INNER JOIN (mutation m INNER JOIN agent ag ON(m.agent_id=ag.id) INNER JOIN service s ON(m.service_id=s.id)) ON(d.mutation_id=m.id)) ON(b.id=d.biens_id) INNER JOIN groupebiens g ON(b.groupeBiens_id=g.id) WHERE d.etat='1' $condition ORDER BY d.id DESC");
+        $reponse = $bd->query("SELECT d.preparation_id,ag.id AS agId,ag.nom,ag.postnom,ag.prenom,s.id AS sId,s.designation AS sDesignation,d.id AS dId,d.date,d.quantite AS dQuantite,d.etat AS dEtat,d.mutation_id,d.qualiteDemandeur,b.id AS bId,b.designation AS bDesignation,b.marque,b.technique_gestion,b.quantite,b.stock_max,b.stock_min,b.stock_critique,b.type_perissable,b.active,b.prixunitaire,g.id AS gID,g.designation AS gDesignation FROM biens b INNER JOIN (demande d INNER JOIN (mutation m INNER JOIN agent ag ON(m.agent_id=ag.id) INNER JOIN service s ON(m.service_id=s.id)) ON(d.mutation_id=m.id)) ON(b.id=d.biens_id) INNER JOIN groupebiens g ON(b.groupeBiens_id=g.id) WHERE d.etat='1' ORDER BY d.id DESC");
         return $reponse->fetchAll();
         $reponse->closeCursor();
     }
@@ -245,7 +245,7 @@ class BdDemande {
     
     function getDemandeByPreparation($idpreparation) {
         $bd = Connexion::connecter();
-        $reponse = $bd->query("SELECT d.preparation_id,ag.id AS agId,ag.nom,ag.postnom,ag.prenom,s.id AS sId,s.designation AS sDesignation,d.id AS dId,d.date,d.quantite AS dQuantite,d.etat AS dEtat,d.mutation_id,d.qualiteDemandeur,b.id AS bId,b.designation AS bDesignation,b.marque,b.technique_gestion,b.quantite,b.stock_max,b.stock_min,b.stock_critique,b.type_perissable,b.active,b.prixunitaire,g.id AS gID,g.designation AS gDesignation, d.description AS dDescription FROM biens b INNER JOIN (demande d INNER JOIN (mutation m INNER JOIN agent ag ON(m.agent_id=ag.id) INNER JOIN service s ON(m.service_id=s.id)) ON(d.mutation_id=m.id)) ON(b.id=d.biens_id) INNER JOIN groupebiens g ON(b.groupeBiens_id=g.id) WHERE d.preparation_id='{$idpreparation}' ORDER BY d.id DESC");
+        $reponse = $bd->query("SELECT d.preparation_id,ag.id AS agId,ag.nom,ag.postnom,ag.prenom,s.id AS sId,s.designation AS sDesignation,d.id AS dId,d.date,d.quantite AS dQuantite,d.etat AS dEtat,d.mutation_id,d.qualiteDemandeur,b.id AS bId,b.designation AS bDesignation,b.marque,b.technique_gestion,b.quantite,b.stock_max,b.stock_min,b.stock_critique,b.type_perissable,b.active,b.prixunitaire,g.id AS gID,g.designation AS gDesignation FROM biens b INNER JOIN (demande d INNER JOIN (mutation m INNER JOIN agent ag ON(m.agent_id=ag.id) INNER JOIN service s ON(m.service_id=s.id)) ON(d.mutation_id=m.id)) ON(b.id=d.biens_id) INNER JOIN groupebiens g ON(b.groupeBiens_id=g.id) WHERE d.preparation_id='{$idpreparation}' ORDER BY d.id DESC");
         return $reponse->fetchAll();
         $reponse->closeCursor();
     }

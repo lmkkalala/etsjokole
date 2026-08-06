@@ -90,7 +90,7 @@
                             <td>
                                 N° Vente: <?= $distribution['venteposId'] ?> <br>
                                 N°: <?= $distribution['id'] ?> <br>
-                                Date: <?= $distribution['date'].' à '.$distribution['time'] ?> <br>
+                                Date: <?= $distribution['date'] ?> <br>
                                 Noms: <strong style="color: #0080c0;"><?= $distribution['identiteClient'] ?></strong>
                             </td>
                             <td><?= $infolivraison ?></td>

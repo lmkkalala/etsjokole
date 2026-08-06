@@ -21,34 +21,32 @@ include '../models/preparation/preparation.php';
         <div>
             <fieldset>
                 <legend>Demandes encours</legend>
-                <table id="listdatabyid" class="table table-bordered table-responsive-lg">
+                <table class="table table-bordered table-responsive-lg">
                     <thead>
-                        <tr>
-                            <th>
-                                N°
-                            </th>
-                            <th>
-                                Date
-                            </th>
-                            <th>
-                                Biens/produit
-                            </th>
-                            <th>
-                                Preparation
-                            </th>
-                            <th>
-                                Agent demandeur
-                            </th>
-                            <th>
-                                Service
-                            </th>
-                            <th>
-                                Quantité
-                            </th>
-                            <th>
-                                Etat
-                            </th>
-                        </tr>
+                    <th>
+                        N°
+                    </th>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        Biens/produit
+                    </th>
+                    <th>
+                        Preparation
+                    </th>
+                    <th>
+                        Agent demandeur
+                    </th>
+                    <th>
+                        Service
+                    </th>
+                    <th>
+                        Quantité
+                    </th>
+                    <th>
+                        Etat
+                    </th>
                     </thead>
                     <tbody>
                         <?php
@@ -95,20 +93,9 @@ include '../models/preparation/preparation.php';
                         ?>
                     </tbody>
                     <tfoot>
-                    <tr>
-                        <td style="font-size: 20px;">
-                            <span><?= $n ?></span>
-                        </td>
-                        <th style="font-size: 20px;">
-                            <span>Nombre</span>
-                        </th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
+                    <td style="font-size: 20px;">
+                        <span>Nombre:</span><span><?= $n ?></span>
+                    </td>
                     </tfoot>
                 </table>
             </fieldset>

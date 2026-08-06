@@ -9,13 +9,7 @@
 include 'meta/menu_general.php';
 ?>
 <div class="row">
-    <div class="col-sm-12 d-md-none mb-3">
-        <button type="button" id="menu_show" class="btn btn-secondary w-100 mt-2"> <i class="fa fa-list fs-5"></i> MENU</button>
-        <div class="mt-2">
-            <strong><i class="fa fa-user-circle fs-5"></i> <?=$_SESSION['identite']?></strong>
-        </div>
-    </div>
-    <div id="menu2-a" class="col-md-12">
+    <div id="menu2-a" class="col-12">
         <ul class="nav nav-tabs nav-justified">
             <?php
             if (!empty($_SESSION['temp_admin_session'])) {
@@ -39,7 +33,6 @@ include 'meta/menu_general.php';
                 <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="/views/home.php?link_up=<?= sha1('home_logistique_dette'); ?>"><span class="fa fa-dollar" ></span> DETTES</a></li>
                 <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="/views/home.php?link_up=<?= sha1('home_facture'); ?>"><span class="fa fa-pencil-square" ></span> Mes Factures</a></li>
                 <li role="presentation"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="/views/home.php?link=<?= sha1("logistique_recuperation_liste_recuperation_all")?>&link_up=<?= sha1("home_logistique_recuperation")?>"><span class="fa fa-undo"></span>Récuperation</a></li>
-                <li role="presentation" class=" d-md-none"><a class="btn btn shadow-none text-uppercase fw-bolder" style="font-size: 15px; color: #000e1f;" href="#" onclick="logout()"><span class="fa fa-sign-out"></span> Deconnexion</a></li>
                 <?php
             } elseif ($_SESSION['type'] == 'membre') {
             ?>

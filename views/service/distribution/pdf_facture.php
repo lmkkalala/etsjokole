@@ -31,12 +31,12 @@ $pdf->AddPage('P', 'A5');
 $pdf->SetTitle("facture_" . "");
 $pdf->Ln(5);
 $pdf->SetFont('Arial', 'B', 16);
-$titre_document = "N° : " . $_GET['use_ventePOS'];
+$titre_document = "FACTURE N° : " . $_GET['use_ventePOS'];
 $pdf->Cell(120, 10, utf8_decode($titre_document), 0, 0, 'C');
 $pdf->Ln(10);
 $pdf->SetFont('Arial', 'B', 14);
-$pdf->Cell(120, 10, utf8_decode("Date : " . date('d/m/Y H:i:s', time()+(2*60*60))), 0, 0);
-$pdf->Ln(8);
+$pdf->Cell(120, 10, utf8_decode("Date : " . date('d/m/Y')), 0, 0);
+$pdf->Ln(5);
 $pdf->Cell(120, 10, utf8_decode("Mr/Mme : " . $_GET['use_identiteClient']), 0, 0);
 $pdf->Ln(10);
 $pdf->SetFont('Times', 'B', 11);
@@ -130,24 +130,24 @@ if($value_taux != 0){
     $pdf->Cell(190, 10, utf8_decode("Total (FC): " . ($cumul_value_total*$value_taux)));
 }
 $pdf->SetFont('Times', 'B', 16);
-$pdf->Ln(8);
+$pdf->Ln(5);
 $pdf->Cell(190, 10, utf8_decode("Total (USD): " . ($cumul_value_total)));
-$pdf->SetFont('Times', 'B', 14);
+$pdf->SetFont('Times', 'B', 12);
 $pdf->Ln(8);
 $pdf->Cell(190, 10, utf8_decode("Saller : " . $seller ));
 $pdf->Ln(15);
 $pdf->Cell(190, 10, utf8_decode("NB : Les marchandises vendues ne sont ni échangées ni reprises,"));
-$pdf->SetFont('Times', 'B', 14);
+$pdf->SetFont('Times', 'B', 12);
 $pdf->Ln(5);
-$pdf->Cell(190, 10, utf8_decode("vous devez retirer vos marchandises au plus tard dans une "));
-$pdf->SetFont('Times', 'B', 14);
+$pdf->Cell(190, 10, utf8_decode("vous devez retirer vos marchandises au plus tard dans une semaine"));
+$pdf->SetFont('Times', 'B', 12);
 $pdf->Ln(5);
-$pdf->Cell(190, 10, utf8_decode("semaine à 17 heure 00 à compte du jour de votre achat."));
+$pdf->Cell(190, 10, utf8_decode(" à 17 heure 00 à compte du jour de votre achat."));
 $pdf->SetDrawColor(34, 139, 34);
 //Troisieme ligne
 //$pdf->Line(10, 110, 148 - 10, 110);
-$pdf->Ln(5);
-$pdf->Cell(190, 10, utf8_decode('----------------------------------------------------------------------------------'));
+$pdf->Ln(10);
+$pdf->Cell(190, 10, utf8_decode('-----------------------------------------------------------------------------------------------------------'));
 
 
 $pdf->Output("");

@@ -52,6 +52,9 @@ include '../models/unite/unite.php';
                 <fieldset>
                     <div class="form-group-lg">
                         <div class="input-group-lg">
+                            <?php
+                            
+                            ?>
                             <label class="control-label">Choisir la livraison à utiliser :</label>
                             <select class="form-control" name="cb_livraison">
 

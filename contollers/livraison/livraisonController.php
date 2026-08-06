@@ -403,8 +403,6 @@ if (isset($_POST['bt_enregistrer_panier'])) {
 
             $m++;
 
-        }else{
-            $reponse = "succes_excepiton";
         }
 
     }
@@ -417,9 +415,14 @@ if (isset($_POST['bt_enregistrer_panier'])) {
 
             if ((isset($_POST['chk_' . $unite['id']]))) {
 
-                $bdunite->desactiveUnite($_POST['chk_' . $unite['id']]);
+                if ($bdunite->desactiveUnite($_POST['chk_' . $unite['id']])) {
+
+                    
+
+                }
 
             }
+
         }
 
         if ($bdlivraison->setPanier($idlivraison, $panier)) {
@@ -433,9 +436,9 @@ if (isset($_POST['bt_enregistrer_panier'])) {
         }
 
     } else {
-        if ($reponse != 'succes_excepiton') {
-            $reponse = "remplissage_error";
-        }
+
+        $reponse = "remplissage_error";
+
     }
 
     header('Location:../../views/home.php?link=' . sha1("logistique_livraison_add") . '&use_preparation=' . ($idpreparation) . '&reponse=' . sha1($reponse) . '&link_up=' . sha1("home_logistique_livraison"));

@@ -21,25 +21,25 @@ include '../models/biens/biens.php';
                 <form class="form-inline" method="POST" action="../contollers/biens/biensController.php">
                     <div class="row form-group-lg">
                         <div class="col-6">
-                            <select class="form-control select2" name="cb_biens">
-                                <option value="0">Choisir un produit</option>
-                                <?php
-                                $bdbiens = new BdBiens();
-                                $biens = $bdbiens->getBiensAllDesc();
-                                foreach ($biens as $bien) {
+                        <select class="form-control select2" name="cb_biens">
+                            <option value="0">Choisir un produit</option>
+                            <?php
+                            $bdbiens = new BdBiens();
+                            $biens = $bdbiens->getBiensAllDesc();
+                            foreach ($biens as $bien) {
+                                if (1) {
                                     if (1) {
-                                        if (1) {
-                                            ?>
-                                            <option value="<?= $bien['bId'] ?>"><?= $bien['bDesignation'] . " / Marque : " . $bien['marque'] . " / " . $bien['gDesignation'] . " / Codebarre: " . $bien['codebarre'] ?></option>
-                                            <?php
-                                        }
+                                        ?>
+                                        <option value="<?= $bien['bId'] ?>"><?= $bien['bDesignation'] . " / Marque : " . $bien['marque'] . " / " . $bien['gDesignation'] . " / Codebarre: " . $bien['codebarre'] ?></option>
+                                        <?php
                                     }
                                 }
-                                ?>
-                            </select>
+                            }
+                            ?>
+                        </select>
                         </div>
                         <div class="col-6">
-                            <button type="submit" class="btn btn-success" name="bt_search_for_all"><span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
+                        <button type="submit" class="btn btn-success" name="bt_search_for_all"><span class="glyphicon glyphicon-search" style="color: white; font-size: 20px;margin-right: 5px;"></span> Rechercher</button>
                         </div>
                     </div>
                 </form>
@@ -130,7 +130,7 @@ include '../models/biens/biens.php';
                                     echo "style='background-color:orange; color:white;'";
                                 }
                                 ?>
-                                ><?= $bien['quantite'] ?></td>
+                                    ><?= $bien['quantite'] ?></td>
                                 <td><?= $bien['prixunitaire'] ?></td>
                                 <td><?= $bien['stock_critique'] ?></td>
                                 <td><?= $bien['codebarre'] ?></td>

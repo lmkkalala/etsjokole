@@ -5,7 +5,7 @@
  * and open the template in the editor.
  */
 ?>
-<div class="container panel">
+<div class="panel">
     <div class="panel panel-heading">
         <span class="fa fa-bandcamp" style="color: forestgreen; font-size: 30px;margin-right: 5px;"></span><span class="h3">Service</span>
         <span class="glyphicon glyphicon-chevron-right" style="color: black; font-size: 30px;margin-right: 5px;"></span>
@@ -16,48 +16,46 @@
         <div>
             <?php
             if ((isset($_GET['reponse']) && ($_GET['reponse'] == (sha1("succes"))))) {
-            ?>
+                ?>
                 <div class="alert alert-success">
                     <span class="glyphicon glyphicon-ok" style="font-size: 15px;margin-right: 5px;"></span><span>Enregistrement effectué avec succès</span>
                 </div>
-            <?php
+                <?php
             }
-
-            if ((isset($_GET['reponse']) && ($_GET['reponse'] == (sha1("traitement_error"))))) {
             ?>
+            <?php
+            if ((isset($_GET['reponse']) && ($_GET['reponse'] == (sha1("traitement_error"))))) {
+                ?>
                 <div class="alert alert-danger">
                     <span class="glyphicon glyphicon-ban-circle" style="font-size: 15px;margin-right: 5px;"></span><span>Erreur d'enregistrement</span>
                 </div>
-            <?php
+                <?php
             }
-        
-            if ((isset($_GET['reponse']) && ($_GET['reponse'] == (sha1("remplissage_error"))))) {
             ?>
+            <?php
+            if ((isset($_GET['reponse']) && ($_GET['reponse'] == (sha1("remplissage_error"))))) {
+                ?>
                 <div class="alert alert-warning">
                     <span class="glyphicon glyphicon-blackboard" style="font-size: 15px;margin-right: 5px;"></span><span>Erreur de remplissage, Recommencer SVP</span>
                 </div>
-            <?php
+                <?php
             }
             ?>
 
             <form class="form-horizontal" method="POST" action="../contollers/service/serviceController.php">
-                <div class="row form-group-lg">
-                    <div class="col-md-12">
-                        <div class="input-group-lg">
-                            <label class="control-label">Name :</label>
-                            <input class="form-control w-100" type="text" name="tb_designation" placeholder="Name">
-                        </div>
+                <div class="form-group-lg">
+                    <div class="input-group-lg">
+                        <label class="control-label">Name :</label>
+                        <input class="form-control" type="text" name="tb_designation" placeholder="Name">
                     </div>
-                    <div class="col-md-6 mt-2">
+                    
+                    <fieldset>
+                        <legend></legend>
                         <div class="input-group-lg">
-                            <input class="btn btn-success w-100" type="submit" name="bt_enregistrer" value="Enregistrer">
+                            <input class="btn btn-success" type="submit" name="bt_enregistrer" value="Save">
+                            <input class="btn btn-danger" type="reset" value="Reset">
                         </div>
-                    </div>
-                    <div class="col-md-6 mt-2">
-                        <div class="input-group-lg">
-                            <input class="btn btn-danger w-100" type="reset" value="Reset">
-                        </div>
-                    </div>
+                    </fieldset>
                 </div>
             </form>
         </div>

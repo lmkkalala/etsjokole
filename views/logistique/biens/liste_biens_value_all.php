@@ -86,9 +86,6 @@ include '../models/unite/unite.php';
                         <th>
                             Codebarre
                         </th>
-                        <th>
-                            PV
-                        </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -167,7 +164,6 @@ include '../models/unite/unite.php';
                                     
                                     <td><?= $bien['stock_critique'] ?></td>
                                     <td><?= $bien['codebarre'] ?></td>
-                                    <td><td><?= $bien['prixunitaire'] ?></td></td>
                                 </tr>
                         <?php
                             $n++;
@@ -192,7 +188,6 @@ include '../models/unite/unite.php';
                                 <span><?= $cumul_value_item ?> </span>
                             </th>
                             <th>USD</th>
-                            <th></th>
                             <th></th>
                             <th></th>
                             <th></th>

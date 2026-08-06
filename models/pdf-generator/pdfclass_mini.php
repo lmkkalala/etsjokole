@@ -21,23 +21,23 @@ class PDF extends FPDF {
         // Décalage à droite
         $this->Cell(10);
         // Titre
-        $this->SetFont('Arial', 'B', 16);
-        $this->Cell(110, 10, 'Ets JOKOLE DIEU EST GRAND', 0, 0, 'C');
+        $this->SetFont('Arial', 'B', 14);
+        $this->Cell(110, 10, 'Ets JOKOLE', 0, 0, 'C');
         $this->Ln(5);
         $this->SetFont('Arial', 'B', 8);
-        $this->Cell(130, 10, 'Adresse: '.(isset(($_GET['address'])) ? ''.htmlspecialchars($_GET['address']).'/DRC' : 'Kamanyola/Sud-Kivu/DRC') , 0, 0, 'C');
+        $this->Cell(130, 10, 'Adresse: Kamanyola/Sud-Kivu/DRC', 0, 0, 'C');
         $this->Ln(4);
         $this->SetFont('Arial', 'B', 8);
         $this->Cell(130, 10, decode('Tél. +243 995130124'), 0, 0, 'C');
-        
         $this->SetDrawColor(34, 139, 34);
         //premiere ligne
-        $this->Line(10, 26, 148 - 10, 26);
+        $this->Line(10, 27, 148 - 10, 27);
         $this->SetDrawColor(34, 139, 34);
         //Deuxieme ligne
-        $this->Line(10, 32, 148 - 10, 32);
+        $this->Line(10, 31, 148 - 10, 31);
         $this->Ln(5);
-        $this->SetFont('Arial', 'B', 14);
+        $this->SetFont('Arial', 'B', 8);
+        
         $this->Cell(120, 10, 'Facture', 0, 0, 'C');
 
         //Decalage a droite
@@ -53,9 +53,9 @@ class PDF extends FPDF {
         // Positionnement à 1,5 cm du bas
         $this->SetY(-15);
         // Police Arial italique 8
-        $this->SetFont('Arial', 'I', 12);
+        $this->SetFont('Arial', 'I', 8);
         // Numéro de page
-        $this->Cell(0, 10, utf8_decode('Imprimé à '.(isset(($_GET['address'])) ? ''.htmlspecialchars($_GET['address']).'/RDC, Le' : 'Kamanyola/Sud-Kivu/RDC, le ')) . date('d/m/Y') . " " . date('H:i:s',time()+(2*60*60)), 0, 0, 'C');
+        $this->Cell(0, 10, utf8_decode('Imprimé à Kamanyola/RDC, le ') . date('d/m/Y') . " " . date('H:i'), 0, 0, 'C');
         $this->Ln(5);
         $this->Cell(0, 10, 'Page ' . $this->PageNo() . '/{nb}', 0, 0, 'C');
     }

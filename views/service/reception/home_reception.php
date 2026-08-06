@@ -8,29 +8,11 @@
 <?php
 include './meta/menu_service.php';
 ?>
-<style>
-#menu-gauche {
-    border-right-style: solid;
-    border-right-color: black;
-}
-
-#menu-gauche ul li {
-    padding: 8px;
-}
-
-#menu-gauche ul li a {
-    text-decoration: none;
-}
-
-#menu-gauche ul li span {
-    margin-right: 5px;
-}
-</style>
 <div class="row" style="padding: 10px;">
     <div class="col-md-12" style="background-color: whitesmoke;border-radius: 5px; height: 90vh;">
         <div class="container-fluid">
             <div class="row">
-                <div id="menu-gauche" class="col-lg-2 col-md-2">
+                <div id="menu-gauche" class="col-lg-3">
                     <ul class="list-menu list-unstyled" style="font-size: 20px;">
                         <li class="list-inline-item"><span style="color: orange;font-size: 20px;" class="glyphicon glyphicon-list"></span><span style="color: orange;font-size: 20px;" class="fa fa-share-alt"></span><a href="/views/home.php?link=<?= sha1("service_reception_liste_reception_all") ?>&link_up=<?= sha1("home_service_reception") ?>">Report</a></li>
                         <li class="list-inline-item"><span style="color: darkslategray;font-size: 20px;" class="fa fa-file-text"></span><span style="color: darkslategray;font-size: 20px;" class="fa fa-share-alt"></span><a href="/views/home.php?link=<?= sha1("service_reception_fiche_biens_reception_all") ?>&link_up=<?= sha1("home_service_reception") ?>">Lister Par Item</a></li>
@@ -38,8 +20,25 @@ include './meta/menu_service.php';
                         <li class="list-inline-item"><span style="color: orange;font-size: 20px;" class="fa fa-file-o"></span><a href="/views/home.php?link=<?= sha1("old_inventaire") ?>&link_up=<?= sha1("home_service_reception") ?>">Ancien Inventaire</a></li>
                     </ul>
                 </div>
-                
-                <div id="main_container" class="col-lg-10 col-md-10 mb-5" style="padding: 10px;overflow: auto;">
+                <style>
+                    #menu-gauche {
+                        border-right-style: solid;
+                        border-right-color: black;
+                    }
+
+                    #menu-gauche ul li {
+                        padding: 8px;
+                    }
+
+                    #menu-gauche ul li a {
+                        text-decoration: none;
+                    }
+
+                    #menu-gauche ul li span {
+                        margin-right: 5px;
+                    }
+                </style>
+                <div id="main_container" class="col-lg-9" style="padding: 10px;height: 80vh;overflow: auto;">
                     <?php
                     if (isset($_GET['link'])) {
                         if ($_GET['link'] == sha1("service_reception_liste_reception_all")) {

@@ -248,37 +248,35 @@ include '../models/attribution-biens/attributionBiens.php';
         <div style="margin: 10px;">
             <fieldset>
                 <legend>Les commandes</legend>
-                <table id="listdatabyid" class="table table-bordered table-responsive-lg table-striped">
+                <table class="table table-bordered table-responsive-lg table-striped">
                     <thead>
-                        <tr>
-                        <th>
-                            #
-                        </th>
-                        <th>
-                            Date
-                        </th>
-                        <th>
-                            Produit
-                        </th>
-                        <th>
-                            PU actuel (USD)
-                        </th>
-                        <th>
-                            Quantité
-                        </th>
-                        <th>
-                            PU Commande (USD)
-                        </th>
-                        <th>
-                            Valeur (USD)
-                        </th>
-                        <th>
-                            Etat
-                        </th>
-                        <th>
-                            Plus
-                        </th>
-                        </tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        Produit
+                    </th>
+                    <th>
+                        PU actuel (USD)
+                    </th>
+                    <th>
+                        Quantité
+                    </th>
+                    <th>
+                        PU Commande (USD)
+                    </th>
+                    <th>
+                        Valeur (USD)
+                    </th>
+                    <th>
+                        Etat
+                    </th>
+                    <th>
+                        Plus
+                    </th>
                     </thead>
                     <tbody>
                         <?php
@@ -347,27 +345,12 @@ include '../models/attribution-biens/attributionBiens.php';
                         ?>
                     </tbody>
                     <tfoot>
-                        <tr>
-                            <th style="font-weight: bold;">
-                                <span><?= $n ?></span>
-                            </th>
-                            <th style="font-weight: bold;">
-                                <span>Number</span>
-                            </th>
-                            <th style="font-weight: bold; color: orange;">
-                                <span>Total value : </span>
-                            </th>
-                            <th style="font-weight: bold; color: orange;">
-                                <span><?= $cumul_value ?> </span>
-                            </th>
-                            <th style="font-weight: bold; color: orange;">
-                                <span>USD</span>
-                            </th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
+                    <td style="font-weight: bold;">
+                        <span>Number : </span><span><?= $n ?></span>
+                    </td>
+                    <td style="font-weight: bold; color: orange;">
+                        <span>Total value : </span><span><?= $cumul_value ?> USD </span>
+                    </td>
                     </tfoot>
                 </table>
             </fieldset>
